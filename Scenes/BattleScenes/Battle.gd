@@ -3,7 +3,7 @@ extends Node
 onready var BattleBoard = $"TopScreen/DisplayArea/BattleBoard/"
 onready var AttackList = $"TopScreen/DisplayArea/AttackBoard/"
 onready var friendlies = []
-onready var activeCharcterIndex = 0
+onready var activeCharacterIndex = 0
 onready var enemies = []
 onready var Classes = get_node("/root/Variables").Classes
 onready var meleeAttackList = Classes.meleeAttackList
@@ -30,7 +30,7 @@ func update_Setting(sceneName:String, background:String):
 	##Initiate and unhide needed tiles
 	for character in friendlies:
 		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://BattleScenes/CharacterPanel.tscn").instance())
+		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://Scenes/BattleScenes/CharacterPanel.tscn").instance())
 		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
 		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.pic[0])
 		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.pic[1]
@@ -44,7 +44,7 @@ func update_Setting(sceneName:String, background:String):
 			friendPanel.get_node("VBox/Picture/PicBorder").hide()
 	for character in enemies:
 		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://BattleScenes/EnemyPanel.tscn").instance())
+		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://Scenes/BattleScenes/EnemyPanel.tscn").instance())
 		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
 		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.pic[0])
 		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.pic[1]
@@ -63,12 +63,12 @@ func update_Attacks(CharacterIndex):
 		attack.free()
 	##Add character attacks
 	var attackCount = 0
-	for attackType in friendlies[0].attacks:
+	for attackType in friendlies[CharacterIndex].attacks:
 		for attack in attackType:
-			attacksList.add_child(load("res://BattleScenes/AttackItem.tscn").instance())
+			attacksList.add_child(load("res://Scenes/BattleScenes/AttackItem.tscn").instance())
 			var attackItem = attacksList.get_children()[attackCount]
 			var pictureLocation
-			if friendlies[0].attacks.find(attackType) == 0:
+			if friendlies[CharacterIndex].attacks.find(attackType) == 0:
 				var attackName = meleeAttackList[attack].name
 				var attackDamage = meleeAttackList[attack].hpDamage
 				var attackCost = meleeAttackList[attack].APcost
@@ -76,7 +76,7 @@ func update_Attacks(CharacterIndex):
 				attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 AP Cost: %s""" % [attackName, attackDamage, attackCost]
-			if friendlies[0].attacks.find(attackType) == 1:
+			if friendlies[CharacterIndex].attacks.find(attackType) == 1:
 				var attackName = rangedAttackList[attack].name
 				var attackDamage = rangedAttackList[attack].hpDamage
 				var attackCost = rangedAttackList[attack].APcost
@@ -86,7 +86,7 @@ AP Cost: %s""" % [attackName, attackDamage, attackCost]
 HP Damage: %s
 AP Cost: %s
 Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-			if friendlies[0].attacks.find(attackType) == 2:
+			if friendlies[CharacterIndex].attacks.find(attackType) == 2:
 				var attackName = manaAttackList[attack].name
 				var attackDamage = manaAttackList[attack].hpDamage
 				var attackCost = manaAttackList[attack].APcost
@@ -108,6 +108,7 @@ func _on_Attack_pressed():
 	BattleBoard.hide()
 	AttackList.show()
 	enemies[0].health-=10
+	update_Attacks(activeCharacterIndex)
 
 func _on_Items_pressed():
 	BattleBoard.hide()
@@ -124,6 +125,7 @@ func _on_BackButton_pressed():
 	BattleBoard.show()
 	AttackList.hide()
 	update_Characters()
+	
 
 func update_Characters():
 	##update stats
@@ -133,8 +135,12 @@ func update_Characters():
 		##stats
 		friendPanel.get_node("VBox/Health/HealthBar").value = character.health*100/character.healthMax
 		friendPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health, character.healthMax]
-		friendPanel.get_node("VBox/Mana/ManaBar").value = character.mana*100/character.manaMax
-		friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: %d/%d" % [character.mana, character.manaMax]
+		if character.manaMax > 0:
+			friendPanel.get_node("VBox/Mana/ManaBar").value = character.mana*100/character.manaMax
+			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: %d/%d" % [character.mana, character.manaMax]
+		else:
+			friendPanel.get_node("VBox/Mana/ManaBar").value = 0
+			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: 0/0"
 		if character.health > 0:
 			friendPanel.get_node("VBox/Picture/Blood").hide()
 		else:
