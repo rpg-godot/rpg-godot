@@ -30,11 +30,7 @@ func update_Setting(sceneName:String, background:String):
 	##Initiate and unhide needed tiles
 	for character in friendlies:
 		##looks
-<<<<<<< HEAD:Scenes/BattleScenes/Battle.gd
 		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://Scenes/BattleScenes/CharacterPanel.tscn").instance())
-=======
-		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://BattleScenes/CharacterPanel.tscn").instance())
->>>>>>> 5641a220a4098a6df4379299a5285b2070754bdd:BattleScenes/Battle.gd
 		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
 		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.pic[0])
 		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.pic[1]
@@ -48,11 +44,7 @@ func update_Setting(sceneName:String, background:String):
 			friendPanel.get_node("VBox/Picture/PicBorder").hide()
 	for character in enemies:
 		##looks
-<<<<<<< HEAD:Scenes/BattleScenes/Battle.gd
 		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://Scenes/BattleScenes/EnemyPanel.tscn").instance())
-=======
-		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://BattleScenes/EnemyPanel.tscn").instance())
->>>>>>> 5641a220a4098a6df4379299a5285b2070754bdd:BattleScenes/Battle.gd
 		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
 		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.pic[0])
 		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.pic[1]
@@ -71,21 +63,12 @@ func update_Attacks(CharacterIndex):
 		attack.free()
 	##Add character attacks
 	var attackCount = 0
-<<<<<<< HEAD:Scenes/BattleScenes/Battle.gd
 	for attackType in friendlies[CharacterIndex].attacks:
 		for attack in attackType:
 			attacksList.add_child(load("res://Scenes/BattleScenes/AttackItem.tscn").instance())
 			var attackItem = attacksList.get_children()[attackCount]
 			var pictureLocation
 			if friendlies[CharacterIndex].attacks.find(attackType) == 0:
-=======
-	for attackType in friendlies[0].attacks:
-		for attack in attackType:
-			attacksList.add_child(load("res://BattleScenes/AttackItem.tscn").instance())
-			var attackItem = attacksList.get_children()[attackCount]
-			var pictureLocation
-			if friendlies[0].attacks.find(attackType) == 0:
->>>>>>> 5641a220a4098a6df4379299a5285b2070754bdd:BattleScenes/Battle.gd
 				var attackName = meleeAttackList[attack].name
 				var attackDamage = meleeAttackList[attack].hpDamage
 				var attackCost = meleeAttackList[attack].APcost
@@ -93,11 +76,7 @@ func update_Attacks(CharacterIndex):
 				attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 AP Cost: %s""" % [attackName, attackDamage, attackCost]
-<<<<<<< HEAD:Scenes/BattleScenes/Battle.gd
 			if friendlies[CharacterIndex].attacks.find(attackType) == 1:
-=======
-			if friendlies[0].attacks.find(attackType) == 1:
->>>>>>> 5641a220a4098a6df4379299a5285b2070754bdd:BattleScenes/Battle.gd
 				var attackName = rangedAttackList[attack].name
 				var attackDamage = rangedAttackList[attack].hpDamage
 				var attackCost = rangedAttackList[attack].APcost
@@ -107,11 +86,7 @@ AP Cost: %s""" % [attackName, attackDamage, attackCost]
 HP Damage: %s
 AP Cost: %s
 Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-<<<<<<< HEAD:Scenes/BattleScenes/Battle.gd
 			if friendlies[CharacterIndex].attacks.find(attackType) == 2:
-=======
-			if friendlies[0].attacks.find(attackType) == 2:
->>>>>>> 5641a220a4098a6df4379299a5285b2070754bdd:BattleScenes/Battle.gd
 				var attackName = manaAttackList[attack].name
 				var attackDamage = manaAttackList[attack].hpDamage
 				var attackCost = manaAttackList[attack].APcost
