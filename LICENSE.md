@@ -1,7 +1,7 @@
          RECEX SHARED SOURCE LICENSE
 		 version 1.0, 30 May 2013
 		
- Copyright (c) 2020 The RPG-Godot AUTHORS.
+ Copyright (c) 2020 The RPG-Godot AUTHORS. <rpg@elicox.tech>
  Everyone is permitted to copy and distribute verbatim
  copies of this license document, but changing it is
  not allowed.
@@ -90,3 +90,5 @@
  OTHER PROGRAMS)
  
          END OF TERMS AND CONDITIONS
+	 
+<https://raw.githubusercontent.com/Recex/Licenses/master/SharedSourceLicense/LICENSE.txt>
