@@ -70,23 +70,27 @@ static func DeathHound(attacks:Array, level:int, skills:Array, APmax:int, APspee
 		tempLevel-=5
 	return Character
 
-##  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), SFX type, weapon type
+##  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), weapon type
 var meleeAttackList = {
-		1:["Punch", 5, 0, 0.5, true, "Quick", "Fists"],
-		2:["Scratch", 10, 0, 1, true, "Claw", "Claws"],
-		3:["Bite", 15, 0, 1.5, true, "Teeth", "Claws"],
-		4:["Strike", 25, 0, 1, true, "Sword", "Sword"]
-	}
+		1:{"name":"Punch", "hpDamage":5, "manaDamage":0, "APcost":0.5, "target":true, "weapon":"Fists"},
+		2:{"name":"Scratch", "hpDamage":10, "manaDamage":0, "APcost":1, "target":true, "weapon":"Claws"},
+		3:{"name":"Bite", "hpDamage":15, "manaDamage":0, "APcost":1.5, "target":true, "weapon":"Teeth"},
+		4:{"name":"Strike", "hpDamage":25, "manaDamage":0, "APcost":1, "target":true, "weapon":"Sword"}
+}
 ##  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), weapon type, ammo use
 var rangedAttackList = {
-		1:["Single Shot", 10, 0, 2, true, "Bow", 1]
-	}
+		1:{"name":"Single Shot", "hpDamage":40, "manaDamage":0, "APcost":2, "target":true, "weapon":"Bow", "ammoCost":1}
+}
 ##  Name, HP Damage, Mana Damage, AP Cost, Mana Cost, Target-Type (true = enemy, false = friendly), SFX type
 var manaAttackList = {
-		1:["Flame", 25, 5, 1, 20, true, "Fire-Small"]
-	}
+		1:{"name":"Flame", "hpDamage":25, "manaDamage":5, "APcost":1, "manaCost":20, "target":true, "weapon":"Fire-Small"}
+}
 ##Weapon type, Image location
 var attackImages = {
 	"Fists":"res://Assets/Images/Icons/Fists Attack.PNG",
-	"Sword":"res://Assets/Images/Icons/Sword Attack.PNG"
-	}
+	"Claws":"res://Assets/Images/Icons/Claws Attack.PNG",
+	"Sword":"res://Assets/Images/Icons/Sword Attack.PNG",
+	"Bow":"res://Assets/Images/Icons/Bow Attack.png",
+	"Teeth":"res://Assets/Images/Icons/Teeth Attack.png",
+	"Fire-Small":"res://Assets/Images/Icons/Fire-Small Attack.png"
+}

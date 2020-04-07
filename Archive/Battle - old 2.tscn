@@ -5,13 +5,15 @@
 [ext_resource path="res://TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/UI/DefaultTheme.tres" type="Theme" id=4]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png" type="Texture" id=5]
-[ext_resource path="res://CharacterPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://BattleScenes/CharacterPanel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Images/Profiles/Image Border.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png" type="Texture" id=9]
-[ext_resource path="res://Battle.gd" type="Script" id=10]
+[ext_resource path="res://BattleScenes/Battle.gd" type="Script" id=10]
 [ext_resource path="res://Assets/Images/Icons/Sword Attack.PNG" type="Texture" id=11]
 [ext_resource path="res://Assets/Images/Profiles/blood-splatter.png" type="Texture" id=12]
+
+
 
 
 
