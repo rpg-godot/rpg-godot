@@ -9,3 +9,4 @@ static func switchScene(object, sceneName:String, background:String, friendlies:
 	object.get_node("Battle").update_Setting(sceneName, background)
 	##Update stats
 	object.get_node("Battle").update_Characters()
+	object.get_node("Battle").update_Attacks(0)
