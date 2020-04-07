@@ -29,6 +29,6 @@ func _on_Button_pressed():
 	#print (str(Enemy2.stats))
 	#print (str(Enemy3.stats))
 	
-	var BattleSceneMaker = preload("Create_Battle.gd")
+	var BattleSceneMaker = preload("res://BattleScenes/Create_Battle.gd")
 	BattleSceneMaker.switchScene(get_node("/root/Variables"), "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player], [Enemy, Enemy2, Enemy3])
 	get_node("/root/Variables/Test").queue_free()

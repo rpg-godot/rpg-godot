@@ -17,7 +17,7 @@ _global_script_class_icons={
 
 config/name="RPG"
 run/main_scene="res://LoadingScene.tscn"
-config/icon="res://icon.png"
+config/icon="res://Assets/icon.png"
 
 [display]
 

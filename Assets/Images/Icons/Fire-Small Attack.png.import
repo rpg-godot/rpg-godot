@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Fists Attack.png-c57958d83064c4abea20848dca2153b2.stex"
+path="res://.import/Fire-Small Attack.png-341b6de234e9bc48261e195b04afe87b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Icons/Fists Attack.png"
-dest_files=[ "res://.import/Fists Attack.png-c57958d83064c4abea20848dca2153b2.stex" ]
+source_file="res://Assets/Images/Icons/Fire-Small Attack.png"
+dest_files=[ "res://.import/Fire-Small Attack.png-341b6de234e9bc48261e195b04afe87b.stex" ]
 
 [params]
 

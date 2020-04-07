@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
-[ext_resource path="res://EnemyPanel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://CharacterPanel.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Battle.gd" type="Script" id=10]
-[ext_resource path="res://Assets/Images/Icons/Sword Attack.PNG" type="Texture" id=11]
+[ext_resource path="res://BattleScenes/EnemyPanel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BattleScenes/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://BattleScenes/AttackItem.tscn" type="PackedScene" id=4]
+[ext_resource path="res://BattleScenes/CharacterPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://BattleScenes/Battle.gd" type="Script" id=10]
 
 [sub_resource type="GradientTexture" id=1]
 
@@ -14,18 +14,10 @@ size = 56
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 22
+size = 40
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 40
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 40
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=6]
 size = 31
 font_data = ExtResource( 3 )
 
@@ -104,6 +96,7 @@ __meta__ = {
 }
 
 [node name="BattleBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
+visible = false
 margin_right = 700.0
 margin_bottom = 736.0
 size_flags_horizontal = 3
@@ -197,71 +190,68 @@ points = PoolVector2Array( 350, -10, 350, 746 )
 width = 5.0
 default_color = Color( 0, 0, 0, 1 )
 
-[node name="Attack" type="GridContainer" parent="TopScreen/DisplayArea"]
-visible = false
+[node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
 margin_right = 700.0
 margin_bottom = 736.0
 size_flags_horizontal = 3
 
-[node name="AttackList" type="ScrollContainer" parent="TopScreen/DisplayArea/Attack"]
+[node name="AttackScrollBar" type="ScrollContainer" parent="TopScreen/DisplayArea/AttackBoard"]
 margin_right = 700.0
-margin_bottom = 585.0
+margin_bottom = 637.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="Items" type="VBoxContainer" parent="TopScreen/DisplayArea/Attack/AttackList"]
-margin_right = 700.0
-margin_bottom = 585.0
+[node name="AttacksList" type="VBoxContainer" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar"]
+margin_right = 688.0
+margin_bottom = 828.0
 rect_min_size = Vector2( 0, 585 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Item" type="HBoxContainer" parent="TopScreen/DisplayArea/Attack/AttackList/Items"]
+[node name="AttackItem" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_right = 688.0
+
+[node name="AttackItem2" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 104.0
+margin_right = 688.0
+margin_bottom = 204.0
+
+[node name="AttackItem3" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 208.0
+margin_right = 688.0
+margin_bottom = 308.0
+
+[node name="AttackItem4" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 312.0
+margin_right = 688.0
+margin_bottom = 412.0
+
+[node name="AttackItem5" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 416.0
+margin_right = 688.0
+margin_bottom = 516.0
+
+[node name="AttackItem6" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 520.0
+margin_right = 688.0
+margin_bottom = 620.0
+
+[node name="AttackItem7" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 624.0
+margin_right = 688.0
+margin_bottom = 724.0
+
+[node name="AttackItem8" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 728.0
+margin_right = 688.0
+margin_bottom = 828.0
+
+[node name="BackButton" type="Button" parent="TopScreen/DisplayArea/AttackBoard"]
+margin_top = 641.0
 margin_right = 700.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-
-[node name="Picture" type="TextureRect" parent="TopScreen/DisplayArea/Attack/AttackList/Items/Item"]
-margin_right = 100.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 100, 100 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource( 11 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Description" type="Label" parent="TopScreen/DisplayArea/Attack/AttackList/Items/Item"]
-margin_left = 104.0
-margin_right = 621.0
-margin_bottom = 100.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
-text = "Attack name: Strike
-HP damage: 25
-AP Cost: 1"
-valign = 1
-uppercase = true
-
-[node name="Use" type="Button" parent="TopScreen/DisplayArea/Attack/AttackList/Items/Item"]
-margin_left = 625.0
-margin_top = 25.0
-margin_right = 700.0
-margin_bottom = 75.0
-rect_min_size = Vector2( 75, 50 )
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
-text = "USE"
-
-[node name="BackButton" type="Button" parent="TopScreen/DisplayArea/Attack"]
-margin_top = 589.0
-margin_right = 700.0
-margin_bottom = 684.0
+margin_bottom = 736.0
 rect_min_size = Vector2( 700, 95 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "BACK"
 
 [node name="Controls" type="Control" parent="."]
@@ -297,7 +287,7 @@ margin_right = 345.0
 margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "ATTACK"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -309,7 +299,7 @@ margin_right = 700.0
 margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "ITEMS"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -321,7 +311,7 @@ margin_right = 345.0
 margin_bottom = 108.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "ABILITIES"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -334,7 +324,7 @@ margin_right = 700.0
 margin_bottom = 108.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "RETREAT"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -346,7 +336,7 @@ margin_right = 720.0
 margin_bottom = 1078.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/normal_font = SubResource( 6 )
+custom_fonts/normal_font = SubResource( 4 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
 text = "Alrune Hit Grand Wolf for 25 damage with Strike
@@ -357,7 +347,7 @@ scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="TopScreen/DisplayArea/Attack/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="TopScreen/DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Items" to="." method="_on_Items_pressed"]
 [connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Abilities" to="." method="_on_Abilities_pressed"]

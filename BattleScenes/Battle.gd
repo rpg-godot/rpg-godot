@@ -1,10 +1,16 @@
 extends Node
 
 onready var BattleBoard = $"TopScreen/DisplayArea/BattleBoard/"
-onready var AttackList = $"TopScreen/DisplayArea/Attack/"
+onready var AttackList = $"TopScreen/DisplayArea/AttackBoard/"
 onready var friendlies = []
 onready var activeCharcterIndex = 0
 onready var enemies = []
+onready var Classes = get_node("/root/Variables").Classes
+onready var meleeAttackList = Classes.meleeAttackList
+onready var rangedAttackList = Classes.rangedAttackList
+onready var manaAttackList = Classes.manaAttackList
+onready var attackImages = Classes.attackImages
+
 
 func _ready():
 	BattleBoard.show()
@@ -24,7 +30,7 @@ func update_Setting(sceneName:String, background:String):
 	##Initiate and unhide needed tiles
 	for character in friendlies:
 		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://CharacterPanel.tscn").instance())
+		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://BattleScenes/CharacterPanel.tscn").instance())
 		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
 		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.pic[0])
 		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.pic[1]
@@ -38,7 +44,7 @@ func update_Setting(sceneName:String, background:String):
 			friendPanel.get_node("VBox/Picture/PicBorder").hide()
 	for character in enemies:
 		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://EnemyPanel.tscn").instance())
+		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://BattleScenes/EnemyPanel.tscn").instance())
 		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
 		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.pic[0])
 		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.pic[1]
@@ -51,8 +57,49 @@ func update_Setting(sceneName:String, background:String):
 		else:
 			enemyPanel.get_node("VBox/Control/PicBorder").hide()
 
-func update_Attacks(CharcterIndex):
-	pass
+func update_Attacks(CharacterIndex):
+	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
+	for attack in attacksList.get_children():
+		attack.free()
+	##Add character attacks
+	var attackCount = 0
+	for attackType in friendlies[0].attacks:
+		for attack in attackType:
+			attacksList.add_child(load("res://BattleScenes/AttackItem.tscn").instance())
+			var attackItem = attacksList.get_children()[attackCount]
+			var pictureLocation
+			if friendlies[0].attacks.find(attackType) == 0:
+				var attackName = meleeAttackList[attack].name
+				var attackDamage = meleeAttackList[attack].hpDamage
+				var attackCost = meleeAttackList[attack].APcost
+				pictureLocation = attackImages[meleeAttackList[attack].weapon]
+				attackItem.get_node("Description").text = """Attack Name: %s
+HP Damage: %s
+AP Cost: %s""" % [attackName, attackDamage, attackCost]
+			if friendlies[0].attacks.find(attackType) == 1:
+				var attackName = rangedAttackList[attack].name
+				var attackDamage = rangedAttackList[attack].hpDamage
+				var attackCost = rangedAttackList[attack].APcost
+				var ammoCost = rangedAttackList[attack].ammoCost
+				pictureLocation = attackImages[rangedAttackList[attack].weapon]
+				attackItem.get_node("Description").text = """Attack Name: %s
+HP Damage: %s
+AP Cost: %s
+Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
+			if friendlies[0].attacks.find(attackType) == 2:
+				var attackName = manaAttackList[attack].name
+				var attackDamage = manaAttackList[attack].hpDamage
+				var attackCost = manaAttackList[attack].APcost
+				var manaCost = manaAttackList[attack].manaCost
+				pictureLocation = attackImages[manaAttackList[attack].weapon]
+				attackItem.get_node("Description").text = """Attack Name: %d
+HP Damage: %s
+Mana Damage: %s
+AP Cost: %s
+Mana Cost: %s""" % [attackName, attackDamage, attackCost, manaCost]
+			attackItem.get_node("Picture").texture = load(pictureLocation)
+			attackCount+=1
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
