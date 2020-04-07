@@ -3,6 +3,7 @@ extends Node
 onready var BattleBoard = $"TopScreen/DisplayArea/BattleBoard/"
 onready var AttackList = $"TopScreen/DisplayArea/Attack/"
 onready var friendlies = []
+onready var activeCharcterIndex = 0
 onready var enemies = []
 
 func _ready():
@@ -50,6 +51,8 @@ func update_Setting(sceneName:String, background:String):
 		else:
 			enemyPanel.get_node("VBox/Control/PicBorder").hide()
 
+func update_Attacks(CharcterIndex):
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
