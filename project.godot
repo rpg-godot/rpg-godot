@@ -16,8 +16,8 @@ _global_script_class_icons={
 [application]
 
 config/name="RPG"
-run/main_scene="res://LoadingScene.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://scenes/loading_scene.tscn"
+config/icon="res://assets/textures/icons/icon.png"
 
 [display]
 
@@ -53,4 +53,4 @@ texture={
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://scenes/default_env.tres"
