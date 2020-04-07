@@ -1,0 +1,73 @@
+Game Story Ideas
+-takes place in olden times
+-fantasy
+-meet characters to join party(optional)
+-store for items at "home"
+-skill tree
+-multiple endings
+-love interest?!?!
+  -possible random encounter
+  -buyable houses
+Optional characters(7):
+*an "evil" witch(she isolated herself)
+   -nice person, but she tries to be evil to fill family expectations
+   -she is a powerful spell caster, but only knows healing spells
+   -really tries to be evil, she sucks at it and always apologizes
+*a young boy(he likes adventures)
+   -He's really bored and just wants to be an adventurer when he grows up
+   -He is a good fighter and free spirit
+   -Generally a nusiance and makes trouble often in town
+*a failed knight(nice guy, sucks at being a knight)
+   -He was a knight key word was, really nice guy bad at using a sword
+   -Could've been a really good ranger, but wanted to be a knight instead
+   -Spends time helping out in the town
+*waitress(she's tired of her boring life)
+   -She could've been so much more, but is now stuck as a waitress
+   -likes to fight a lot
+   -rough around the edges 
+*princess(she isn't a delicate flower)
+   -may be a princess, but that doesn't mean she's prim and proper
+   -is quick and can sneak up on people easily
+   -extremely loyal, but has trust issues at first
+*a trapped adventurer(he got caught in a hunter's old trap)
+   -He isn't the brightest, but is quite skilled with long ranged weapons
+   -Got trapped and can't figure out how to get out
+   -somehow became an adventurer
+*moral demon(He was summoned and now he's stuck here)
+   -He is a good caster, but not good at healing
+   -Was summoned for desruction, but he thought it was morally wrong so he's stuck here
+   -Big on morals and keeping to them, needs justification to do things destructive
+
+
+Story Line:
+*What is the end goal?
+  -Going out looking for an advenure at first
+  -Finds out the plot of a queen and wants to stop her
+  -Backstory of why you left is based off of class, early play decisions, hinted in story
+*Game Mechanics
+  -Get to the new town and talk to guards, tell them you're an adventurer, they say prove it.
+    -First quest: fight 5 animals around
+  -you have tent checkpoints, some are temporary quest specific areas
+  -Must complete quests to move in between towns
+  -city specific items, level specific
+  -random encounters when traveling between cities (fight/quest)
+    -battle encounter more likely on foot
+    -hire cart or buy your own horse which decreases liklihood of encounters(travel farther)
+    -hire bodyguards to further decrease chances of encounter
+  -guild quests/town
+  -some items cost more depending on locations(can do merchant stuff)
+  -Later game will require more money (need to do merchant work or guild quests)
+  -unique scaled quest items(talking to merchant they can tell you where to go)
+    -random chance for merchant knowing or just encounter when traveling
+    -some just flat out mention it some you need to ask based off of trust
+    -trust is based off of previous work with merchant
+  -multiple characters, completely seperate, can't party up
+    -other characters can be referenced in story
+  -No online play
+  -possible perma-death on final story battle
+  -post-story side content
+  -item crafting(crafting materials can be bought or found in quests)
+    -increases quality with experience, starts off bad
+  -companions eaual to your level the whole way through
+    -set locations and can swap them out at those locations
+    -if you buy a house you can keep a set amount of companions there
