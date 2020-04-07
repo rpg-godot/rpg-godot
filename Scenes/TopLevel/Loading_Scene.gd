@@ -19,16 +19,8 @@ func _ready():
 	#print (str(Enemy.stats))
 	#print (str(Enemy2.stats))
 	#print (str(Enemy3.stats))
-	
-<<<<<<< HEAD:Scenes/TopLevel/Loading_Scene.gd
 	var BattleSceneMaker = preload("res://Scenes/BattleScenes/Create_Battle.gd")
 	BattleSceneMaker.switchScene(get_node("/root/Variables"), "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])
-=======
-	var BattleSceneMaker = preload("res://BattleScenes/Create_Battle.gd")
-	BattleSceneMaker.switchScene(get_node("/root/Variables"), "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player], [Enemy, Enemy2, Enemy3])
->>>>>>> 5641a220a4098a6df4379299a5285b2070754bdd:Loading_Scene.gd
-
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
