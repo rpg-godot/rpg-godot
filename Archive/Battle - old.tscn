@@ -1,0 +1,389 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/UI/DefaultTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/UI/DefaultFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG" type="Texture" id=3]
+[ext_resource path="res://TheWildBreathOfZelda.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Screenshot (117).png" type="Texture" id=5]
+
+
+
+
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 4 )
+
+[node name="Battle" type="Node2D"]
+
+[node name="Screenshot (117)" type="Sprite" parent="."]
+position = Vector2( 360, 540 )
+scale = Vector2( 1.35849, 1.78512 )
+texture = ExtResource( 5 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="AllEnemies" type="GridContainer" parent="Enemies"]
+margin_left = 368.0
+margin_top = 25.0
+margin_right = 1532.0
+margin_bottom = 2295.0
+rect_scale = Vector2( 0.3, 0.3 )
+size_flags_horizontal = 8
+size_flags_vertical = 8
+custom_constants/vseparation = 140
+custom_constants/hseparation = 140
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyTL" type="GridContainer" parent="Enemies/AllEnemies"]
+margin_right = 512.0
+margin_bottom = 621.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETL Pic" type="TextureRect" parent="Enemies/AllEnemies/EnemyTL"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETL Name" type="Label" parent="Enemies/AllEnemies/EnemyTL"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyTR" type="GridContainer" parent="Enemies/AllEnemies"]
+margin_left = 652.0
+margin_right = 1164.0
+margin_bottom = 621.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETL Pic" type="TextureRect" parent="Enemies/AllEnemies/EnemyTR"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETL Name" type="Label" parent="Enemies/AllEnemies/EnemyTR"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyBL" type="GridContainer" parent="Enemies/AllEnemies"]
+margin_top = 761.0
+margin_right = 512.0
+margin_bottom = 1382.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBL Pic" type="TextureRect" parent="Enemies/AllEnemies/EnemyBL"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBL Name" type="Label" parent="Enemies/AllEnemies/EnemyBL"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyBR" type="GridContainer" parent="Enemies/AllEnemies"]
+margin_left = 652.0
+margin_top = 761.0
+margin_right = 1164.0
+margin_bottom = 1382.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBL Pic" type="TextureRect" parent="Enemies/AllEnemies/EnemyBR"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBL Name" type="Label" parent="Enemies/AllEnemies/EnemyBR"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Friendlies" type="Node2D" parent="."]
+
+[node name="AllFriendlies" type="GridContainer" parent="Friendlies"]
+margin_top = 25.0
+margin_right = 2391.0
+margin_bottom = 2295.0
+rect_scale = Vector2( 0.3, 0.3 )
+size_flags_horizontal = 8
+size_flags_vertical = 8
+custom_constants/vseparation = 140
+custom_constants/hseparation = 140
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyTL" type="GridContainer" parent="Friendlies/AllFriendlies"]
+margin_right = 512.0
+margin_bottom = 621.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETL Pic" type="TextureRect" parent="Friendlies/AllFriendlies/EnemyTL"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETL Name" type="Label" parent="Friendlies/AllFriendlies/EnemyTL"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyTR" type="GridContainer" parent="Friendlies/AllFriendlies"]
+margin_left = 652.0
+margin_right = 1164.0
+margin_bottom = 621.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ETR Pic" type="TextureRect" parent="Friendlies/AllFriendlies/EnemyTR"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ET Name" type="Label" parent="Friendlies/AllFriendlies/EnemyTR"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyBL" type="GridContainer" parent="Friendlies/AllFriendlies"]
+margin_top = 761.0
+margin_right = 512.0
+margin_bottom = 1382.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBL Pic" type="TextureRect" parent="Friendlies/AllFriendlies/EnemyBL"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBL Name" type="Label" parent="Friendlies/AllFriendlies/EnemyBL"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyBR" type="GridContainer" parent="Friendlies/AllFriendlies"]
+margin_left = 652.0
+margin_top = 761.0
+margin_right = 1164.0
+margin_bottom = 1382.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBR Pic" type="TextureRect" parent="Friendlies/AllFriendlies/EnemyBR"]
+margin_right = 512.0
+margin_bottom = 512.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EBR Name" type="Label" parent="Friendlies/AllFriendlies/EnemyBR"]
+margin_top = 516.0
+margin_right = 512.0
+margin_bottom = 621.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Grand tour"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controls" type="Control" parent="."]
+margin_top = 706.0
+margin_right = 720.0
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Controls"]
+margin_right = 720.0
+margin_bottom = 374.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lower Buttons" type="GridContainer" parent="Controls/MarginContainer"]
+margin_right = 720.0
+margin_bottom = 374.0
+size_flags_stretch_ratio = 0.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Attack" type="Button" parent="Controls/MarginContainer/Lower Buttons"]
+margin_right = 358.0
+margin_bottom = 185.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "attack"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="Button" parent="Controls/MarginContainer/Lower Buttons"]
+margin_left = 362.0
+margin_right = 720.0
+margin_bottom = 185.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "items"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Abilities" type="Button" parent="Controls/MarginContainer/Lower Buttons"]
+margin_top = 189.0
+margin_right = 358.0
+margin_bottom = 374.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "abilitites"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Retreat" type="Button" parent="Controls/MarginContainer/Lower Buttons"]
+margin_left = 362.0
+margin_top = 189.0
+margin_right = 720.0
+margin_bottom = 374.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "retreat"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="Sprite" parent="."]
+visible = false
+position = Vector2( 99, 597 )
+scale = Vector2( 0.263672, 0.263672 )
+texture = ExtResource( 3 )
