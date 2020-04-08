@@ -1,1 +1,1 @@
-git pull upstream master 
+git pull --rebase --ff upstream
