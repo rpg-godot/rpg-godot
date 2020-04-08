@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/UI/DefaultTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Images/Profiles/blood-splatter.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Images/Profiles/Image Border.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Profiles/ImageBorderRounded.png" type="Texture" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.854902, 0.105882, 0.105882, 1 )
@@ -48,9 +48,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Pic" type="TextureRect" parent="VBox/Picture"]
-margin_right = 144.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 3 )
@@ -60,8 +63,8 @@ __meta__ = {
 }
 
 [node name="PicBorder" type="TextureRect" parent="VBox/Picture"]
-margin_right = 144.0
-margin_bottom = 144.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 rect_min_size = Vector2( 144, 144 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
