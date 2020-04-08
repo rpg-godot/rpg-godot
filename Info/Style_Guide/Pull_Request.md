@@ -57,12 +57,11 @@ $ git push origin :[name_of_your_new_branch]
 ```
 
 ## Updating your fork
-
-    ```shell
-    git rebase master -i
-    git push -f
-    ```
-
+Note: this only works if the upstream remote is rpg-godot/rpg-godot
+```shell
+git pull --ff upstream master
+git push origin -f
+```
 ## Commit message
 > See commit_guidelines.md for more info
 
