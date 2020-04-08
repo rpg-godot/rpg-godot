@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Image Border.png-b019dc5d312670ca2b225a6fa1c45746.stex"
+path="res://.import/ImageBorderRounded.png-84cb6f1fada2fba86420f6bf56b4f1c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Profiles/Image Border.png"
-dest_files=[ "res://.import/Image Border.png-b019dc5d312670ca2b225a6fa1c45746.stex" ]
+source_file="res://Assets/Images/Profiles/ImageBorderRounded.png"
+dest_files=[ "res://.import/ImageBorderRounded.png-84cb6f1fada2fba86420f6bf56b4f1c3.stex" ]
 
 [params]
 
@@ -24,7 +24,7 @@ flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
