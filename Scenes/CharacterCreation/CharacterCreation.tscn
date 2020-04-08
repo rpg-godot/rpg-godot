@@ -1,0 +1,161 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/Profiles/Image Border.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/CharacterCreation/Profile.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/CharacterCreation/CharacterCreation.gd" type="Script" id=5]
+
+[sub_resource type="GradientTexture" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 40
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = ExtResource( 3 )
+
+[node name="CreationMenu" type="Control"]
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 720.0
+margin_bottom = 1080.0
+texture = SubResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameTitle" type="Label" parent="."]
+margin_right = 720.0
+margin_bottom = 100.0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 2 )
+text = "GAME TITLE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuTitle" type="Label" parent="."]
+margin_top = 100.0
+margin_right = 720.0
+margin_bottom = 150.0
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 3 )
+text = "NEW CHARACTER"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="MarginContainer" parent="."]
+margin_left = 10.0
+margin_top = 160.0
+margin_right = 710.0
+margin_bottom = 1070.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choices" type="VBoxContainer" parent="MainMenu"]
+margin_right = 700.0
+margin_bottom = 910.0
+
+[node name="ProfileSelection" type="ScrollContainer" parent="MainMenu/Choices"]
+margin_right = 700.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+scroll_vertical_enabled = false
+
+[node name="Profiles" type="HBoxContainer" parent="MainMenu/Choices/ProfileSelection"]
+margin_right = 1016.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 200 )
+
+[node name="Profile" parent="MainMenu/Choices/ProfileSelection/Profiles" instance=ExtResource( 4 )]
+
+[node name="Profile2" parent="MainMenu/Choices/ProfileSelection/Profiles" instance=ExtResource( 4 )]
+margin_left = 204.0
+margin_right = 404.0
+
+[node name="Profile3" type="Control" parent="MainMenu/Choices/ProfileSelection/Profiles"]
+margin_left = 408.0
+margin_right = 608.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+
+[node name="Pic" type="TextureRect" parent="MainMenu/Choices/ProfileSelection/Profiles/Profile3"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="TextureRect" parent="MainMenu/Choices/ProfileSelection/Profiles/Profile3"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Profile4" parent="MainMenu/Choices/ProfileSelection/Profiles" instance=ExtResource( 4 )]
+margin_left = 612.0
+margin_right = 812.0
+
+[node name="Profile5" parent="MainMenu/Choices/ProfileSelection/Profiles" instance=ExtResource( 4 )]
+margin_left = 816.0
+margin_right = 1016.0
+
+[node name="CharacterName" type="HBoxContainer" parent="MainMenu/Choices"]
+margin_top = 216.0
+margin_right = 700.0
+margin_bottom = 259.0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="MainMenu/Choices/CharacterName"]
+margin_right = 105.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 3 )
+text = "Name: "
+uppercase = true
+
+[node name="Name" type="TextEdit" parent="MainMenu/Choices/CharacterName"]
+margin_left = 109.0
+margin_right = 700.0
+margin_bottom = 43.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
+
+[node name="Complete" type="Button" parent="MainMenu/Choices"]
+margin_top = 263.0
+margin_right = 700.0
+margin_bottom = 322.0
+custom_fonts/font = SubResource( 4 )
+disabled = true
+text = "Create Character"
+[connection signal="text_changed" from="MainMenu/Choices/CharacterName/Name" to="." method="_on_Name_text_changed"]
+[connection signal="pressed" from="MainMenu/Choices/Complete" to="." method="_on_Complete_pressed"]
