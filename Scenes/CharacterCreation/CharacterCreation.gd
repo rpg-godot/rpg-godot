@@ -20,6 +20,13 @@ func _ready():
 		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
 		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[Profiles.find(profile)]
 		profilePanel.get_node("Pic").texture = load(profile)
+	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[0].get_node("Labels/Label").text = "Strength"
+	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[1].get_node("Labels/Label").text = "Perception"
+	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[2].get_node("Labels/Label").text = "Endurace"
+	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[3].get_node("Labels/Label").text = "Charisma"
+	get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()[0].get_node("Labels/Label").text = "Intelligence"
+	get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()[1].get_node("Labels/Label").text = "Agility"
+	get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()[2].get_node("Labels/Label").text = "Luck"
 #	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selectedCharacter].get_node("Border").show()
 #	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selectedCharacter].chosen = true
 
@@ -33,7 +40,7 @@ func update_chosen(chosenProfile):
 	checkIfCompleted()
 
 func checkIfCompleted():
-	if selectedCharacter != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0:
+	if selectedCharacter != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
@@ -43,7 +50,13 @@ func _on_Name_text_changed():
 	checkIfCompleted()
 
 func _on_Complete_pressed():
-	var Player = Classes.CreateClass(get_node("MainMenu/Choices/CharacterName/Name").text, [8,8,8,8,8,8,8], [Profiles[selectedCharacter], true, false], [true, "res://Assets/Images/Profiles/Image Border.png"], [[1, 4], [1], []], 1, [0], 1, 0.5, 100, 100)
+	var stats = []
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
+		stats.append(int(stat.get_node("Numbers/Number").text))
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
+		stats.append(int(stat.get_node("Numbers/Number").text))
+	print (stats)
+	var Player = Classes.CreateClass(get_node("MainMenu/Choices/CharacterName/Name").text, stats, [Profiles[selectedCharacter], true, false], [true, "res://Assets/Images/Profiles/Image Border.png"], [[1, 4], [1], []], 1, [0], 1, 0.5, 100, 100)
 	var Player2 = Classes.CreateClass("Alrune", [8,8,8,8,8,8,8], ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", false, false], [true, "res://Assets/Images/Profiles/Image Border.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
 	var Enemy = Classes.DeathHound([[], [], []], 14, [0], 1, 0.5, 100)
 	var Enemy2 = Classes.DeathHound([[], [], []], 15, [0], 1, 0.5, 100)

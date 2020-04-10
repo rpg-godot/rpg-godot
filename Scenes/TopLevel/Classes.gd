@@ -1,6 +1,6 @@
 class character:
 	var name = "Default Name"
-	var stats = {"Strength":0, "Perception":0, "Endurance":0, "Charisma":0, "Intelligence":0, "Agility":0, "Luck":0}
+	var stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
 	var pic = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", true, false]
 	var picBorder = [true, "res://Assets/Images/Profiles/ImageBorderRounded.png"]
 	var attacks = []
@@ -37,7 +37,7 @@ static func CreateClass(name:String, stats:Array, pic:Array, picBorder:Array, at
 static func DeathHound(attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int):
 	var Character = character.new()
 	Character.name = "Death Hound"
-	Character.stats = {"Strength":0, "Perception":0, "Endurance":0, "Charisma":0, "Intelligence":0, "Agility":0, "Luck":0}
+	Character.stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
 	Character.pic = ["res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG", false, false]
 	Character.picBorder = [false]
 	Character.attacks = [[2, 3], [], []]
