@@ -2,7 +2,7 @@ class character:
 	var name = "Default Name"
 	var stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
 	var pic = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", true, false]
-	var picBorder = [true, "res://Assets/Images/Profiles/ImageBorderRounded.png"]
+	var picBorder = [true, "res://Assets/Images/Profiles/ImageBorder.png"]
 	var attacks = []
 	var level = 1
 	var skills = []

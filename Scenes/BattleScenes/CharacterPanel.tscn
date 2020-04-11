@@ -3,7 +3,8 @@
 [ext_resource path="res://Assets/UI/DefaultTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Assets/Images/Profiles/blood-splatter.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Images/Profiles/ImageBorderRounded.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=4]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.854902, 0.105882, 0.105882, 1 )
