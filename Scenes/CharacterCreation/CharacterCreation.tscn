@@ -7,7 +7,6 @@
 [ext_resource path="res://Scenes/CharacterCreation/CharacterCreation.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/CharacterCreation/Stats.tscn" type="PackedScene" id=6]
 
-
 [sub_resource type="GradientTexture" id=1]
 
 [sub_resource type="DynamicFont" id=2]
