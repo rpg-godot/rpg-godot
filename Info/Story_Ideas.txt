@@ -5,39 +5,47 @@ Game Story Ideas
 -store for items at "home"
 -skill tree
 -love interest?!?!
-  -possible random encounter
-  -buyable houses
+   -possible random encounter
+   -buyable houses
 
+Classes: Def melee (Paladin), Att melee (Berserker), Agi melee (Rogue), Att Mage (BattleMage), Supp Mage (All round mage), Healer, Att ranged (Heavy-shooter), Agi ranged (Quick-shooter)
 Possible Encountered Companians:
 *an "evil" witch(she isolated herself)
-   -nice person, but she tries to be evil to fill family expectations
-   -she is a powerful spell caster, but only knows healing spells
-   -really tries to be evil, she sucks at it and always apologizes
+    -nice person, but she tries to be evil to fill family expectations
+    -she is a powerful spell caster, but only knows healing spells
+    -really tries to be evil, she sucks at it and always apologizes
+    -support mage
 *a young boy(he likes adventures)
-   -He's really bored and just wants to be an adventurer when he grows up
-   -He is a good fighter and free spirit
-   -Generally a nusiance and makes trouble often in town
+    -He's really bored and just wants to be an adventurer when he grows up
+    -He is a good fighter and free spirit
+    -Generally a nusiance and makes trouble often in town
+    -agility melee
 *a failed knight(nice guy, sucks at being a knight)
-   -He was a knight key word was, really nice guy bad at using a sword
-   -Could've been a really good ranger, but wanted to be a knight instead
-   -Spends time helping out in the town
-*waitress(she's tired of her boring life)
-   -She could've been so much more, but is now stuck as a waitress
-   -likes to fight a lot
-   -rough around the edges 
+    -He was a knight key word was, really nice guy bad at using a sword
+    -Could've been a really good ranger, but wanted to be a knight instead
+    -Spends time helping out in the town
+    -defense melee
+*a merchant(she's tired of her boring life)
+    -She took over her dad's business and became a travelling merchant
+    -likes to fight a lot
+    -rough around the edges 
+    -attack melee
+    -makes other merchants more friendly/tell more rumors/quests
 *princess(she isn't a delicate flower)
-   -may be a princess, but that doesn't mean she's prim and proper
-   -is quick and can sneak up on people easily
-   -extremely loyal, but has trust issues at first
+    -may be a princess, but that doesn't mean she's prim and proper
+    -is quick and can sneak up on people easily
+    -extremely loyal, but has trust issues at first
+    -agility ranged
 *a trapped adventurer(he got caught in a hunter's old trap)
-   -He isn't the brightest, but is quite skilled with long ranged weapons
-   -Got trapped and can't figure out how to get out
-   -somehow became an adventurer
+    -He isn't the brightest, but is quite skilled with long ranged weapons
+    -Got trapped and can't figure out how to get out
+    -somehow became an adventurer
+    -attack ranged
 *moral demon(He was summoned and now he's stuck here)
-   -He is a good caster, but not good at healing
-   -Was summoned for desruction, but he thought it was morally wrong so he's stuck here
-   -Big on morals and keeping to them, needs justification to do things destructive
-
+    -He is a good caster, but not good at healing
+    -Was summoned for desruction, but he thought it was morally wrong so he's stuck here
+    -Big on morals and keeping to them, needs justification to do things destructive
+    -attack mage
 
 Story Line:
 Basic storyline ATM
@@ -67,6 +75,7 @@ Game Mechanics:
         -hire bodyguards to further decrease chances of encounter
         -some towns are really far and can only be visited via horse or cart
     -guild quests/town
+    -tavern fights/jail
     -some items cost more depending on locations(can do merchant stuff)
     -Later game will require more money (need to do merchant work or guild quests)
     -unique scaled quest items(talking to merchant they can tell you where to go)
