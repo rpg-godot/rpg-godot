@@ -1,4 +1,4 @@
-class character:
+class Character:
 	var name = "Default Name"
 	var stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
 	var pic = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", true, false]
@@ -14,61 +14,84 @@ class character:
 	var manaMax = 50
 	var mana = manaMax
 	var kills = 0
+	var equipment = Inventory.new()
+	var inventory = Inventory.new()
+	var equipBuffs = {"Strength":0, "Perception":0, "Endurance":0, "Charisma":0, "Intelligence":0, "Agility":0, "Luck":0}
+	## true if slot empty and item is owned
+	func equip(item:Item):
+		if inventory.check(item, 1)[0]:
+			if equipment.items[item.broadType][item.type].size() == 0:
+				if item.levelRequirement <= level:
+					equipment.add(item, 1)
+					return [true, "Done"]
+				else:
+					return [false, "Level Requirement Not Met"]
+			else:
+				return [false, "Doesn't Exist"]
+	func unequip(item:Item):
+		if equipment.check(item, 1)[0]:
+			equipment.remove(item, 1)
+			return [true, "Done"]
+		else:
+				return [false, "Doesn't Exist"]
+	func text():
+		return name
+
 ## charName, [Strength, Perception, Endurance, Charisma, Intelligence, Agility, Luck], [imageLocation, flipH, flipV], [useBorder, borderLocation], [[meleeAttacks], [rangeAttacks], [manaAttacks]], level, [skills], APmax, APrecoverySpeedPerTurn, healthMax, manaMax
-static func CreateClass(name:String, stats:Array, pic:Array, picBorder:Array, attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int, manaMax:int):
-	var Character = character.new()
-	Character.name = name
-	Character.stats = {"Strength":stats[0], "Perception":stats[1], "Endurance":stats[2], "Charisma":stats[3], "Intelligence":stats[4], "Agility":stats[5], "Luck":stats[6]}
-	Character.pic = pic
-	Character.picBorder = picBorder
-	Character.attacks = attacks
-	Character.level = level
-	Character.skills = skills
-	Character.APmax = APmax
-	Character.APspeed = APspeed
-	Character.AP = APmax
-	Character.healthMax = healthMax
-	Character.health = healthMax
-	Character.manaMax = manaMax
-	Character.mana = manaMax
-	return Character
+static func CreateCharacter(name:String, stats:Array, pic:Array, picBorder:Array, attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int, manaMax:int):
+	var newCharacter = Character.new()
+	newCharacter.name = name
+	newCharacter.stats = {"Strength":stats[0], "Perception":stats[1], "Endurance":stats[2], "Charisma":stats[3], "Intelligence":stats[4], "Agility":stats[5], "Luck":stats[6]}
+	newCharacter.pic = pic
+	newCharacter.picBorder = picBorder
+	newCharacter.attacks = attacks
+	newCharacter.level = level
+	newCharacter.skills = skills
+	newCharacter.APmax = APmax
+	newCharacter.APspeed = APspeed
+	newCharacter.AP = APmax
+	newCharacter.healthMax = healthMax
+	newCharacter.health = healthMax
+	newCharacter.manaMax = manaMax
+	newCharacter.mana = manaMax
+	return newCharacter
 
 ## [[meleeAttacks], [rangeAttacks], [manaAttacks]], level, [skills], APmax, APrecoverySpeedPerTurn, healthMax
 static func DeathHound(attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int):
-	var Character = character.new()
-	Character.name = "Death Hound"
-	Character.stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
-	Character.pic = ["res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG", false, false]
-	Character.picBorder = [false]
-	Character.attacks = [[2, 3], [], []]
-	Character.level = level
-	Character.skills = skills
-	Character.APmax = APmax
-	Character.APspeed = APspeed
-	Character.AP = APmax
-	Character.healthMax = healthMax
-	Character.health = healthMax
-	Character.manaMax = 0
-	Character.mana = 0
+	var newCharacter = Character.new()
+	newCharacter.name = "Death Hound"
+	newCharacter.stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
+	newCharacter.pic = ["res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG", false, false]
+	newCharacter.picBorder = [false]
+	newCharacter.attacks = [[2, 3], [], []]
+	newCharacter.level = level
+	newCharacter.skills = skills
+	newCharacter.APmax = APmax
+	newCharacter.APspeed = APspeed
+	newCharacter.AP = APmax
+	newCharacter.healthMax = healthMax
+	newCharacter.health = healthMax
+	newCharacter.manaMax = 0
+	newCharacter.mana = 0
 	for attacktype in attacks:
 		for attack in attacktype:
-			if Character.attacks[attacks.find(attacktype)].find(attack) == -1:
-				Character.attacks[attacks.find(attacktype)].append(attack)
+			if newCharacter.attacks[attacks.find(attacktype)].find(attack) == -1:
+				newCharacter.attacks[attacks.find(attacktype)].append(attack)
 	## Set stat values based off level
-	var tempLevel = Character.level
+	var tempLevel = newCharacter.level
 	var count = 1
 	while tempLevel >= 5:
-		Character.stats["Strength"] += 1
-		Character.stats["Intelligence"] += 1
-		Character.stats["Agility"] += 1
-		Character.stats["Luck"] += 1
+		newCharacter.stats["Strength"] += 1
+		newCharacter.stats["Intelligence"] += 1
+		newCharacter.stats["Agility"] += 1
+		newCharacter.stats["Luck"] += 1
 		if count%3==0:
-			Character.stats["Perception"] += 1
-			Character.stats["Endurance"] += 1
-			Character.stats["Charisma"] += 1
+			newCharacter.stats["Perception"] += 1
+			newCharacter.stats["Endurance"] += 1
+			newCharacter.stats["Charisma"] += 1
 		count+=1
 		tempLevel-=5
-	return Character
+	return newCharacter
 
 ##  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), weapon type
 var meleeAttackList = {
@@ -94,3 +117,82 @@ var attackImages = {
 	"Teeth":"res://Assets/Images/Icons/Teeth Attack.png",
 	"Fire-Small":"res://Assets/Images/Icons/Fire-Small Attack.png"
 }
+
+## items.broadType.type[Item, quantity]
+class Inventory:
+	var items = {"armor":{"head":[],"torso":[], "arms":[], "legs":[], "feet":[]}, "weapons":{"melee":[], "ranged":[], "consumables":[], "magic":[]}, "other":[]}
+	var money = 0
+	## false if failed or true if succeeded
+	func add(item:Item, quantity:int):
+		if quantity > 0:
+			if item.broadType != "other":
+				if self.check(item, 1)[0]:
+					items[item.broadType][item.type][self.check(item, 1)[1]][1] += quantity
+				else:
+					items[item.broadType][item.type].append([item, quantity])
+			if item.broadType == "other":
+				if self.check(item, 1)[0]:
+					items[item.broadType][self.check(item, 1)[1]][1] += quantity
+				else:
+					items[item.broadType].append([item, quantity])
+			return [true, "Done"]
+		else:
+			return [false, "Quantity Error"]
+	## false if failed or true if succeeded
+	func remove(item:Item, quantity:int):
+		if quantity > 0:
+			if item.broadType != "other":
+				if self.check(item, quantity)[0]:
+					items[item.broadType][item.type][self.check(item, 1)[1]][1] -= quantity
+					if items[item.broadType][item.type][self.check(item, 0)[1]][1] == 0:
+						items[item.broadType][item.type].remove(self.check(item, 0)[1])
+					return [true, "Done"]
+				else:
+					return [false, "Doesn't Exist"]
+			if item.broadType == "other":
+				if self.check(item, quantity)[0]:
+					items[item.broadType][self.check(item, 1)[1]][1] -= quantity
+					if items[item.broadType][self.check(item, 1)[1]][1] == 0:
+						items[item.broadType].remove(self.check(item, 1)[1])
+					return [true, "Done"]
+				else:
+					return [false, "Doesn't Exist"]
+		else:
+			return [false, "Quantity Error"]
+	## [if that many exist, index of that many items]
+	func check(item:Item, quantity:int):
+		var done = false
+		if item.broadType != "other":
+			for item2 in items[item.broadType][item.type]:
+				if item.isTheSameAs(item2[0]) && item2[1] >= quantity:
+					return [true, items[item.broadType][item.type].find(item2)]
+		elif item.broadType == "other":
+			for item2 in items[item.broadType]:
+				if item.isTheSameAs(item2[0]) && item2[1] >= quantity:
+					return [true, items[item.broadType].find(item2)]
+		if !done:
+			return [false, -1]
+	func text():
+		return "items: " + str(items) + " money: " + str(money)
+class Item:
+	var broadType = ""
+	var type = ""
+	var name = ""
+	var damage = 0
+	var buffs = {"Strength":0, "Perception":0, "Endurance":0, "Charisma":0, "Intelligence":0, "Agility":0, "Luck":0}
+	var levelRequirement = 1
+	## Compare with another item
+	func isTheSameAs(item2:Item):
+		return (self.type == item2.type && self.name == item2.name && self.buffs == item2.buffs && self.levelRequirement == item2.levelRequirement)
+	func text():
+		return "broadType: " + broadType + " type: " + type + " name: " + name + " buffs: " + str(buffs) + " levelRequirement: " + str(levelRequirement)
+## Armor/weapon, subclass, name, [0,0,0,0,0,0,0], levelNeeded
+func CreateItem(broadType:String, type:String, name:String, damage:int, buffs:Array, levelRequirement:int):
+	var newItem = Item.new()
+	newItem.broadType = broadType
+	newItem.type = type
+	newItem.name = name
+	newItem.damage = damage
+	newItem.buffs = {"Strength":buffs[0], "Perception":buffs[1], "Endurance":buffs[2], "Charisma":buffs[3], "Intelligence":buffs[4], "Agility":buffs[5], "Luck":buffs[6]}
+	newItem.levelRequirement = levelRequirement
+	return newItem

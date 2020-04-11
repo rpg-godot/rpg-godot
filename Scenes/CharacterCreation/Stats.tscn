@@ -3,11 +3,11 @@
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/CharacterCreation/Stats.gd" type="Script" id=2]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 29
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 57
 font_data = ExtResource( 1 )
 
@@ -32,7 +32,7 @@ margin_right = 172.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "INCREASE"
 
 [node name="Numbers" type="HBoxContainer" parent="."]
@@ -47,7 +47,7 @@ margin_right = 172.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "3"
 align = 1
 valign = 1
@@ -64,7 +64,7 @@ margin_right = 172.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Strength"
 align = 1
 uppercase = true
@@ -81,7 +81,7 @@ margin_right = 172.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "DECREASE"
 [connection signal="pressed" from="StatsUp/ButtonUp" to="." method="_on_ButtonUp_pressed"]
 [connection signal="pressed" from="StatsDown/NumberDown" to="." method="_on_NumberDown_pressed"]

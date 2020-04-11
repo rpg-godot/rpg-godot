@@ -5,7 +5,6 @@
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=4]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.854902, 0.105882, 0.105882, 1 )
 corner_radius_top_left = 4
