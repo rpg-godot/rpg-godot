@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Images/Profiles/Image Border.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/CharacterCreation/Profile.gd" type="Script" id=3]
+
 
 [node name="Profile" type="Control"]
 margin_right = 200.0

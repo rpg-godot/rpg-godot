@@ -56,8 +56,8 @@ func _on_Complete_pressed():
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
 		stats.append(int(stat.get_node("Numbers/Number").text))
 	print (stats)
-	var Player = Classes.CreateClass(get_node("MainMenu/Choices/CharacterName/Name").text, stats, [Profiles[selectedCharacter], true, false], [true, "res://Assets/Images/Profiles/Image Border.png"], [[1, 4], [1], []], 1, [0], 1, 0.5, 100, 100)
-	var Player2 = Classes.CreateClass("Alrune", [8,8,8,8,8,8,8], ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", false, false], [true, "res://Assets/Images/Profiles/Image Border.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
+	var Player = Classes.CreateClass(get_node("MainMenu/Choices/CharacterName/Name").text, stats, [Profiles[selectedCharacter], true, false], [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 4], [1], []], 1, [0], 1, 0.5, 100, 100)
+	var Player2 = Classes.CreateClass("Alrune", [8,8,8,8,8,8,8], ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", false, false], [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
 	var Enemy = Classes.DeathHound([[], [], []], 14, [0], 1, 0.5, 100)
 	var Enemy2 = Classes.DeathHound([[], [], []], 15, [0], 1, 0.5, 100)
 	var Enemy3 = Classes.DeathHound([[], [], []], 16, [0], 1, 0.5, 100)
