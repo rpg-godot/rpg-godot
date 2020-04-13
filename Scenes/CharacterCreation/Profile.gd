@@ -9,4 +9,4 @@ func _on_SelectButton_pressed():
 	if !chosen:
 		chosen = true
 		get_node("Border").show()
-		get_node("../../../../..").update_chosen(get_node("."))
+		get_node("../../../../..").updateChosenProfile(get_node("."))
