@@ -97,3 +97,12 @@ Game Mechanics:
         -if they still go without those things they can be charmed and convinced to join and assist the queen
         -would then be forced to go back to the other towns/kingdoms with the queen’s men and fight the armies/guards there
             -Possible perma death scenario due to lose of control
+    -Stat scaling:
+        -Strength - Melee attack and slight HP
+        -Perception - viewing enemy details and warnings before major battles
+        -Endurance - Max AP, max HP, slight melee attack
+        -Charisma - npc dialog checks
+        -Intelligence - magic attack requirements, magic damamge, max mana
+        -Agility - AP regain, dodging attacks
+        -Luck - dialog checks, quest/battle rewards
+    -Stat effects scale with level

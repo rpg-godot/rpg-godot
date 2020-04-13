@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/CharacterCreation/Profile.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/CharacterCreation/CharacterCreation.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/CharacterCreation/Stats.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/CharacterCreation/EquipClass.tscn" type="PackedScene" id=7]
 
 [sub_resource type="GradientTexture" id=1]
 
@@ -256,10 +257,42 @@ text = "Remaining"
 align = 1
 uppercase = true
 
-[node name="Complete" type="Button" parent="MainMenu/Choices"]
+[node name="Equipment" type="VBoxContainer" parent="MainMenu/Choices"]
 margin_top = 711.0
 margin_right = 700.0
-margin_bottom = 770.0
+margin_bottom = 847.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Classes" type="HBoxContainer" parent="MainMenu/Choices/Equipment"]
+margin_right = 700.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Knight" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
+margin_right = 172.0
+margin_bottom = 136.0
+
+[node name="Berserker" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
+margin_left = 176.0
+margin_right = 348.0
+margin_bottom = 136.0
+
+[node name="BattleMage" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
+margin_left = 352.0
+margin_right = 524.0
+margin_bottom = 136.0
+
+[node name="QuickShooter" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
+margin_left = 528.0
+margin_right = 700.0
+margin_bottom = 136.0
+
+[node name="Complete" type="Button" parent="MainMenu/Choices"]
+margin_top = 851.0
+margin_right = 700.0
+margin_bottom = 910.0
 custom_fonts/font = SubResource( 6 )
 disabled = true
 text = "Create Character"
