@@ -1,0 +1,132 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/UI/DefaultFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/CharacterCreation/Profile.tscn" type="PackedScene" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.113725, 0.247059, 0.568627, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = ExtResource( 2 )
+
+[node name="CharacterSelectionButton" type="Control"]
+margin_right = 652.0
+margin_bottom = 266.0
+rect_min_size = Vector2( 0, 300 )
+mouse_filter = 1
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Content" type="Control" parent="VBox"]
+margin_right = 652.0
+margin_bottom = 266.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VBox/Content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="VBox/Content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterProfile" type="CenterContainer" parent="VBox/Content/HBox"]
+margin_right = 268.0
+margin_bottom = 266.0
+mouse_filter = 1
+
+[node name="HBox" type="HBoxContainer" parent="VBox/Content/HBox/CenterProfile"]
+margin_top = 33.0
+margin_right = 268.0
+margin_bottom = 233.0
+
+[node name="SeperatorLeft" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
+margin_right = 30.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 30, 30 )
+mouse_filter = 1
+
+[node name="Profile" parent="VBox/Content/HBox/CenterProfile/HBox" instance=ExtResource( 4 )]
+margin_left = 34.0
+margin_right = 234.0
+mouse_filter = 1
+
+[node name="SeperatorRight" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
+margin_left = 238.0
+margin_right = 268.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 30, 30 )
+mouse_filter = 1
+
+[node name="CenterText" type="CenterContainer" parent="VBox/Content/HBox"]
+margin_left = 272.0
+margin_right = 628.0
+margin_bottom = 266.0
+mouse_filter = 1
+
+[node name="VBox" type="VBoxContainer" parent="VBox/Content/HBox/CenterText"]
+margin_top = 90.0
+margin_right = 356.0
+margin_bottom = 175.0
+
+[node name="Name" type="Label" parent="VBox/Content/HBox/CenterText/VBox"]
+margin_right = 356.0
+margin_bottom = 53.0
+mouse_filter = 1
+custom_fonts/font = SubResource( 2 )
+text = "CHARACTER NAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="Label" parent="VBox/Content/HBox/CenterText/VBox"]
+margin_top = 57.0
+margin_right = 356.0
+margin_bottom = 85.0
+mouse_filter = 1
+custom_fonts/font = ExtResource( 3 )
+text = "CHARACTER INFO"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomSeperator" type="Control" parent="VBox"]
+margin_top = 270.0
+margin_right = 652.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 30 )
+mouse_filter = 1
+size_flags_horizontal = 3

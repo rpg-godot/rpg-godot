@@ -19,6 +19,10 @@ config/name="RPG"
 run/main_scene="res://Scenes/TopLevel/LoadingScene.tscn"
 config/icon="res://Assets/icon.png"
 
+[autoload]
+
+Core="*res://Scripts/Core.gd"
+
 [display]
 
 window/size/width=720

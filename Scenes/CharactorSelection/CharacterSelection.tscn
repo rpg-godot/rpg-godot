@@ -1,0 +1,104 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
+[ext_resource path="res://Scenes/CharactorSelection/CharacterSelection.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 31
+font_data = ExtResource( 3 )
+
+[node name="CharacterSelection" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 6.10352e-05
+rect_min_size = Vector2( 720, 1080 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 720, 1080 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="RichTextLabel" parent="."]
+margin_top = 1037.0
+margin_right = 720.0
+margin_bottom = 1078.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 1 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
+text = "RPG-GODOT"
+scroll_following = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 500, 500 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="Scroll"]
+margin_right = 720.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginLeft" type="Control" parent="Scroll/HBox"]
+margin_right = 30.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="VBox" type="VBoxContainer" parent="Scroll/HBox"]
+margin_left = 34.0
+margin_right = 686.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginTop" type="Control" parent="Scroll/HBox/VBox"]
+margin_right = 652.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="Scroll/HBox/VBox"]
+margin_top = 34.0
+margin_right = 652.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 0, 250 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginRight" type="Control" parent="Scroll/HBox"]
+margin_left = 690.0
+margin_right = 720.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 30, 30 )
