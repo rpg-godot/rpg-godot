@@ -108,7 +108,7 @@ var meleeAttackList = {
 }
 ##  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), image type, ammo used, [weapon type needed, arrow type needed], weapon level needed, arrow level needed
 var rangedAttackList = {
-		1:{"name":"Quick Shot", "hpDamage":20, "manaDamage":0, "APcost":1, "target":true, "image":"Bow", "ammoCost":1, "weaponNeeded":[["bow", "hunting bow"], ["arrow"]], "itemLevelRequirements":1, "arrowLevelRequirements":1}
+		1:{"name":"Quick Shot", "hpDamage":20, "manaDamage":0, "APcost":1, "target":true, "image":"Bow", "ammoCost":1, "weaponNeeded":[["bow", "hunting bow"], ["arrow"]], "itemLevelRequirements":1, "arrowLevelRequirements":1},
 		2:{"name":"Percision Shot", "hpDamage":40, "manaDamage":0, "APcost":2, "target":true, "image":"Bow", "ammoCost":1, "weaponNeeded":[["bow", "hunting bow"], ["arrow"]], "itemLevelRequirements":2, "arrowLevelRequirements":1}
 }
 ##  Name, HP Damage, Mana Damage, AP Cost, Mana Cost, Target-Type (true = enemy, false = friendly), SFX type, weapon type needed, weapon level needed
