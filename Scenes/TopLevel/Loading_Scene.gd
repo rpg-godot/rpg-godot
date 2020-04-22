@@ -1,12 +1,8 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 onready var Classes = preload("Classes.gd").new()
+onready var SaveGame = preload("res://Scripts/SaveGame.gd").new()
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	#get_node("/root/Variables").add_child(load("res://Test.tscn").instance())
 	
@@ -22,11 +18,14 @@ func _ready():
 	#print (str(Enemy3.stats))
 	#var BattleSceneMaker = preload("res://Scenes/BattleScenes/Create_Battle.gd")
 	#BattleSceneMaker.switchScene(get_node("/root/Variables"), "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])
+	
+	get_node("/root/Variables").add_child(load("res://Scenes/CharactorSelection/CharacterSelection.tscn").instance())
+	
+	get_node("/root/Variables/CharacterSelection").setup({})
 
-	get_node("/root/Variables").add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+func example_save():
+	var character = {}
+	character.name = "Legondary Dragon"
+	character.info = "Breathes fire"
+	character.picture = "Tex_AnimeAva_01.png"
+	SaveGame.save_character(0, character)

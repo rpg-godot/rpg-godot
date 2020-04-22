@@ -38,15 +38,6 @@ func _ready():
 	get_node("MainMenu/Choices/Equipment/Classes/BattleMage").get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_mage.png")
 	get_node("MainMenu/Choices/Equipment/Classes/QuickShooter").get_node("ClassName").text = "Quick Shooter"
 	get_node("MainMenu/Choices/Equipment/Classes/QuickShooter").get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_hunter.PNG")
-
-func updateChosenProfile(chosenProfile):
-	var profiles = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()
-	selectedCharacter = profiles.find(chosenProfile)
-	for profile in profiles:
-		if profile != chosenProfile:
-			profile.get_node("Border").hide()
-			profile.chosen = false
-	checkIfCompleted()
 	
 func updateChosenEquip(chosenEquip):
 	var equips = get_node("MainMenu/Choices/Equipment/Classes").get_children()
@@ -55,6 +46,15 @@ func updateChosenEquip(chosenEquip):
 		if equip != chosenEquip:
 			equip.get_node("ImgCenter/Border").hide()
 			equip.chosen = false
+	checkIfCompleted()
+
+func updateChosenProfile(chosenProfile):
+	var profiles = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()
+	selectedCharacter = profiles.find(chosenProfile)
+	for profile in profiles:
+		if profile != chosenProfile:
+			profile.get_node("Border").hide()
+			profile.chosen = false
 	checkIfCompleted()
 
 func checkIfCompleted():
