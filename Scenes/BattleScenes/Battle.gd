@@ -24,17 +24,17 @@ func _ready():
 		enemyPanel.free()
 
 func update_Setting(sceneName:String, background:String):
-	##Set characters and menues
+	## Set characters and menues
 	get_node("TopScreen/AreaTitle/Name").text = sceneName
 	get_node("TopScreen/Background").texture = load(background)
-	##Initiate and unhide needed tiles
+	## Initiate and unhide needed tiles
 	for character in friendlies:
-		##looks
+		## Looks
 		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://Scenes/BattleScenes/CharacterPanel.tscn").instance())
 		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
 		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.pic[0])
-		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.pic[1]
-		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.pic[2]
+		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.pic[1][0]
+		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.pic[1][1]
 		friendPanel.get_node("VBox/Name").text = character.name
 		friendPanel.show()
 		if character.picBorder[0]:
@@ -47,8 +47,8 @@ func update_Setting(sceneName:String, background:String):
 		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://Scenes/BattleScenes/EnemyPanel.tscn").instance())
 		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
 		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.pic[0])
-		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.pic[1]
-		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.pic[2]
+		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.pic[1][0]
+		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.pic[1][1]
 		enemyPanel.get_node("VBox/Name").text = character.name
 		enemyPanel.show()
 		if character.picBorder[0]:

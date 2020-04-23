@@ -9,4 +9,4 @@ func _on_SelectButton_pressed():
 	if !chosen:
 		chosen = true
 		get_node("ImgCenter/Border").show()
-		get_node("../../../../..").updateChosenEquip(get_node("."))
+		Core.get_node("CreationMenu").updateChosenEquip(get_node("."))

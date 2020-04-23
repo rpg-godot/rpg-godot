@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/UI/DefaultFont.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Scenes/CharacterCreation/Profile.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.113725, 0.247059, 0.568627, 1 )
@@ -79,10 +79,13 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
-[node name="Profile" parent="VBox/Content/HBox/CenterProfile/HBox" instance=ExtResource( 4 )]
+[node name="Profile" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox"]
 margin_left = 34.0
 margin_right = 234.0
-mouse_filter = 1
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
+texture = ExtResource( 1 )
+expand = true
 
 [node name="SeperatorRight" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
 margin_left = 238.0
