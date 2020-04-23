@@ -21,6 +21,8 @@ func _ready():
 		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
 		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[Profiles.find(profile)]
 		profilePanel.get_node("Pic").texture = load(profile)
+		profilePanel.get_node("Pic").flip_h = Classes.flipProfile[profile][0]
+		profilePanel.get_node("Pic").flip_v = Classes.flipProfile[profile][1]
 	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[0].get_node("Labels/Label").text = "Strength"
 	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[1].get_node("Labels/Label").text = "Perception"
 	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[2].get_node("Labels/Label").text = "Endurace"
@@ -73,7 +75,7 @@ func _on_Complete_pressed():
 		stats.append(int(stat.get_node("Numbers/Number").text))
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
 		stats.append(int(stat.get_node("Numbers/Number").text))
-	var Player = Classes.CreateCharacter(get_node("MainMenu/Choices/CharacterName/Name").text, stats, [Profiles[selectedCharacter], true, false], [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1], [], []], 1, [0], 1, 0.5, 100, 100)
+	var Player = Classes.CreateCharacter(get_node("MainMenu/Choices/CharacterName/Name").text, stats, Profiles[selectedCharacter], [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1], [], []], 1, [0], 1, 0.5, 100, 100)
 	var chosenEquip = get_node("MainMenu/Choices/Equipment/Classes").get_children()[selectedEquip].get_node("ClassName").text
 	if chosenEquip == "Knight":
 		var sword = Classes.CreateItem("weapons", "melee", "one-handed sword", "Sword", [2,0,0,0,0,0,0,10,0,0], 1)
@@ -103,7 +105,7 @@ func _on_Complete_pressed():
 		Player.equip(arrow)
 		Player.attacks["ranged"].append(1)
 		Player.attacks["melee"].append(4)
-	var Player2 = Classes.CreateCharacter("Alrune", [8,8,8,8,8,8,8], ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", false, false], [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
+	var Player2 = Classes.CreateCharacter("Alrune", [8,8,8,8,8,8,8], "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
 	var Enemy = Classes.DeathHound([[], [], []], 14, [0], 1, 0.5, 100)
 	var Enemy2 = Classes.DeathHound([[], [], []], 15, [0], 1, 0.5, 100)
 	var Enemy3 = Classes.DeathHound([[], [], []], 16, [0], 1, 0.5, 100)
@@ -113,4 +115,4 @@ func _on_Complete_pressed():
 	#print (str(Enemy2.stats))
 	#print (str(Enemy3.stats))
 	var BattleSceneMaker = preload("res://Scenes/BattleScenes/Create_Battle.gd")
-	BattleSceneMaker.switchScene(get_node("/root/Variables"), "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])
+	BattleSceneMaker.switchScene(Core, "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])

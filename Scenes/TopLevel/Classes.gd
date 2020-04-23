@@ -1,7 +1,7 @@
 class Character:
 	var name = "Default Name"
 	var stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
-	var pic = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", true, false]
+	var pic = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", [false, false]]
 	var picBorder = [true, "res://Assets/Images/Profiles/ImageBorder.png"]
 	var attacks = {"melee":[], "ranged":[], "mana":[]}
 	var level = 1
@@ -40,13 +40,21 @@ class Character:
 				return [false, "Doesn't Exist"]
 	func text():
 		return name
+## [flipH, flipV]
+var flipProfile = {
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png": [true, false],
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png": [false, false],
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png": [false, false],
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png": [false, false],
+	"res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG": [false, false]
+}
 
 ## charName, [Strength, Perception, Endurance, Charisma, Intelligence, Agility, Luck], [imageLocation, flipH, flipV], [useBorder, borderLocation], [[meleeAttacks], [rangeAttacks], [manaAttacks]], level, [skills], APmax, APrecoverySpeedPerTurn, healthMax, manaMax
-static func CreateCharacter(name:String, stats:Array, pic:Array, picBorder:Array, attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int, manaMax:int):
+func CreateCharacter(name:String, stats:Array, pic:String, picBorder:Array, attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int, manaMax:int):
 	var newCharacter = Character.new()
 	newCharacter.name = name
 	newCharacter.stats = {"Strength":stats[0], "Perception":stats[1], "Endurance":stats[2], "Charisma":stats[3], "Intelligence":stats[4], "Agility":stats[5], "Luck":stats[6]}
-	newCharacter.pic = pic
+	newCharacter.pic = [pic, flipProfile[pic]]
 	newCharacter.picBorder = picBorder
 	newCharacter.attacks["melee"] = attacks[0]
 	newCharacter.attacks["ranged"] = attacks[1]
@@ -61,13 +69,12 @@ static func CreateCharacter(name:String, stats:Array, pic:Array, picBorder:Array
 	newCharacter.manaMax = manaMax
 	newCharacter.mana = manaMax
 	return newCharacter
-
 ## [[meleeAttacks], [rangeAttacks], [manaAttacks]], level, [skills], APmax, APrecoverySpeedPerTurn, healthMax
 static func DeathHound(attacks:Array, level:int, skills:Array, APmax:int, APspeed:int, healthMax:int):
 	var newCharacter = Character.new()
 	newCharacter.name = "Death Hound"
 	newCharacter.stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
-	newCharacter.pic = ["res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG", false, false]
+	newCharacter.pic = ["res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG", [false, false]]
 	newCharacter.picBorder = [false]
 	newCharacter.attacks = [[2, 3], [], []]
 	newCharacter.level = level
