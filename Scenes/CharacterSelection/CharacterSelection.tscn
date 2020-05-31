@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
-[ext_resource path="res://Scenes/CharactorSelection/CharacterSelection.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/CharacterSelection/CharacterSelection.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 31
+size = 80
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
 font_data = ExtResource( 3 )
 
 [node name="CharacterSelection" type="Control"]
@@ -15,7 +19,7 @@ margin_right = 6.10352e-05
 rect_min_size = Vector2( 720, 1080 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -26,32 +30,33 @@ anchor_bottom = 1.0
 rect_min_size = Vector2( 720, 1080 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 expand = true
 stretch_mode = 7
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="RichTextLabel" parent="."]
-margin_top = 1037.0
+[node name="Title" type="Label" parent="."]
 margin_right = 720.0
-margin_bottom = 1078.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/normal_font = SubResource( 1 )
-custom_colors/default_color = Color( 1, 1, 1, 1 )
-custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
-text = "RPG-GODOT"
-scroll_following = true
+margin_bottom = 100.0
+rect_min_size = Vector2( 720, 100 )
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 1 )
+text = "GAME TITLE"
+align = 1
+valign = 1
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="Scroll" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 500, 500 )
+margin_top = 100.0
+margin_bottom = -120.0
+rect_min_size = Vector2( 720, 760 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
@@ -61,19 +66,19 @@ __meta__ = {
 
 [node name="HBox" type="HBoxContainer" parent="Scroll"]
 margin_right = 720.0
-margin_bottom = 1080.0
+margin_bottom = 860.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginLeft" type="Control" parent="Scroll/HBox"]
 margin_right = 30.0
-margin_bottom = 1080.0
+margin_bottom = 860.0
 rect_min_size = Vector2( 30, 30 )
 
 [node name="VBox" type="VBoxContainer" parent="Scroll/HBox"]
 margin_left = 34.0
 margin_right = 686.0
-margin_bottom = 1080.0
+margin_bottom = 860.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -89,7 +94,7 @@ size_flags_horizontal = 3
 [node name="ButtonsVBox" type="VBoxContainer" parent="Scroll/HBox/VBox"]
 margin_top = 34.0
 margin_right = 652.0
-margin_bottom = 1080.0
+margin_bottom = 860.0
 rect_min_size = Vector2( 0, 250 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -100,5 +105,47 @@ __meta__ = {
 [node name="MarginRight" type="Control" parent="Scroll/HBox"]
 margin_left = 690.0
 margin_right = 720.0
-margin_bottom = 1080.0
+margin_bottom = 860.0
 rect_min_size = Vector2( 30, 30 )
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 970.0
+margin_bottom = -9.99988
+rect_min_size = Vector2( 720, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Delete" type="Button" parent="UI"]
+margin_left = 10.0
+margin_right = 230.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 220, 100 )
+custom_fonts/font = SubResource( 2 )
+disabled = true
+text = "Delete"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Create" type="Button" parent="UI"]
+margin_left = 250.0
+margin_right = 470.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 220, 100 )
+custom_fonts/font = SubResource( 2 )
+text = "Create"
+
+[node name="Play" type="Button" parent="UI"]
+margin_left = 490.0
+margin_right = 710.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 220, 100 )
+custom_fonts/font = SubResource( 2 )
+disabled = true
+text = "Play"
+[connection signal="pressed" from="UI/Create" to="." method="_on_Create_pressed"]
