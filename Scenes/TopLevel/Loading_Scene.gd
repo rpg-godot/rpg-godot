@@ -19,8 +19,39 @@ func _ready():
 	#var BattleSceneMaker = preload("res://Scenes/BattleScenes/Create_Battle.gd")
 	#BattleSceneMaker.switchScene(get_node("/root/Variables"), "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])
 	
-	Core.add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())
-	
+	#check for saves
+	#load to dictionary
+	#pass to character selection if possible or go to create character
+#	var saveFileSaved = "Legondary Dragon - "+str(OS.get_unix_time())
+#	SaveGame.save_character({
+#		name = "Legondary Dragon",
+#		info = "Breathes fire",
+#		picture = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png",
+#		saveFile = saveFileSaved
+#	})
+	Core.add_child(load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance())
+	Core.get_node("CharacterSelection").setup(SaveGame.load_all())
+#	Core.get_node("CharacterSelection").setup({1: {
+#		name = "Legondary Dragon",
+#		info = "Breathes fire",
+#		picture = "Tex_AnimeAva_17.png"
+#	},2: {
+#		name = "Legondary Dragon",
+#		info = "Breathes fire",
+#		picture = "Tex_AnimeAva_17.png"
+#	},3: {
+#		name = "Legondary Dragon",
+#		info = "Breathes fire",
+#		picture = "Tex_AnimeAva_17.png"
+#	},4: {
+#		name = "Legondary Dragon",
+#		info = "Breathes fire",
+#		picture = "Tex_AnimeAva_17.png"
+#	},5: {
+#		name = "Legondary Dragon",
+#		info = "Breathes fire",
+#		picture = "Tex_AnimeAva_17.png"
+#	}})
 
 func example_save():
 	var character = {}

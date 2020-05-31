@@ -105,6 +105,16 @@ func _on_Complete_pressed():
 		Player.equip(arrow)
 		Player.attacks["ranged"].append(1)
 		Player.attacks["melee"].append(4)
+	
+	#load default save data and override player with chosen data then save the file and start the game
+	var data = {
+		name = Player.name,
+		info = "Breathes fire",
+		picture = Player.pic[0],
+		saveFile = Player.name + " - "+ str(OS.get_unix_time()),
+		player = Player
+	}
+	get_node("/root/Variables").SaveGame.save_character(data)
 	var Player2 = Classes.CreateCharacter("Alrune", [8,8,8,8,8,8,8], "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
 	var Enemy = Classes.DeathHound([[], [], []], 14, [0], 1, 0.5, 100)
 	var Enemy2 = Classes.DeathHound([[], [], []], 15, [0], 1, 0.5, 100)
