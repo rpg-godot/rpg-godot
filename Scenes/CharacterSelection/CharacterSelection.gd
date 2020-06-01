@@ -1,7 +1,7 @@
 extends Control
 
 onready var CharacterSelectionButton = preload("res://Scenes/CharacterSelection/CharacterSelectionButton.tscn")
-
+onready var SaveGame = get_node("/root/Variables").SaveGame
 	
 #[
 #	{
@@ -18,16 +18,17 @@ onready var CharacterSelectionButton = preload("res://Scenes/CharacterSelection/
 #	}
 #]
 
-func setup(data: Array):
-	
-	for character in data:
-		add_character(character)
+func _ready():
+	var saves = SaveGame.load_all()
+	for save in saves:
+		add_character(save)
 
-func add_character(character):
-	var id = character["saveFile"]
-	var name = character.name
-	var info = character.info
-	var picture = character.picture
+func add_character(save):
+	var id = save["saveFile"]
+	var name = save.name
+	var info = save.info
+	var picture = save.picture
+	var player = save.player
 	var SelectButton = CharacterSelectionButton.instance()
 	SelectButton.name = str(id)
 	get_node("Scroll/HBox/VBox/ButtonsVBox").add_child(SelectButton)
@@ -36,6 +37,8 @@ func add_character(character):
 	# Set Picture
 	if picture:
 		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").texture = load(picture)
+		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_h = player.pic[1][0]
+		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_v = player.pic[1][1]
 	else:
 		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").visible = false
 	
@@ -43,10 +46,10 @@ func add_character(character):
 	ButtonInstance.get_node("VBox/Content/HBox/CenterText/VBox/Name").text = name.to_upper()
 	ButtonInstance.get_node("VBox/Content/HBox/CenterText/VBox/Info").text = info.to_upper()
 	
-	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ character ])
+	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ save ])
 
-func _on_button_press(character: Dictionary):
-	Core.emit_signal("_gui_pushed", "select_character", character)
+func _on_button_press(save: Array):
+	Core.emit_signal("_gui_pushed", "select_character", save)
 
 
 func _on_Create_pressed():

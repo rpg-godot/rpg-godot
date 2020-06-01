@@ -5,9 +5,45 @@ func save_character(data):
 	if !Directory.new().file_exists("user://characters/"):
 		Directory.new().make_dir("user://characters/")
 	
+	data.player = character_class_to_data(data.player)
 	file.open(filepath, File.WRITE)
 	file.store_string(JSON.print(data))
 	file.close()
+
+func character_class_to_data(Character):
+	var Player = {}
+	Player["name"] = Character.name
+	Player["stats"] = [Character.stats["Strength"], Character.stats["Perception"], Character.stats["Endurance"], Character.stats["Charisma"], Character.stats["Intelligence"], Character.stats["Agility"], Character.stats["Luck"]]
+	Player["pic"] = Character.pic[0]
+	Player["picBorder"] = Character.picBorder
+	Player["attacks"] = Character.attacks
+	Player["level"] = Character.level
+	Player["skills"] = Character.skills
+	Player["APmax"] = Character.APmax
+	Player["APspeed"] = Character.APspeed
+	Player["AP"] = Character.AP
+	Player["healthMax"] = Character.healthMax
+	Player["health"] = Character.health
+	Player["manaMax"] = Character.manaMax
+	Player["mana"] = Character.mana
+	Player["kills"] = Character.kills
+	Player["equipment"] = Character.equipment
+	Player["inventory"] = Character.inventory
+	Player["equipBuffs"] = Character.equipBuffs
+	
+	
+	Player.attacks = [Character.attacks["melee"], Character.attacks["ranged"], Character.attacks["mana"]]
+	return Player
+	
+func data_to_character_class(Player):
+	var Character = Core.get_node("/root/Variables").Classes.CreateCharacter(Player["name"], Player["stats"], Player["pic"], Player["picBorder"], Player["attacks"], Player["level"], Player["skills"], Player["APmax"], Player["APspeed"], Player["healthMax"], Player["manaMax"])
+	Character.health = Player["health"]
+	Character.mana = Player["mana"]
+	Character.kills = Player["kills"]
+	Character.equipment = Player["equipment"]
+	Character.inventory = Player["inventory"]
+	Character.equipBuffs = Player["equipBuffs"]
+	return Character
 
 func load_character(character_id):
 	print (character_id)
@@ -18,7 +54,7 @@ func load_character(character_id):
 	var text = file.get_as_text()
 	var data = parse_json(text)
 	file.close()
-	
+	data.player = data_to_character_class(data.player)
 	return data
 
 func load_all():

@@ -28,30 +28,9 @@ func _ready():
 #		info = "Breathes fire",
 #		picture = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png",
 #		saveFile = saveFileSaved
+#		player = Player
 #	})
 	Core.add_child(load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance())
-	Core.get_node("CharacterSelection").setup(SaveGame.load_all())
-#	Core.get_node("CharacterSelection").setup({1: {
-#		name = "Legondary Dragon",
-#		info = "Breathes fire",
-#		picture = "Tex_AnimeAva_17.png"
-#	},2: {
-#		name = "Legondary Dragon",
-#		info = "Breathes fire",
-#		picture = "Tex_AnimeAva_17.png"
-#	},3: {
-#		name = "Legondary Dragon",
-#		info = "Breathes fire",
-#		picture = "Tex_AnimeAva_17.png"
-#	},4: {
-#		name = "Legondary Dragon",
-#		info = "Breathes fire",
-#		picture = "Tex_AnimeAva_17.png"
-#	},5: {
-#		name = "Legondary Dragon",
-#		info = "Breathes fire",
-#		picture = "Tex_AnimeAva_17.png"
-#	}})
 
 func example_save():
 	var character = {}
