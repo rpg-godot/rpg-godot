@@ -8,6 +8,7 @@ onready var selectedCharacter = -1
 onready var selectedEquip = -1
 onready var Profiles = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png"]
 onready var Classes = get_node("/root/Variables").Classes
+onready var SaveGame = get_node("/root/Variables").SaveGame
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -114,7 +115,7 @@ func _on_Complete_pressed():
 		saveFile = Player.name + " - "+ str(OS.get_unix_time()),
 		player = Player
 	}
-	get_node("/root/Variables").SaveGame.save_character(data)
+	SaveGame.save_character(data)
 	var Player2 = Classes.CreateCharacter("Alrune", [8,8,8,8,8,8,8], "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
 	var Enemy = Classes.DeathHound([[], [], []], 14, [0], 1, 0.5, 100)
 	var Enemy2 = Classes.DeathHound([[], [], []], 15, [0], 1, 0.5, 100)
