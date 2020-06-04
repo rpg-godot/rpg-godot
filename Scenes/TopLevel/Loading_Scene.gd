@@ -1,4 +1,5 @@
 extends Node
+const script_name := "loading_scene"
 
 onready var Classes = preload("Classes.gd").new()
 onready var SaveGame = preload("res://Scripts/SaveGame.gd").new()

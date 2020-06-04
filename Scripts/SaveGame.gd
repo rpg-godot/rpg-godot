@@ -1,3 +1,5 @@
+const script_name := "save_game"
+
 func save_character(data):
 	var file = File.new()
 	var filepath = "user://characters/" + str(data["saveFile"]) + ".json"
