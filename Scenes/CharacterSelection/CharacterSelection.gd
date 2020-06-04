@@ -2,7 +2,9 @@ extends Control
 
 onready var CharacterSelectionButton = preload("res://Scenes/CharacterSelection/CharacterSelectionButton.tscn")
 onready var SaveGame = get_node("/root/Variables").SaveGame
-	
+
+var selected_character = ''
+
 #[
 #	{
 #		name = "Legondary Dragon",
@@ -31,8 +33,8 @@ func add_character(save):
 	var player = save.player
 	var SelectButton = CharacterSelectionButton.instance()
 	SelectButton.name = str(id)
-	get_node("Scroll/HBox/VBox/ButtonsVBox").add_child(SelectButton)
-	var ButtonInstance = get_node("Scroll/HBox/VBox/ButtonsVBox/" + str(id))
+	get_node("VBox/Scroll/HBox/VBox/ButtonsVBox").add_child(SelectButton)
+	var ButtonInstance = get_node("VBox/Scroll/HBox/VBox/ButtonsVBox/" + str(id))
 	
 	# Set Picture
 	if picture:
@@ -48,10 +50,22 @@ func add_character(save):
 	
 	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ save ])
 
-func _on_button_press(save: Array):
+func _on_button_press(save: Dictionary):
 	Core.emit_signal("_gui_pushed", "select_character", save)
+	print('Button pressed!')
+	selected_character = save.saveFile
+	
+	for child in Core.get_node('CharacterSelection/VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children():
+		if child.name != selected_character:
+			child.pressed = false
+	
+	#var button = Core.get_node('CharacterSelection/Scroll/HBox/VBox/ButtonsVBox/' + save.saveFile)
 
 
 func _on_Create_pressed():
 	Core.add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())
 	Core.remove_child(self)
+
+
+func _on_play_pressed():
+	print('Play pressed!')
