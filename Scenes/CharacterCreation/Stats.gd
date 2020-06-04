@@ -1,4 +1,5 @@
 extends VBoxContainer
+const script_name := "stats"
 
 
 func _on_ButtonUp_pressed():

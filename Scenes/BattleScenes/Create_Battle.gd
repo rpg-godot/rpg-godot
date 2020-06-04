@@ -1,4 +1,5 @@
 extends Node
+const script_name := "create_battle"
 
 static func switchScene(object, sceneName:String, background:String, friendlies:Array, enemies:Array):
 	##Switch Scene

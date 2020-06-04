@@ -1,4 +1,5 @@
 extends Node
+const script_name := "battle"
 
 onready var BattleBoard = $"TopScreen/DisplayArea/BattleBoard/"
 onready var AttackList = $"TopScreen/DisplayArea/AttackBoard/"
@@ -11,6 +12,11 @@ onready var rangedAttackList = Classes.rangedAttackList
 onready var manaAttackList = Classes.manaAttackList
 onready var attackImages = Classes.attackImages
 
+# ==== Prototype text ===========================
+# Alrune Hit Grand Wolf for 25 damage with Strike
+# Grand Wolf Bit Alrune for 15 Damage
+# Alrune heals for 20 HP
+# Grand Hound Has Died
 
 func _ready():
 	BattleBoard.show()
@@ -22,6 +28,14 @@ func _ready():
 		friendPanel.free()
 	for enemyPanel in allEnemies:
 		enemyPanel.free()
+	
+	var error = Core.connect("msg", self, "_on_msg")
+	if error:
+		Core.emit_signal("msg", "Event msg failed to bind", Core.WARN, self)
+		print("Warn: Event msg failed to bind")
+
+func _on_msg(message, level, obj):
+	get_node('BattleText').add_text(message + '\n')
 
 func update_Setting(sceneName:String, background:String):
 	## Set characters and menues
@@ -157,6 +171,7 @@ func _on_Attack_pressed():
 	AttackList.show()
 	enemies[0].health-=10
 	update_Attacks(activeCharacterIndex)
+	Core.emit_signal('msg', 'You dealt ' + str(10) + ' damage!', Core.INFO, self)
 
 func _on_Items_pressed():
 	BattleBoard.hide()
@@ -192,6 +207,8 @@ func update_Characters():
 		if character.health > 0:
 			friendPanel.get_node("VBox/Picture/Blood").hide()
 		else:
+			# Friendly die
+			Core.emit_signal('msg', 'An friend has died!', Core.INFO, self)
 			friendPanel.get_node("VBox/Picture/Blood").show()
 	for character in enemies:
 		##looks
@@ -212,4 +229,6 @@ func update_Characters():
 		if character.health > 0:
 			enemyPanel.get_node("VBox/Control/Blood").hide()
 		else:
+			# Enemy die
+			Core.emit_signal('msg', 'An enemy has died!', Core.INFO, self)
 			enemyPanel.get_node("VBox/Control/Blood").show()

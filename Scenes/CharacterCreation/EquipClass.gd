@@ -1,4 +1,5 @@
 extends VBoxContainer
+const script_name := "equip_class"
 
 var chosen = false
 

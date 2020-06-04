@@ -1,4 +1,5 @@
 extends Control
+const script_name := "character_creation"
 
 
 # Declare member variables here. Examples:

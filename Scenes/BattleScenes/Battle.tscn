@@ -339,10 +339,6 @@ size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 4 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
-text = "Alrune Hit Grand Wolf for 25 damage with Strike
-Grand Wolf Bit Alrune for 15 Damage
-Alrune heals for 20 HP
-Grand Hound Has Died"
 scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
