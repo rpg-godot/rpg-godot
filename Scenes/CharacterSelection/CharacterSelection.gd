@@ -1,4 +1,5 @@
 extends Control
+const script_name := "character_selection"
 
 onready var CharacterSelectionButton = preload("res://Scenes/CharacterSelection/CharacterSelectionButton.tscn")
 onready var SaveGame = get_node("/root/Variables").SaveGame

@@ -1,3 +1,5 @@
+const script_name := "classes"
+
 class Character:
 	var name = "Default Name"
 	var stats = {"Strength":3, "Perception":3, "Endurance":3, "Charisma":3, "Intelligence":3, "Agility":3, "Luck":3}
