@@ -56,6 +56,9 @@ func load_character(character_id):
 	var text = file.get_as_text()
 	var data = parse_json(text)
 	file.close()
+	if !data.has("player"):
+		print('Error: Player save file does not contain player info!')
+		return false
 	data.player = data_to_character_class(data.player)
 	return data
 
@@ -63,11 +66,11 @@ func load_all():
 	var saves = []
 	for fileName in list_files_in_directory():
 		var save = load_character(fileName)
-		saves.append(save)
-		print (save)
+		print ('Player info from load_character: ' + str(save))
+		if save:
+			saves.append(save)
 	return saves
-		
-		
+
 func list_files_in_directory():
 	var saveLocation = "user://characters/"
 	var files = []
