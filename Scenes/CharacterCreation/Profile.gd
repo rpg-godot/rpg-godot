@@ -8,4 +8,4 @@ func _on_SelectButton_pressed():
 	if !chosen:
 		chosen = true
 		get_node("Border").show()
-		Core.get_node("CreationMenu").updateChosenProfile(self)
+		Core.get_parent().get_node("CharacterCreation").updateChosenProfile(self)

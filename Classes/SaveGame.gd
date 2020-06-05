@@ -1,6 +1,7 @@
+class_name SaveGame
 const script_name := "save_game"
 
-func save_character(data):
+static func save_character(data):
 	var file = File.new()
 	var filepath = "user://characters/" + str(data["saveFile"]) + ".json"
 	
@@ -12,9 +13,9 @@ func save_character(data):
 	file.store_string(JSON.print(data))
 	file.close()
 
-func character_class_to_data(Character):
+static func character_class_to_data(Character):
 	var Player = {}
-	Player["name"] = Character.name
+	Player["name"] = Character.character_name
 	Player["stats"] = [Character.stats["Strength"], Character.stats["Perception"], Character.stats["Endurance"], Character.stats["Charisma"], Character.stats["Intelligence"], Character.stats["Agility"], Character.stats["Luck"]]
 	Player["pic"] = Character.pic[0]
 	Player["picBorder"] = Character.picBorder
@@ -37,17 +38,28 @@ func character_class_to_data(Character):
 	Player.attacks = [Character.attacks["melee"], Character.attacks["ranged"], Character.attacks["mana"]]
 	return Player
 	
-func data_to_character_class(Player):
-	var Character = Core.get_node("/root/Variables").Classes.CreateCharacter(Player["name"], Player["stats"], Player["pic"], Player["picBorder"], Player["attacks"], Player["level"], Player["skills"], Player["APmax"], Player["APspeed"], Player["healthMax"], Player["manaMax"])
-	Character.health = Player["health"]
-	Character.mana = Player["mana"]
-	Character.kills = Player["kills"]
-	Character.equipment = Player["equipment"]
-	Character.inventory = Player["inventory"]
-	Character.equipBuffs = Player["equipBuffs"]
-	return Character
+static func data_to_character_class(player):
+	var character = Character.new()
+	character.character_name = player["name"]
+	character.stats = player["stats"]
+	character.pic = player["pic"]
+	#character.picBoarder = player["picBorder"]
+	character.attacks = player["attacks"]
+	character.level = player["level"]
+	character.kills = player["kills"]
+	#character.apMax = player["APmax"]
+	#character.apSpeed = player["APspeed"]
+	character.healthMax = player["healthMax"]
+	character.manaMax = player["manaMax"]
+	character.health = player["health"]
+	character.mana = player["mana"]
+	character.kills = player["kills"]
+	character.equipment = player["equipment"]
+	character.inventory = player["inventory"]
+	character.equipBuffs = player["equipBuffs"]
+	return character
 
-func load_character(character_id):
+static func load_character(character_id):
 	print (character_id)
 	var file = File.new()
 	var filepath = "user://characters/" + str(character_id)
@@ -62,7 +74,7 @@ func load_character(character_id):
 	data.player = data_to_character_class(data.player)
 	return data
 
-func load_all():
+static func load_all():
 	var saves = []
 	for fileName in list_files_in_directory():
 		var save = load_character(fileName)
@@ -71,13 +83,13 @@ func load_all():
 			saves.append(save)
 	return saves
 
-func list_files_in_directory():
+static func list_files_in_directory():
 	var saveLocation = "user://characters/"
 	var files = []
 	var dir = Directory.new()
 	dir.open(saveLocation)
 	dir.list_dir_begin()
-
+	
 	while true:
 		var file = dir.get_next()
 		if file == "":
@@ -85,7 +97,7 @@ func list_files_in_directory():
 		elif not file.begins_with("."):
 			if file.ends_with(".json"):
 				files.append(file)
-
+	
 	dir.list_dir_end()
-
+	
 	return files

@@ -2,7 +2,6 @@ extends Control
 const script_name := "character_selection"
 
 onready var CharacterSelectionButton = preload("res://Scenes/CharacterSelection/CharacterSelectionButton.tscn")
-onready var SaveGame = get_node("/root/Variables").SaveGame
 
 var selected_character = ''
 
@@ -25,6 +24,8 @@ func _ready():
 	var saves = SaveGame.load_all()
 	for save in saves:
 		add_character(save)
+	
+	Core.emit_signal("scene_loaded", self)
 
 func add_character(save):
 	var id = save["saveFile"]
@@ -40,8 +41,8 @@ func add_character(save):
 	# Set Picture
 	if picture:
 		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").texture = load(picture)
-		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_h = player.pic[1][0]
-		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_v = player.pic[1][1]
+		#ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_h = player.pic[1][0]
+		#ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_v = player.pic[1][1]
 	else:
 		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").visible = false
 	
@@ -52,11 +53,11 @@ func add_character(save):
 	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ save ])
 
 func _on_button_press(save: Dictionary):
-	Core.emit_signal("_gui_pushed", "select_character", save)
+	Core.emit_signal("gui_pushed", "select_character", save)
 	print('Button pressed!')
 	selected_character = save.saveFile
 	
-	for child in Core.get_node('CharacterSelection/VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children():
+	for child in Core.get_parent().get_node('CharacterSelection/VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children():
 		if child.name != selected_character:
 			child.pressed = false
 	
@@ -64,8 +65,8 @@ func _on_button_press(save: Dictionary):
 
 
 func _on_Create_pressed():
-	Core.add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())
-	Core.remove_child(self)
+	Core.get_parent().add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())
+	queue_free()
 
 
 func _on_play_pressed():

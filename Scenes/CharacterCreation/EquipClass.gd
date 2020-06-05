@@ -10,4 +10,4 @@ func _on_SelectButton_pressed():
 	if !chosen:
 		chosen = true
 		get_node("ImgCenter/Border").show()
-		Core.get_node("CreationMenu").updateChosenEquip(get_node("."))
+		Core.get_parent().get_node("CharacterCreation").updateChosenEquip(self)
