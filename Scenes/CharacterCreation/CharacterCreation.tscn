@@ -8,9 +8,9 @@
 [ext_resource path="res://Scenes/CharacterCreation/Stats.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/CharacterCreation/EquipClass.tscn" type="PackedScene" id=7]
 
-[sub_resource type="GradientTexture" id=2]
+[sub_resource type="GradientTexture" id=1]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 80
 font_data = ExtResource( 3 )
 
@@ -30,7 +30,7 @@ font_data = ExtResource( 3 )
 size = 50
 font_data = ExtResource( 3 )
 
-[node name="CreationMenu" type="Control"]
+[node name="CharacterCreation" type="Control"]
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,7 +39,7 @@ __meta__ = {
 [node name="Background" type="TextureRect" parent="."]
 margin_right = 720.0
 margin_bottom = 1080.0
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -49,7 +49,7 @@ __meta__ = {
 margin_right = 720.0
 margin_bottom = 100.0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "GAME TITLE"
 align = 1
 valign = 1

@@ -1,22 +1,57 @@
 extends Node
+class_name Battle
 const script_name := "battle"
 
-onready var BattleBoard = $"TopScreen/DisplayArea/BattleBoard/"
-onready var AttackList = $"TopScreen/DisplayArea/AttackBoard/"
-onready var friendlies = []
-onready var activeCharacterIndex = 0
-onready var enemies = []
-onready var Classes = get_node("/root/Variables").Classes
-onready var meleeAttackList = Classes.meleeAttackList
-onready var rangedAttackList = Classes.rangedAttackList
-onready var manaAttackList = Classes.manaAttackList
-onready var attackImages = Classes.attackImages
+onready var BattleBoard := $"TopScreen/DisplayArea/BattleBoard/"
+onready var AttackList := $"TopScreen/DisplayArea/AttackBoard/"
+onready var friendlies := []
+onready var activeCharacterIndex := 0
+onready var enemies := []
+onready var meleeAttackList = Core.meleeAttackList
+onready var rangedAttackList = Core.rangedAttackList
+onready var manaAttackList = Core.manaAttackList
+onready var attackImages = Core.attackImages
+
+var battle_name setget set_battle_name, get_battle_name
+var background setget set_background, get_background
+
+func set_battle_name(value):
+	get_node("TopScreen/AreaTitle/Name").text = value
+
+func get_battle_name():
+	return get_node("TopScreen/AreaTitle/Name").text
+
+func set_background(value):
+	get_node("TopScreen/Background").texture = load(value)
+
+func get_background():
+	return get_node("TopScreen/Background").texture
 
 # ==== Prototype text ===========================
 # Alrune Hit Grand Wolf for 25 damage with Strike
 # Grand Wolf Bit Alrune for 15 Damage
 # Alrune heals for 20 HP
 # Grand Hound Has Died
+
+func load_battle(new_battle_name: String, new_background: String, new_friendlies: Array, new_enemies: Array):
+	# Switch Scene
+	friendlies = new_friendlies
+	enemies = new_enemies
+	
+	# Create Setting
+	battle_name = new_battle_name
+	background = new_background
+	
+	## Initiate and unhide needed tiles
+	for character in friendlies:
+		setup_friendly(character)
+	for character in enemies:
+		setup_enemy(character)
+	
+	# Update stats
+	update_Characters()
+	update_Attacks(0)
+
 
 func _ready():
 	BattleBoard.show()
@@ -33,43 +68,50 @@ func _ready():
 	if error:
 		Core.emit_signal("msg", "Event msg failed to bind", Core.WARN, self)
 		print("Warn: Event msg failed to bind")
+	
+	Core.emit_signal("scene_loaded", self)
 
 func _on_msg(message, level, obj):
 	get_node('BattleText').add_text(message + '\n')
 
-func update_Setting(sceneName:String, background:String):
-	## Set characters and menues
-	get_node("TopScreen/AreaTitle/Name").text = sceneName
-	get_node("TopScreen/Background").texture = load(background)
-	## Initiate and unhide needed tiles
-	for character in friendlies:
-		## Looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://Scenes/BattleScenes/CharacterPanel.tscn").instance())
-		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
-		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.pic[0])
-		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.pic[1][0]
-		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.pic[1][1]
-		friendPanel.get_node("VBox/Name").text = character.name
-		friendPanel.show()
-		if character.picBorder[0]:
-			friendPanel.get_node("VBox/Picture/PicBorder").texture = load(character.picBorder[1])
-			friendPanel.get_node("VBox/Picture/PicBorder").show()
-		else:
-			friendPanel.get_node("VBox/Picture/PicBorder").hide()
-	for character in enemies:
-		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://Scenes/BattleScenes/EnemyPanel.tscn").instance())
-		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
-		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.pic[0])
-		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.pic[1][0]
-		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.pic[1][1]
-		enemyPanel.get_node("VBox/Name").text = character.name
-		enemyPanel.show()
-		if character.picBorder[0]:
-			enemyPanel.get_node("VBox/Control/PicBorder").texture = load(character.picBorder[1])
-			enemyPanel.get_node("VBox/Control/PicBorder").show()
-		else:
-			enemyPanel.get_node("VBox/Control/PicBorder").hide()
+func setup_friendly(character):
+	## Looks
+	var character_panel = load("res://Scenes/BattleScenes/CharacterPanel.tscn").instance()
+	get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(character_panel)
+	
+	var picture = character_panel.get_node("VBox/Picture/Pic")
+	picture.texture = load(character.pic[0])
+	picture.flip_h = character.pic[1][0]
+	picture.flip_v = character.pic[1][1]
+	
+	character_panel.get_node("VBox/Name").text = character.character_name
+	character_panel.show()
+	if character.picBorder[0]:
+		character_panel.get_node("VBox/Picture/PicBorder").texture = load(character.picBorder[1])
+		character_panel.get_node("VBox/Picture/PicBorder").show()
+	else:
+		character_panel.get_node("VBox/Picture/PicBorder").hide()
+
+func setup_enemy(character):
+	##looks
+	var enemy_panel = load("res://Scenes/BattleScenes/EnemyPanel.tscn").instance()
+	get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(enemy_panel)
+	var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
+	
+	var picture = enemyPanel.get_node("VBox/Control/Pic")
+	picture.texture = load(character.pic[0])
+	picture.flip_h = character.pic[1][0]
+	picture.flip_v = character.pic[1][1]
+	
+	enemyPanel.get_node("VBox/Name").text = character.character_name
+	enemyPanel.show()
+	
+	var border = enemyPanel.get_node("VBox/Control/PicBorder")
+	if character.picBorder[0]:
+		border.texture = load(character.picBorder[1])
+		border.show()
+	else:
+		border.hide()
 
 func update_Attacks(CharacterIndex):
 	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
