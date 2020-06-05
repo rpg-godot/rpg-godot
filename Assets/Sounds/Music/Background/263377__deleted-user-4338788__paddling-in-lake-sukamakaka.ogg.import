@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/263377__deleted-user-4338788__paddling-in-lake-sukamakaka.ogg-9fbe6ebfa8ceb2670f7b5ae04c13d5aa.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/263377__deleted-user-4338788__paddling-in-lake-sukamakaka.ogg"
+dest_files=[ "res://.import/263377__deleted-user-4338788__paddling-in-lake-sukamakaka.ogg-9fbe6ebfa8ceb2670f7b5ae04c13d5aa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
