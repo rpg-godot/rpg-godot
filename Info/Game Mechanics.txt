@@ -1,0 +1,88 @@
+Game Mechanics:
+*Generic
+	-takes place in olden times
+	-No online play
+	-fantasy genre
+	-meet characters to join party(optional)
+	-store for items at "home"
+	-skill tree
+	-love interest?!?!
+	-possible random encounter
+	-buyable houses
+*Camps/cities
+	-You have tent checkpoints on quests, some are temporary quest specific areas that cannot be returned to
+		-Can go hunting for food before continuing on
+		-Can rest to regain stats but risk being attacked
+		-These will be bigger camps if travelling with more people
+			-This means there is more to do at the camp
+				-cook, craft
+			-Less likely to be attacked
+	-Must complete quests to initally enter a new town
+	-Tavern fights/jail system
+		-If you're thrown in jail time will pass and the queen's army will become stronger
+		-Food will also expire while in jail if not treated
+	-Guild quests/ guild owned towns (HQ)
+		-These will be hostile towards member's of opposing guilds
+		-Can only enter if you are aligned with them
+	*Merchant
+		-Affiliation is based off previous quest work and using a merchant's shop
+			-buying more stuff and doing quests for them will unlock more items and better sell/buy prices
+		-Some items cost more depending on locations, season
+		-stores have city specific items and some are level specific
+			-Some merchants may notice your gear type and offer you special gear just like it that is more powerful then their usual stock (based off affilitaion)
+		-unique scaled quest items(talking to merchant they can tell you where to go)
+			-random chance for merchant knowing or just encounter when traveling
+			-Based off your affiliation they may mention it when you approach them or you'd have to ask for it
+			-trust is based off of previous work with merchant
+		-Later game will require more money (need to do merchant work or guild quests)
+	*Crafting
+		-item crafting(crafting materials can be bought or found in quests)
+			-increases quality with experience, starts off really bad
+		-Cooking food gives you better stat buffs and health regen
+			-Making meals is even better
+			-This is linked to a skill that later on will allow you to treat your own food to preserve it
+			-Can only be done at a tent/camp/city
+			-Cooking food isn't always available based off what camp is being used, small/large, but is always available in a city if you pay for access to the kitchen.
+			-Cooking can also be done at your home if you are there
+			-Buffs are enhanced based of your race and what foods you like
+*Countries
+	-Some contries will try to kill you and you'll be on the run
+	-Main city located in country 2, 4 and 5, Country 1 will have 4 of these cities
+		-Can takeover the main city to take over the whole country at once, however this is harder
+			-This is done when joining the Queen's country
+	-Can team up with country 3 to take down 4 with the Queen's army
+*Companions
+	-Companions equal to your level the whole way through
+		-They will return to their homes and can swap them out at those locations
+		-If you buy a house you can keep a set amount of companions there
+*Combat/skills/stats
+	-Stat scaling:
+		-Strength - Melee attack and slight HP
+		-Perception - viewing enemy details and warnings before major battles
+			-low stat may cause you to hit the wrong enemy
+		-Endurance - Max AP, max HP, slight melee attack
+		-Charisma - npc dialog checks, better prices
+		-Intelligence - magic attack requirements, magic damamge, max mana
+		-Agility - AP regain, dodging attacks
+		-Luck - dialog checks, quest/battle rewards
+		-Stat scaling is based of race and class
+		-Stats affects the change per level of your starting characteristics
+		-An elf gets more of a boost from a point in intelligence than a human would due to the stat multiplier affecting the change to the starting characteristics that the stats make
+	-Stat effects scale with level
+	-AP is required to attack
+		-Turn order is based of AP regeneration and is not linear
+		-Low AP against a high AP enemy may mean you die before getting to attack
+	-Can't eat food during combat but can you potions
+*Extra
+	-Time and date system
+		-The longer you take the stronger the Queen's army will become.
+		-Untreated food will go off unless the player treats it
+		-Some fruit/vegetables are only available at certain seasons
+		-If you play the game long enough after defeating her the queen will come back stronger and a secret new game plus will activate causing you to do a new main quest
+	-Random encounters when traveling between cities (fight/quest)
+		-battle encounter more likely on foot and can only travel 1 town at a time
+		-buy your own horse which decreases liklihood of encounters and travel 2 towns at once, hire cart to futher decrease the chances and to travel 3 towns at once
+		-hire bodyguards to further decrease chances of encounter
+		-some towns are really far and can only be visited via horse or cart
+	-Multiple character saves, completely seperate, can't party up
+		-other characters can be referenced in story

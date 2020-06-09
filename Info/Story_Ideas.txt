@@ -1,108 +1,173 @@
-Game Story Ideas
--takes place in olden times
--fantasy
--meet characters to join party(optional)
--store for items at "home"
--skill tree
--love interest?!?!
-   -possible random encounter
-   -buyable houses
-
-Classes: Def melee (Paladin), Att melee (Berserker), Agi melee (Rogue), Att Mage (BattleMage), Supp Mage (All round mage), Healer, Att ranged (Heavy-shooter), Agi ranged (Quick-shooter)
-Possible Encountered Companians:
-*an "evil" witch(she isolated herself)
-    -nice person, but she tries to be evil to fill family expectations
-    -she is a powerful spell caster, but only knows healing spells
-    -really tries to be evil, she sucks at it and always apologizes
-    -support mage
-*a young boy(he likes adventures)
-    -He's really bored and just wants to be an adventurer when he grows up
-    -He is a good fighter and free spirit
-    -Generally a nusiance and makes trouble often in town
-    -agility melee
-*a failed knight(nice guy, sucks at being a knight)
-    -He was a knight key word was, really nice guy bad at using a sword
-    -Could've been a really good ranger, but wanted to be a knight instead
-    -Spends time helping out in the town
-    -defense melee
-*a merchant(she's tired of her boring life)
-    -She took over her dad's business and became a travelling merchant
-    -likes to fight a lot
-    -rough around the edges 
-    -attack melee
-    -makes other merchants more friendly/tell more rumors/quests
-*princess(she isn't a delicate flower)
-    -may be a princess, but that doesn't mean she's prim and proper
-    -is quick and can sneak up on people easily
-    -extremely loyal, but has trust issues at first
-    -agility ranged
-*a trapped adventurer(he got caught in a hunter's old trap)
-    -He isn't the brightest, but is quite skilled with long ranged weapons
-    -Got trapped and can't figure out how to get out
-    -somehow became an adventurer
-    -attack ranged
-*moral demon(He was summoned and now he's stuck here)
-    -He is a good caster, but not good at healing
-    -Was summoned for desruction, but he thought it was morally wrong so he's stuck here
-    -Big on morals and keeping to them, needs justification to do things destructive
-    -attack mage
-
 Story Line:
-Basic storyline ATM
-    Travel to a new town looking for a fresh start, slowly hear about the plot of a queen to takeover all the towns with her army of devoted citizens who she has casted a mass adoration spell on her kingdom(she’s an enchantress).  She wants to become ruler of all the other kingdoms and their subjects, everyone who has tried to stop her ended up dead or enchanted.  The closer to her kingdom you get the more brainwashed people there are and they will try and indoctrinate anyone who doesn’t adore the queen(or kill if you resist too much and you’re too close to her kingdom). The spell is very strong and you need high intelligence or a charm to protect you.  If without proper protection then you can be convinced to help the queen take over and will need to fight the armies.
-What is the end goal?
-    -Going out looking for an advenure at first
-    -Finds out the plot of a queen and wants to stop her
-    -Backstory of why you left is based off of class, early play decisions, hinted in story
-Multiple endings
-    -Get charmed by the queen and join her
-    -“Join” her and betray her
-    -Take over the kingdoms yourself
-    -Fight the Queen
-        -Kill her
-        -Imprison her
-    -Redemption from backstory(depends on class)
+*Basic storyline ATM
+	Travel to a new town looking for a fresh start, slowly hear about the plot of a queen to takeover all the towns with her army of devoted citizens *who she has casted a mass adoration spell on her kingdom (she’s an enchantress).  She wants to become ruler of all the other kingdoms and their subjects, everyone who has tried to stop her ended up dead or enchanted.  The closer to her kingdom you get the more brainwashed people there are and they will try and indoctrinate anyone who doesn’t adore the queen (or kill if you resist too much and you’re too close to her kingdom). The spell is very strong and you need high intelligence or a charm to protect you.  If without proper protection then you can be convinced to help the queen take over and will need to fight the armies.
+*What is the end goal?
+	-Going out looking for an advenure at first
+	-Finds out the plot of a queen and wants to stop her
+	-Backstory of why you left is based off of class, early play decisions, hinted in story
+*Multiple endings
+	-Get charmed by the queen and join her
+	-“Join” her and betray her
+	-Take over the kingdoms yourself
+	-Fight the Queen
+		-Kill her
+		-Imprison her
+	-Redemption from backstory(depends on class)
+*Second story
+	-If the queens lives she will escape late and you'll hear rumors until she eventually attacks again
+*Ideas
+	-Get to the new town and talk to guards, tell them you're an adventurer, they say prove it.
+		-First quest: fight 5 animals around
+	-possible perma-death on final story battle
+	-post-story side content
+	-When you near the kingdom of the queen, players will be warned subtly by merchants w/ good relationship
+		-are advised to have protection charm or high intelligence to avoid being charmed
+		-if they still go without those things they can be charmed and convinced to join and assist the queen
+		-would then be forced to go back to the other towns/kingdoms with the queen’s men and fight the armies/guards there
+			-Possible perma death scenario due to losing control
+*Races
+	-Human (2)
+	-Dwarf (4)
+	-Elf (5)
+	-Half elves (1)
+		-Elf model
+		-Feel more welcomed at 1 due to the mix of humans that like elves and elves that like humans
+			-Interbreeding and acceptance
+	-Fairy
+		-Located in forests
+	-Demon
+		-Playable, were summoned and your summoner died in combat
+		-Can't go back
+		-Only one other demon
+		-Harder game mode
+		-Disliked
+		-Story line change
+	-Vampire (3)
+		-Vampires prominant at 3
+		-Encountable and possible to become but not represented by cities
+		-Can travel in sunlight but is weaker
+		-Build relationship with friendly vampire to become
+		-Possible to contract through combat
+		-Possible to be bitten during the night while camping or at rural town
+			-Especially at 3 due to more vampires and high rural areas
+		-Cure can be brought to stop the transformation within 5 in game days
+		-Reversibile by buying  potion from Potion store at 4
+	-Elves and humans don't get along
 
-Game Mechanics:
-    -Get to the new town and talk to guards, tell them you're an adventurer, they say prove it.
-        -First quest: fight 5 animals around
-    -you have tent checkpoints, some are temporary quest specific areas
-    -Must complete quests to initally enter a new town
-    -stores have city specific items and some are level specific
-    -random encounters when traveling between cities (fight/quest)
-        -battle encounter more likely on foot and can only travel 1 town at a time
-        -buy your own horse which decreases liklihood of encounters and travel 2 towns at once, hire cart to futher decrease the chances and to travel 3 towns at once
-        -hire bodyguards to further decrease chances of encounter
-        -some towns are really far and can only be visited via horse or cart
-    -guild quests/town
-    -tavern fights/jail
-    -some items cost more depending on locations(can do merchant stuff)
-    -Later game will require more money (need to do merchant work or guild quests)
-    -unique scaled quest items(talking to merchant they can tell you where to go)
-        -random chance for merchant knowing or just encounter when traveling
-        -some just flat out mention it some you need to ask based off of trust
-        -trust is based off of previous work with merchant
-    -multiple characters, completely seperate, can't party up
-        -other characters can be referenced in story
-    -No online play
-    -possible perma-death on final story battle
-    -post-story side content
-    -item crafting(crafting materials can be bought or found in quests)
-        -increases quality with experience, starts off really bad
-    -companions eaual to your level the whole way through
-        -set locations and can swap them out at those locations
-        -if you buy a house you can keep a set amount of companions there
-    -When you near the kingdom of the queen, players will be warned subtly by merchants w/ good relationship
-        -are advised to have protection charm or high intelligence to avoid being charmed
-        -if they still go without those things they can be charmed and convinced to join and assist the queen
-        -would then be forced to go back to the other towns/kingdoms with the queen’s men and fight the armies/guards there
-            -Possible perma death scenario due to lose of control
-    -Stat scaling:
-        -Strength - Melee attack and slight HP
-        -Perception - viewing enemy details and warnings before major battles
-        -Endurance - Max AP, max HP, slight melee attack
-        -Charisma - npc dialog checks
-        -Intelligence - magic attack requirements, magic damamge, max mana
-        -Agility - AP regain, dodging attacks
-        -Luck - dialog checks, quest/battle rewards
-    -Stat effects scale with level
+*Player
+	-Choose race and then picture
+	-Start as human (1,2), elf (1,5), half elf (1), demon (3), dwarf (1,4), fairy (1,2,5)
+	-Starting location based off class and race
+*Races
+	-Affects the stat multiplier
+	-Race gives stat bonus
+	-Human
+		-Buff Strength and Endurance
+		-Debuff Intelligence
+	-Half elf
+		-Half the buffs and debuffs of humans and elves
+		-Buff Charisma
+	-Elves
+		-Buff Intelligence and Agility
+		-Debuff Strength
+		-Increased Mana
+	-Fairies
+		-Pushed towards ranged and magic
+		-Really one sided towards ranged
+		-High Buff Intelligence and Agility
+		-Buff Luck
+		-Debuff Endurance
+		-High Debuff Strength
+	-Dwarf
+		-Buff Strength and Charisma
+		-Debuff Agility
+	-Demon
+		-Buff Strength, Endurance, Intelligence
+		-Debuff Charisma, Luck
+*Back Story
+	-Wizard finished training
+	-Rogue got kicked out
+	
+*Classes
+	-Directly affects stats (previous training)
+	-Def melee (Paladin)
+		-Buff Endurance, Strength
+	-Att melee (Berserker)
+		-High Buff Strength
+	-Agi melee (Rogue)
+		-Buff Agility, Strength
+	-Att mage (Battle mage)
+		-Buff Intelligence, Intelligence
+	-Supp mage (All round mage)
+		-Buff Agility, Intelligence
+	-Healing mage
+		-Buff Intelligence, Intelligence
+	-Att ranged (Heavy-shooter)
+		-High Buff Strength
+	-Agi ranged (Quick-shooter)
+		-Buff Agility, Strength
+*Countries
+	-Countries place more military camps on borders of contries they don't like
+	-Countries can be hostile towards non bordered countries
+	-Country affiliation affects how easy it is to pass the border (into the liked country)
+		-May have to assist guards on protecting the border to get through
+	-Countries generally share enemies
+	-Other neighbouring countries the player can't access
+		-Some people from these countries may visit
+	-Main country (1)
+		-Races are equal
+		-Average large place
+		-Diverse and friendly
+		-High and low housing
+		-Friendly with 2, 4
+		-Neutral with 5, 6
+	-Knight country (2)
+		-*normal* medieval place
+		-Racial diffrences with 5 due to humans here elves there
+		-Friendly with 1
+		-Neutral with 4, 3, 6
+		-Hostile with 5
+	-Criminal country (3)
+		-Poor and chaotic
+		-Regularly raids 4
+		-Used to be civilised, now some are
+		-Mainly barbaric raiders (Vikings)
+		-Friendly with 5
+		-Neutral with 2, 6, 1
+		-Hostile with 4 (due to raiding)
+	-3 and 4 relationship
+		-3 Used to be thriving but economy crashed
+		-3 has a vendetta against 4, they caused economy collapse
+			-Used to raid countries via 4's access to water
+		-Wasto be friendly with everyone until 4 cut them off
+		-3 and 4 have their own fued that people stay out of, therefore 1 is not hostile
+	-Market country (4)
+		-Sells more exotic gear
+		-Main trading country
+		-Better range of wares
+		-Expensive housing
+		-Connects to water
+		-Main city sells a bit of everything, but smaller towns are more specific
+			-Used to allow 3 to access docks but then cut them off and started trading
+		-Each town has a specilisation they are known for
+		-Friendly with 1
+		-Neutral with 2, 5, 6
+		-Hostile with 3 (to stop raiding)
+	-Elf country (5)
+		-More advanced and fancy
+		-Friendly with 3
+		-Neutral with 4, 1, 6
+		-Hostile with 2
+	-Queen's country (6)
+		-Queen is demon
+		-Once a peaceful kingdom that was stolen by a Demon secretly
+		-Killed the queen and Mind controls people to be hidden
+		-No one knows a demon rules
+		-Mainly humans
+		-Some people are loyal to the queen
+			-Evil human and elf advisors that were chosen by the queen from nearby towns
+		-Mind control extends just past the border
+		-Outer regions of nearby countries like her
+		-located in centre of continent
+		-Neutral with all
+		-hostile towards 1

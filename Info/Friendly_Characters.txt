@@ -1,0 +1,47 @@
+Classes: Def melee (Paladin), Att melee (Berserker), Agi melee (Rogue), Att Mage (BattleMage), Supp Mage (All round mage), Healer, Att ranged (Heavy-shooter), Agi ranged (Quick-shooter)
+Possible Encountered Companians:
+*an "evil" witch(she isolated herself)
+	-Country 3 (Human Vampire)
+	-nice person, but she tries to be an evil vampire to fill family expectations
+	-she is a powerful spell caster, but only knows healing spells
+		-Uses blood magic to heal friends
+			-Feels too mean to use enemies blood for magic
+	-really tries to be evil, she sucks at it and always apologizes
+	-support mage
+*a young boy(he likes adventures)
+	-Country 1 (Half-Elf)
+	-He's really bored and just wants to be an adventurer when he grows up
+	-He is a good fighter and free spirit
+	-Generally a nusiance and makes trouble often in town
+	-attack ranged
+*a failed knight(nice guy, sucks at being a knight)
+	-Country 2 (Human)
+	-He was a knight key word was, really nice guy bad at using a sword
+	-Could've been a really good ranger, but wanted to be a knight instead
+	-Spends time helping out in the town
+	-defense melee
+*a merchant(she's tired of her boring life)
+	-Country 4 (Dwarf)
+	-She took over her dad's business and became a travelling merchant
+	-likes to fight a lot
+	-rough around the edges 
+	-attack melee
+	-makes other merchants more friendly/tell more rumors/quests
+*princess(she isn't a delicate flower)
+	-Country 5 (Elf)
+	-may be a princess, but that doesn't mean she's prim and proper
+	-is quick and can sneak up on people easily
+	-extremely loyal, but has trust issues at first
+	-agility ranged
+*a trapped adventurer(he got caught in a hunter's old trap)
+	-Country 1 (Human)
+	-He isn't the brightest, but is quite skilled with long ranged weapons
+	-Got trapped and can't figure out how to get out
+	-somehow became an adventurer
+	-agility melee
+*moral demon(He was summoned and now he's stuck here)
+	-Country 3 (Demon)
+	-He is a good caster, but not good at healing
+	-Was summoned to destroy country 4 when they were cut off, but he thought it was morally wrong so he's stuck here
+	-Big on morals and keeping to them, needs justification to do things destructive
+	-attack mage
