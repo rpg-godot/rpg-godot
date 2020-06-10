@@ -3,13 +3,10 @@ const script_name := "character_creation"
 
 var battle_scene = load("res://Scenes/BattleScenes/Battle.tscn").instance()
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-onready var selectedCharacter = -1
-onready var selectedEquip = -1
-onready var Profiles = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png"]
+onready var selected_character := -1
+onready var selected_equip := -1
+const profiles := ["Friendlies/Tex_AnimeAva_01.png", "Friendlies/Tex_AnimeAva_17.png", "Friendlies/Tex_AnimeAva_28.png", "Friendlies/Tex_AnimeAva_51.png"]
+const character_names := ["alrune", "alrune", "alrune", "alrune"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,12 +16,12 @@ func _ready():
 	
 	for profile in get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children():
 		profile.free()
-	for profile in Profiles:
+	for profile in profiles:
 		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
-		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[Profiles.find(profile)]
-		profilePanel.get_node("Pic").texture = load(profile)
-		profilePanel.get_node("Pic").flip_h = Core.flipProfile[profile][0]
-		profilePanel.get_node("Pic").flip_v = Core.flipProfile[profile][1]
+		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profiles.find(profile)]
+		profilePanel.get_node("Pic").texture = load("res://Assets/Images/Profiles/" + profile)
+		profilePanel.get_node("Pic").flip_h = CharacterDefaults.flip_profile[profile][0]
+		profilePanel.get_node("Pic").flip_v = CharacterDefaults.flip_profile[profile][1]
 	var spec = get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()
 	spec[0].get_node("Labels/Label").text = "Strength"
 	spec[1].get_node("Labels/Label").text = "Perception"
@@ -57,7 +54,7 @@ func _ready():
 	
 func updateChosenEquip(chosenEquip):
 	var equips = get_node("MainMenu/Choices/Equipment/Classes").get_children()
-	selectedEquip = equips.find(chosenEquip)
+	selected_equip = equips.find(chosenEquip)
 	for equip in equips:
 		if equip != chosenEquip:
 			equip.get_node("ImgCenter/Border").hide()
@@ -66,7 +63,7 @@ func updateChosenEquip(chosenEquip):
 
 func updateChosenProfile(chosenProfile):
 	var profiles = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()
-	selectedCharacter = profiles.find(chosenProfile)
+	selected_character = profiles.find(chosenProfile)
 	for profile in profiles:
 		if profile != chosenProfile:
 			profile.get_node("Border").hide()
@@ -74,7 +71,7 @@ func updateChosenProfile(chosenProfile):
 	checkIfCompleted()
 
 func checkIfCompleted():
-	if selectedCharacter != -1 && selectedEquip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
+	if selected_character != -1 && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
@@ -84,51 +81,24 @@ func _on_Name_text_changed():
 	checkIfCompleted()
 
 func _on_Complete_pressed():
-#	Player.stats = Core.statsProfiles[selectedCharacter]
-#	Player.something = [true, "res://Assets/Images/Profiles/ImageBorder.png"]
-#	Player.something = [[1], [], []]
-#	Player.something = 1
-#	Player.something = [0]
-#	Player.something = 1
-#	Player.something = 0.5
-#	Player.something = 100
-#	Player.something = 100
+	var character_name = get_node("MainMenu/Choices/CharacterName/Name").text
 	
-#	var chosenEquip = get_node("MainMenu/Choices/Equipment/Classes").get_children()[selectedEquip].get_node("ClassName").text
-#	if chosenEquip == "Knight":
-#		var sword = Item.new()
-#		#sword.something = ("weapons", "melee", "one-handed sword", "Sword", [2,0,0,0,0,0,0,10,0,0], 1)
-#		Player.inventory.add(sword, 1)
-#		Player.equip(sword)
-#		print (Player.equipBuffs)
-#		Player.attacks["melee"].append(4)
-#	if chosenEquip == "Battle Mage":
-#		var staff = Item.new()
-#		#staff.something = ("weapons", "magic", "staff", "Staff", [0,0,0,0,2,0,0,0,10,0], 1)
-#		Player.inventory.add(staff, 1)
-#		Player.equip(staff)
-#		Player.attacks["mana"].append(1)
-#	if chosenEquip == "Berserker":
-#		var axe = Item.new()
-#		#axe.something = ("weapons", "melee", "two-handed axe", "Two-handed Battle Axe", [3,0,0,0,0,-1,0,20,0,0], 1)
-#		Player.inventory.add(axe, 1)
-#		Player.equip(axe)
-#		Player.attacks["melee"].append(4)
-#	if chosenEquip == "Quick Shooter":
-#		var bow = Item.new()
-#		#bow.something = Classes.CreateItem("weapons", "ranged", "hunting bow", "Bow", [0,0,0,0,0,2,0,0,0,0], 1)
-#		var arrow = Item.new()
-#		#arrow.somethingClasses.CreateItem("weapons", "consumables", "arrow", "Arrow", [0,0,0,0,0,0,1,5,0,0], 1)
-#		var dagger = Item.new()
-#		#dagger.something = ("weapons", "melee", "dagger", "Dagger", [1,0,0,0,0,0,0,5,0,0], 1)
-#		Player.inventory.add(bow, 1)
-#		Player.equip(bow)
-#		Player.inventory.add(arrow, 10)
-#		Player.equip(arrow)
-#		Player.inventory.add(dagger, 1)
-#		Player.equip(arrow)
-#		Player.attacks["ranged"].append(1)
-#		Player.attacks["melee"].append(4)
+	var stats = []
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
+		stats.append(int(stat.get_node("Numbers/Number").text))
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
+		stats.append(int(stat.get_node("Numbers/Number").text))
+	
+	var player = CharacterManager.create(character_names[selected_character])
+	player.nickname = character_name
+	player.stats = stats
+	
+	var chosen_equip = CharacterDefaults.starting_equipment.keys()[selected_equip]
+	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Core.INFO, self)
+	player.equipment = CharacterDefaults.starting_equipment[chosen_equip]
+	
+	player.file = player.meta.name + " - "+ str(OS.get_unix_time())
+	Core.player = player
 	
 	Core.emit_signal("request_scene_load", battle_scene)
 	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
@@ -138,47 +108,17 @@ func _on_Complete_pressed():
 	Core.emit_signal("request_scene_load", battle_scene)
 
 func _on_scene_loaded(scene):
-	var stats = []
-	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
-		stats.append(int(stat.get_node("Numbers/Number").text))
-	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
-		stats.append(int(stat.get_node("Numbers/Number").text))
+	if scene != battle_scene:
+		return
 	
-	var Player = Character.new()
-	Player.character_name = get_node("MainMenu/Choices/CharacterName/Name").text
+	SaveGame.save_character(Core.player)
 	
-	# load default save data and override player with chosen data then save the file and start the game
-	var data = {
-		name = Player.character_name,
-		info = "Breathes fire",
-		picture = Player.pic[0],
-		saveFile = Player.character_name + " - "+ str(OS.get_unix_time()),
-		player = Player
-	}
-	SaveGame.save_character(data)
-	
-	var Player2 = Character.new()
-	Player2.character_name = "Alrune"
-#	Player2.something = [8,8,8,8,8,8,8]
-#	Player2.something = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png"
-#	Player2.something = [true, "res://Assets/Images/Profiles/ImageBorder.png"]
-#	Player2.something = [[1, 2, 3, 4] [1], [1]]
-#	Player2.something = 1
-#	Player2.something = [0]
-#	Player2.something = 5
-#	Player2.something = 2
-#	Player2.something = 200
-#	Player2.something = 200
+	var player2 = CharacterManager.create(character_names[selected_character])
 
-	var Enemy = DeathHound.new()
-	#Enemy.something = [[], [], []], 14, [0], 1, 0.5, 100)
-	var Enemy2 = DeathHound.new()
-	#Enemy2.something = [[], [], []], 15, [0], 1, 0.5, 100)
-	var Enemy3 = DeathHound.new()
-	#Enemy3.something = [[], [], []], 16, [0], 1, 0.5, 100)
-	Enemy3.health = 0
-	Enemy3.character_name = "Dead Hound"
+	var enemy = CharacterManager.create("death_hound")
+	var enemy2 = CharacterManager.create("death_hound")
+	var enemy3 = CharacterManager.create("death_hound")
 	
-	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])
+	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy, enemy2, enemy3])
 	if scene == battle_scene:
 		queue_free()

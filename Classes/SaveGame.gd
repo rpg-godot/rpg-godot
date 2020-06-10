@@ -3,61 +3,17 @@ const script_name := "save_game"
 
 static func save_character(data):
 	var file = File.new()
-	var filepath = "user://characters/" + str(data["saveFile"]) + ".json"
+	var filepath = "user://characters/" + str(data.file) + ".json"
 	
 	if !Directory.new().file_exists("user://characters/"):
-		Directory.new().make_dir("user://characters/")
+		var error = Directory.new().make_dir("user://characters/")
+		if error:
+			Core.emit_signal("msg", "Error making dir user://characters: "
+				+ str(error), Core.WARN, "save_game")
 	
-	data.player = character_class_to_data(data.player)
 	file.open(filepath, File.WRITE)
 	file.store_string(JSON.print(data))
 	file.close()
-
-static func character_class_to_data(Character):
-	var Player = {}
-	Player["name"] = Character.character_name
-	Player["stats"] = [Character.stats["Strength"], Character.stats["Perception"], Character.stats["Endurance"], Character.stats["Charisma"], Character.stats["Intelligence"], Character.stats["Agility"], Character.stats["Luck"]]
-	Player["pic"] = Character.pic[0]
-	Player["picBorder"] = Character.picBorder
-	Player["attacks"] = Character.attacks
-	Player["level"] = Character.level
-	Player["skills"] = Character.skills
-	Player["APmax"] = Character.APmax
-	Player["APspeed"] = Character.APspeed
-	Player["AP"] = Character.AP
-	Player["healthMax"] = Character.healthMax
-	Player["health"] = Character.health
-	Player["manaMax"] = Character.manaMax
-	Player["mana"] = Character.mana
-	Player["kills"] = Character.kills
-	Player["equipment"] = Character.equipment
-	Player["inventory"] = Character.inventory
-	Player["equipBuffs"] = Character.equipBuffs
-	
-	
-	Player.attacks = [Character.attacks["melee"], Character.attacks["ranged"], Character.attacks["mana"]]
-	return Player
-	
-static func data_to_character_class(player):
-	var character = Character.new()
-	character.character_name = player["name"]
-	character.stats = player["stats"]
-	character.pic = player["pic"]
-	#character.picBoarder = player["picBorder"]
-	character.attacks = player["attacks"]
-	character.level = player["level"]
-	character.kills = player["kills"]
-	#character.apMax = player["APmax"]
-	#character.apSpeed = player["APspeed"]
-	character.healthMax = player["healthMax"]
-	character.manaMax = player["manaMax"]
-	character.health = player["health"]
-	character.mana = player["mana"]
-	character.kills = player["kills"]
-	character.equipment = player["equipment"]
-	character.inventory = player["inventory"]
-	character.equipBuffs = player["equipBuffs"]
-	return character
 
 static func load_character(character_id):
 	print (character_id)
@@ -71,7 +27,6 @@ static func load_character(character_id):
 	if !data.has("player"):
 		print('Error: Player save file does not contain player info!')
 		return false
-	data.player = data_to_character_class(data.player)
 	return data
 
 static func load_all():

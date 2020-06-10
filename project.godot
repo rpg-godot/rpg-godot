@@ -9,30 +9,35 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Attacks",
+"language": "GDScript",
+"path": "res://Classes/Attacks.gd"
+}, {
 "base": "Node",
 "class": "Battle",
 "language": "GDScript",
 "path": "res://Scenes/BattleScenes/Battle.gd"
 }, {
 "base": "Reference",
-"class": "Character",
+"class": "CharacterDefaults",
 "language": "GDScript",
-"path": "res://Classes/Characters/Character.gd"
-}, {
-"base": "Character",
-"class": "DeathHound",
-"language": "GDScript",
-"path": "res://Classes/Characters/DeathHound.gd"
+"path": "res://Classes/CharacterDefaults.gd"
 }, {
 "base": "Reference",
-"class": "Inventory",
+"class": "CharacterManager",
 "language": "GDScript",
-"path": "res://Classes/Inventory.gd"
+"path": "res://Classes/CharacterManager.gd"
 }, {
 "base": "Reference",
-"class": "Item",
+"class": "DictonaryFunc",
 "language": "GDScript",
-"path": "res://Classes/Items/Item.gd"
+"path": "res://Classes/DictonaryFunc.gd"
+}, {
+"base": "Reference",
+"class": "Items",
+"language": "GDScript",
+"path": "res://Classes/Items.gd"
 }, {
 "base": "Reference",
 "class": "SaveGame",
@@ -40,11 +45,12 @@ _global_script_classes=[ {
 "path": "res://Classes/SaveGame.gd"
 } ]
 _global_script_class_icons={
+"Attacks": "",
 "Battle": "",
-"Character": "",
-"DeathHound": "",
-"Inventory": "",
-"Item": "",
+"CharacterDefaults": "",
+"CharacterManager": "",
+"DictonaryFunc": "",
+"Items": "",
 "SaveGame": ""
 }
 

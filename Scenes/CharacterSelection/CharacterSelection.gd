@@ -23,24 +23,34 @@ var selected_character = ''
 func _ready():
 	var saves = SaveGame.load_all()
 	for save in saves:
-		add_character(save)
+			var id = save.get("file", "unknown")
+			var meta = save.get("meta", "unknown")
+			var name = "unknown"
+			var info = "unknown"
+			if typeof(meta) == TYPE_DICTIONARY:
+				name = meta.get("name", "unknown")
+				info = meta.get("info", "unknown")
+			
+			var picture = save.get("picture", CharacterDefaults.characters.alrune.picture)
+			if typeof(meta) != TYPE_DICTIONARY:
+				picture = CharacterDefaults.characters.alrune.picture
+			var player = save
+		
+			add_character(id, name, info, picture, player)
 	
 	Core.emit_signal("scene_loaded", self)
 
-func add_character(save):
-	var id = save["saveFile"]
-	var name = save.name
-	var info = save.info
-	var picture = save.picture
-	var player = save.player
+func add_character(id: String, name: String, info: String, picture: Dictionary, player: Dictionary):
 	var SelectButton = CharacterSelectionButton.instance()
+	
 	SelectButton.name = str(id)
 	get_node("VBox/Scroll/HBox/VBox/ButtonsVBox").add_child(SelectButton)
 	var ButtonInstance = get_node("VBox/Scroll/HBox/VBox/ButtonsVBox/" + str(id))
 	
 	# Set Picture
 	if picture:
-		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").texture = load(picture)
+		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").texture = load(
+			"res://Assets/Images/Profiles/" + picture.path)
 		#ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_h = player.pic[1][0]
 		#ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_v = player.pic[1][1]
 	else:
@@ -50,7 +60,7 @@ func add_character(save):
 	ButtonInstance.get_node("VBox/Content/HBox/CenterText/VBox/Name").text = name.to_upper()
 	ButtonInstance.get_node("VBox/Content/HBox/CenterText/VBox/Info").text = info.to_upper()
 	
-	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ save ])
+	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ player ])
 
 func _on_button_press(save: Dictionary):
 	Core.emit_signal("gui_pushed", "select_character", save)

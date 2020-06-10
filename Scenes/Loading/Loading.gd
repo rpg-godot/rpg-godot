@@ -17,7 +17,7 @@ func _on_scene_loaded(scene):
 		queue_free()
 
 func load_music_player():
-	print("woah")
+	Core.emit_signal("msg", "Starting music...", Core.INFO, self)
 	var player = AudioStreamPlayer.new()
 	Core.get_parent().call_deferred("add_child", player)
 	var music = load("res://Assets/Sounds/Music/Background/MainTheme/513824__georgeae2__boss-theme.ogg")
