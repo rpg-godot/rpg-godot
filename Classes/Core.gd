@@ -25,46 +25,9 @@ signal gui_loaded(name, entity)
 signal gui_pushed(name, data)
 
 var character_data = {}
+var player
 var log_loc = "user://logs/"
 var current_scene = load("res://Scenes/Loading/Loading.tscn").instance()
-
-#  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), image type, weapon type needed, weapon level needed
-var meleeAttackList = {
-	1:{"name":"Punch", "hpDamage":5, "manaDamage":0, "APcost":0.5, "target":true, "image":"Fists", "weaponNeeded":["none"], "itemLevelRequirements":1},
-	2:{"name":"Scratch", "hpDamage":10, "manaDamage":0, "APcost":1, "target":true, "image":"Claws", "weaponNeeded":["none"], "itemLevelRequirements":1},
-	3:{"name":"Bite", "hpDamage":15, "manaDamage":0, "APcost":1.5, "target":true, "image":"Teeth", "weaponNeeded":["none"], "itemLevelRequirements":1},
-	4:{"name":"Strike", "hpDamage":25, "manaDamage":0, "APcost":1, "target":true, "image":"Sword", "weaponNeeded":["one-handed sword", "two-handed swords", "two-handed axe"], "itemLevelRequirements":1}
-}
-
-#  Name, HP Damage, Mana Damage, AP Cost, Target-Type (true = enemy, false = friendly), image type, ammo used, [weapon type needed, arrow type needed], weapon level needed, arrow level needed
-var rangedAttackList = {
-	1:{"name":"Quick Shot", "hpDamage":20, "manaDamage":0, "APcost":1, "target":true, "image":"Bow", "ammoCost":1, "weaponNeeded":[["bow", "hunting bow"], ["arrow"]], "itemLevelRequirements":1, "arrowLevelRequirements":1},
-	2:{"name":"Percision Shot", "hpDamage":40, "manaDamage":0, "APcost":2, "target":true, "image":"Bow", "ammoCost":1, "weaponNeeded":[["bow", "hunting bow"], ["arrow"]], "itemLevelRequirements":2, "arrowLevelRequirements":1}
-}
-
-# Name, HP Damage, Mana Damage, AP Cost, Mana Cost, Target-Type (true = enemy, false = friendly), SFX type, weapon type needed, weapon level needed
-var manaAttackList = {
-	1:{"name":"Flame", "hpDamage":25, "manaDamage":5, "APcost":1, "manaCost":20, "target":true, "image":"Fire-Small", "weaponNeeded":["staff"], "itemLevelRequirements":1}
-}
-
-# Weapon type, Image location
-var attackImages = {
-	"Fists":"res://Assets/Images/Icons/Attacks/Fists Attack.png",
-	"Claws":"res://Assets/Images/Icons/Attacks/Claws Attack.PNG",
-	"Sword":"res://Assets/Images/Icons/Attacks/Sword Attack.PNG",
-	"Bow":"res://Assets/Images/Icons/Attacks/Bow Attack.png",
-	"Teeth":"res://Assets/Images/Icons/Attacks/Teeth Attack.png",
-	"Fire-Small":"res://Assets/Images/Icons/Attacks/Fire-Small Attack.png"
-}
-
-## [flipH, flipV]
-var flipProfile = {
-	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png": [true, false],
-	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png": [false, false],
-	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png": [false, false],
-	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png": [false, false],
-	"res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG": [false, false]
-}
 
 const FATAL = 0
 const ERROR = 1
@@ -95,6 +58,10 @@ func _ready():
 		Core.emit_signal("msg", "Event scene_loaded failed to bind", WARN, self)
 
 func _on_msg(message, level, obj):
+	var script = obj
+	if typeof(obj) != TYPE_STRING:
+		script = obj.script_name
+	
 	var level_string = "All"
 	match level:
 		FATAL:
@@ -113,7 +80,7 @@ func _on_msg(message, level, obj):
 			level_string = "  All"
 	
 	if level < 4:
-		print(level_string + " [ " + obj.script_name + " ] " + message)
+		print(level_string + " [ " + script + " ] " + message)
 	
 	var file = File.new()
 	file.open(log_loc + "latest.txt", File.READ_WRITE)
