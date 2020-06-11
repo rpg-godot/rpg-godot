@@ -109,8 +109,7 @@ const characters := {
 		
 		attacks = {
 			melee = [
-				"punch",
-				"attack"
+				"punch"
 			],
 			ranged = [
 				

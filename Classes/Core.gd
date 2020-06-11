@@ -36,6 +36,7 @@ const INFO = 3
 const DEBUG = 4
 const TRACE = 5
 const ALL = 6
+var log_level = DEBUG
 
 func _ready():
 	var file = File.new()
@@ -79,7 +80,7 @@ func _on_msg(message, level, obj):
 		ALL:
 			level_string = "  All"
 	
-	if level < 4:
+	if level <= log_level:
 		print(level_string + " [ " + script + " ] " + message)
 	
 	var file = File.new()

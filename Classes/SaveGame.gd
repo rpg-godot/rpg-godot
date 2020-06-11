@@ -5,10 +5,10 @@ static func save_character(data):
 	var file = File.new()
 	var filepath = "user://characters/" + str(data.file) + ".json"
 	
-	if !Directory.new().file_exists("user://characters/"):
+	if Directory.new().file_exists("user://characters/"):
 		var error = Directory.new().make_dir("user://characters/")
 		if error:
-			Core.emit_signal("msg", "Error making dir user://characters: "
+			Core.emit_signal("msg", "Error making dir user://characters Code: "
 				+ str(error), Core.WARN, "save_game")
 	
 	file.open(filepath, File.WRITE)
@@ -16,7 +16,7 @@ static func save_character(data):
 	file.close()
 
 static func load_character(character_id):
-	print (character_id)
+	Core.emit_signal("msg", "Loading character " + character_id + "...", Core.DEBUG, "save_game")
 	var file = File.new()
 	var filepath = "user://characters/" + str(character_id)
 	
@@ -24,16 +24,16 @@ static func load_character(character_id):
 	var text = file.get_as_text()
 	var data = parse_json(text)
 	file.close()
-	if !data.has("player"):
-		print('Error: Player save file does not contain player info!')
-		return false
+	#if !data.has("player"):
+	#	Core.emit_signal("msg", "Player save file does not contain player info! " + str(data), Core.WARN, "save_game")
+	#	return false
 	return data
 
 static func load_all():
 	var saves = []
 	for fileName in list_files_in_directory():
 		var save = load_character(fileName)
-		print ('Player info from load_character: ' + str(save))
+		Core.emit_signal("msg", "Player info from load_character: " + str(save), Core.TRACE, "save_game")
 		if save:
 			saves.append(save)
 	return saves

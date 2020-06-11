@@ -14,7 +14,7 @@ const script_name := "attacks"
 #                                                                
 #                                                                
 
-const melee_attacks := {
+const melee := {
 	
 	
 	
@@ -99,7 +99,7 @@ const melee_attacks := {
 #                    __/ |                                              
 #                   |___/                                               
 
-const ranged_attacks := {
+const ranged := {
 	
 	
 	
@@ -157,7 +157,7 @@ const ranged_attacks := {
 #                                                                  
 #                                                                  
 
-const mana_attacks := {
+const mana := {
 	
 	
 	

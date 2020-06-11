@@ -71,7 +71,7 @@ static func check(item, quantity:int):
 #	var done = false
 #	if item.broadType != "other":
 #		if !items.has(item.broadType) or !items[item.broadType].has(item.type):
-#			print('Invalid item type' + str(item.broadType) + ', ' + str(item.type))
+#			Core.emit_signal("msg", "Invalid item type" + str(item.broadType) + ", " + str(item.type), Core.WARN, "character_manager")
 #			return false
 #
 #		for inventory_item in items[item.broadType][item.type]:

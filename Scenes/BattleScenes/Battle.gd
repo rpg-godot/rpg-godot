@@ -127,104 +127,140 @@ func setup_enemy(character):
 
 
 
-
+var attack_count = 0
 func update_attacks(CharacterIndex):
-	pass
-#	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
-#	for attack in attacksList.get_children():
-#		attack.free()
-#	##Add character attacks
-#	var attackCount = 0
-#	print (friendlies[CharacterIndex].attacks)
-#	for attack in friendlies[CharacterIndex].attacks["melee"]:
-#		attacksList.add_child(load("res://Scenes/BattleScenes/AttackItem.tscn").instance())
-#		var attackItem = attacksList.get_children()[attackCount]
-#		var pictureLocation
-#		var disabled = true
-#
-#		var attack_data = CharacterDefaults.meleeAttackList[attack]
-#		var attackName = attack_data.name
-#		var attackDamage = attack_data.hpDamage
-#		var attackCost = attack_data.APcost
-#		pictureLocation = attack_data.image
-#		attackItem.get_node("Description").text = """Attack Name: %s
-#HP Damage: %s
-#AP Cost: %s""" % [attackName, attackDamage, attackCost]
-#		if attackCost <= friendlies[CharacterIndex].AP:
-#			if friendlies[CharacterIndex].equipment.items["weapons"]["melee"].size() > 0:
-#				if friendlies[CharacterIndex].equipment.items["weapons"]["melee"][0][0].subType in attack_data.weapon:
-#					if friendlies[CharacterIndex].equipment.items["weapons"]["melee"][0][0].levelRequirement >= attack_data.item_level:
-#						disabled = false
-#			if "none" in CharacterDefaults.meleeAttackList[attack].weaponNeeded:
-#				if friendlies[CharacterIndex].level >= CharacterDefaults.meleeAttackList[attack]["itemLevelRequirements"]:
-#					disabled = false
-#		attackItem.get_node("Picture").texture = load(pictureLocation)
-#		attackItem.get_node("Use").disabled = disabled
-#		attackCount+=1
-#	for attack in friendlies[CharacterIndex].attacks["ranged"]:
-#		attacksList.add_child(load("res://Scenes/BattleScenes/AttackItem.tscn").instance())
-#		var attackItem = attacksList.get_children()[attackCount]
-#		var pictureLocation
-#		var disabled = true
-#
-#		var attack_data = CharacterDefaults.rangedAttackList[attack]
-#		var attackName = attack_data.name
-#		var attackDamage = attack_data.hpDamage
-#		var attackCost = attack_data.APcost
-#		var ammoCost = attack_data.ammoCost
-#		pictureLocation = attack_data.image
-#		attackItem.get_node("Description").text = """Attack Name: %s
-#HP Damage: %s
-#AP Cost: %s
-#Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-#		if attackCost <= friendlies[CharacterIndex].AP:
-#			if friendlies[CharacterIndex].equipment.items["weapons"]["ranged"].size() > 0:
-#				if friendlies[CharacterIndex].equipment.items["weapons"]["ranged"][0][0].subType in rangedAttackList[attack].weaponNeeded[0]:
-#					if friendlies[CharacterIndex].equipment.items["weapons"]["ranged"][0][0].levelRequirement >= rangedAttackList[attack]["itemLevelRequirements"]:
-#						for ammo in friendlies[CharacterIndex].inventory.items["weapons"]["consumables"]:
-#							if ammo[1] >= rangedAttackList[attack].ammoCost:
-#								if ammo[0].subType in rangedAttackList[attack].weaponNeeded[1] && ammo[0].levelRequirement >=  rangedAttackList[attack]["itemLevelRequirements"]:
-#									disabled = false
-#			if "none" == rangedAttackList[attack].weaponNeeded[0][0]:
-#				if friendlies[CharacterIndex].level >= rangedAttackList[attack]["itemLevelRequirements"]:
-#					for ammo in friendlies[CharacterIndex].inventory.items["weapons"]["consumables"]:
-#						if ammo[0].subType in rangedAttackList[attack].weaponNeeded[1]:
-#							if ammo[1] >= rangedAttackList[attack].ammoCost && ammo[0].levelRequirement >=  rangedAttackList[attack]["itemLevelRequirements"]:
-#								disabled = false
-#						else:
-#							disabled = false
-#		attackItem.get_node("Picture").texture = load(pictureLocation)
-#		attackItem.get_node("Use").disabled = disabled
-#		attackCount+=1
-#	for attack in friendlies[CharacterIndex].attacks["mana"]:
-#		attacksList.add_child(load("res://Scenes/BattleScenes/AttackItem.tscn").instance())
-#		var attackItem = attacksList.get_children()[attackCount]
-#		var pictureLocation
-#		var disabled = true
-#		var attackName = manaAttackList[attack].name
-#		var attackDamage = manaAttackList[attack].hpDamage
-#		var manaDamage = manaAttackList[attack].manaDamage
-#		var attackCost = manaAttackList[attack].APcost
-#		var manaCost = manaAttackList[attack].manaCost
-#		if attackCost <= friendlies[CharacterIndex].AP && manaCost <= friendlies[CharacterIndex].mana:
-#			if friendlies[CharacterIndex].equipment.items["weapons"]["magic"].size() > 0:
-#				if friendlies[CharacterIndex].equipment.items["weapons"]["magic"][0][0].subType in manaAttackList[attack].weaponNeeded || "none" in manaAttackList[attack].weaponNeeded:
-#					if friendlies[CharacterIndex].equipment.items["weapons"]["magic"][0][0].levelRequirement >= manaAttackList[attack].itemLevelRequirements:
-#						disabled = false
-#			if "none" in manaAttackList[attack].weaponNeeded:
-#				if friendlies[CharacterIndex].level >= manaAttackList[attack].itemLevelRequirements:
-#					disabled = false
-#		pictureLocation = attackImages[manaAttackList[attack].image]
-#		attackItem.get_node("Description").text = """Attack Name: %s
-#HP Damage: %s
-#Mana Damage: %s
-#AP Cost: %s
-#Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
-#		attackItem.get_node("Picture").texture = load(pictureLocation)
-#		attackItem.get_node("Use").disabled = disabled
-#		attackCount+=1
+	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
+	for attack in attacksList.get_children():
+		attack.free()
+	# Add character attacks
+	var attacks = friendlies[CharacterIndex].attacks
+	
+	var attack_scene = load("res://Scenes/BattleScenes/AttackItem.tscn")
+	
+	Core.emit_signal("msg", "Rendering attacks...", Core.DEBUG, self)
+	Core.emit_signal("msg", str(attacks), Core.DEBUG, self)
+	for attack in attacks.melee:
+		var attack_item = attack_scene.instance()
+		attacksList.add_child(attack_item)
+		create_melee_button(attack, attack_item, CharacterIndex)
+		
+	for attack in attacks.ranged:
+		var attack_item = attack_scene.instance()
+		attacksList.add_child(attack_item)
+		create_ranged_button(attack, attack_item, CharacterIndex)
+		
+	for attack in attacks.mana:
+		var attack_item = attack_scene.instance()
+		attacksList.add_child(attack_item)
+		create_mana_button(attack, attack_item, CharacterIndex)
+
+func create_melee_button(attack, attack_item, CharacterIndex):
+	var disabled = true
+
+	var attack_data = Attacks.melee[attack]
+	var attackName = attack_data.name
+	var attackDamage = attack_data.hp_damage
+	var attackCost = attack_data.ap_cost
+	var pictureLocation = attack_data.image
+	attack_item.get_node("Description").text = """Attack Name: %s
+HP Damage: %s
+AP Cost: %s""" % [attackName, attackDamage, attackCost]
+	
+	#disabled = check_melee_cost(attackCost, CharacterIndex, attack, attack_data)
+	
+	attack_item.get_node("Picture").texture = load(pictureLocation)
+	attack_item.get_node("Use").disabled = disabled
+	attack_count+=1
+
+func create_ranged_button(attack, attack_item, CharacterIndex):
+	var disabled = true
+
+	var attack_data = Attacks.ranged[attack]
+	var attackName = attack_data.name
+	var attackDamage = attack_data.hpDamage
+	var attackCost = attack_data.APcost
+	var ammoCost = attack_data.ammoCost
+	var pictureLocation = attack_data.image
+	attack_item.get_node("Description").text = """Attack Name: %s
+HP Damage: %s
+AP Cost: %s
+Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
+	
+	#disabled = check_ranged_cost(attackCost, CharacterIndex, attack, attack_data)
+	
+	attack_item.get_node("Picture").texture = load(pictureLocation)
+	attack_item.get_node("Use").disabled = disabled
+	attack_count+=1
+
+func create_mana_button(attack, attack_item, CharacterIndex):
+	var disabled = true
+	
+	var attack_data = Attacks.mana[attack]
+	var attackName = attack_data.name
+	var attackDamage = attack_data.hpDamage
+	var manaDamage = attack_data.manaDamage
+	var attackCost = attack_data.APcost
+	var manaCost = attack_data.manaCost
+	var pictureLocation = attack_data.image
+	
+	#disabled = check_mana_cost(attackCost, CharacterIndex, attack, attack_data, manaCost)
+	
+	attack_item.get_node("Description").text = """Attack Name: %s
+HP Damage: %s
+Mana Damage: %s
+AP Cost: %s
+Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
+	attack_item.get_node("Picture").texture = load(pictureLocation)
+	attack_item.get_node("Use").disabled = disabled
+	attack_count+=1
 
 
+func check_melee_cost(attack_cost, CharacterIndex, attack, attack_data):
+	var equipment = friendlies[CharacterIndex].items.equipment
+	
+	if attack_cost <= friendlies[CharacterIndex].ap:
+		if equipment.melee.size() > 0:
+			if equipment.melee[0].name in attack_data.weapon:
+				if equipment.melee[0].level_requirement >= attack_data.item_level:
+					return false
+		if "none" in attack_data.weapon:
+			if friendlies[CharacterIndex].level >= attack_data.level_requirements:
+				return false
+
+
+func check_ranged_cost(attack_cost, CharacterIndex, attack, attack_data):
+	var equipment = friendlies[CharacterIndex].items.equipment
+	
+	if attack_cost <= friendlies[CharacterIndex].AP:
+		if equipment.ranged.size() > 0:
+			if equipment.ranged[0].name in attack_data.weapon:
+				if equipment.ranged[0].level_requirement >= attack_data.item_level:
+					for ammo in equipment.consumables:
+						return false
+						#if ammo[1] >= attack_data.ammo_cost:
+							#if ammo[0].subType in attack_data.weaponNeeded[1] && ammo[0].levelRequirement >=  rangedAttackList[attack]["itemLevelRequirements"]:
+								#return false
+		if "none" in attack_data.weapon:
+			if friendlies[CharacterIndex].level >= attack_data.level_requirement:
+				for ammo in friendlies[CharacterIndex].inventory.items["weapons"]["consumables"]:
+					if ammo[0].subType in attack_data.weapon[1]:
+						if ammo[1] >= attack_data.ammo_cost && ammo[0].level_requirement >=  attack_data.level_requirements:
+							return false
+					else:
+						return false
+
+
+func check_mana_cost(attack_cost, CharacterIndex, attack, attack_data, mana_cost):
+	var equipment = friendlies[CharacterIndex].items.equipment
+	
+	if attack_cost <= friendlies[CharacterIndex].AP && mana_cost <= friendlies[CharacterIndex].mana:
+		if equipment.magic.size() > 0:
+			if equipment.magic[0].subType in attack_data.weapon || "none" in attack_data.weapon:
+				if equipment.magic[0].level_requirement >= attack_data.level:
+					return false
+		if "none" in attack_data.weapon_needed:
+			if friendlies[CharacterIndex].level >= attack_data.level_requirements:
+				return false
 
 
 func _on_Attack_pressed():
