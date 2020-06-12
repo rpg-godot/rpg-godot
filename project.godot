@@ -35,14 +35,14 @@ _global_script_classes=[ {
 "path": "res://Classes/DictonaryFunc.gd"
 }, {
 "base": "Reference",
-"class": "Inventory",
+"class": "InventoryManager",
 "language": "GDScript",
-"path": "res://Classes/Inventory.gd"
+"path": "res://Classes/InventoryManager.gd"
 }, {
 "base": "Reference",
-"class": "Item",
+"class": "ItemManager",
 "language": "GDScript",
-"path": "res://Classes/Item.gd"
+"path": "res://Classes/ItemManager.gd"
 }, {
 "base": "Reference",
 "class": "Items",
@@ -60,8 +60,8 @@ _global_script_class_icons={
 "CharacterDefaults": "",
 "CharacterManager": "",
 "DictonaryFunc": "",
-"Inventory": "",
-"Item": "",
+"InventoryManager": "",
+"ItemManager": "",
 "Items": "",
 "SaveGame": ""
 }

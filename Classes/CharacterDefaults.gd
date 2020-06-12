@@ -15,10 +15,6 @@ const script_name := "character_defaults"
 #                                 |___/           |_|       |_|     
 
 const starting_equipment := {
-	
-	
-	
-	
 	knight = [
 		"sword"
 	],
@@ -43,11 +39,72 @@ const starting_equipment := {
 	quick_shooter = [
 		"bow", "arrow", "dagger"
 	]
-	
-	
-	
-	
 }
+
+
+
+
+const starting_attacks := {
+	knight = {
+		melee = [
+			"strike"
+		],
+		ranged = [
+			
+		],
+		mana = [
+			
+		],
+	},
+	
+	
+	
+	
+	battle_mage = {
+		melee = [
+			
+		],
+		ranged = [
+			
+		],
+		mana = [
+			"flame"
+		],
+	},
+	
+	
+	
+	
+	berserker = {
+		melee = [
+			"strike"
+		],
+		ranged = [
+			
+		],
+		mana = [
+			
+		],
+	},
+	
+	
+	
+	
+	quick_shooter = {
+		melee = [
+			
+		],
+		ranged = [
+			"quick_shot", "strike"
+		],
+		mana = [
+			
+		],
+	}
+}
+
+
+
 
 ## [flipH, flipV]
 const flip_profile := {
@@ -93,7 +150,10 @@ var characters := {
 			charisma = 3,
 			intelligence = 3,
 			agility = 3,
-			luck = 3
+			luck = 3,
+			melee = 0,
+			mana = 0,
+			defense = 0,
 		},
 		
 		picture = {
@@ -144,8 +204,9 @@ var characters := {
 		
 		
 		kills = 0,
+		
 		items = {
-			amour = {
+			armour = {
 				head = [
 					
 				],
@@ -166,29 +227,25 @@ var characters := {
 				]
 			},
 			
+			equipment = {
+				melee = [
+					
+				], 
+				ranged = [
+					
+				],
+				consumables = [
+					
+				], 
+				magic = [
+					
+				]
+			},
 			
-			
-			
-			equipment = Inventory.new(),
-			inventory = Inventory.new(),
-			
-		},
-		
-		
-		
-		
-		equip_buffs = {
-			strength = 0,
-			perception = 0,
-			endurance = 0,
-			charisma = 0,
-			intelligence = 0,
-			agility = 0,
-			luck = 0,
-			melee = 0,
-			mana = 0,
-			defense = 0,
-		},
+			inventory = [
+				
+			]
+		}
 	},
 	
 	
@@ -219,7 +276,10 @@ var characters := {
 			charisma = 3,
 			intelligence = 3,
 			agility = 3,
-			luck = 3
+			luck = 3,
+			melee = 0,
+			mana = 0,
+			defense = 0,
 		},
 		
 		picture = {
@@ -268,25 +328,47 @@ var characters := {
 		
 		
 		kills = 0,
-		equipment = [
+		
+		items = {
+			armour = {
+				head = [
+					
+				],
+				torso = [
+					
+				],
+				arms = [
+					
+				], 
+				legs = [
+					
+				],
+				feet = [
+					
+				],
+				shield = [
+					
+				]
+			},
 			
-		],
-		inventory = Inventory.new(),
-		
-		
-		
-		
-		equip_buffs = {
-			strength = 0,
-			perception = 0,
-			endurance = 0,
-			charisma = 0,
-			intelligence = 0,
-			agility = 0,
-			luck = 0,
-			melee = 0,
-			mana = 0,
-			defense = 0
+			equipment = {
+				melee = [
+					
+				], 
+				ranged = [
+					
+				],
+				consumables = [
+					
+				], 
+				magic = [
+					
+				]
+			},
+			
+			inventory = [
+				
+			]
 		}
 	}
 }

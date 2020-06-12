@@ -97,53 +97,7 @@ func _on_Complete_pressed():
 	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Core.INFO, self)
 	#player.equipment = CharacterDefaults.starting_equipment[chosen_equip]
 	
-	match chosen_equip:
-		"knight":
-			var buffs = Dictionary()
-			buffs.strength = 2
-			buffs.melee_attack = 10
-			var sword = Item.new("weapons", "melee", "one-handed sword", "Sword", buffs, 1)
-			player.items.inventory.add(sword, 1)
-			CharacterManager.equip(player, sword)
-			print (player.equip_buffs)
-			player.attacks.melee.append("strike")
-		"battle_mage":
-			var buffs = Dictionary()
-			buffs.intelligence = 2
-			buffs.mana_attack = 10
-			var staff = Item.new("weapons", "magic", "staff", "Staff", buffs, 1)
-			player.items.inventory.add(staff, 1)
-			CharacterManager.equip(player, staff)
-			player.attacks.mana.append("flame")
-		"berserker":
-			var buffs = Dictionary()
-			buffs.strength = 3
-			buffs.agility = -1
-			buffs.melee_attack = 20
-			var axe = Item.new("weapons", "melee", "two-handed axe", "Two-handed Battle Axe", buffs, 1)
-			player.items.inventory.add(axe, 1)
-			CharacterManager.equip(player, axe)
-			player.attacks.melee.append("strike")
-		"quick_shooter":
-			var buffs = Dictionary()
-			buffs.agility = 2
-			var bow = Item.new("weapons", "ranged", "hunting bow", "Bow", buffs, 1)
-			var buffs2 = Dictionary()
-			buffs2.luck = 1
-			buffs2.melee_attack = 5
-			var arrow = Item.new("weapons", "consumables", "arrow", "Arrow", buffs2, 1)
-			var buffs3 = Dictionary()
-			buffs3.strength = 1
-			buffs3.melee_attack = 5
-			var dagger = Item.new("weapons", "melee", "dagger", "Dagger", buffs3, 1)
-			player.items.inventory.add(bow, 1)
-			CharacterManager.equip(player, bow)
-			player.items.inventory.add(arrow, 10)
-			CharacterManager.equip(player, arrow)
-			player.items.inventory.add(dagger, 1)
-			CharacterManager.equip(player, arrow)
-			player.items.attacks.ranged.append("quick_shot")
-			player.items.attacks.melee.append("strike")
+	CharacterManager.load_class(player, chosen_equip)
 	
 	player.file = player.meta.name + " - "+ str(OS.get_unix_time())
 	Core.player = player
