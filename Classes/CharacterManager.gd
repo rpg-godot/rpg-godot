@@ -1,14 +1,16 @@
 class_name CharacterManager
 const script_name := "character_manager"
 
-static func create(character):
-	return CharacterDefaults.new().characters[character]
 
-static func load_class(character_data, character_class):
+static func create(character_name: String):
+	return CharacterDefaults.new().characters[character_name]
+
+
+static func load_class(character_data: Dictionary, character_class: String):
 	# Add equipment to the character inventory and equip those items
 	for item in CharacterDefaults.starting_equipment[character_class]:
-		InventoryManager.add(character_data, Items.items[item])
-		equip(character_data, Items.items[item])
+		var item_index = add(character_data, Items.items[item])
+		equip(character_data, item_index)
 	
 	# Add character attacks
 	for attack_type in CharacterDefaults.starting_attacks[character_class].keys():
@@ -17,30 +19,45 @@ static func load_class(character_data, character_class):
 	
 	return character_data
 
+
 static func learn_attack(character_data: Dictionary, attack_type: String, attack_name: String):
 	character_data.attacks[attack_type].append(attack_name)
 
-static func calcuate_item_buffs(player):
+
+static func calcuate_item_buffs(character_data):
 	Core.emit_signal("msg", "This function is not implemented yet!", Core.WARN, "character_manager")
 	#for item in player.items:
 	#	pass
 
-static func equip(player, item):
-	if !InventoryManager.item_exists(player, item):
+
+static func add(character_data: Dictionary, item_data: Dictionary, quantity:=1):
+	return InventoryManager.add(character_data.items.inventory, item_data, quantity)
+
+
+static func remove(character_data: Dictionary, item_data: Dictionary, quantity:=1):
+	InventoryManager.remove(character_data.items.inventory, item_data, quantity)
+
+
+static func equip(character_data: Dictionary, item_index: int):
+	if !character_data.items.inventory[item_index]:
 		return false
+	var item = character_data.items.inventory[item_index]
 	
-	if item.level_requirement <= player.level:
-		player.items[item.type][item.subtype].append(item)
+	if item.level_requirement <= character_data.level:
+		character_data.items[item.type][item.subtype].append(item_index)
 	else:
 		return false
 
-static func unequip(player, item):
-	#if !player.items.inventory.item_exists(item):
-	#	return false
-	
-	player.items[item.type][item.subtype].erase(item)
 
-static func set_level(player):
+static func unequip(character_data: Dictionary, item_index: int):
+	if !character_data.items.inventory[item_index]:
+		return false
+	var item = character_data.items.inventory[item_index]
+	
+	character_data.items[item.type][item.subtype].erase(item_index)
+
+
+static func set_level(character_data: Dictionary, level: int):
 	Core.emit_signal("msg", "This function is not implemented yet!", Core.WARN, "character_manager")
 #		var tempLevel = level
 #	var count = 1
