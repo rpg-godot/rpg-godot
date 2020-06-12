@@ -31,7 +31,7 @@ func _ready():
 				name = meta.get("name", "unknown")
 				info = meta.get("info", "unknown")
 			
-			var picture = save.get("picture", CharacterDefaults.characters.alrune.picture)
+			var picture = save.get("picture", CharacterDefaults.new().characters.alrune.picture)
 			if typeof(meta) != TYPE_DICTIONARY:
 				picture = CharacterDefaults.characters.alrune.picture
 			var player = save

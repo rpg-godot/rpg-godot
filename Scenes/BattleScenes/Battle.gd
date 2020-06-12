@@ -87,7 +87,7 @@ func setup_friendly(character):
 	get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(character_panel)
 	
 	var picture = character_panel.get_node("VBox/Picture/Pic")
-	picture.texture = load(character.picture.path)
+	picture.texture = load("res://Assets/Images/Profiles/" + character.picture.path)
 	picture.flip_h = CharacterDefaults.flip_profile[character.picture.path][0]
 	picture.flip_v = CharacterDefaults.flip_profile[character.picture.path][1]
 	
@@ -111,7 +111,7 @@ func setup_enemy(character):
 	var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
 	
 	var picture = enemyPanel.get_node("VBox/Control/Pic")
-	picture.texture = load(character.picture.path)
+	picture.texture = load("res://Assets/Images/Profiles/" + character.picture.path)
 	picture.flip_h = CharacterDefaults.flip_profile[character.picture.path][0]
 	picture.flip_v = CharacterDefaults.flip_profile[character.picture.path][1]
 	
