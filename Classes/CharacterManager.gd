@@ -4,38 +4,41 @@ const script_name := "character_manager"
 static func create(character):
 	return CharacterDefaults.new().characters[character]
 
-# true if slot empty and item is owned
+static func load_class(character, character_class):
+	# Add equipment to the character inventory and equip those items
+	for item in CharacterDefaults.starting_equipment[character_class]:
+		InventoryManager.add(character, Items.items[item])
+		equip(character, Items.items[item])
+	
+	# Add character attacks
+	for attack_type in CharacterDefaults.starting_attacks[character_class].keys():
+		for attack in CharacterDefaults.starting_attacks[character_class][attack_type]:
+			character.attacks[attack_type].append(attack)
+	
+	return character
+
+static func calcuate_item_buffs(player, item):
+	Core.emit_signal("msg", "This function is not implemented yet!", Core.WARN, "character_manager")
+	#for item in player.items:
+	#	pass
+
 static func equip(player, item):
-	var check = player.items.inventory.check(item, 1)
-	if !check:
+	if !InventoryManager.item_exists(player, item):
+		return false
+	
+	if item.level_requirement <= player.level:
+		player.items[item.type][item.subtype].append(item)
+	else:
 		return false
 
-	if check[0]:
-		if player.items.equipment.items[item.broadType][item.type].size() == 0:
-			if item.levelRequirement <= player.level:
-				player.items.equipment.add(item, 1)
-				for buffKey in item.buffs.keys():
-					if buffKey == "mana_attack" or  buffKey == "defense" or buffKey == "melee_attack":
-						pass
-					else:
-						player.equip_buffs[buffKey] += item.buffs[buffKey]
-				return [true, "Done"]
-			else:
-				return [false, "Level Requirement Not Met"]
-		else:
-			return [false, "Doesn't Exist"]
-
 static func unequip(player, item):
-	if player.items.equipment.check(item, 1)[0]:
-		player.items.equipment.remove(item, 1)
-		for buffKey in item.buffs.keys():
-			player.equipBuffs[buffKey] -= item.buffs[buffKey]
-		return [true, "Done"]
-	else:
-			return [false, "Doesn't Exist"]
+	#if !player.items.inventory.item_exists(item):
+	#	return false
+	
+	player.items[item.type][item.subtype].erase(item)
 
 static func set_level(player):
-	pass
+	Core.emit_signal("msg", "This function is not implemented yet!", Core.WARN, "character_manager")
 #		var tempLevel = level
 #	var count = 1
 #	while tempLevel >= 5:

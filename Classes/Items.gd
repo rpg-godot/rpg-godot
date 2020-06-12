@@ -9,20 +9,25 @@ const items := {
 	sword = {
 		nickname = "Sword",
 		name = "sword",
-		type = "melee",
+		type = "equipment",
+		subtype = "melee",
 		hand = "one-handed",
 		tags = [],
 		buffs = {
-			strength = 0,
+			strength = 2,
 			perception = 0,
 			endurance = 0,
 			charisma = 0,
 			intelligence = 0,
 			agility = 0,
 			luck = 0,
+			melee = 10,
+			mana = 0,
+			defense = 0
 		},
 		level = 1,
 		level_requirement = 1,
+		quantity = 1,
 	},
 	
 	
@@ -31,7 +36,8 @@ const items := {
 	staff = {
 		nickname = "Staff",
 		name = "staff",
-		type = "magic",
+		type = "equipment",
+		subtype = "magic",
 		hand = "one-handed",
 		tags = [],
 		buffs = {
@@ -39,12 +45,16 @@ const items := {
 			perception = 0,
 			endurance = 0,
 			charisma = 0,
-			intelligence = 0,
+			intelligence = 2,
 			agility = 0,
 			luck = 0,
+			melee = 0,
+			mana = 10,
+			defense = 0
 		},
 		level = 1,
 		level_requirement = 1,
+		quantity = 1,
 	},
 	
 	
@@ -53,20 +63,25 @@ const items := {
 	axe = {
 		nickname = "Battle Axe",
 		name = "axe",
-		type = "melee",
+		type = "equipment",
+		subtype = "melee",
 		hand = "two-handed",
 		tags = [],
 		buffs = {
-			strength = 0,
+			strength = 3,
 			perception = 0,
 			endurance = 0,
 			charisma = 0,
 			intelligence = 0,
-			agility = 0,
+			agility = -1,
 			luck = 0,
+			melee = 20,
+			mana = 0,
+			defense = 0
 		},
 		level = 1,
 		level_requirement = 1,
+		quantity = 1,
 	},
 	
 	
@@ -75,7 +90,8 @@ const items := {
 	bow = {
 		nickname = "Hunting bow",
 		name = "bow",
-		type = "ranged",
+		type = "equipment",
+		subtype = "ranged",
 		hand = "two-handed",
 		tags = [],
 		buffs = {
@@ -84,11 +100,15 @@ const items := {
 			endurance = 0,
 			charisma = 0,
 			intelligence = 0,
-			agility = 0,
+			agility = 2,
 			luck = 0,
+			melee = 0,
+			mana = 0,
+			defense = 0
 		},
 		level = 1,
 		level_requirement = 1,
+		quantity = 1,
 	},
 	
 	
@@ -97,7 +117,8 @@ const items := {
 	arrow = {
 		nickname = "Arrow",
 		name = "arrow",
-		type = "consumables",
+		type = "equipment",
+		subtype = "consumables",
 		hand = "one-handed",
 		tags = [],
 		buffs = {
@@ -107,10 +128,14 @@ const items := {
 			charisma = 0,
 			intelligence = 0,
 			agility = 0,
-			luck = 0,
+			luck = 1,
+			melee = 4,
+			mana = 0,
+			defense = 0
 		},
 		level = 1,
 		level_requirement = 1,
+		quantity = 1,
 	},
 	
 	
@@ -119,7 +144,8 @@ const items := {
 	dagger = {
 		nickname = "Dagger",
 		name = "dagger",
-		type = "melee",
+		type = "equipment",
+		subtype = "melee",
 		hand = "one-handed",
 		tags = [],
 		buffs = {
@@ -129,10 +155,14 @@ const items := {
 			charisma = 0,
 			intelligence = 0,
 			agility = 0,
-			luck = 0,
+			luck = 1,
+			melee = 5,
+			mana = 0,
+			defense = 0
 		},
 		level = 1,
 		level_requirement = 1,
+		quantity = 1,
 	}
 	
 	
