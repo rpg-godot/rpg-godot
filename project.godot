@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Classes/Attacks.gd"
 }, {
-"base": "Node",
-"class": "Battle",
-"language": "GDScript",
-"path": "res://Scenes/BattleScenes/Battle.gd"
-}, {
 "base": "Reference",
 "class": "CharacterDefaults",
 "language": "GDScript",
@@ -56,7 +51,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Attacks": "",
-"Battle": "",
 "CharacterDefaults": "",
 "CharacterManager": "",
 "DictonaryFunc": "",
