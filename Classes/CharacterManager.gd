@@ -4,20 +4,23 @@ const script_name := "character_manager"
 static func create(character):
 	return CharacterDefaults.new().characters[character]
 
-static func load_class(character, character_class):
+static func load_class(character_data, character_class):
 	# Add equipment to the character inventory and equip those items
 	for item in CharacterDefaults.starting_equipment[character_class]:
-		InventoryManager.add(character, Items.items[item])
-		equip(character, Items.items[item])
+		InventoryManager.add(character_data, Items.items[item])
+		equip(character_data, Items.items[item])
 	
 	# Add character attacks
 	for attack_type in CharacterDefaults.starting_attacks[character_class].keys():
-		for attack in CharacterDefaults.starting_attacks[character_class][attack_type]:
-			character.attacks[attack_type].append(attack)
+		for attack_name in CharacterDefaults.starting_attacks[character_class][attack_type]:
+			learn_attack(character_data, attack_type, attack_name)
 	
-	return character
+	return character_data
 
-static func calcuate_item_buffs(player, item):
+static func learn_attack(character_data: Dictionary, attack_type: String, attack_name: String):
+	character_data.attacks[attack_type].append(attack_name)
+
+static func calcuate_item_buffs(player):
 	Core.emit_signal("msg", "This function is not implemented yet!", Core.WARN, "character_manager")
 	#for item in player.items:
 	#	pass
