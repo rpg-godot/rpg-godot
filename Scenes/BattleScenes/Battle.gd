@@ -1,5 +1,4 @@
 extends Node
-class_name Battle
 const script_name := "battle"
 
 onready var BattleBoard := $"TopScreen/DisplayArea/BattleBoard/"
