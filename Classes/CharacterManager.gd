@@ -2,7 +2,7 @@ class_name CharacterManager
 const script_name := "character_manager"
 
 static func create(character):
-	return CharacterDefaults.characters[character]
+	return CharacterDefaults.new().characters[character]
 
 ## true if slot empty and item is owned
 static func equip(inventory, item):

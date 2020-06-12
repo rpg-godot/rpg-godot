@@ -63,7 +63,7 @@ const flip_profile := {
 
 #### characters ################################################################
 
-const characters := {
+var characters := {
 	
 	
 	
@@ -184,15 +184,7 @@ const characters := {
 				]
 			},
 			
-			
-			
-			
-			inventory = [
-				
-			]
-			
-			
-			
+			inventory = Inventory.new()
 			
 		},
 		
@@ -293,9 +285,7 @@ const characters := {
 		equipment = [
 			
 		],
-		inventory = [
-			
-		],
+		inventory = Inventory.new(),
 		
 		
 		
