@@ -4,16 +4,16 @@ var broadType = ""
 var type = ""
 var name = ""
 var typeStat = 0
-var buffs = {"Strength":0, "Perception":0, "Endurance":0, "Charisma":0, "Intelligence":0, "Agility":0, "Luck":0}
+var buffs = {"strength":0, "perception":0, "endurance":0, "charisma":0, "intelligence":0, "agility":0, "luck":0, "melee_attack":0, "mana_attack":0,  "defense":0}
 var levelRequirement = 1
 var subType = "None"
 
-func _init(new_broadType:String, new_type:String, new_subType:String, new_name:String, new_buffs:Array, new_levelRequirement:int):
+func _init(new_broadType:String, new_type:String, new_subType:String, new_name:String, new_buffs:Dictionary, new_levelRequirement:int):
 	broadType = new_broadType
 	type = new_type
 	subType = new_subType
 	name = new_name
-	buffs = {"Strength":new_buffs[0], "Perception":new_buffs[1], "Endurance":new_buffs[2], "Charisma":new_buffs[3], "Intelligence":new_buffs[4], "Agility":new_buffs[5], "Luck":new_buffs[6], "MeleeAttack":new_buffs[7], "ManaAttack":new_buffs[8],  "Defense":new_buffs[9]}
+	DictonaryFunc.merge_dict(buffs, new_buffs)
 	levelRequirement = levelRequirement
 
 ## Compare with another item
