@@ -120,7 +120,7 @@ const flip_profile := {
 
 #### characters ################################################################
 
-var characters := {
+const characters := {
 	
 	
 	
