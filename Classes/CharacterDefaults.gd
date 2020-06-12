@@ -169,29 +169,15 @@ var characters := {
 			
 			
 			
-			equipment = {
-				melee = [
-					
-				], 
-				ranged = [
-					
-				],
-				consumables = [
-					
-				], 
-				magic = [
-					
-				]
-			},
-			
-			inventory = Inventory.new()
+			equipment = Inventory.new(),
+			inventory = Inventory.new(),
 			
 		},
 		
 		
 		
 		
-		equipBuffs = {
+		equip_buffs = {
 			strength = 0,
 			perception = 0,
 			endurance = 0,
@@ -290,7 +276,7 @@ var characters := {
 		
 		
 		
-		equipBuffs = {
+		equip_buffs = {
 			strength = 0,
 			perception = 0,
 			endurance = 0,

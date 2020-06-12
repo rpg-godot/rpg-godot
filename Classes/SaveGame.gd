@@ -16,7 +16,7 @@ static func save_character(data):
 	file.close()
 
 static func load_character(character_id):
-	Core.emit_signal("msg", "Loading character " + character_id + "...", Core.DEBUG, "save_game")
+	#Core.emit_signal("msg", "Loading character " + character_id + "...", Core.DEBUG, "save_game")
 	var file = File.new()
 	var filepath = "user://characters/" + str(character_id)
 	
