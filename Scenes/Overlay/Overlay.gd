@@ -26,7 +26,7 @@ func lightning():
 	if energy >=2:
 		if rand_range(0, 7) > 1:
 			AudioManager.load_music_player("PowerMove", "Effects/Lightning/PowerMove/186907__rowy101__lightning-direct-hit-rowy101.ogg", "EffectLightning", false)
-			yield(get_tree().create_timer(rand_range(2, 5)), "timeout")
+			yield(get_tree().create_timer(rand_range(5, 6)), "timeout")
 	
 	light.enabled = true
 	light.energy = energy

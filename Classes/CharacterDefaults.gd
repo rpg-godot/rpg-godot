@@ -15,29 +15,43 @@ const script_name := "character_defaults"
 #                                 |___/           |_|       |_|     
 
 const starting_equipment := {
-	knight = [
-		"sword"
-	],
+	knight = [ {
+			name = "sword",
+			quantity = 1
+	} ],
 	
 	
 	
 	
-	battle_mage = [
-		"staff"
-	],
+	battle_mage = [ {
+		name = "staff",
+		quantity = 1
+	} ],
 	
 	
 	
 	
-	berserker = [
-		"axe"
-	],
+	berserker = [ {
+		name = "axe",
+		quantity = 1
+	} ],
 	
 	
 	
 	
-	quick_shooter = [
-		"bow", "arrow", "dagger"
+	quick_shooter = [ 
+		{
+			name = "bow",
+			quantity = 1,
+		},
+		{
+			name = "arrow",
+			quantity = 15,
+		},
+		{
+			name = "dagger",
+			quantity = 1,
+		}
 	]
 }
 

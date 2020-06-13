@@ -15,7 +15,7 @@ func _input(event):
 func start_game():
 	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
 	if error:
-		Core.emit_signal("msg", "Event scene_loaded failed to bind", Core.WARN, self)
+		Core.emit_signal("msg", "Event scene_loaded failed to bind", Log.WARN, self)
 	
 	Core.emit_signal("request_scene_load", character_selection)
 

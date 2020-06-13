@@ -1,7 +1,7 @@
 extends Control
 const script_name := "character_creation"
 
-var battle_scene = load("res://Scenes/BattleScenes/Battle.tscn").instance()
+var battle_scene = load("res://Scenes/Battle/Battle.tscn").instance()
 
 onready var selected_character := -1
 onready var selected_equip := -1
@@ -32,8 +32,8 @@ func _ready():
 	ial[0].get_node("Labels/Label").text = "Intelligence"
 	ial[1].get_node("Labels/Label").text = "Agility"
 	ial[2].get_node("Labels/Label").text = "Luck"
-#	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selectedCharacter].get_node("Border").show()
-#	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selectedCharacter].chosen = true
+	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selected_character].get_node("Border").show()
+	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selected_character].chosen = true
 	var knight = get_node("MainMenu/Choices/Equipment/Classes/Knight")
 	knight.get_node("ClassName").text = "Knight"
 	knight.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_warrior.png")
@@ -98,7 +98,7 @@ func _on_Complete_pressed():
 	player.stats = stats
 
 	var chosen_equip = CharacterDefaults.starting_equipment.keys()[selected_equip]
-	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Core.INFO, self)
+	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Log.INFO, self)
 	#player.equipment = CharacterDefaults.starting_equipment[chosen_equip]
 	CharacterManager.load_class(player, chosen_equip)
 
@@ -108,7 +108,7 @@ func _on_Complete_pressed():
 	Core.emit_signal("request_scene_load", battle_scene)
 	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
 	if error:
-		Core.emit_signal("msg", "Event scene_loaded failed to bind", Core.WARN, self)
+		Core.emit_signal("msg", "Event scene_loaded failed to bind", Log.WARN, self)
 
 	Core.emit_signal("request_scene_load", battle_scene)
 
@@ -120,10 +120,13 @@ func _on_scene_loaded(scene):
 
 	var player2 = CharacterManager.create(character_names[selected_character])
 
-	var enemy = CharacterManager.create("death_hound")
+	var enemy1 = CharacterManager.create("death_hound")
+	CharacterManager.set_level(enemy1, int(rand_range(1, 10)))
 	var enemy2 = CharacterManager.create("death_hound")
+	CharacterManager.set_level(enemy2, int(rand_range(1, 10)))
 	var enemy3 = CharacterManager.create("death_hound")
+	CharacterManager.set_level(enemy3, int(rand_range(1, 10)))
 
-	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy, enemy2, enemy3])
+	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2, enemy3])
 	if scene == battle_scene:
 		queue_free()
