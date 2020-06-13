@@ -4,19 +4,13 @@
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/CharacterSelection/CharacterSelectionButton.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Images/Wooden_UI/bg_01_02_landscape.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/Wooden_UI/board.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=7]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 2 )
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0, 0.042719, 0.0966797, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0, 0.0745098, 0.168627, 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0, 0, 0, 1 )
 
 [node name="CharacterSelectionButton" type="Control"]
 margin_right = 652.0
@@ -73,13 +67,35 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
-[node name="Profile" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox"]
+[node name="Profile" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
 margin_left = 34.0
 margin_right = 234.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox/Profile"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
 texture = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox/Profile"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SeperatorRight" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
 margin_left = 238.0
@@ -103,7 +119,7 @@ margin_bottom = 132.0
 margin_right = 217.0
 margin_bottom = 33.0
 mouse_filter = 1
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 1 )
 text = "CHARACTER NAME"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -120,16 +136,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="VBox/Content"]
+[node name="Button" type="TextureButton" parent="VBox/Content"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/normal = SubResource( 3 )
 toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 6 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

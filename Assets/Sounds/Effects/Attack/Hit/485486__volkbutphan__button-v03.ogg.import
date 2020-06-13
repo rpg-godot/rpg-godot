@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/485486__volkbutphan__button-v03.ogg-35d563de9636becba5e36be230c7339f.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Attack/Hit/485486__volkbutphan__button-v03.ogg"
+dest_files=[ "res://.import/485486__volkbutphan__button-v03.ogg-35d563de9636becba5e36be230c7339f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

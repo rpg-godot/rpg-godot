@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/394261__sirkoto51__rpg-battle-loop-2-the-hero-s-passage.ogg-444c908d1db0f2448182b4b695abc16c.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/394261__sirkoto51__rpg-battle-loop-2-the-hero-s-passage.ogg"
+dest_files=[ "res://.import/394261__sirkoto51__rpg-battle-loop-2-the-hero-s-passage.ogg-444c908d1db0f2448182b4b695abc16c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

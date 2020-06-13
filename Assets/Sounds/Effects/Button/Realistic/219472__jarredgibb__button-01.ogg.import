@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/219472__jarredgibb__button-01.ogg-37921adecb9496f44d4e0c8dce321d32.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Button/Realistic/219472__jarredgibb__button-01.ogg"
+dest_files=[ "res://.import/219472__jarredgibb__button-01.ogg-37921adecb9496f44d4e0c8dce321d32.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

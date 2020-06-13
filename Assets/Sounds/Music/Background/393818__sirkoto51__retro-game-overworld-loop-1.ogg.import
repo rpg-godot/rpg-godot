@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/393818__sirkoto51__retro-game-overworld-loop-1.ogg-9b43c9ae92379af64ed1131779803058.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/393818__sirkoto51__retro-game-overworld-loop-1.ogg"
+dest_files=[ "res://.import/393818__sirkoto51__retro-game-overworld-loop-1.ogg-9b43c9ae92379af64ed1131779803058.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

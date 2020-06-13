@@ -10,9 +10,9 @@ const character_names := ["alrune", "alrune", "alrune", "alrune"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	##For profile pic in profiles add a new profile to choose from
-	
-	##This line should dyncamically update the contents of Profiles based off the files in "res://Assets/Images/Profiles/Friendlies/"
+	# Set button text to disabled state
+	get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
+	get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 	
 	for profile in get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children():
 		profile.free()
@@ -27,7 +27,7 @@ func _ready():
 	spec[1].get_node("Labels/Label").text = "Perception"
 	spec[2].get_node("Labels/Label").text = "Endurace"
 	spec[3].get_node("Labels/Label").text = "Charisma"
-	
+
 	var ial = get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()
 	ial[0].get_node("Labels/Label").text = "Intelligence"
 	ial[1].get_node("Labels/Label").text = "Agility"
@@ -37,21 +37,21 @@ func _ready():
 	var knight = get_node("MainMenu/Choices/Equipment/Classes/Knight")
 	knight.get_node("ClassName").text = "Knight"
 	knight.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_warrior.png")
-	
+
 	var berserker = get_node("MainMenu/Choices/Equipment/Classes/Berserker")
 	berserker.get_node("ClassName").text = "Berserker"
 	berserker.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_barbarian.png")
-	
+
 	var battle_mage = get_node("MainMenu/Choices/Equipment/Classes/BattleMage")
 	battle_mage.get_node("ClassName").text = "Battle Mage"
 	battle_mage.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_mage.png")
-	
+
 	var quick_shooter = get_node("MainMenu/Choices/Equipment/Classes/QuickShooter")
 	quick_shooter.get_node("ClassName").text = "Quick Shooter"
 	quick_shooter.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_hunter.PNG")
-	
+
 	Core.emit_signal("scene_loaded", self)
-	
+
 func updateChosenEquip(chosenEquip):
 	var equips = get_node("MainMenu/Choices/Equipment/Classes").get_children()
 	selected_equip = equips.find(chosenEquip)
@@ -73,8 +73,12 @@ func updateChosenProfile(chosenProfile):
 func checkIfCompleted():
 	if selected_character != -1 && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
+		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(1, 1, 1)
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.FLASHING
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
+		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 
 
 func _on_Name_text_changed():
@@ -82,45 +86,44 @@ func _on_Name_text_changed():
 
 func _on_Complete_pressed():
 	var character_name = get_node("MainMenu/Choices/CharacterName/Name").text
-	
+
 	var stats = []
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
 		stats.append(int(stat.get_node("Numbers/Number").text))
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
 		stats.append(int(stat.get_node("Numbers/Number").text))
-	
+
 	var player = CharacterManager.create(character_names[selected_character])
 	player.nickname = character_name
 	player.stats = stats
-	
+
 	var chosen_equip = CharacterDefaults.starting_equipment.keys()[selected_equip]
 	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Core.INFO, self)
 	#player.equipment = CharacterDefaults.starting_equipment[chosen_equip]
-	
 	CharacterManager.load_class(player, chosen_equip)
-	
+
 	player.file = player.meta.name + " - "+ str(OS.get_unix_time())
 	Core.player = player
-	
+
 	Core.emit_signal("request_scene_load", battle_scene)
 	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
 	if error:
 		Core.emit_signal("msg", "Event scene_loaded failed to bind", Core.WARN, self)
-	
+
 	Core.emit_signal("request_scene_load", battle_scene)
 
 func _on_scene_loaded(scene):
 	if scene != battle_scene:
 		return
-	
+
 	SaveGame.save_character(Core.player)
-	
+
 	var player2 = CharacterManager.create(character_names[selected_character])
 
 	var enemy = CharacterManager.create("death_hound")
 	var enemy2 = CharacterManager.create("death_hound")
 	var enemy3 = CharacterManager.create("death_hound")
-	
+
 	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy, enemy2, enemy3])
 	if scene == battle_scene:
 		queue_free()

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/368574__sirkoto51__ice-cavern-loop.ogg-7591be989080afb2a87218815e039acf.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/368574__sirkoto51__ice-cavern-loop.ogg"
+dest_files=[ "res://.import/368574__sirkoto51__ice-cavern-loop.ogg-7591be989080afb2a87218815e039acf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

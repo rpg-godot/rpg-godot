@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/403556__lamamakesmusic__buttons-switches-various-on-off.ogg-1adf13c7b7b28a38c215bcf8abf6fe8e.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Button/Realistic/403556__lamamakesmusic__buttons-switches-various-on-off.ogg"
+dest_files=[ "res://.import/403556__lamamakesmusic__buttons-switches-various-on-off.ogg-1adf13c7b7b28a38c215bcf8abf6fe8e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

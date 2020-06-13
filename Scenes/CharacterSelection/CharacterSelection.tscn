@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/CharacterSelection/CharacterSelection.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Images/Wooden_UI/frame_green.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Wooden_UI/frame_blue.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/Wooden_UI/frame_red.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/FlashingText/FlashingText.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Overlay/Overlay.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Images/Wooden_UI/logo_01.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 50
 font_data = ExtResource( 3 )
 
 [node name="CharacterSelection" type="Control"]
@@ -38,6 +40,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Banner" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -260.653
+margin_top = -474.862
+margin_right = 267.347
+margin_bottom = 199.138
+texture = ExtResource( 10 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBox" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -48,12 +63,13 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="VBox"]
-margin_right = 720.0
+margin_right = 724.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 720, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.807843, 0.576471, 0.411765, 0.686275 )
 text = "RPG GODOT"
 align = 1
 valign = 1
@@ -62,10 +78,12 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="Overlay" parent="VBox" instance=ExtResource( 8 )]
+
 [node name="Scroll" type="ScrollContainer" parent="VBox"]
 margin_top = 104.0
-margin_right = 720.0
-margin_bottom = 976.0
+margin_right = 724.0
+margin_bottom = 948.0
 rect_min_size = Vector2( 720, 760 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -76,21 +94,21 @@ __meta__ = {
 }
 
 [node name="HBox" type="HBoxContainer" parent="VBox/Scroll"]
-margin_right = 720.0
-margin_bottom = 872.0
+margin_right = 724.0
+margin_bottom = 844.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginLeft" type="Control" parent="VBox/Scroll/HBox"]
 margin_right = 30.0
-margin_bottom = 872.0
+margin_bottom = 844.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="VBox/Scroll/HBox"]
 margin_left = 34.0
-margin_right = 686.0
-margin_bottom = 872.0
+margin_right = 690.0
+margin_bottom = 844.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -98,7 +116,7 @@ __meta__ = {
 }
 
 [node name="MarginTop" type="Control" parent="VBox/Scroll/HBox/VBox"]
-margin_right = 652.0
+margin_right = 656.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 mouse_filter = 1
@@ -106,8 +124,8 @@ size_flags_horizontal = 3
 
 [node name="ButtonsVBox" type="VBoxContainer" parent="VBox/Scroll/HBox/VBox"]
 margin_top = 34.0
-margin_right = 652.0
-margin_bottom = 872.0
+margin_right = 656.0
+margin_bottom = 844.0
 rect_min_size = Vector2( 0, 250 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -116,58 +134,110 @@ __meta__ = {
 }
 
 [node name="MarginRight" type="Control" parent="VBox/Scroll/HBox"]
-margin_left = 690.0
-margin_right = 720.0
-margin_bottom = 872.0
+margin_left = 694.0
+margin_right = 724.0
+margin_bottom = 844.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
+[node name="Seperator" type="Control" parent="VBox"]
+margin_top = 952.0
+margin_right = 724.0
+margin_bottom = 962.0
+rect_min_size = Vector2( 0, 10 )
+
 [node name="UI" type="HBoxContainer" parent="VBox"]
-margin_top = 980.0
-margin_right = 720.0
-margin_bottom = 1080.0
+margin_top = 966.0
+margin_right = 724.0
+margin_bottom = 1066.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="New" type="Button" parent="VBox/UI"]
-margin_right = 237.0
+[node name="Seperator3" type="Control" parent="VBox/UI"]
+margin_right = 10.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 10, 0 )
+
+[node name="New" type="TextureButton" parent="VBox/UI"]
+margin_left = 14.0
+margin_right = 234.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 220, 100 )
-size_flags_horizontal = 3
+size_flags_horizontal = 7
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+texture_normal = ExtResource( 4 )
+expand = true
+
+[node name="FlashingText" parent="VBox/UI/New" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "New"
+
+[node name="Seperator6" type="Control" parent="VBox/UI"]
+margin_left = 238.0
+margin_right = 248.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 10, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Play" type="Button" parent="VBox/UI"]
-margin_left = 241.0
-margin_right = 478.0
+[node name="Play" type="TextureButton" parent="VBox/UI"]
+margin_left = 252.0
+margin_right = 472.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 220, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
 disabled = true
+texture_normal = ExtResource( 5 )
+expand = true
+
+[node name="FlashingText" parent="VBox/UI/Play" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 0 )
 text = "Play"
+state = 2
+
+[node name="Seperator5" type="Control" parent="VBox/UI"]
+margin_left = 476.0
+margin_right = 486.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 10, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Delete" type="Button" parent="VBox/UI"]
-margin_left = 482.0
-margin_right = 720.0
+[node name="Delete" type="TextureButton" parent="VBox/UI"]
+margin_left = 490.0
+margin_right = 710.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 220, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
 disabled = true
+texture_normal = ExtResource( 6 )
+expand = true
+
+[node name="FlashingText" parent="VBox/UI/Delete" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 0 )
 text = "Delete"
+state = 2
+
+[node name="Seperator4" type="Control" parent="VBox/UI"]
+margin_left = 714.0
+margin_right = 724.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 10, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Seperator2" type="Control" parent="VBox"]
+margin_top = 1070.0
+margin_right = 724.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 0, 10 )
 [connection signal="pressed" from="VBox/UI/New" to="." method="_on_Create_pressed"]
 [connection signal="pressed" from="VBox/UI/Play" to="." method="_on_play_pressed"]

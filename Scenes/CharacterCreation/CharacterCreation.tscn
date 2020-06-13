@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://Scenes/CharacterCreation/CharacterCreation.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/CharacterCreation/Stats.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/CharacterCreation/EquipClass.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Overlay/Overlay.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Images/Wooden_UI/frame_blue.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/FlashingText/FlashingText.tscn" type="PackedScene" id=10]
 
 [sub_resource type="GradientTexture" id=1]
 
@@ -24,10 +27,6 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 29
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 50
 font_data = ExtResource( 3 )
 
 [node name="CharacterCreation" type="Control"]
@@ -50,7 +49,7 @@ margin_right = 720.0
 margin_bottom = 100.0
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 2 )
-text = "GAME TITLE"
+text = "RPG GODOT"
 align = 1
 valign = 1
 __meta__ = {
@@ -69,6 +68,8 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Overlay" parent="." instance=ExtResource( 8 )]
 
 [node name="MainMenu" type="MarginContainer" parent="."]
 margin_left = 10.0
@@ -260,41 +261,48 @@ uppercase = true
 [node name="Equipment" type="VBoxContainer" parent="MainMenu/Choices"]
 margin_top = 711.0
 margin_right = 700.0
-margin_bottom = 847.0
+margin_bottom = 826.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Classes" type="HBoxContainer" parent="MainMenu/Choices/Equipment"]
 margin_right = 700.0
-margin_bottom = 136.0
+margin_bottom = 115.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Knight" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
 margin_right = 172.0
-margin_bottom = 136.0
+margin_bottom = 115.0
 
 [node name="Berserker" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
 margin_left = 176.0
 margin_right = 348.0
-margin_bottom = 136.0
+margin_bottom = 115.0
 
 [node name="BattleMage" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
 margin_left = 352.0
 margin_right = 524.0
-margin_bottom = 136.0
+margin_bottom = 115.0
 
 [node name="QuickShooter" parent="MainMenu/Choices/Equipment/Classes" instance=ExtResource( 7 )]
 margin_left = 528.0
 margin_right = 700.0
-margin_bottom = 136.0
+margin_bottom = 115.0
 
-[node name="Complete" type="Button" parent="MainMenu/Choices"]
-margin_top = 851.0
+[node name="Complete" type="TextureButton" parent="MainMenu/Choices"]
+margin_top = 830.0
 margin_right = 700.0
 margin_bottom = 910.0
-custom_fonts/font = SubResource( 6 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 disabled = true
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="FlashingText" parent="MainMenu/Choices/Complete" instance=ExtResource( 10 )]
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.732612 )
 text = "Create Character"
 [connection signal="text_changed" from="MainMenu/Choices/CharacterName/Name" to="." method="_on_Name_text_changed"]
 [connection signal="pressed" from="MainMenu/Choices/Complete" to="." method="_on_Complete_pressed"]

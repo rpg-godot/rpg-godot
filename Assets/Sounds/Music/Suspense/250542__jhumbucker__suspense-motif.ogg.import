@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/250542__jhumbucker__suspense-motif.ogg-369d48b4c73ea5548187830c5e1368dc.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Suspense/250542__jhumbucker__suspense-motif.ogg"
+dest_files=[ "res://.import/250542__jhumbucker__suspense-motif.ogg-369d48b4c73ea5548187830c5e1368dc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
