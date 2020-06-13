@@ -66,7 +66,7 @@ func _ready():
 	
 	var error = Core.connect("msg", self, "_on_msg")
 	if error:
-		Core.emit_signal("msg", "Event msg failed to bind", Core.WARN, self)
+		Core.emit_signal("msg", "Event msg failed to bind", Log.WARN, self)
 		print("Warn: Event msg failed to bind")
 	
 	Core.emit_signal("scene_loaded", self)
@@ -82,7 +82,7 @@ func _on_msg(message, level, obj):
 
 func setup_friendly(character):
 	## Looks
-	var character_panel = load("res://Scenes/BattleScenes/CharacterPanel.tscn").instance()
+	var character_panel = load("res://Scenes/Battle/CharacterPanel.tscn").instance()
 	get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(character_panel)
 	
 	var picture = character_panel.get_node("VBox/Picture/Pic")
@@ -105,7 +105,7 @@ func setup_friendly(character):
 
 func setup_enemy(character):
 	##looks
-	var enemy_panel = load("res://Scenes/BattleScenes/EnemyPanel.tscn").instance()
+	var enemy_panel = load("res://Scenes/Battle/EnemyPanel.tscn").instance()
 	get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(enemy_panel)
 	var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
 	
@@ -134,10 +134,10 @@ func update_attacks(CharacterIndex):
 	# Add character attacks
 	var attacks = friendlies[CharacterIndex].attacks
 	
-	var attack_scene = load("res://Scenes/BattleScenes/AttackItem.tscn")
+	var attack_scene = load("res://Scenes/Battle/AttackItem.tscn")
 	
-	Core.emit_signal("msg", "Rendering attacks...", Core.DEBUG, self)
-	Core.emit_signal("msg", str(attacks), Core.DEBUG, self)
+	Core.emit_signal("msg", "Rendering attacks...", Log.DEBUG, self)
+	Core.emit_signal("msg", str(attacks), Log.DEBUG, self)
 	for attack in attacks.melee:
 		var attack_item = attack_scene.instance()
 		attacksList.add_child(attack_item)
@@ -267,7 +267,7 @@ func _on_Attack_pressed():
 	AttackList.show()
 	enemies[0].health.current-=10
 	update_attacks(activeCharacterIndex)
-	Core.emit_signal('msg', 'You dealt ' + str(10) + ' damage!', Core.INFO, self)
+	Core.emit_signal('msg', 'You dealt ' + str(10) + ' damage!', Log.INFO, self)
 
 func _on_Items_pressed():
 	BattleBoard.hide()
@@ -306,7 +306,7 @@ func update_characters():
 			friendPanel.get_node("VBox/Picture/Blood").hide()
 		else:
 			# friendly die
-			Core.emit_signal('msg', 'An friend has died!', Core.INFO, self)
+			Core.emit_signal('msg', 'An friend has died!', Log.INFO, self)
 			friendPanel.get_node("VBox/Picture/Blood").show()
 	for character in enemies:
 		# looks
@@ -328,5 +328,5 @@ func update_characters():
 			enemyPanel.get_node("VBox/Control/Blood").hide()
 		else:
 			# enemy die
-			Core.emit_signal('msg', 'An enemy has died!', Core.INFO, self)
+			Core.emit_signal('msg', 'An enemy has died!', Log.INFO, self)
 			enemyPanel.get_node("VBox/Control/Blood").show()

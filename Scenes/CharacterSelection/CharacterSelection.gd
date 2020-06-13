@@ -65,7 +65,7 @@ func add_character(id: String, name: String, info: String, picture: Dictionary, 
 func _on_button_press(save: Dictionary):
 	activate_selection_buttons()
 	Core.emit_signal("gui_pushed", "select_character", save)
-	Core.emit_signal("msg", "Button pressed!", Core.DEBUG, self)
+	Core.emit_signal("msg", "Button pressed!", Log.DEBUG, self)
 	selected_character = save.file
 	
 	for child in Core.get_parent().get_node('CharacterSelection/VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children():
@@ -86,4 +86,4 @@ func _on_Create_pressed():
 
 
 func _on_play_pressed():
-	Core.emit_signal("msg", "Play pressed!", Core.DEBUG, self)
+	Core.emit_signal("msg", "Play pressed!", Log.DEBUG, self)

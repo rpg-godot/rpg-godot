@@ -1,6 +1,5 @@
-class_name DictonaryFunc
-var script_name = "dictonary_func"
-
+class_name DictionaryFunc
+var script_name = "dictionary_func"
 
 # Get a given data from a dictionary with position provided as a list
 static func getFromDict(dataDict, mapList):    
