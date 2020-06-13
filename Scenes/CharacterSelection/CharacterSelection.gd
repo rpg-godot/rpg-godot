@@ -49,12 +49,12 @@ func add_character(id: String, name: String, info: String, picture: Dictionary, 
 	
 	# Set Picture
 	if picture:
-		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").texture = load(
+		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile/Picture").texture = load(
 			"res://Assets/Images/Profiles/" + picture.path)
 		#ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_h = player.pic[1][0]
 		#ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").flip_v = player.pic[1][1]
 	else:
-		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").visible = false
+		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile/Picture").visible = false
 	
 	# Set Text
 	ButtonInstance.get_node("VBox/Content/HBox/CenterText/VBox/Name").text = name.to_upper()
@@ -63,9 +63,10 @@ func add_character(id: String, name: String, info: String, picture: Dictionary, 
 	ButtonInstance.get_node("VBox/Content/Button").connect("pressed", self, "_on_button_press", [ player ])
 
 func _on_button_press(save: Dictionary):
+	activate_selection_buttons()
 	Core.emit_signal("gui_pushed", "select_character", save)
 	Core.emit_signal("msg", "Button pressed!", Core.DEBUG, self)
-	selected_character = save.saveFile
+	selected_character = save.file
 	
 	for child in Core.get_parent().get_node('CharacterSelection/VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children():
 		if child.name != selected_character:
@@ -73,6 +74,11 @@ func _on_button_press(save: Dictionary):
 	
 	#var button = Core.get_node('CharacterSelection/Scroll/HBox/VBox/ButtonsVBox/' + save.saveFile)
 
+func activate_selection_buttons():
+	var play = get_node("VBox/UI/Play/FlashingText")
+	var delete = get_node("VBox/UI/Delete/FlashingText")
+	play.state = FlashingText.States.ENABLED
+	delete.state = FlashingText.States.ENABLED
 
 func _on_Create_pressed():
 	Core.get_parent().add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())

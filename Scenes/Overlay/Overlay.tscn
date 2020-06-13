@@ -1,0 +1,188 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Assets/Images/Wooden_UI/frame_green.png" type="Texture" id=1]
+[ext_resource path="res://Shaders/noise.shader" type="Shader" id=2]
+[ext_resource path="res://Assets/icon.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Overlay/Overlay.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "move_background"
+length = 60.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fog:material:shader_param/seed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 31, 60 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 4.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Fog:material:shader_param/movement")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 31, 60 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, -1 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Fog:material:shader_param/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0, 31, 60 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.870968, 3.0, 0.870968 ]
+}
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+shader_param/thickness = 0.4
+shader_param/zoom2 = 4.1
+shader_param/seed = 3.81133
+shader_param/seed2 = 12.9898
+shader_param/seed3 = 78.233
+shader_param/movement = Vector2( 0.952833, -0.952833 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.116667, 1 )
+colors = PoolColorArray( 0.453495, 0.629905, 0.975586, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "lightning"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.01, 0.2, 0.3, 0.4, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.01, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5.14, 2.39, 0.67, 2.39 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "lightning2"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.22, 0.28, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.22, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0.67, 2.39 ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=7]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticlesMaterial" id=8]
+lifetime_randomness = 0.63
+emission_shape = 1
+emission_sphere_radius = 63.82
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.1
+orbit_velocity_random = 0.0
+tangential_accel = 62.5
+damping = 62.51
+damping_random = 0.39
+angle_random = 0.92
+scale = 2.0
+scale_random = 0.67
+color = Color( 1, 1, 1, 0.494118 )
+hue_variation = 1.0
+anim_speed = 6.61
+anim_speed_random = 0.4
+
+[node name="Overlay" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/move_background = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 151.751, 930.861 )
+texture = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+
+[node name="Fog" type="Sprite" parent="."]
+modulate = Color( 0, 0.792157, 1, 0.498039 )
+material = SubResource( 2 )
+scale = Vector2( 15.761, 18.4892 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Lightning" type="Light2D" parent="."]
+position = Vector2( 1063.36, 567.106 )
+scale = Vector2( 1.05952, 1288.91 )
+enabled = false
+texture = SubResource( 4 )
+color = Color( 0.996078, 0.992157, 0.992157, 1 )
+energy = 2.39
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lightning"]
+anims/lightning = SubResource( 5 )
+anims/lightning2 = SubResource( 6 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 7 )
+use_parent_material = true
+position = Vector2( -100, 0 )
+z_index = 10
+amount = 1000
+lifetime = 600.0
+visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
+process_material = SubResource( 8 )

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Splash/Splash.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/FlashingText/FlashingText.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Overlay/Overlay.tscn" type="PackedScene" id=4]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
 length = 3.0
 tracks/0/type = "value"
@@ -20,7 +21,7 @@ tracks/0/keys = {
 "values": [ Color( 0.784314, 0.133333, 0.133333, 0 ), Color( 0.784314, 0.133333, 0.133333, 0 ), Color( 0.784314, 0.133333, 0.133333, 1 ) ]
 }
 tracks/1/type = "method"
-tracks/1/path = NodePath("Center/VBox/FlashingText")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -30,11 +31,11 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
-"method": "start"
+"method": "text_finished_fading_in"
 } ]
 }
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 100
 font_data = ExtResource( 1 )
 
@@ -49,7 +50,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/FadeIn = SubResource( 2 )
+anims/FadeIn = SubResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -60,6 +61,8 @@ color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Overlay" parent="." instance=ExtResource( 4 )]
 
 [node name="Center" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -79,8 +82,8 @@ margin_bottom = 616.0
 [node name="Title" type="Label" parent="Center/VBox"]
 margin_right = 454.0
 margin_bottom = 105.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.784314, 0.133333, 0.133333, 0 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.784314, 0.133333, 0.133333, 1 )
 text = "RPG GODOT"
 align = 1
 valign = 1
@@ -94,4 +97,6 @@ anchor_bottom = 0.0
 margin_top = 109.0
 margin_right = 454.0
 margin_bottom = 152.0
+custom_colors/font_color = Color( 1, 1, 1, 0 )
 text = "tap anywhere to start"
+state = 2

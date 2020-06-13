@@ -3,26 +3,51 @@ const script_name := "loading"
 var splash = load("res://Scenes/Splash/Splash.tscn").instance()
 
 func _ready():
+	var error = Core.connect("msg", self, "_on_msg")
+	if error:
+		Core.emit_signal("msg", "Event msg failed to bind", Core.WARN, self)
+		print("Warn: Event msg failed to bind")
+	
+	Core.emit_signal("scene_loaded", self)
+	
 	Core.emit_signal("msg", "RPG Godot started!", Core.INFO, self)
 	
-	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
+	error = Core.connect("scene_loaded", self, "_on_scene_loaded")
 	if error:
 		Core.emit_signal("msg", "Event scene_loaded failed to bind", Core.WARN, self)
 	
-	load_music_player()
+	AudioManager.load_music_player("Background", "Music/Background/MainTheme/513824__georgeae2__boss-theme.ogg", "Back")
+	
+	yield(get_tree().create_timer(1.0), "timeout")
 	Core.emit_signal("request_scene_load", splash)
+
+func _on_msg(message, level, obj):
+	var script = obj
+	if typeof(obj) != TYPE_STRING:
+		script = obj.script_name
+
+	var level_string = "All"
+	match level:
+		Core.FATAL:
+			level_string = "Fatal"
+		Core.ERROR:
+			level_string = "Error"
+		Core.WARN:
+			level_string = " Warn"
+		Core.INFO:
+			level_string = " Info"
+		Core.DEBUG:
+			level_string = "Debug"
+		Core.TRACE:
+			level_string = "Trace"
+		Core.ALL:
+			level_string = "  All"
+
+	get_node('Text').add_text(level_string + " [ " + script + " ] " + message + '\n')
 
 func _on_scene_loaded(scene):
 	if scene == splash:
 		queue_free()
-
-func load_music_player():
-	Core.emit_signal("msg", "Starting music...", Core.INFO, self)
-	var player = AudioStreamPlayer.new()
-	Core.get_parent().call_deferred("add_child", player)
-	var music = load("res://Assets/Sounds/Music/Background/MainTheme/513824__georgeae2__boss-theme.ogg")
-	player.stream = music
-	player.play()
 
 #func example_save():
 #	var character = {}

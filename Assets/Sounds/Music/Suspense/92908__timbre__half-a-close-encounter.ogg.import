@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/92908__timbre__half-a-close-encounter.ogg-970e76c77f2c6a47a2ed585590a680fc.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Suspense/92908__timbre__half-a-close-encounter.ogg"
+dest_files=[ "res://.import/92908__timbre__half-a-close-encounter.ogg-970e76c77f2c6a47a2ed585590a680fc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

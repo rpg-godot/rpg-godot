@@ -17,10 +17,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Text" type="RichTextLabel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 1 )
-text = "loading rpg godot"
+text = "loading rpg godot...
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}

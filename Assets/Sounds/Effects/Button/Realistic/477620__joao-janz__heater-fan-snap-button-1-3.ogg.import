@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/477620__joao-janz__heater-fan-snap-button-1-3.ogg-120bb196ac18ca944f9ecee76c8c2fe9.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Button/Realistic/477620__joao-janz__heater-fan-snap-button-1-3.ogg"
+dest_files=[ "res://.import/477620__joao-janz__heater-fan-snap-button-1-3.ogg-120bb196ac18ca944f9ecee76c8c2fe9.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
