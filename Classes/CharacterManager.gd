@@ -2,20 +2,21 @@ class_name CharacterManager
 const script_name := "character_manager"
 
 static func create(character_name: String):
-	return CharacterDefaults.new().characters[character_name]
+	return Characters.characters[character_name]
 
 
 static func load_class(character_data: Dictionary, character_class: String):
 	# Add equipment to the character inventory and equip those items
-	for item in CharacterDefaults.starting_equipment[character_class]:
+	for item in Characters.starting_equipment[character_class]:
 		var item_index = add(character_data, Items.items[item.name], item.quantity)
 		equip(character_data, item_index)
 	
 	# Add character attacks
-	for attack_type in CharacterDefaults.starting_attacks[character_class].keys():
-		for attack_name in CharacterDefaults.starting_attacks[character_class][attack_type]:
+	for attack_type in Characters.starting_attacks[character_class].keys():
+		for attack_name in Characters.starting_attacks[character_class][attack_type]:
 			learn_attack(character_data, attack_type, attack_name)
 	
+	character_data.character_class = character_class
 	return character_data
 
 
@@ -58,22 +59,26 @@ static func unequip(character_data: Dictionary, item_index: int):
 static func set_level(character_data: Dictionary, level: int):
 	Core.emit_signal("msg", "Setting character level to " + str(character_data.level), Log.INFO, "character_manager")
 	character_data.level = level
+	
+	character_data.level_buffs = process_level_buffs(level, character_data.character_class)
 
-static func process_level(character_data: Dictionary):
-	Core.emit_signal("msg", "Processing character level " + str(character_data.level) + " stats", Log.INFO, "character_manager")
-	var temp_level = character_data.level
+static func process_level_buffs(level: int, character_class: String):
+	Core.emit_signal("msg", "Processing character level " + str(level) + " stats", Log.INFO, "character_manager")
+	var temp_level = level
 	var count = 1
-	var new_character_data = character_data
-	while temp_level >= 5:
-		new_character_data.stats.strength += 1
-		new_character_data.stats.intelligence += 1
-		new_character_data.stats.agility +=1
-		new_character_data.stats.luck += 1
-		
-		if count%3==0:
-			new_character_data.stats.perception += 1
-			new_character_data.stats.endurance += 1
-			new_character_data.stats.charisma += 1
-	count+=1
-	temp_level-=5
-	return new_character_data.stats
+	var level_buffs = Characters.zero_stats
+	match character_class:
+		"death_hound":
+			while temp_level >= 5:
+				level_buffs.strength += 1
+				level_buffs.intelligence += 1
+				level_buffs.agility +=1
+				level_buffs.luck += 1
+				
+				if count%3==0:
+					level_buffs.perception += 1
+					level_buffs.endurance += 1
+					level_buffs.charisma += 1
+				count+=1
+				temp_level-=5
+	return level_buffs

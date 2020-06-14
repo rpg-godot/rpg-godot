@@ -1,4 +1,5 @@
 class_name Log
+const script_name := "log"
 
 var log_loc = "user://logs/"
 var log_level = DEBUG
@@ -11,17 +12,17 @@ const DEBUG = 4
 const TRACE = 5
 const ALL = 6
 
-func _init():
+func init():
 	var file = File.new()
 	var dir = Directory.new()
 	dir.make_dir(log_loc)
 	file.open(log_loc + "latest.txt", File.WRITE)
 	file.close()
-	Core.emit_signal("msg", "Logs stored at " + log_loc, INFO, self)
 	var error = Core.connect("msg", self, "_on_msg")
 	if error:
 		Core.emit_signal("msg", "Event msg failed to bind", WARN, self)
 		print("Warn: Event msg failed to bind")
+	Core.emit_signal("msg", "Logs stored at " + log_loc, INFO, self)
 
 func _on_msg(message, level, obj):
 	var script = obj
