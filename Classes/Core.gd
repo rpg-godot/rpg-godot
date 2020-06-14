@@ -27,9 +27,10 @@ signal gui_pushed(name, data)
 var current_scene = load("res://Scenes/Loading/Loading.tscn").instance()
 var character_data = {}
 var player
+var logger = preload("res://Classes/Log.gd").new()
 
 func _ready():
-	Log.new()
+	logger.init()
 	var error = Core.connect("request_scene_load", self, "_on_request_scene_load")
 	if error:
 		Core.emit_signal("msg", "Event request_scene_load failed to bind", Log.WARN, self)

@@ -20,14 +20,14 @@ _global_script_classes=[ {
 "path": "res://Classes/AudioManager.gd"
 }, {
 "base": "Reference",
-"class": "CharacterDefaults",
-"language": "GDScript",
-"path": "res://Classes/CharacterDefaults.gd"
-}, {
-"base": "Reference",
 "class": "CharacterManager",
 "language": "GDScript",
 "path": "res://Classes/CharacterManager.gd"
+}, {
+"base": "Reference",
+"class": "Characters",
+"language": "GDScript",
+"path": "res://Classes/Characters.gd"
 }, {
 "base": "Reference",
 "class": "DictionaryFunc",
@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "FlashingText",
 "language": "GDScript",
 "path": "res://Scenes/FlashingText/FlashingText.gd"
+}, {
+"base": "Area2D",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://Scenes/HitBox/HitBox.gd"
 }, {
 "base": "Reference",
 "class": "InventoryManager",
@@ -62,10 +67,11 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Attacks": "",
 "AudioManager": "",
-"CharacterDefaults": "",
 "CharacterManager": "",
+"Characters": "",
 "DictionaryFunc": "",
 "FlashingText": "",
+"Hitbox": "",
 "InventoryManager": "",
 "Items": "",
 "Log": "",

@@ -87,8 +87,8 @@ func setup_friendly(character):
 	
 	var picture = character_panel.get_node("VBox/Picture/Pic")
 	picture.texture = load("res://Assets/Images/Profiles/" + character.picture.path)
-	picture.flip_h = CharacterDefaults.flip_profile[character.picture.path][0]
-	picture.flip_v = CharacterDefaults.flip_profile[character.picture.path][1]
+	picture.flip_h = Characters.flip_profile[character.picture.path][0]
+	picture.flip_v = Characters.flip_profile[character.picture.path][1]
 	
 	character_panel.get_node("VBox/Name").text = character.meta.name
 	character_panel.show()
@@ -111,8 +111,8 @@ func setup_enemy(character):
 	
 	var picture = enemyPanel.get_node("VBox/Control/Pic")
 	picture.texture = load("res://Assets/Images/Profiles/" + character.picture.path)
-	picture.flip_h = CharacterDefaults.flip_profile[character.picture.path][0]
-	picture.flip_v = CharacterDefaults.flip_profile[character.picture.path][1]
+	picture.flip_h = Characters.flip_profile[character.picture.path][0]
+	picture.flip_v = Characters.flip_profile[character.picture.path][1]
 	
 	enemyPanel.get_node("VBox/Name").text = character.meta.name
 	enemyPanel.show()
@@ -176,9 +176,9 @@ func create_ranged_button(attack, attack_item, CharacterIndex):
 
 	var attack_data = Attacks.ranged[attack]
 	var attackName = attack_data.name
-	var attackDamage = attack_data.hpDamage
-	var attackCost = attack_data.APcost
-	var ammoCost = attack_data.ammoCost
+	var attackDamage = attack_data.hp_damage
+	var attackCost = attack_data.ap_cost
+	var ammoCost = attack_data.ammo_cost
 	var pictureLocation = attack_data.image
 	attack_item.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
@@ -196,10 +196,10 @@ func create_mana_button(attack, attack_item, CharacterIndex):
 	
 	var attack_data = Attacks.mana[attack]
 	var attackName = attack_data.name
-	var attackDamage = attack_data.hpDamage
-	var manaDamage = attack_data.manaDamage
-	var attackCost = attack_data.APcost
-	var manaCost = attack_data.manaCost
+	var attackDamage = attack_data.hp_damage
+	var manaDamage = attack_data.mana_damage
+	var attackCost = attack_data.ap_cost
+	var manaCost = attack_data.mana_cost
 	var pictureLocation = attack_data.image
 	
 	#disabled = check_mana_cost(attackCost, CharacterIndex, attack, attack_data, manaCost)

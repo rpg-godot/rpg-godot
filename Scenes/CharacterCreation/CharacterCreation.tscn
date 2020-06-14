@@ -187,18 +187,18 @@ margin_bottom = 208.0
 rect_min_size = Vector2( 0, 208 )
 size_flags_horizontal = 3
 
-[node name="S" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
+[node name="strength" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
 margin_right = 138.0
 
-[node name="P" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
+[node name="perception" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
 margin_left = 142.0
 margin_right = 280.0
 
-[node name="E" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
+[node name="endurance" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
 margin_left = 284.0
 margin_right = 422.0
 
-[node name="C" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
+[node name="charisma" parent="MainMenu/Choices/Stats/Display/Menu/SPEC" instance=ExtResource( 6 )]
 margin_left = 426.0
 margin_right = 567.0
 
@@ -220,14 +220,14 @@ margin_bottom = 444.0
 rect_min_size = Vector2( 0, 208 )
 size_flags_horizontal = 3
 
-[node name="I" parent="MainMenu/Choices/Stats/Display/Menu/IAL" instance=ExtResource( 6 )]
+[node name="intelligence" parent="MainMenu/Choices/Stats/Display/Menu/IAL" instance=ExtResource( 6 )]
 margin_right = 186.0
 
-[node name="A" parent="MainMenu/Choices/Stats/Display/Menu/IAL" instance=ExtResource( 6 )]
+[node name="agility" parent="MainMenu/Choices/Stats/Display/Menu/IAL" instance=ExtResource( 6 )]
 margin_left = 190.0
 margin_right = 376.0
 
-[node name="L" parent="MainMenu/Choices/Stats/Display/Menu/IAL" instance=ExtResource( 6 )]
+[node name="luck" parent="MainMenu/Choices/Stats/Display/Menu/IAL" instance=ExtResource( 6 )]
 margin_left = 380.0
 margin_right = 567.0
 
@@ -302,7 +302,7 @@ expand = true
 
 [node name="FlashingText" parent="MainMenu/Choices/Complete" instance=ExtResource( 10 )]
 mouse_filter = 1
-custom_colors/font_color = Color( 1, 1, 1, 0.732612 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Create Character"
 [connection signal="text_changed" from="MainMenu/Choices/CharacterName/Name" to="." method="_on_Name_text_changed"]
 [connection signal="pressed" from="MainMenu/Choices/Complete" to="." method="_on_Complete_pressed"]

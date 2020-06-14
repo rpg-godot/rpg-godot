@@ -1,5 +1,21 @@
-class_name CharacterDefaults
+class_name Characters
 const script_name := "character_defaults"
+
+
+
+
+const zero_stats = {
+	strength = 0,
+	perception = 0,
+	endurance = 0,
+	charisma = 0,
+	intelligence = 0,
+	agility = 0,
+	luck = 0,
+	melee = 0,
+	mana = 0,
+	defense = 0,
+}
 
 
 
@@ -51,7 +67,11 @@ const starting_equipment := {
 		{
 			name = "dagger",
 			quantity = 1,
-		}
+		},
+	],
+	
+	death_hound = [
+		
 	]
 }
 
@@ -106,10 +126,25 @@ const starting_attacks := {
 	
 	quick_shooter = {
 		melee = [
-			
+			"strike"
 		],
 		ranged = [
-			"quick_shot", "strike"
+			"quick_shot"
+		],
+		mana = [
+			
+		],
+	},
+	
+	
+	
+	
+	death_hound = {
+		melee = [
+			"strike"
+		],
+		ranged = [
+			
 		],
 		mana = [
 			
@@ -307,15 +342,15 @@ const characters := {
 		
 		
 		attacks = {
-			melee = {
+			melee = [
 				
-			},
-			ranged = {
+			],
+			ranged = [
 				
-			},
-			mana = {
+			],
+			mana = [
 				
-			},
+			],
 		},
 		level = 1,
 		skills = {

@@ -20,8 +20,8 @@ func _ready():
 		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
 		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profiles.find(profile)]
 		profilePanel.get_node("Pic").texture = load("res://Assets/Images/Profiles/" + profile)
-		profilePanel.get_node("Pic").flip_h = CharacterDefaults.flip_profile[profile][0]
-		profilePanel.get_node("Pic").flip_v = CharacterDefaults.flip_profile[profile][1]
+		profilePanel.get_node("Pic").flip_h = Characters.flip_profile[profile][0]
+		profilePanel.get_node("Pic").flip_v = Characters.flip_profile[profile][1]
 	var spec = get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()
 	spec[0].get_node("Labels/Label").text = "Strength"
 	spec[1].get_node("Labels/Label").text = "Perception"
@@ -86,30 +86,28 @@ func _on_Name_text_changed():
 
 func _on_Complete_pressed():
 	var character_name = get_node("MainMenu/Choices/CharacterName/Name").text
-
-	var stats = []
-	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
-		stats.append(int(stat.get_node("Numbers/Number").text))
-	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
-		stats.append(int(stat.get_node("Numbers/Number").text))
-
+	
 	var player = CharacterManager.create(character_names[selected_character])
 	player.nickname = character_name
-	player.stats = stats
-
-	var chosen_equip = CharacterDefaults.starting_equipment.keys()[selected_equip]
+	
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
+		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
+		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
+	
+	var chosen_equip = Characters.starting_equipment.keys()[selected_equip]
 	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Log.INFO, self)
-	#player.equipment = CharacterDefaults.starting_equipment[chosen_equip]
 	CharacterManager.load_class(player, chosen_equip)
-
+	#CharacterManager.set_level(player, 10)
+	
 	player.file = player.meta.name + " - "+ str(OS.get_unix_time())
 	Core.player = player
-
+	
 	Core.emit_signal("request_scene_load", battle_scene)
 	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
 	if error:
 		Core.emit_signal("msg", "Event scene_loaded failed to bind", Log.WARN, self)
-
+	
 	Core.emit_signal("request_scene_load", battle_scene)
 
 func _on_scene_loaded(scene):
@@ -121,10 +119,15 @@ func _on_scene_loaded(scene):
 	var player2 = CharacterManager.create(character_names[selected_character])
 
 	var enemy1 = CharacterManager.create("death_hound")
+	CharacterManager.load_class(enemy1, "death_hound")
 	CharacterManager.set_level(enemy1, int(rand_range(1, 10)))
+	
 	var enemy2 = CharacterManager.create("death_hound")
+	CharacterManager.load_class(enemy2, "death_hound")
 	CharacterManager.set_level(enemy2, int(rand_range(1, 10)))
+	
 	var enemy3 = CharacterManager.create("death_hound")
+	CharacterManager.load_class(enemy3, "death_hound")
 	CharacterManager.set_level(enemy3, int(rand_range(1, 10)))
 
 	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2, enemy3])
