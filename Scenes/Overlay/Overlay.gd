@@ -6,7 +6,6 @@ var lightning_disabled = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("AnimationPlayer").play("move_background")
-	
 	Core.connect("scene_loaded", self, "_on_scene_loaded")
 
 func start_storm():

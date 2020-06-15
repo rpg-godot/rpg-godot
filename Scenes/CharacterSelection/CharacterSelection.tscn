@@ -62,6 +62,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Overlay" parent="VBox" instance=ExtResource( 8 )]
+
 [node name="Title" type="Label" parent="VBox"]
 margin_right = 724.0
 margin_bottom = 100.0
@@ -69,7 +71,7 @@ rect_min_size = Vector2( 720, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.807843, 0.576471, 0.411765, 0.686275 )
+custom_colors/font_color = Color( 0.807843, 0.576471, 0.411765, 1 )
 text = "RPG GODOT"
 align = 1
 valign = 1
@@ -77,8 +79,6 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
-
-[node name="Overlay" parent="VBox" instance=ExtResource( 8 )]
 
 [node name="Scroll" type="ScrollContainer" parent="VBox"]
 margin_top = 104.0
@@ -172,8 +172,8 @@ texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/New" instance=ExtResource( 7 )]
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "New"
+state = 1
 
 [node name="Seperator6" type="Control" parent="VBox/UI"]
 margin_left = 238.0
@@ -196,7 +196,7 @@ texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Play" instance=ExtResource( 7 )]
-custom_colors/font_color = Color( 1, 1, 1, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Play"
 state = 2
 
@@ -221,7 +221,7 @@ texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Delete" instance=ExtResource( 7 )]
-custom_colors/font_color = Color( 1, 1, 1, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Delete"
 state = 2
 
@@ -241,3 +241,4 @@ margin_bottom = 1080.0
 rect_min_size = Vector2( 0, 10 )
 [connection signal="pressed" from="VBox/UI/New" to="." method="_on_Create_pressed"]
 [connection signal="pressed" from="VBox/UI/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBox/UI/Delete" to="." method="_on_Delete_pressed"]

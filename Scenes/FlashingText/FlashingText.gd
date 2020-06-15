@@ -1,16 +1,19 @@
 tool
 extends Label
 class_name FlashingText
+const script_name := "flashing_text"
+onready var instance_name := get_parent().name
 
 enum States {
 	FLASHING,
 	ENABLED,
-	DISABLED
+	DISABLED,
+	HIDDEN
 }
 
 export(States) var state = States.FLASHING setget set_state
 
-var color := Color(1.0, 1.0, 1.0) setget set_color
+export var color := Color(1.0, 1.0, 1.0) setget set_color
 
 func set_state(value):
 	state = value
@@ -30,14 +33,20 @@ func run_state():
 			enable()
 		States.DISABLED:
 			disable()
+		States.HIDDEN:
+			hidden()
 
 func start_flashing():
 	get_node("AnimationPlayer").play("Flashing")
 
 func enable():
 	get_node("AnimationPlayer").stop()
-	color = Color(1.0, 1.0, 1.0)
+	self.color = Color(1.0, 1.0, 1.0)
 
 func disable():
 	get_node("AnimationPlayer").stop()
-	color = Color(1.0, 1.0, 1.0, 0)
+	self.color = Color(1.0, 1.0, 1.0, 0.4)
+	
+func hidden():
+	get_node("AnimationPlayer").stop()
+	self.color = Color(1.0, 1.0, 1.0, 0.0)

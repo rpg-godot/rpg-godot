@@ -39,11 +39,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/FlashingText/FlashingText.gd"
 }, {
-"base": "Area2D",
-"class": "Hitbox",
-"language": "GDScript",
-"path": "res://Scenes/HitBox/HitBox.gd"
-}, {
 "base": "Reference",
 "class": "InventoryManager",
 "language": "GDScript",
@@ -60,9 +55,9 @@ _global_script_classes=[ {
 "path": "res://Classes/Log.gd"
 }, {
 "base": "Reference",
-"class": "SaveGame",
+"class": "SaveManager",
 "language": "GDScript",
-"path": "res://Classes/SaveGame.gd"
+"path": "res://Classes/SaveManager.gd"
 } ]
 _global_script_class_icons={
 "Attacks": "",
@@ -71,11 +66,10 @@ _global_script_class_icons={
 "Characters": "",
 "DictionaryFunc": "",
 "FlashingText": "",
-"Hitbox": "",
 "InventoryManager": "",
 "Items": "",
 "Log": "",
-"SaveGame": ""
+"SaveManager": ""
 }
 
 [application]

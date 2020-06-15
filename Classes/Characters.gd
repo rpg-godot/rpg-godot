@@ -1,9 +1,6 @@
 class_name Characters
 const script_name := "character_defaults"
 
-
-
-
 const zero_stats = {
 	strength = 0,
 	perception = 0,
@@ -14,47 +11,22 @@ const zero_stats = {
 	luck = 0,
 	melee = 0,
 	mana = 0,
-	defense = 0,
+	defense = 0
 }
-
-
-
-
-#### starting equipment ########################################################
-#       _             _   _                                _      
-#      | |           | | (_)                              (_)     
-#   ___| |_ __ _ _ __| |_ _ _ __   __ _    ___  __ _ _   _ _ _ __ 
-#  / __| __/ _` | '__| __| | '_ \ / _` |  / _ \/ _` | | | | | '_ \
-#  \__ \ || (_| | |  | |_| | | | | (_| | |  __/ (_| | |_| | | |_) |
-#  |___/\__\__,_|_|   \__|_|_| |_|\__, |  \___|\__, |\__,_|_| .__/
-#                                  __/ |          | |       | |    
-#                                 |___/           |_|       |_|     
 
 const starting_equipment := {
 	knight = [ {
 			name = "sword",
 			quantity = 1
 	} ],
-	
-	
-	
-	
 	battle_mage = [ {
 		name = "staff",
 		quantity = 1
 	} ],
-	
-	
-	
-	
 	berserker = [ {
 		name = "axe",
 		quantity = 1
 	} ],
-	
-	
-	
-	
 	quick_shooter = [ 
 		{
 			name = "bow",
@@ -69,10 +41,7 @@ const starting_equipment := {
 			quantity = 1,
 		},
 	],
-	
-	death_hound = [
-		
-	]
+	death_hound = []
 }
 
 
@@ -80,118 +49,48 @@ const starting_equipment := {
 
 const starting_attacks := {
 	knight = {
-		melee = [
-			"strike"
-		],
-		ranged = [
-			
-		],
-		mana = [
-			
-		],
+		melee = ["strike"],
+		ranged = [],
+		mana = [],
 	},
-	
-	
-	
-	
 	battle_mage = {
-		melee = [
-			
-		],
-		ranged = [
-			
-		],
-		mana = [
-			"flame"
-		],
+		melee = [],
+		ranged = [],
+		mana = ["flame"],
 	},
-	
-	
-	
-	
 	berserker = {
-		melee = [
-			"strike"
-		],
-		ranged = [
-			
-		],
-		mana = [
-			
-		],
+		melee = ["strike"],
+		ranged = [],
+		mana = [],
 	},
-	
-	
-	
-	
 	quick_shooter = {
-		melee = [
-			"strike"
-		],
-		ranged = [
-			"quick_shot"
-		],
-		mana = [
-			
-		],
+		melee = ["strike"],
+		ranged = ["quick_shot"],
+		mana = [],
 	},
-	
-	
-	
-	
 	death_hound = {
-		melee = [
-			"strike"
-		],
-		ranged = [
-			
-		],
-		mana = [
-			
-		],
+		melee = ["strike"],
+		ranged = [],
+		mana = [],
 	}
 }
 
-
-
-
-## [flipH, flipV]
 const flip_profile := {
-	"Friendlies/Tex_AnimeAva_01.png": [true, false],
-	"Friendlies/Tex_AnimeAva_17.png": [false, false],
-	"Friendlies/Tex_AnimeAva_28.png": [false, false],
-	"Friendlies/Tex_AnimeAva_51.png": [false, false],
-	"Enemies/MonstersAvatarIcons_61.PNG": [false, false]
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png": [true, false],
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png": [false, false],
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png": [false, false],
+	"res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png": [false, false],
+	"res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG": [false, false]
 }
 
+const characters := {                             
 
-
-
-#### characters ################################################################
-
-const characters := {
-	
-	
-	
-	
-	#### alrune ################################################################
-	#         _                       
-	#        | |                      
-	#    __ _| |_ __ _   _ _ __   ___ 
-	#   / _` | | '__| | | | '_ \ / _ \
-	#  | (_| | | |  | |_| | | | |  __/
-	#   \__,_|_|_|   \__,_|_| |_|\___|
-	#                                 
-	#                                 
-	
 	alrune = {
-		meta = {
-			name = "Alrune",
-			nickname = "",
-			info = "",
-		},
-		file = "",
-		
+		name = "Alrune",
+		info = "",
+		kills = 0,
+		timeCreated = "1592139824",
+		classType = "TEST",
 		stats = {
 			strength = 3,
 			perception = 3,
@@ -199,125 +98,180 @@ const characters := {
 			charisma = 3,
 			intelligence = 3,
 			agility = 3,
-			luck = 3,
+			luck = 3
+		},
+		equipBuffs = {
+			strength = 0,
+			perception = 0,
+			endurance = 0,
+			charisma = 0,
+			intelligence = 0,
+			agility = 0,
+			luck = 0,
 			melee = 0,
 			mana = 0,
-			defense = 0,
+			defense = 0
 		},
-		
 		picture = {
-			path = "Friendlies/Tex_AnimeAva_28.png",
+			path = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png",
 			border = {
-				path = "ImageBorder.png",
+				path = "res://Assets/Images/Profiles/ImageBorder.png",
 				shown = true,
 			},
+			flip_profile = [false, false]
 		},
-		
-		
-		
-		
-		attacks = {
-			melee = [
-				"punch"
-			],
-			ranged = [
-				
-			],
-			mana = [
-				
-			],
-		},
-		
 		level = 1,
-		skills = {
-			
+		attacks = {
+			melee = ["punch"],
+			ranged = [],
+			mana = [],
 		},
-		
-		
-		
-		
-		ap = {
+		skills = {},
+		AP = {
 			max = 1,
-			current = 0.5,
+			current = 1,
 		},
 		health = {
 			max = 100,
 			current = 100,
 		},
 		mana = {
-			max = 50,
+			max = 100,
 			current = 100,
 		},
-		
-		
-		
-		
-		kills = 0,
-		
-		items = {
+		equipment = {
 			armour = {
-				head = [
-					
-				],
-				torso = [
-					
-				],
-				arms = [
-					
-				], 
-				legs = [
-					
-				],
-				feet = [
-					
-				],
-				shield = [
-					
-				]
+				head = -1,
+				torso = -1,
+				arms = -1, 
+				legs = -1,
+				feet = -1,
+				shield = -1
 			},
-			
-			equipment = {
-				melee = [
-					
-				], 
-				ranged = [
-					
-				],
-				consumables = [
-					
-				], 
-				magic = [
-					
-				]
+			weapons = {
+				melee = -1, 
+				ranged = -1,
+				consumables = -1, 
+				magic = -1
 			},
-			
-			inventory = [
-				
-			]
+			other = []
+		},
+		
+		inventory = {
+			armour = {
+				head = [],
+				torso = [],
+				arms = [], 
+				legs = [],
+				feet = [],
+				shield = []
+			},
+			weapons = {
+				melee = [], 
+				ranged = [],
+				consumables = [], 
+				magic = []
+			},
+			other = []
+		}
+	},
+	blank = {
+		name = "",
+		info = "",
+		kills = 0,
+		timeCreated = "",
+		classType = "PLAYER",
+		stats = {
+			strength = 0,
+			perception = 0,
+			endurance = 0,
+			charisma = 0,
+			intelligence = 0,
+			agility = 0,
+			luck = 0
+		},
+		equipBuffs = {
+			strength = 0,
+			perception = 0,
+			endurance = 0,
+			charisma = 0,
+			intelligence = 0,
+			agility = 0,
+			luck = 0,
+			melee = 0,
+			mana = 0,
+			defense = 0
+		},
+		picture = {
+			path = "",
+			border = {
+				path = "res://Assets/Images/Profiles/ImageBorder.png",
+				shown = true,
+			},
+			flip_profile = [false, false]
+		},
+		level = 1,
+		attacks = {
+			melee = [],
+			ranged = [],
+			mana = [],
+		},
+		skills = {},
+		
+		AP = {
+			max = 1,
+			current = 1,
+		},
+		health = {
+			max = 100,
+			current = 100,
+		},
+		mana = {
+			max = 100,
+			current = 100,
+		},
+		equipment = {
+			armour = {
+				head = -1,
+				torso = -1,
+				arms = -1, 
+				legs = -1,
+				feet = -1,
+				shield = -1
+			},
+			weapons = {
+				melee = -1, 
+				ranged = -1,
+				consumables = -1, 
+				magic = -1
+			},
+			other = []
+		},
+		
+		inventory = {
+			armour = {
+				head = [],
+				torso = [],
+				arms = [], 
+				legs = [],
+				feet = [],
+				shield = []
+			},
+			weapons = {
+				melee = [], 
+				ranged = [],
+				consumables = [], 
+				magic = []
+			},
+			other = []
 		}
 	},
 	
-	
-	
-	
-	#### death hound ###########################################################
-	#       _            _   _       _                           _ 
-	#      | |          | | | |     | |                         | |
-	#    __| | ___  __ _| |_| |__   | |__   ___  _   _ _ __   __| |
-	#   / _` |/ _ \/ _` | __| '_ \  | '_ \ / _ \| | | | '_ \ / _` |
-	#  | (_| |  __/ (_| | |_| | | | | | | | (_) | |_| | | | | (_| |
-	#   \__,_|\___|\__,_|\__|_| |_| |_| |_|\___/ \__,_|_| |_|\__,_|
-	#                                                              
-	#
-	
 	death_hound = {
-		meta = {
-			name = "Death Hound",
-			nickname = "",
-			info = "",
-		},
-		file = "",
-		
+		name = "Death Hound",
+		info = "",
+		kills = 0,
+		classType = "Death Hound",
 		stats = {
 			strength = 3,
 			perception = 3,
@@ -325,99 +279,79 @@ const characters := {
 			charisma = 3,
 			intelligence = 3,
 			agility = 3,
-			luck = 3,
+			luck = 3
+		},
+		equipBuffs = {
+			strength = 0,
+			perception = 0,
+			endurance = 0,
+			charisma = 0,
+			intelligence = 0,
+			agility = 0,
+			luck = 0,
 			melee = 0,
 			mana = 0,
-			defense = 0,
+			defense = 0
 		},
-		
 		picture = {
-			path = "Enemies/MonstersAvatarIcons_61.PNG",
+			path = "res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG",
 			border = {
 				shown = false,
 			},
-		},
-		
-		
-		
-		
-		attacks = {
-			melee = [
-				
-			],
-			ranged = [
-				
-			],
-			mana = [
-				
-			],
+			flip_profile = [false, false]
 		},
 		level = 1,
-		skills = {
-			
+		attacks = {
+			melee = ["bite"],
+			ranged = [],
+			mana = [],
 		},
-		
-		
-		
-		
-		ap = {
+		skills = {},
+		AP = {
 			max = 1,
-			current = 0.5,
+			current = 1,
 		},
 		health = {
 			max = 100,
 			current = 100,
 		},
 		mana = {
-			max = 50,
-			current = 100,
+			max = 0,
+			current = 0,
 		},
-		
-		
-		
-		
-		kills = 0,
-		
-		items = {
+		equipment = {
 			armour = {
-				head = [
-					
-				],
-				torso = [
-					
-				],
-				arms = [
-					
-				], 
-				legs = [
-					
-				],
-				feet = [
-					
-				],
-				shield = [
-					
-				]
+				head = -1,
+				torso = -1,
+				arms = -1, 
+				legs = -1,
+				feet = -1,
+				shield = -1
 			},
-			
-			equipment = {
-				melee = [
-					
-				], 
-				ranged = [
-					
-				],
-				consumables = [
-					
-				], 
-				magic = [
-					
-				]
+			weapons = {
+				melee = -1, 
+				ranged = -1,
+				consumables = -1, 
+				magic = -1
 			},
-			
-			inventory = [
-				
-			]
+			other = []
+		},
+		inventory = {
+			armour = {
+				head = [],
+				torso = [],
+				arms = [], 
+				legs = [],
+				feet = [],
+				shield = []
+			},
+			weapons = {
+				melee = [], 
+				ranged = [],
+				consumables = [], 
+				magic = []
+			},
+			other = []
 		}
 	}
 }
