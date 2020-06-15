@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/403008__inspectorj__ui-confirmation-alert-a1.ogg-2ff872ce742cf1f5047c16db3c6eb8b8.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Notification/403008__inspectorj__ui-confirmation-alert-a1.ogg"
+dest_files=[ "res://.import/403008__inspectorj__ui-confirmation-alert-a1.ogg-2ff872ce742cf1f5047c16db3c6eb8b8.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

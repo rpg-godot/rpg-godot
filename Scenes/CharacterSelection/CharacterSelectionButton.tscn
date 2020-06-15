@@ -1,17 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/UI/DefaultFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/CharacterSelection/CharacterSelectionButton.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Images/Wooden_UI/bg_01_02_landscape.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/Wooden_UI/board.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=7]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.113725, 0.247059, 0.568627, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 2 )
 
@@ -21,6 +18,7 @@ margin_bottom = 240.0
 rect_min_size = Vector2( 0, 240 )
 mouse_filter = 1
 size_flags_horizontal = 3
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -40,16 +38,6 @@ margin_bottom = 206.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="VBox/Content"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -79,13 +67,35 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
-[node name="Profile" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox"]
+[node name="Profile" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
 margin_left = 34.0
 margin_right = 234.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox/Profile"]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 200, 200 )
 texture = ExtResource( 3 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox/Profile"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SeperatorRight" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
 margin_left = 238.0
@@ -109,7 +119,7 @@ margin_bottom = 132.0
 margin_right = 217.0
 margin_bottom = 33.0
 mouse_filter = 1
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "CHARACTER NAME"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -122,6 +132,20 @@ margin_bottom = 59.0
 mouse_filter = 1
 custom_fonts/font = ExtResource( 1 )
 text = "CHARACTER INFO"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="VBox/Content"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 6 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

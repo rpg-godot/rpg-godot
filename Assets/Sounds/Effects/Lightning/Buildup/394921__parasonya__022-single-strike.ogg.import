@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/394921__parasonya__022-single-strike.ogg-3468d86ba38d83133f79b8676d7b98cc.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Lightning/Buildup/394921__parasonya__022-single-strike.ogg"
+dest_files=[ "res://.import/394921__parasonya__022-single-strike.ogg-3468d86ba38d83133f79b8676d7b98cc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

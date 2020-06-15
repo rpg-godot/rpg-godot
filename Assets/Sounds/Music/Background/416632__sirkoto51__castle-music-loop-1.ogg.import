@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/416632__sirkoto51__castle-music-loop-1.ogg-ec33a567f0d4eace912db28134ab42ff.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/416632__sirkoto51__castle-music-loop-1.ogg"
+dest_files=[ "res://.import/416632__sirkoto51__castle-music-loop-1.ogg-ec33a567f0d4eace912db28134ab42ff.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

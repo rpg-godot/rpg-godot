@@ -1,50 +1,56 @@
 extends Control
+const script_name := "character_creation"
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-onready var selectedCharacter = -1
-onready var selectedEquip = -1
-onready var Profiles = ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png"]
-onready var Classes = get_node("/root/Variables").Classes
-onready var SaveGame = get_node("/root/Variables").SaveGame
+onready var selected_character := -1
+onready var selected_equip := -1
+const profiles := ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	##For profile pic in profiles add a new profile to choose from
-	
-	##This line should dyncamically update the contents of Profiles based off the files in "res://Assets/Images/Profiles/Friendlies/"
+	# Set button text to disabled state
+	get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
+	get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 	
 	for profile in get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children():
 		profile.free()
-	for profile in Profiles:
+	for profile in profiles:
 		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
-		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[Profiles.find(profile)]
+		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profiles.find(profile)]
 		profilePanel.get_node("Pic").texture = load(profile)
-		profilePanel.get_node("Pic").flip_h = Classes.flipProfile[profile][0]
-		profilePanel.get_node("Pic").flip_v = Classes.flipProfile[profile][1]
-	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[0].get_node("Labels/Label").text = "Strength"
-	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[1].get_node("Labels/Label").text = "Perception"
-	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[2].get_node("Labels/Label").text = "Endurace"
-	get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()[3].get_node("Labels/Label").text = "Charisma"
-	get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()[0].get_node("Labels/Label").text = "Intelligence"
-	get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()[1].get_node("Labels/Label").text = "Agility"
-	get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()[2].get_node("Labels/Label").text = "Luck"
-#	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selectedCharacter].get_node("Border").show()
-#	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selectedCharacter].chosen = true
-	get_node("MainMenu/Choices/Equipment/Classes/Knight").get_node("ClassName").text = "Knight"
-	get_node("MainMenu/Choices/Equipment/Classes/Knight").get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_warrior.png")
-	get_node("MainMenu/Choices/Equipment/Classes/Berserker").get_node("ClassName").text = "Berserker"
-	get_node("MainMenu/Choices/Equipment/Classes/Berserker").get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_barbarian.png")
-	get_node("MainMenu/Choices/Equipment/Classes/BattleMage").get_node("ClassName").text = "Battle Mage"
-	get_node("MainMenu/Choices/Equipment/Classes/BattleMage").get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_mage.png")
-	get_node("MainMenu/Choices/Equipment/Classes/QuickShooter").get_node("ClassName").text = "Quick Shooter"
-	get_node("MainMenu/Choices/Equipment/Classes/QuickShooter").get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_hunter.PNG")
-	
+		profilePanel.get_node("Pic").flip_h = Characters.flip_profile[profile][0]
+		profilePanel.get_node("Pic").flip_v = Characters.flip_profile[profile][1]
+	var spec = get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()
+	spec[0].get_node("Labels/Label").text = "Strength"
+	spec[1].get_node("Labels/Label").text = "Perception"
+	spec[2].get_node("Labels/Label").text = "Endurace"
+	spec[3].get_node("Labels/Label").text = "Charisma"
+
+	var ial = get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children()
+	ial[0].get_node("Labels/Label").text = "Intelligence"
+	ial[1].get_node("Labels/Label").text = "Agility"
+	ial[2].get_node("Labels/Label").text = "Luck"
+	var knight = get_node("MainMenu/Choices/Equipment/Classes/Knight")
+	knight.get_node("ClassName").text = "Knight"
+	knight.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_warrior.png")
+
+	var berserker = get_node("MainMenu/Choices/Equipment/Classes/Berserker")
+	berserker.get_node("ClassName").text = "Berserker"
+	berserker.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_barbarian.png")
+
+	var battle_mage = get_node("MainMenu/Choices/Equipment/Classes/BattleMage")
+	battle_mage.get_node("ClassName").text = "Battle Mage"
+	battle_mage.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_mage.png")
+
+	var quick_shooter = get_node("MainMenu/Choices/Equipment/Classes/QuickShooter")
+	quick_shooter.get_node("ClassName").text = "Quick Shooter"
+	quick_shooter.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_hunter.PNG")
+
+	Core.emit_signal("scene_loaded", self)
+
 func updateChosenEquip(chosenEquip):
 	var equips = get_node("MainMenu/Choices/Equipment/Classes").get_children()
-	selectedEquip = equips.find(chosenEquip)
+	selected_equip = equips.find(chosenEquip)
 	for equip in equips:
 		if equip != chosenEquip:
 			equip.get_node("ImgCenter/Border").hide()
@@ -53,7 +59,7 @@ func updateChosenEquip(chosenEquip):
 
 func updateChosenProfile(chosenProfile):
 	var profiles = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()
-	selectedCharacter = profiles.find(chosenProfile)
+	selected_character = profiles.find(chosenProfile)
 	for profile in profiles:
 		if profile != chosenProfile:
 			profile.get_node("Border").hide()
@@ -61,69 +67,49 @@ func updateChosenProfile(chosenProfile):
 	checkIfCompleted()
 
 func checkIfCompleted():
-	if selectedCharacter != -1 && selectedEquip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
+	if selected_character != -1 && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
+		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(1, 1, 1)
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.FLASHING
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
+		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 
 
 func _on_Name_text_changed():
 	checkIfCompleted()
 
 func _on_Complete_pressed():
-	var stats = []
-	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
-		stats.append(int(stat.get_node("Numbers/Number").text))
-	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
-		stats.append(int(stat.get_node("Numbers/Number").text))
-	var Player = Classes.CreateCharacter(get_node("MainMenu/Choices/CharacterName/Name").text, stats, Profiles[selectedCharacter], [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1], [], []], 1, [0], 1, 0.5, 100, 100)
-	var chosenEquip = get_node("MainMenu/Choices/Equipment/Classes").get_children()[selectedEquip].get_node("ClassName").text
-	if chosenEquip == "Knight":
-		var sword = Classes.CreateItem("weapons", "melee", "one-handed sword", "Sword", [2,0,0,0,0,0,0,10,0,0], 1)
-		Player.inventory.add(sword, 1)
-		Player.equip(sword)
-		print (Player.equipBuffs)
-		Player.attacks["melee"].append(4)
-	if chosenEquip == "Battle Mage":
-		var staff = Classes.CreateItem("weapons", "magic", "staff", "Staff", [0,0,0,0,2,0,0,0,10,0], 1)
-		Player.inventory.add(staff, 1)
-		Player.equip(staff)
-		Player.attacks["mana"].append(1)
-	if chosenEquip == "Berserker":
-		var axe = Classes.CreateItem("weapons", "melee", "two-handed axe", "Two-handed Battle Axe", [3,0,0,0,0,-1,0,20,0,0], 1)
-		Player.inventory.add(axe, 1)
-		Player.equip(axe)
-		Player.attacks["melee"].append(4)
-	if chosenEquip == "Quick Shooter":
-		var bow = Classes.CreateItem("weapons", "ranged", "hunting bow", "Bow", [0,0,0,0,0,2,0,0,0,0], 1)
-		var arrow = Classes.CreateItem("weapons", "consumables", "arrow", "Arrow", [0,0,0,0,0,0,1,5,0,0], 1)
-		var dagger = Classes.CreateItem("weapons", "melee", "dagger", "Dagger", [1,0,0,0,0,0,0,5,0,0], 1)
-		Player.inventory.add(bow, 1)
-		Player.equip(bow)
-		Player.inventory.add(arrow, 10)
-		Player.equip(arrow)
-		Player.inventory.add(dagger, 1)
-		Player.equip(arrow)
-		Player.attacks["ranged"].append(1)
-		Player.attacks["melee"].append(4)
+	var player = CharacterManager.create("blank")
+	player.name = get_node("MainMenu/Choices/CharacterName/Name").text
+	player.timeCreated = str(OS.get_unix_time())
+	player.classType = "PLAYER"
 	
-	#load default save data and override player with chosen data then save the file and start the game
-	var data = {
-		name = Player.name,
-		info = "Breathes fire",
-		picture = Player.pic[0],
-		saveFile = Player.name + " - "+ str(OS.get_unix_time()),
-		player = Player
-	}
-	SaveGame.save_character(data)
-	var Player2 = Classes.CreateCharacter("Alrune", [8,8,8,8,8,8,8], "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", [true, "res://Assets/Images/Profiles/ImageBorder.png"], [[1, 2, 3, 4], [1], [1]], 1, [0], 5, 2, 200, 200)
-	var Enemy = Classes.DeathHound([[], [], []], 14, [0], 1, 0.5, 100)
-	var Enemy2 = Classes.DeathHound([[], [], []], 15, [0], 1, 0.5, 100)
-	var Enemy3 = Classes.DeathHound([[], [], []], 16, [0], 1, 0.5, 100)
-	Enemy3.health = 0
-	Enemy3.name = "Dead Hound"
-	#print (str(Enemy.stats))
-	#print (str(Enemy2.stats))
-	#print (str(Enemy3.stats))
-	var BattleSceneMaker = preload("res://Scenes/BattleScenes/Create_Battle.gd")
-	BattleSceneMaker.switchScene(Core, "Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Player, Player2], [Enemy, Enemy2, Enemy3])
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
+		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
+		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
+	
+	player.picture.path = profiles[selected_character]
+	player.picture.flip_profile = Characters.flip_profile[player.picture.path]
+	
+	CharacterManager.learn_attack(player, "melee", "punch")
+	var chosen_equip = get_node("MainMenu/Choices/Equipment/Classes").get_children()[selected_equip].get_node("ClassName").text
+	if chosen_equip == "Knight":
+		chosen_equip = "knight"
+	if chosen_equip == "Battle Mage":
+		chosen_equip = "battle_mage"
+	if chosen_equip == "Berserker":
+		chosen_equip = "berserker"
+	if chosen_equip == "Quick Shooter":
+		chosen_equip = "quick_shooter"
+	CharacterManager.load_class(player, chosen_equip)
+	Core.player = player
+	SaveManager.save()
+	_load_battle()
+
+func _load_battle():
+	var CharacterSelection = load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance()
+	CharacterSelection._on_play_pressed()
+	queue_free()

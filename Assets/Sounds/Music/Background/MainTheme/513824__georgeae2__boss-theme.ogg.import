@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/513824__georgeae2__boss-theme.ogg-4390338e1522979efe6a807a450cf5d1.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/MainTheme/513824__georgeae2__boss-theme.ogg"
+dest_files=[ "res://.import/513824__georgeae2__boss-theme.ogg-4390338e1522979efe6a807a450cf5d1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

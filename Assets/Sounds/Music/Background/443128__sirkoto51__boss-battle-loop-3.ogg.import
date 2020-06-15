@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/443128__sirkoto51__boss-battle-loop-3.ogg-f24ec242a440eadba35ac1f4c14dbc50.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/443128__sirkoto51__boss-battle-loop-3.ogg"
+dest_files=[ "res://.import/443128__sirkoto51__boss-battle-loop-3.ogg-f24ec242a440eadba35ac1f4c14dbc50.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

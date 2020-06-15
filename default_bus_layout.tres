@@ -1,0 +1,82 @@
+[gd_resource type="AudioBusLayout" load_steps=7 format=2]
+
+[sub_resource type="AudioEffectNotchFilter" id=1]
+resource_name = "NotchFilter"
+gain = 2.65
+
+[sub_resource type="AudioEffectLowPassFilter" id=2]
+resource_name = "LowPassFilter"
+
+[sub_resource type="AudioEffectReverb" id=3]
+resource_name = "Reverb"
+
+[sub_resource type="AudioEffectCompressor" id=4]
+resource_name = "Compressor"
+threshold = -30.0
+gain = 20.0
+
+[sub_resource type="AudioEffectDistortion" id=5]
+resource_name = "Distortion"
+keep_hf_hz = 600.0
+post_gain = -2.86
+
+[sub_resource type="AudioEffectAmplify" id=6]
+resource_name = "Amplify"
+volume_db = 14.31
+
+[resource]
+bus/0/volume_db = 0.133921
+bus/1/name = "Back"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = -4.9487
+bus/1/send = "Master"
+bus/2/name = "BackAway"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = -2.51026
+bus/2/send = "Master"
+bus/2/effect/0/effect = SubResource( 1 )
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource( 2 )
+bus/2/effect/1/enabled = true
+bus/3/name = "BackInside"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = "Back"
+bus/3/effect/0/effect = SubResource( 3 )
+bus/3/effect/0/enabled = true
+bus/4/name = "BackCompress"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = "Back"
+bus/4/effect/0/effect = SubResource( 4 )
+bus/4/effect/0/enabled = true
+bus/5/name = "BackGlitch"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = 0.0
+bus/5/send = "Master"
+bus/5/effect/0/effect = SubResource( 5 )
+bus/5/effect/0/enabled = true
+bus/6/name = "Effect"
+bus/6/solo = false
+bus/6/mute = false
+bus/6/bypass_fx = false
+bus/6/volume_db = -1.45259
+bus/6/send = "Master"
+bus/6/effect/0/effect = SubResource( 6 )
+bus/6/effect/0/enabled = true
+bus/7/name = "EffectLightning"
+bus/7/solo = false
+bus/7/mute = false
+bus/7/bypass_fx = false
+bus/7/volume_db = -14.2496
+bus/7/send = "Master"

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/298360__modularsamples__korg-z1-wizzle-biscuits-126-e2-wizzle-biscuits-126-40-127.ogg-c3309c26b745129fde1e0e08223d0e0b.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Suspense/298360__modularsamples__korg-z1-wizzle-biscuits-126-e2-wizzle-biscuits-126-40-127.ogg"
+dest_files=[ "res://.import/298360__modularsamples__korg-z1-wizzle-biscuits-126-e2-wizzle-biscuits-126-40-127.ogg-c3309c26b745129fde1e0e08223d0e0b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/389153__gis-sweden__but-there-is-a-bass-drum.ogg-15d9bfa4f491f3b8c4e9bc207d14116f.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/Background/389153__gis-sweden__but-there-is-a-bass-drum.ogg"
+dest_files=[ "res://.import/389153__gis-sweden__but-there-is-a-bass-drum.ogg-15d9bfa4f491f3b8c4e9bc207d14116f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
