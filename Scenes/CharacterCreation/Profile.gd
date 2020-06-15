@@ -1,7 +1,7 @@
 extends Control
 
 const script_name := "profile"
-
+const profilePath: = ""
 var chosen = false
 
 func _on_SelectButton_pressed():

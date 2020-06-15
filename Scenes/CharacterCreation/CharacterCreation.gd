@@ -1,12 +1,19 @@
 extends Control
 const script_name := "character_creation"
 
-var battle_scene = load("res://Scenes/Battle/Battle.tscn").instance()
 
-onready var selected_character := -1
+onready var selected_profile := ""
 onready var selected_equip := -1
-const profiles := ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png"]
+const profiles := [
+		["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "Female", "Human"],
+		["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "Male", "Human"],
+		["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "Male", "Human"],
+		["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png", "Female", "Vampire"]
+	]
 onready var gender := ""
+onready var race := ""
+onready var genderBackup := ""
+onready var raceBackup := ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set button text to disabled state
@@ -15,12 +22,12 @@ func _ready():
 	
 	for profile in get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children():
 		profile.free()
-	for profile in profiles:
-		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
-		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profiles.find(profile)]
-		profilePanel.get_node("Pic").texture = load(profile)
-		profilePanel.get_node("Pic").flip_h = Characters.flip_profile[profile][0]
-		profilePanel.get_node("Pic").flip_v = Characters.flip_profile[profile][1]
+#	for profile in profiles:
+#		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
+#		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profiles.find(profile)]
+#		profilePanel.get_node("Pic").texture = load(profile)
+#		profilePanel.get_node("Pic").flip_h = Characters.flip_profile[profile][0]
+#		profilePanel.get_node("Pic").flip_v = Characters.flip_profile[profile][1]
 	var spec = get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()
 	spec[0].get_node("Labels/Label").text = "Strength"
 	spec[1].get_node("Labels/Label").text = "Perception"
@@ -60,7 +67,7 @@ func updateChosenEquip(chosenEquip):
 
 func updateChosenProfile(chosenProfile):
 	var profiles = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()
-	selected_character = profiles.find(chosenProfile)
+	selected_profile = chosenProfile.get_node("Path").text
 	for profile in profiles:
 		if profile != chosenProfile:
 			profile.get_node("Border").hide()
@@ -70,7 +77,29 @@ func updateChosenProfile(chosenProfile):
 	checkIfCompleted()
 
 func checkIfCompleted():
-	if selected_character != -1 && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0" && gender != "":
+	if race != "" && gender != "" && (race != raceBackup or gender != genderBackup):
+		genderBackup = gender
+		raceBackup = race
+		selected_profile = ""
+		for profile in get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children():
+			profile.free()
+		var profileCount = 0
+		for profile in profiles:
+			if profile[1] == gender && profile[2] == race:
+				get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
+				var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profileCount]
+				profilePanel.get_node("Path").text = profile[0]
+				profilePanel.get_node("Pic").texture = load(profile[0])
+				profilePanel.get_node("Pic").flip_h = Characters.flip_profile[profile[0]][0]
+				profilePanel.get_node("Pic").flip_v = Characters.flip_profile[profile[0]][1]
+				profileCount +=1
+		if profileCount > 0:
+			get_node("MainMenu/Choices/ProfileSelection/Warning").visible = false
+			get_node("MainMenu/Choices/ProfileSelection/Warning").text = ""
+		else:
+			get_node("MainMenu/Choices/ProfileSelection/Warning").visible = true
+			get_node("MainMenu/Choices/ProfileSelection/Warning").text = "THERE ARE NO PROFILE IMAGES TO DISPLAY"
+	if selected_profile != "" && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
 		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(1, 1, 1)
 		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.FLASHING
@@ -95,7 +124,7 @@ func _on_Complete_pressed():
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
 		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
 	
-	player.picture.path = profiles[selected_character]
+	player.picture.path = selected_profile
 	player.picture.flip_profile = Characters.flip_profile[player.picture.path]
 	
 	CharacterManager.learn_attack(player, "melee", "punch")
@@ -120,28 +149,116 @@ func _load_battle():
 
 func _on_Male_mouse_entered():
 	if gender != "Male":
-		get_node("MainMenu/Choices/Gender/Male/MaleText").state = FlashingText.States.FLASHING
+		get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.FLASHING
 
 func _on_Male_mouse_exited():
 	if gender != "Male":
-		get_node("MainMenu/Choices/Gender/Male/MaleText").state = FlashingText.States.DISABLED
+		get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.DISABLED
 
 func _on_Male_pressed():
 	gender = "Male"
-	get_node("MainMenu/Choices/Gender/Male/MaleText").state = FlashingText.States.ENABLED
-	get_node("MainMenu/Choices/Gender/Female/FemaleText").state = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.ENABLED
+	get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.DISABLED
 	checkIfCompleted()
 
 func _on_Female_mouse_entered():
 	if gender != "Female":
-		get_node("MainMenu/Choices/Gender/Female/FemaleText").state = FlashingText.States.FLASHING
+		get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.FLASHING
 
 func _on_Female_mouse_exited():
 	if gender != "Female":
-		get_node("MainMenu/Choices/Gender/Female/FemaleText").state = FlashingText.States.DISABLED
+		get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.DISABLED
 
 func _on_Female_pressed():
 	gender = "Female"
-	get_node("MainMenu/Choices/Gender/Female/FemaleText").state = FlashingText.States.ENABLED
-	get_node("MainMenu/Choices/Gender/Male/MaleText").state = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.ENABLED
+	get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.DISABLED
 	checkIfCompleted()
+
+func set_race_state():
+	var topRaces = ["Human", "Half-Elf", "Elf"]
+	var botRaces = ["Dwarf", "Fairy", "Demon"]
+	if race in topRaces:
+		topRaces.remove(topRaces.find(race))
+		get_node("MainMenu/Choices/Race/Top/" + race + "/Text").state = FlashingText.States.ENABLED
+	else:
+		botRaces.remove(botRaces.find(race))
+		get_node("MainMenu/Choices/Race/Bot/" + race + "/Text").state = FlashingText.States.ENABLED
+	for raceTemp in topRaces:
+		get_node("MainMenu/Choices/Race/Top/" + raceTemp + "/Text").state = FlashingText.States.DISABLED
+	for raceTemp in botRaces:
+		get_node("MainMenu/Choices/Race/Bot/" + raceTemp + "/Text").state = FlashingText.States.DISABLED
+	selected_profile = ""
+	checkIfCompleted()
+
+func _on_Human_pressed():
+	race = "Human"
+	set_race_state()
+
+func _on_HalfElf_pressed():
+	race = "Half-Elf"
+	set_race_state()
+
+func _on_Elf_pressed():
+	race = "Elf"
+	set_race_state()
+
+func _on_Dwarf_pressed():
+	race = "Dwarf"
+	set_race_state()
+
+func _on_Fairy_pressed():
+	race = "Fairy"
+	set_race_state()
+
+func _on_Demon_pressed():
+	race = "Demon"
+	set_race_state()
+
+func _on_Human_mouse_entered():
+	if race != "Human":
+		get_node("MainMenu/Choices/Race/Top/Human/Text").state = FlashingText.States.FLASHING
+
+func _on_HalfElf_mouse_entered():
+	if race != "Half-Elf":
+		get_node("MainMenu/Choices/Race/Top/Half-Elf/Text").state = FlashingText.States.FLASHING
+
+func _on_Elf_mouse_entered():
+	if race != "Elf":
+		get_node("MainMenu/Choices/Race/Top/Elf/Text").state = FlashingText.States.FLASHING
+
+func _on_Dwarf_mouse_entered():
+	if race != "Dwarf":
+		get_node("MainMenu/Choices/Race/Bot/Dwarf/Text").state = FlashingText.States.FLASHING
+
+func _on_Fairy_mouse_entered():
+	if race != "Fairy":
+		get_node("MainMenu/Choices/Race/Bot/Fairy/Text").state = FlashingText.States.FLASHING
+
+func _on_Demon_mouse_entered():
+	if race != "Demon":
+		get_node("MainMenu/Choices/Race/Bot/Demon/Text").state = FlashingText.States.FLASHING
+
+func _on_Human_mouse_exited():
+	if race != "Human":
+		get_node("MainMenu/Choices/Race/Top/Human/Text").state = FlashingText.States.DISABLED
+
+func _on_HalfElf_mouse_exited():
+	if race != "Half-Elf":
+		get_node("MainMenu/Choices/Race/Top/Half-Elf/Text").state = FlashingText.States.DISABLED
+
+func _on_Elf_mouse_exited():
+	if race != "Elf":
+		get_node("MainMenu/Choices/Race/Top/Elf/Text").state = FlashingText.States.DISABLED
+
+func _on_Dwarf_mouse_exited():
+	if race != "Dwarf":
+		get_node("MainMenu/Choices/Race/Bot/Dwarf/Text").state = FlashingText.States.DISABLED
+
+func _on_Fairy_mouse_exited():
+	if race != "Fairy":
+		get_node("MainMenu/Choices/Race/Bot/Fairy/Text").state = FlashingText.States.DISABLED
+
+func _on_Demon_mouse_exited():
+	if race != "Demon":
+		get_node("MainMenu/Choices/Race/Bot/Demon/Text").state = FlashingText.States.DISABLED
