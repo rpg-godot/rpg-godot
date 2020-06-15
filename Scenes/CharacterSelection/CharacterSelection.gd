@@ -39,7 +39,7 @@ func add_character(id: String, name: String, info: String, picture: Dictionary, 
 		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile/Picture").flip_h = player.picture.flip_profile[0]
 		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile/Picture").flip_v = player.picture.flip_profile[1]
 	else:
-		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile/Picture").visible = false
+		ButtonInstance.get_node("VBox/Content/HBox/CenterProfile/HBox/Profile").visible = false
 	
 	# Set Text
 	ButtonInstance.get_node("VBox/Content/HBox/CenterText/VBox/Name").text = name.to_upper()

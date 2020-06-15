@@ -40,4 +40,9 @@ margin_bottom = 200.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Path" type="Label" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
 [connection signal="pressed" from="SelectButton" to="." method="_on_SelectButton_pressed"]
