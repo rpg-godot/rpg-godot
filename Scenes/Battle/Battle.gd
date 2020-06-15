@@ -22,15 +22,6 @@ func set_background(value):
 func get_background():
 	return get_node("TopScreen/Background").texture
 
-# ==== Prototype text ===========================
-# Alrune Hit Grand Wolf for 25 damage with Strike
-# Grand Wolf Bit Alrune for 15 Damage
-# Alrune heals for 20 HP
-# Grand Hound Has Died
-
-
-
-
 func load_battle(new_battle_name: String, new_background: String, new_friendlies: Array, new_enemies: Array):
 	# Switch Scene
 	friendlies = new_friendlies
@@ -40,30 +31,11 @@ func load_battle(new_battle_name: String, new_background: String, new_friendlies
 	battle_name = new_battle_name
 	background = new_background
 	
-	# Initiate and unhide needed tiles
-	for character in friendlies:
-		setup_friendly(character)
-	for character in enemies:
-		setup_enemy(character)
-	
-	# Update stats
-	update_characters()
-	update_attacks(0)
-
-
-
+#	# Initiate the UI
+	create_Characters()
+	update_attacks(activeCharacterIndex)
 
 func _ready():
-	BattleBoard.show()
-	AttackList.hide()
-	#Hide all tiles until needed
-	var allFriendlies = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()
-	var allEnemies = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()
-	for friendPanel in allFriendlies:
-		friendPanel.free()
-	for enemyPanel in allEnemies:
-		enemyPanel.free()
-	
 	var error = Core.connect("msg", self, "_on_msg")
 	if error:
 		Core.emit_signal("msg", "Event msg failed to bind", Log.WARN, self)
@@ -71,196 +43,179 @@ func _ready():
 	
 	Core.emit_signal("scene_loaded", self)
 
-
-
-
 func _on_msg(message, level, obj):
 	get_node('BattleText').add_text(message + '\n')
-
-
-
-
-func setup_friendly(character):
-	## Looks
-	var character_panel = load("res://Scenes/Battle/CharacterPanel.tscn").instance()
-	get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(character_panel)
 	
-	var picture = character_panel.get_node("VBox/Picture/Pic")
-	picture.texture = load("res://Assets/Images/Profiles/" + character.picture.path)
-	picture.flip_h = Characters.flip_profile[character.picture.path][0]
-	picture.flip_v = Characters.flip_profile[character.picture.path][1]
-	
-	character_panel.get_node("VBox/Name").text = character.meta.name
-	character_panel.show()
-	
-	if character.picture.border.shown:
-		var picture_border = load("res://Assets/Images/Profiles/" + character.picture.border.path)
-		character_panel.get_node("VBox/Picture/PicBorder").texture = picture_border
-		character_panel.get_node("VBox/Picture/PicBorder").show()
-	else:
-		character_panel.get_node("VBox/Picture/PicBorder").hide()
+func create_Characters():
+	BattleBoard.show()
+	AttackList.hide()
+	#Hide all tiles until needed
+	for friendPanel in get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children():
+		friendPanel.free()
+	for enemyPanel in get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children():
+		enemyPanel.free()
+	## Initiate and unhide needed tiles
+	for character in friendlies:
+		## Looks
+		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
+		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
+		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.picture.path)
+		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.picture.flip_profile[0]
+		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.picture.flip_profile[1]
+		friendPanel.get_node("VBox/Name").text = character.name
+		friendPanel.show()
+		if character.picture.border.shown:
+			friendPanel.get_node("VBox/Picture/PicBorder").texture = load(character.picture.border.path)
+			friendPanel.get_node("VBox/Picture/PicBorder").show()
+		else:
+			friendPanel.get_node("VBox/Picture/PicBorder").hide()
+	for character in enemies:
+		##looks
+		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://Scenes/Battle/EnemyPanel.tscn").instance())
+		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
+		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.picture.path)
+		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.picture.flip_profile[0]
+		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.picture.flip_profile[1]
+		enemyPanel.get_node("VBox/Name").text = character.name
+		enemyPanel.show()
+		if character.picture.border.shown:
+			enemyPanel.get_node("VBox/Control/PicBorder").texture = load(character.picture.border.path)
+			enemyPanel.get_node("VBox/Control/PicBorder").show()
+		else:
+			enemyPanel.get_node("VBox/Control/PicBorder").hide()
+	update_Characters()
+func update_Characters():
+	##update stats
+	for character in friendlies:
+		##looks
+		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
+		##stats
+		friendPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/(character.health.max)
+		friendPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
+		if character.mana.max > 0:
+			friendPanel.get_node("VBox/Mana/ManaBar").value = character.mana.current*100/character.mana.max
+			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
+		else:
+			friendPanel.get_node("VBox/Mana/ManaBar").value = 0
+			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: 0/0"
+		if character.health.current > 0:
+			friendPanel.get_node("VBox/Picture/Blood").hide()
+		else:
+			friendPanel.get_node("VBox/Picture/Blood").show()
+	for character in enemies:
+		##looks
+		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
+		##stats
+		enemyPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
+		enemyPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
+		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthBar").value = character.health.current*100/character.health.max
+		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
+		if character.mana.max > 0:
+			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = character.mana.current*100/character.mana.max
+			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
+		else:
+			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = 0
+			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: 0/0"
+		enemyPanel.get_node("VBox/Health").show()
+		enemyPanel.get_node("VBox/HealthAndMana").hide()
+		if character.health.current > 0:
+			enemyPanel.get_node("VBox/Control/Blood").hide()
+		else:
+			enemyPanel.get_node("VBox/Control/Blood").show()
 
-
-
-
-func setup_enemy(character):
-	##looks
-	var enemy_panel = load("res://Scenes/Battle/EnemyPanel.tscn").instance()
-	get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(enemy_panel)
-	var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
-	
-	var picture = enemyPanel.get_node("VBox/Control/Pic")
-	picture.texture = load("res://Assets/Images/Profiles/" + character.picture.path)
-	picture.flip_h = Characters.flip_profile[character.picture.path][0]
-	picture.flip_v = Characters.flip_profile[character.picture.path][1]
-	
-	enemyPanel.get_node("VBox/Name").text = character.meta.name
-	enemyPanel.show()
-	
-	var border = enemyPanel.get_node("VBox/Control/PicBorder")
-	if character.picture.border.shown:
-		border.texture = load("res://Assets/Images/Profiles/" + character.picture.border.path)
-		border.show()
-	else:
-		border.hide()
-
-
-
-var attack_count = 0
 func update_attacks(CharacterIndex):
 	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
 	for attack in attacksList.get_children():
 		attack.free()
-	# Add character attacks
-	var attacks = friendlies[CharacterIndex].attacks
-	
-	var attack_scene = load("res://Scenes/Battle/AttackItem.tscn")
-	
-	Core.emit_signal("msg", "Rendering attacks...", Log.DEBUG, self)
-	Core.emit_signal("msg", str(attacks), Log.DEBUG, self)
-	for attack in attacks.melee:
-		var attack_item = attack_scene.instance()
-		attacksList.add_child(attack_item)
-		create_melee_button(attack, attack_item, CharacterIndex)
-		
-	for attack in attacks.ranged:
-		var attack_item = attack_scene.instance()
-		attacksList.add_child(attack_item)
-		create_ranged_button(attack, attack_item, CharacterIndex)
-		
-	for attack in attacks.mana:
-		var attack_item = attack_scene.instance()
-		attacksList.add_child(attack_item)
-		create_mana_button(attack, attack_item, CharacterIndex)
-
-func create_melee_button(attack, attack_item, CharacterIndex):
-	var disabled = true
-
-	var attack_data = Attacks.melee[attack]
-	var attackName = attack_data.name
-	var attackDamage = attack_data.hp_damage
-	var attackCost = attack_data.ap_cost
-	var pictureLocation = attack_data.image
-	attack_item.get_node("Description").text = """Attack Name: %s
+	##Add character attacks
+	var attackCount = 0
+	for attack in friendlies[CharacterIndex].attacks["melee"]:
+		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+		var attackItem = attacksList.get_children()[attackCount]
+		var pictureLocation
+		var disabled = true
+		var attackName = Attacks.melee[attack].name
+		var attackDamage = Attacks.melee[attack].hpDamage
+		var attackCost = Attacks.melee[attack].APcost
+		pictureLocation = Attacks.melee[attack].image
+		attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 AP Cost: %s""" % [attackName, attackDamage, attackCost]
-	
-	#disabled = check_melee_cost(attackCost, CharacterIndex, attack, attack_data)
-	
-	attack_item.get_node("Picture").texture = load(pictureLocation)
-	attack_item.get_node("Use").disabled = disabled
-	attack_count+=1
-
-func create_ranged_button(attack, attack_item, CharacterIndex):
-	var disabled = true
-
-	var attack_data = Attacks.ranged[attack]
-	var attackName = attack_data.name
-	var attackDamage = attack_data.hp_damage
-	var attackCost = attack_data.ap_cost
-	var ammoCost = attack_data.ammo_cost
-	var pictureLocation = attack_data.image
-	attack_item.get_node("Description").text = """Attack Name: %s
+		if attackCost <= friendlies[CharacterIndex].AP.current:
+			if friendlies[CharacterIndex].equipment["weapons"]["melee"] > 0:
+				if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["melee"]].subType in Attacks.melee[attack].weaponNeeded:
+					if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["melee"]].levelRequirement >= Attacks.melee[attack]["itemLevelRequirements"]:
+						disabled = false
+			if "none" in Attacks.melee[attack].weaponNeeded:
+				if friendlies[CharacterIndex].level >= Attacks.melee[attack]["itemLevelRequirements"]:
+					disabled = false
+		attackItem.get_node("Picture").texture = load(pictureLocation)
+		attackItem.get_node("Use").disabled = disabled
+		attackCount+=1
+	for attack in friendlies[CharacterIndex].attacks["ranged"]:
+		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+		var attackItem = attacksList.get_children()[attackCount]
+		var pictureLocation
+		var disabled = true
+		var attackName = Attacks.ranged[attack].name
+		var attackDamage = Attacks.ranged[attack].hpDamage
+		var attackCost = Attacks.ranged[attack].APcost
+		var ammoCost = Attacks.ranged[attack].ammoCost
+		pictureLocation = Attacks.ranged[attack].image
+		attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 AP Cost: %s
 Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-	
-	#disabled = check_ranged_cost(attackCost, CharacterIndex, attack, attack_data)
-	
-	attack_item.get_node("Picture").texture = load(pictureLocation)
-	attack_item.get_node("Use").disabled = disabled
-	attack_count+=1
-
-func create_mana_button(attack, attack_item, CharacterIndex):
-	var disabled = true
-	
-	var attack_data = Attacks.mana[attack]
-	var attackName = attack_data.name
-	var attackDamage = attack_data.hp_damage
-	var manaDamage = attack_data.mana_damage
-	var attackCost = attack_data.ap_cost
-	var manaCost = attack_data.mana_cost
-	var pictureLocation = attack_data.image
-	
-	#disabled = check_mana_cost(attackCost, CharacterIndex, attack, attack_data, manaCost)
-	
-	attack_item.get_node("Description").text = """Attack Name: %s
+		if attackCost <= friendlies[CharacterIndex].AP.current:
+			if friendlies[CharacterIndex].equipment["weapons"]["ranged"] > 0:
+				if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["ranged"]].subType in Attacks.ranged[attack].weaponNeeded[0]:
+					if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["ranged"]].levelRequirement >= Attacks.ranged[attack]["itemLevelRequirements"]:
+						for ammo in friendlies[CharacterIndex].inventory["weapons"]["consumables"]:
+							if ammo.quantity >= Attacks.ranged[attack].ammoCost:
+								if ammo.subType in Attacks.ranged[attack].weaponNeeded[1] && ammo.levelRequirement >=  Attacks.ranged[attack]["itemLevelRequirements"]:
+									disabled = false
+			if "none" == Attacks.ranged[attack].weaponNeeded[0][0]:
+				if friendlies[CharacterIndex].level >= Attacks.ranged[attack]["itemLevelRequirements"]:
+					for ammo in friendlies[CharacterIndex].inventory["weapons"]["consumables"]:
+						if ammo.subType in Attacks.ranged[attack].weaponNeeded[1]:
+							if ammo.quantity >= Attacks.ranged[attack].ammoCost && ammo.levelRequirement >=  Attacks.ranged[attack]["itemLevelRequirements"]:
+								disabled = false
+						else:
+							disabled = false
+		attackItem.get_node("Picture").texture = load(pictureLocation)
+		attackItem.get_node("Use").disabled = disabled
+		attackCount+=1
+	for attack in friendlies[CharacterIndex].attacks["mana"]:
+		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+		var attackItem = attacksList.get_children()[attackCount]
+		var pictureLocation
+		var disabled = true
+		var attackName = Attacks.mana[attack].name
+		var attackDamage = Attacks.mana[attack].hpDamage
+		var manaDamage = Attacks.mana[attack].manaDamage
+		var attackCost = Attacks.mana[attack].APcost
+		var manaCost = Attacks.mana[attack].manaCost
+		if attackCost <= friendlies[CharacterIndex].AP.current && manaCost <= friendlies[CharacterIndex].mana.current:
+			if friendlies[CharacterIndex].equipment["weapons"]["magic"] > 0:
+				if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["magic"]].subType in Attacks.mana[attack].weaponNeeded || "none" in Attacks.mana[attack].weaponNeeded:
+					if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["magic"]].levelRequirement >= Attacks.mana[attack].itemLevelRequirements:
+						disabled = false
+			if "none" in Attacks.mana[attack].weaponNeeded:
+				if friendlies[CharacterIndex].level >= Attacks.mana[attack].itemLevelRequirements:
+					disabled = false
+		pictureLocation = Attacks.mana[attack].image
+		attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 Mana Damage: %s
 AP Cost: %s
 Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
-	attack_item.get_node("Picture").texture = load(pictureLocation)
-	attack_item.get_node("Use").disabled = disabled
-	attack_count+=1
-
-
-func check_melee_cost(attack_cost, CharacterIndex, attack, attack_data):
-	var equipment = friendlies[CharacterIndex].items.equipment
-	
-	if attack_cost <= friendlies[CharacterIndex].ap:
-		if equipment.melee.size() > 0:
-			if equipment.melee[0].name in attack_data.weapon:
-				if equipment.melee[0].level_requirement >= attack_data.item_level:
-					return false
-		if "none" in attack_data.weapon:
-			if friendlies[CharacterIndex].level >= attack_data.level_requirements:
-				return false
-
-
-func check_ranged_cost(attack_cost, CharacterIndex, attack, attack_data):
-	var equipment = friendlies[CharacterIndex].items.equipment
-	
-	if attack_cost <= friendlies[CharacterIndex].AP:
-		if equipment.ranged.size() > 0:
-			if equipment.ranged[0].name in attack_data.weapon:
-				if equipment.ranged[0].level_requirement >= attack_data.item_level:
-					for ammo in equipment.consumables:
-						return false
-						#if ammo[1] >= attack_data.ammo_cost:
-							#if ammo[0].subType in attack_data.weaponNeeded[1] && ammo[0].levelRequirement >=  rangedAttackList[attack]["itemLevelRequirements"]:
-								#return false
-		if "none" in attack_data.weapon:
-			if friendlies[CharacterIndex].level >= attack_data.level_requirement:
-				for ammo in friendlies[CharacterIndex].inventory.items["weapons"]["consumables"]:
-					if ammo[0].subType in attack_data.weapon[1]:
-						if ammo[1] >= attack_data.ammo_cost && ammo[0].level_requirement >=  attack_data.level_requirements:
-							return false
-					else:
-						return false
-
-
-func check_mana_cost(attack_cost, CharacterIndex, attack, attack_data, mana_cost):
-	var equipment = friendlies[CharacterIndex].items.equipment
-	
-	if attack_cost <= friendlies[CharacterIndex].AP && mana_cost <= friendlies[CharacterIndex].mana:
-		if equipment.magic.size() > 0:
-			if equipment.magic[0].subType in attack_data.weapon || "none" in attack_data.weapon:
-				if equipment.magic[0].level_requirement >= attack_data.level:
-					return false
-		if "none" in attack_data.weapon_needed:
-			if friendlies[CharacterIndex].level >= attack_data.level_requirements:
-				return false
-
+		attackItem.get_node("Picture").texture = load(pictureLocation)
+		attackItem.get_node("Use").disabled = disabled
+		attackCount+=1
+		
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
 
 func _on_Attack_pressed():
 	BattleBoard.hide()
@@ -284,9 +239,6 @@ func _on_BackButton_pressed():
 	BattleBoard.show()
 	AttackList.hide()
 	update_characters()
-
-
-
 
 func update_characters():
 	# update stats
@@ -314,7 +266,7 @@ func update_characters():
 		# stats
 		enemyPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
 		enemyPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthBar").value = character.mana.current*100/character.mana.max
+		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthBar").value = character.health.current*100/character.health.max
 		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
 		if character.mana.max > 0:
 			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = character.mana.current*100/character.mana.max

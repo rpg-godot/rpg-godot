@@ -1,51 +1,57 @@
 class_name InventoryManager
 
-static func add(inventory: Array, item_data: Dictionary, quantity:=1):
-	Core.emit_signal("msg", "Adding item " + item_data.name + str(quantity) + " times...", Log.WARN, "inventory_manager")
-	if quantity < 0:
-		return false
-	
-	if item_exists(inventory, item_data):
-		increase_quantity(inventory, item_data, quantity)
+static func add(inventory: Dictionary, item: Dictionary, quantity:=1):
+	Core.emit_signal("msg", "Adding item " + item.name + str(quantity) + " times...", Log.WARN, "inventory_manager")
+	item.quantity = quantity
+	if quantity > 0:
+		if item.broadType != "other":
+			if check(inventory, item, 1)[0]:
+				inventory[item.broadType][item.type][check(inventory, item, 1)[1]].quantity += quantity
+			else:
+				inventory[item.broadType][item.type].append(item)
+		if item.broadType == "other":
+			if check(inventory, item, 1)[0]:
+				inventory[item.broadType][check(inventory, item, 1)[1]].quantity += quantity
+			else:
+				inventory[item.broadType].append([item, quantity])
+		return [true, "Done"]
 	else:
-		item_data.quantity = quantity
-		inventory.append(item_data)
-	
-	return inventory.size() -1
+		return [false, "Quantity Error"]
 
-static func remove(inventory: Array, item_data: Dictionary, quantity:=1):
-	if quantity < 0:
-		return false
-	
-	if item_exists(inventory, item_data):
-		decrease_quantity(inventory, item_data, quantity)
+static func remove(inventory: Dictionary, item: Dictionary, quantity:=1):
+	Core.emit_signal("msg", "Removing item " + item.name + " " + str(quantity) + " times...", Log.WARN, "inventory_manager")
+	if quantity > 0:
+		if item.broadType != "other":
+			if check(inventory, item, quantity)[0]:
+				inventory[item.broadType][item.type][check(inventory, item, 1)[1]].quantity -= quantity
+				if inventory[item.broadType][item.type][check(inventory, item, 0)[1]].quantity == 0:
+					inventory[item.broadType][item.type].remove(check(inventory, item, 0)[1])
+				return [true, "Done"]
+			else:
+				return [false, "Doesn't Exist"]
+		if item.broadType == "other":
+			if check(inventory, item, quantity)[0]:
+				inventory[item.broadType][check(inventory, item, 1)[1]].quantity -= quantity
+				if inventory[item.broadType][check(inventory, item, 1)[1]].quantity == 0:
+					inventory[item.broadType].remove(check(inventory, item, 1)[1])
+				return [true, "Done"]
+			else:
+				return [false, "Doesn't Exist"]
+	else:
+		return [false, "Quantity Error"]
 
+static func check(inventory: Dictionary, item: Dictionary, quantity:int):
+	var done = false
+	if item.broadType != "other":
+		for item2 in inventory[item.broadType][item.type]:
+			if itemIsTheSameAs(item, item2) && item2.quantity >= quantity:
+				return [true, inventory[item.broadType][item.type].find(item2)]
+	elif item.broadType == "other":
+		for item2 in inventory[item.broadType]:
+			if itemIsTheSameAs(item, item2) && item2.quantity >= quantity:
+				return [true, inventory[item.broadType].find(item2)]
+	if !done:
+		return [false, -1]
 
-static func increase_quantity(inventory: Array, item_data: Dictionary, quantity:=1):
-	Core.emit_signal("msg", "Increasing quantity by " + str(quantity) + " for item " + item_data.name + "...", Log.WARN, "inventory_manager")
-	var index = find_item(inventory, item_data)
-	print(index)
-	inventory[index].quantity += quantity
-
-static func decrease_quantity(inventory: Array, item_data: Dictionary, quantity:=1):
-	var index = find_item(inventory, item_data)
-	inventory[index].quantity -= quantity
-	
-	if inventory[index] <= 0:
-		inventory.erase(item_data)
-
-
-static func item_exists(inventory: Array, item_data: Dictionary):
-	for item2 in inventory:
-		if str(item_data) == str(item2):
-			return true
-	return false
-
-static func find_item(inventory: Array, item_data: Dictionary):
-	for index in item_data.size():
-		var item2_data: Dictionary = inventory[index]
-		item2_data.erase("quantity")
-		item_data.erase("quantity")
-		if str(item_data) == str(item2_data):
-			return index
-	return false
+static func itemIsTheSameAs(item:Dictionary, item2:Dictionary):
+		return (item.type == item2.type && item.name == item2.name && item.buffs == item2.buffs && item.level_requirement == item2.level_requirement)

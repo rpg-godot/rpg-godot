@@ -96,7 +96,6 @@ __meta__ = {
 }
 
 [node name="BattleBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
-visible = false
 margin_right = 700.0
 margin_bottom = 736.0
 size_flags_horizontal = 3
@@ -191,6 +190,7 @@ width = 5.0
 default_color = Color( 0, 0, 0, 1 )
 
 [node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
+visible = false
 margin_right = 700.0
 margin_bottom = 736.0
 size_flags_horizontal = 3
@@ -202,7 +202,7 @@ size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="AttacksList" type="VBoxContainer" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar"]
-margin_right = 688.0
+margin_right = 700.0
 margin_bottom = 828.0
 rect_min_size = Vector2( 0, 585 )
 size_flags_horizontal = 3

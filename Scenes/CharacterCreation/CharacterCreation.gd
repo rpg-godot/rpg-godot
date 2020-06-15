@@ -5,8 +5,7 @@ var battle_scene = load("res://Scenes/Battle/Battle.tscn").instance()
 
 onready var selected_character := -1
 onready var selected_equip := -1
-const profiles := ["Friendlies/Tex_AnimeAva_01.png", "Friendlies/Tex_AnimeAva_17.png", "Friendlies/Tex_AnimeAva_28.png", "Friendlies/Tex_AnimeAva_51.png"]
-const character_names := ["alrune", "alrune", "alrune", "alrune"]
+const profiles := ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_17.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png", "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_51.png"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,7 +18,7 @@ func _ready():
 	for profile in profiles:
 		get_node("MainMenu/Choices/ProfileSelection/Profiles").add_child(load("res://Scenes/CharacterCreation/Profile.tscn").instance())
 		var profilePanel = get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[profiles.find(profile)]
-		profilePanel.get_node("Pic").texture = load("res://Assets/Images/Profiles/" + profile)
+		profilePanel.get_node("Pic").texture = load(profile)
 		profilePanel.get_node("Pic").flip_h = Characters.flip_profile[profile][0]
 		profilePanel.get_node("Pic").flip_v = Characters.flip_profile[profile][1]
 	var spec = get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children()
@@ -32,8 +31,6 @@ func _ready():
 	ial[0].get_node("Labels/Label").text = "Intelligence"
 	ial[1].get_node("Labels/Label").text = "Agility"
 	ial[2].get_node("Labels/Label").text = "Luck"
-	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selected_character].get_node("Border").show()
-	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[selected_character].chosen = true
 	var knight = get_node("MainMenu/Choices/Equipment/Classes/Knight")
 	knight.get_node("ClassName").text = "Knight"
 	knight.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_warrior.png")
@@ -85,51 +82,35 @@ func _on_Name_text_changed():
 	checkIfCompleted()
 
 func _on_Complete_pressed():
-	var character_name = get_node("MainMenu/Choices/CharacterName/Name").text
-	
-	var player = CharacterManager.create(character_names[selected_character])
-	player.nickname = character_name
+	var player = CharacterManager.create("blank")
+	player.name = get_node("MainMenu/Choices/CharacterName/Name").text
+	player.timeCreated = str(OS.get_unix_time())
+	player.classType = "PLAYER"
 	
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
 		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
 		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
 	
-	var chosen_equip = Characters.starting_equipment.keys()[selected_equip]
-	Core.emit_signal("msg", "Chosen equipment: " + chosen_equip, Log.INFO, self)
+	player.picture.path = profiles[selected_character]
+	player.picture.flip_profile = Characters.flip_profile[player.picture.path]
+	
+	CharacterManager.learn_attack(player, "melee", "punch")
+	var chosen_equip = get_node("MainMenu/Choices/Equipment/Classes").get_children()[selected_equip].get_node("ClassName").text
+	if chosen_equip == "Knight":
+		chosen_equip = "knight"
+	if chosen_equip == "Battle Mage":
+		chosen_equip = "battle_mage"
+	if chosen_equip == "Berserker":
+		chosen_equip = "berserker"
+	if chosen_equip == "Quick Shooter":
+		chosen_equip = "quick_shooter"
 	CharacterManager.load_class(player, chosen_equip)
-	#CharacterManager.set_level(player, 10)
-	
-	player.file = player.meta.name + " - "+ str(OS.get_unix_time())
 	Core.player = player
-	
-	Core.emit_signal("request_scene_load", battle_scene)
-	var error = Core.connect("scene_loaded", self, "_on_scene_loaded")
-	if error:
-		Core.emit_signal("msg", "Event scene_loaded failed to bind", Log.WARN, self)
-	
-	Core.emit_signal("request_scene_load", battle_scene)
+	SaveManager.save()
+	_load_battle()
 
-func _on_scene_loaded(scene):
-	if scene != battle_scene:
-		return
-
-	SaveGame.save_character(Core.player)
-
-	var player2 = CharacterManager.create(character_names[selected_character])
-
-	var enemy1 = CharacterManager.create("death_hound")
-	CharacterManager.load_class(enemy1, "death_hound")
-	CharacterManager.set_level(enemy1, int(rand_range(1, 10)))
-	
-	var enemy2 = CharacterManager.create("death_hound")
-	CharacterManager.load_class(enemy2, "death_hound")
-	CharacterManager.set_level(enemy2, int(rand_range(1, 10)))
-	
-	var enemy3 = CharacterManager.create("death_hound")
-	CharacterManager.load_class(enemy3, "death_hound")
-	CharacterManager.set_level(enemy3, int(rand_range(1, 10)))
-
-	Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2, enemy3])
-	if scene == battle_scene:
-		queue_free()
+func _load_battle():
+	var CharacterSelection = load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance()
+	CharacterSelection._on_play_pressed()
+	queue_free()

@@ -145,7 +145,6 @@ size_flags_vertical = 3
 toggle_mode = true
 texture_normal = ExtResource( 5 )
 texture_pressed = ExtResource( 6 )
-texture_hover = ExtResource( 6 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

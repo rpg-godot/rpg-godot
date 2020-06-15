@@ -1,182 +1,106 @@
 class_name Attacks
 const script_name := "attacks"
 
-
-
-
-#### melee attacks #############################################################
-#                 _                   _   _             _        
-#                | |                 | | | |           | |       
-#  _ __ ___   ___| | ___  ___    __ _| |_| |_ __ _  ___| | _____ 
-# | '_ ` _ \ / _ \ |/ _ \/ _ \  / _` | __| __/ _` |/ __| |/ / __|
-# | | | | | |  __/ |  __/  __/ | (_| | |_| || (_| | (__|   <\__ \
-# |_| |_| |_|\___|_|\___|\___|  \__,_|\__|\__\__,_|\___|_|\_\___/
-#                                                                
-#                                                                
-
+##Weapon type, Image location
+const attackImages = {
+	"Fists":"res://Assets/Images/Icons/Attacks/Fists Attack.png",
+	"Claws":"res://Assets/Images/Icons/Attacks/Claws Attack.PNG",
+	"Sword":"res://Assets/Images/Icons/Attacks/Sword Attack.PNG",
+	"Bow":"res://Assets/Images/Icons/Attacks/Bow Attack.png",
+	"Teeth":"res://Assets/Images/Icons/Attacks/Teeth Attack.png",
+	"Fire_Small":"res://Assets/Images/Icons/Attacks/Fire-Small Attack.png"
+}
 const melee := {
-	
-	
-	
-	
+
 	punch = {
 		name = "Punch", 
-		hp_damage = 5, 
-		mana_damage = 0, 
-		ap_cost = 0.5,
+		hpDamage = 5,
+		APcost = 0.5,
 		target = true, 
-		image = "Fists Attack.png",
-		weapon = [
-			"none"
-		], 
-		item_level = 1
+		image = attackImages.Fists,
+		weaponNeeded = ["none"], 
+		itemLevelRequirements = 1
 	},
-	
-	
-	
-	
+
 	scratch = {
 		name = "Scratch",
-		hp_damage = 10,
-		mana_damage = 0,
-		ap_cost = 1, 
+		hpDamage = 10,
+		APcost = 1, 
 		target = true, 
-		image = "Claws Attack.png",
-		weapon = [
-			"none"
-		],
+		image = attackImages.Claws,
+		weaponNeeded = ["none"], 
+		itemLevelRequirements = 1
 	},
-	
-	
-	
-	
+
 	bite = {
 		name = "Bite",
-		hp_damage = 15,
-		mana_damage = 0,
-		ap_cost = 1.5,
+		hpDamage = 15,
+		APcost = 1.5,
 		target = true,
-		image = "Teeth Attack.png",
-		weapon = [
-			"none"
-		], 
-		item_level = 1,
+		image = attackImages.Teeth,
+		weaponNeeded = ["none"], 
+		itemLevelRequirements = 1
 	},
-	
-	
-	
-	
+
 	strike = {
 		name = "Strike",
-		hp_damage = 25,
-		mana_damage = 0,
-		ap_cost = 1, 
+		hpDamage = 25,
+		APcost = 1, 
 		target = true, 
-		image = "Sword Attack.png", 
-		weapon = [
+		image = attackImages.Sword, 
+		weaponNeeded = [
 			"one-handed sword", 
 			"two-handed swords", 
 			"two-handed axe"
 		], 
-		item_level = 1
+		itemLevelRequirements = 1
 	}
-	
-	
-	
-	
 }
 
-
-
-
-#### ranged attacks ############################################################
-#                                 _         _   _             _        
-#                                 | |       | | | |           | |       
-#   _ __ __ _ _ __   __ _  ___  __| |   __ _| |_| |_ __ _  ___| | _____ 
-#  | '__/ _` | '_ \ / _` |/ _ \/ _` |  / _` | __| __/ _` |/ __| |/ / __|
-#  | | | (_| | | | | (_| |  __/ (_| | | (_| | |_| || (_| | (__|   <\__ \
-#  |_|  \__,_|_| |_|\__, |\___|\__,_|  \__,_|\__|\__\__,_|\___|_|\_\___/
-#                    __/ |                                              
-#                   |___/                                               
-
 const ranged := {
-	
-	
-	
-	
+
 	quick_shot = {
 		name = "Quick Shot",
-		hp_damage = 20,
-		manaDamage = 0,
-		ap_cost = 1,
+		hpDamage = 20,
+		APcost = 1,
 		target = true, 
-		image = "Bow Attack.png",
-		ammo_cost = 1,
-		weapon = [
+		image = attackImages.Bow,
+		ammoCost = 1,
+		weaponNeeded = [
 			["bow", "hunting bow"],
 			["arrow"]
 		],
-		item_level = 1,
-		arrow_level = 1
+		itemLevelRequirements = 1,
+		arrowLevelRequirements = 1
 	},
-	
-	
-	
-	
-	percision_shot = {
-		name = "Percision Shot",
-		hp_damage = 40, 
-		mana_damage = 0,
-		ap_cost = 2, 
+
+	precision_shot = {
+		name = "Precision Shot",
+		hpDamage = 40, 
+		APcost = 2, 
 		target = true,
-		image = "Bow Attack.png",
-		ammo_cost = 1,
-		weapon = [
+		image = attackImages.Bow,
+		ammoCost = 1,
+		weaponNeeded = [
 			["bow", "hunting bow"], 
 			["arrow"]
 		],
-		item_level = 2,
-		arrow_level = 1
+		itemLevelRequirements = 2,
+		arrowLevelRequirements = 1
 	}
-	
-	
-	
-	
 }
 
-
-
-
-#### mana attacks ##############################################################
-#                                       _   _             _        
-#                                      | | | |           | |       
-#   _ __ ___   __ _ _ __   __ _    __ _| |_| |_ __ _  ___| | _____ 
-#  | '_ ` _ \ / _` | '_ \ / _` |  / _` | __| __/ _` |/ __| |/ / __|
-#  | | | | | | (_| | | | | (_| | | (_| | |_| || (_| | (__|   <\__ \
-#  |_| |_| |_|\__,_|_| |_|\__,_|  \__,_|\__|\__\__,_|\___|_|\_\___/
-#                                                                  
-#                                                                  
-
 const mana := {
-	
-	
-	
-	
+
 	flame = {
 		name = "Flame",
-		hp_damage = 25,
-		mana_damage = 5,
-		ap_cost = 1,
-		mana_cost = 20,
+		hpDamage = 25,
+		manaDamage = 5,
+		APcost = 1,
+		manaCost = 20,
 		target = true,
-		image = "Fire-Small Attack.png",
-		weapon = [
-			"staff"
-		],
-		item_level = 1
+		image = attackImages.Fire_Small,
+		weaponNeeded = ["staff"],
+		itemLevelRequirements = 1
 	}
-	
-	
-	
-	
 }

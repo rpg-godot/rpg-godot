@@ -2,16 +2,13 @@ class_name Items
 const script_name := "items"
 
 const items := {
-	
-	
-	
-	
+
 	sword = {
 		nickname = "Sword",
 		name = "sword",
-		type = "equipment",
-		subtype = "melee",
-		hand = "one-handed",
+		broadType = "weapons",
+		type = "melee",
+		subType = "one-handed sword",
 		tags = [],
 		buffs = {
 			strength = 2,
@@ -29,16 +26,13 @@ const items := {
 		level_requirement = 1,
 		quantity = 1,
 	},
-	
-	
-	
-	
+
 	staff = {
 		nickname = "Staff",
 		name = "staff",
-		type = "equipment",
-		subtype = "magic",
-		hand = "one-handed",
+		broadType = "weapons",
+		type = "magic",
+		subType = "staff",
 		tags = [],
 		buffs = {
 			strength = 0,
@@ -56,16 +50,13 @@ const items := {
 		level_requirement = 1,
 		quantity = 1,
 	},
-	
-	
-	
-	
+
 	axe = {
 		nickname = "Battle Axe",
 		name = "axe",
-		type = "equipment",
-		subtype = "melee",
-		hand = "two-handed",
+		broadType = "weapons",
+		type = "melee",
+		subType = "two-handed axe",
 		tags = [],
 		buffs = {
 			strength = 3,
@@ -83,16 +74,13 @@ const items := {
 		level_requirement = 1,
 		quantity = 1,
 	},
-	
-	
-	
-	
+
 	bow = {
 		nickname = "Hunting bow",
 		name = "bow",
-		type = "equipment",
-		subtype = "ranged",
-		hand = "two-handed",
+		broadType = "weapons",
+		type = "ranged",
+		subType = "hunting bow",
 		tags = [],
 		buffs = {
 			strength = 0,
@@ -110,16 +98,13 @@ const items := {
 		level_requirement = 1,
 		quantity = 1,
 	},
-	
-	
-	
-	
+
 	arrow = {
 		nickname = "Arrow",
 		name = "arrow",
-		type = "equipment",
-		subtype = "consumables",
-		hand = "one-handed",
+		broadType = "weapons",
+		type = "consumables",
+		subType = "arrow",
 		tags = [],
 		buffs = {
 			strength = 0,
@@ -137,16 +122,13 @@ const items := {
 		level_requirement = 1,
 		quantity = 1,
 	},
-	
-	
-	
-	
+
 	dagger = {
 		nickname = "Dagger",
 		name = "dagger",
-		type = "equipment",
-		subtype = "melee",
-		hand = "one-handed",
+		broadType = "weapons",
+		type = "melee",
+		subType = "dagger",
 		tags = [],
 		buffs = {
 			strength = 0,
@@ -164,8 +146,4 @@ const items := {
 		level_requirement = 1,
 		quantity = 1,
 	}
-	
-	
-	
-	
 }

@@ -43,3 +43,9 @@ static func find_all_value(_dict, target):
 		#case 3: it is not dictionary and match the key -> put it in result
 		elif key == target:
 			return [_dict[key]]
+
+static func clone_dict(source):
+	var dictionary = {}
+	for key in source:
+		dictionary[key] = source[key]
+	return dictionary
