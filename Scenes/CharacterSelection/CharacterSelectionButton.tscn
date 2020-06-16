@@ -77,9 +77,11 @@ __meta__ = {
 }
 
 [node name="Picture" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox/Profile"]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 190.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 180, 180 )
 texture = ExtResource( 3 )
 expand = true
 __meta__ = {

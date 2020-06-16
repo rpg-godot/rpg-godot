@@ -4,7 +4,8 @@ const script_name := "battle"
 onready var BattleBoard := $"TopScreen/DisplayArea/BattleBoard/"
 onready var AttackList := $"TopScreen/DisplayArea/AttackBoard/"
 onready var friendlies := []
-onready var activeCharacterIndex := 0
+onready var activeCharacterIndex := -1
+onready var nextCharacterIndex := []
 onready var enemies := []
 
 var battle_name setget set_battle_name, get_battle_name
@@ -214,15 +215,112 @@ Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
 		attackCount+=1
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	#AI Attack
+	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1:
+		print (nextCharacterIndex)
+		if nextCharacterIndex[0][0] == "Friendly":
+			var character = friendlies[nextCharacterIndex[0][1]]
+			if character.health.current > 0:
+				if character.classType != "PLAYER":
+					var attacked = false
+					for attackType in character.attacks:
+						for attackName in character.attacks[attackType]:
+							var attack = Attacks[attackType][attackName]
+							if character.AP.current >= attack.APcost:
+								for otherCharacter in enemies:
+									if otherCharacter.health.current > 0:
+										otherCharacter.health.current-=attack.hpDamage
+										if otherCharacter.health.current < 0:
+											otherCharacter.health.current=0
+										if otherCharacter.health.current > 0:
+											Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
+										else:
+											Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
+										character.AP.current -=attack.APcost
+										attacked = true
+										break
+						if attacked:
+							break
+				else:
+					activeCharacterIndex = nextCharacterIndex[0][1]
+		else:
+			var character = enemies[nextCharacterIndex[0][1]]
+			if character.health.current > 0:
+				var attacked = false
+				for attackType in character.attacks:
+					for attackName in character.attacks[attackType]:
+						var attack = Attacks[attackType][attackName]
+						if character.AP.current >= attack.APcost:
+							for otherCharacter in friendlies:
+								if otherCharacter.health.current > 0:
+									otherCharacter.health.current-=attack.hpDamage
+									if otherCharacter.health.current < 0:
+										otherCharacter.health.current=0
+									if otherCharacter.health.current > 0:
+										Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
+									else:
+										Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
+									character.AP.current -=attack.APcost
+									attacked = true
+									break
+					if attacked:
+						break
+		nextCharacterIndex.remove(0)
+	#Increase characters AP intil a move is ready
+	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1:
+		print("new Turn")
+		for character in friendlies:
+			if character.health.current > 0:
+				print(character.name)
+				print(character.AP.current)
+				character.AP.current += character.AP.speed
+				if character.AP.current > character.AP.max:
+					character.AP.current = character.AP.max
+				character.mana.current += character.mana.speed
+				if character.mana.current > character.mana.max:
+					character.mana.current = character.mana.max
+				character.health.current += character.health.speed
+				if character.health.current > character.health.max:
+					character.health.current = character.health.max
+				if character.AP.current >= character.attacks.lowestCost:
+					nextCharacterIndex.append(["Friendly", friendlies.find(character)])
+				print(character.AP.current)
+		for character in enemies:
+			if character.health.current > 0:
+				print(character.name)
+				print(character.AP.current)
+				character.AP.current += character.AP.speed
+				if character.AP.current > character.AP.max:
+					character.AP.current = character.AP.max
+				character.mana.current += character.mana.speed
+				if character.mana.current > character.mana.max:
+					character.mana.current = character.mana.max
+				character.health.current += character.health.speed
+				if character.health.current > character.health.max:
+					character.health.current = character.health.max
+				if character.AP.current >= character.attacks.lowestCost:
+						nextCharacterIndex.append(["Enemy", enemies.find(character)])
+				print(character.AP.current)
+			
+		
 
 func _on_Attack_pressed():
 	BattleBoard.hide()
 	AttackList.show()
-	enemies[0].health.current-=10
+	for character in enemies:
+		if character.health.current > 0:
+			character.health.current-=10
+			if character.health.current < 0:
+				character.health.current=0
+			if character.health.current > 0:
+				Core.emit_signal('msg', friendlies[activeCharacterIndex].name + ' dealt ' + str(10) + ' HP damage against ' + character.name + '!', Log.INFO, self)
+			else:
+				Core.emit_signal('msg', friendlies[activeCharacterIndex].name + ' kills ' + character.name + '!', Log.INFO, self)
+			friendlies[activeCharacterIndex].AP.current -=1
+			break
 	update_attacks(activeCharacterIndex)
-	Core.emit_signal('msg', 'You dealt ' + str(10) + ' damage!', Log.INFO, self)
+	activeCharacterIndex = -1
 
 func _on_Items_pressed():
 	BattleBoard.hide()
@@ -258,7 +356,6 @@ func update_characters():
 			friendPanel.get_node("VBox/Picture/Blood").hide()
 		else:
 			# friendly die
-			Core.emit_signal('msg', 'An friend has died!', Log.INFO, self)
 			friendPanel.get_node("VBox/Picture/Blood").show()
 	for character in enemies:
 		# looks
@@ -280,5 +377,4 @@ func update_characters():
 			enemyPanel.get_node("VBox/Control/Blood").hide()
 		else:
 			# enemy die
-			Core.emit_signal('msg', 'An enemy has died!', Log.INFO, self)
 			enemyPanel.get_node("VBox/Control/Blood").show()
