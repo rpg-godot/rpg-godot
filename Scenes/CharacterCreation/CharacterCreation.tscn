@@ -26,7 +26,7 @@ size = 57
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
-size = 29
+size = 27
 font_data = ExtResource( 3 )
 
 [node name="CharacterCreation" type="Control"]
@@ -71,11 +71,12 @@ __meta__ = {
 
 [node name="Overlay" parent="." instance=ExtResource( 8 )]
 
-[node name="MainMenu" type="MarginContainer" parent="."]
+[node name="MainMenu" type="ScrollContainer" parent="."]
 margin_left = 10.0
 margin_top = 160.0
 margin_right = 710.0
 margin_bottom = 1070.0
+rect_min_size = Vector2( 700, 910 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,6 +84,8 @@ __meta__ = {
 [node name="Choices" type="VBoxContainer" parent="MainMenu"]
 margin_right = 700.0
 margin_bottom = 910.0
+rect_min_size = Vector2( 690, 0 )
+size_flags_horizontal = 3
 
 [node name="ProfileSelection" type="ScrollContainer" parent="MainMenu/Choices"]
 margin_right = 700.0
@@ -233,12 +236,12 @@ margin_right = 567.0
 
 [node name="Remaining" type="VBoxContainer" parent="MainMenu/Choices/Stats/Display"]
 margin_left = 571.0
-margin_right = 700.0
+margin_right = 689.0
 margin_bottom = 444.0
 size_flags_vertical = 3
 
 [node name="Total" type="Label" parent="MainMenu/Choices/Stats/Display/Remaining"]
-margin_right = 129.0
+margin_right = 118.0
 margin_bottom = 220.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -249,7 +252,7 @@ valign = 2
 
 [node name="Total2" type="Label" parent="MainMenu/Choices/Stats/Display/Remaining"]
 margin_top = 224.0
-margin_right = 129.0
+margin_right = 118.0
 margin_bottom = 444.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -294,6 +297,7 @@ margin_bottom = 115.0
 margin_top = 830.0
 margin_right = 700.0
 margin_bottom = 910.0
+rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
@@ -302,7 +306,8 @@ expand = true
 
 [node name="FlashingText" parent="MainMenu/Choices/Complete" instance=ExtResource( 10 )]
 mouse_filter = 1
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Create Character"
+state = 2
 [connection signal="text_changed" from="MainMenu/Choices/CharacterName/Name" to="." method="_on_Name_text_changed"]
 [connection signal="pressed" from="MainMenu/Choices/Complete" to="." method="_on_Complete_pressed"]
