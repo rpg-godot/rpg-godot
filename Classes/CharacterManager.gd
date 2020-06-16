@@ -21,6 +21,8 @@ static func load_class(character_data: Dictionary, character_class: String):
 static func learn_attack(character_data: Dictionary, attack_type: String, attack_name: String):
 	if !character_data.attacks[attack_type].has(attack_name):
 		character_data.attacks[attack_type].append(attack_name)
+		if Attacks[attack_type][attack_name].APcost < character_data.attacks.lowestCost:
+			character_data.attacks.lowestCost = Attacks[attack_type][attack_name].APcost
 
 
 static func calcuate_item_buffs(character_data):

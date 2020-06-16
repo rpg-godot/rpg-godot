@@ -69,7 +69,7 @@ const starting_attacks := {
 		mana = [],
 	},
 	death_hound = {
-		melee = ["strike"],
+		melee = [],
 		ranged = [],
 		mana = [],
 	}
@@ -90,7 +90,7 @@ const characters := {
 		info = "",
 		kills = 0,
 		timeCreated = "1592139824",
-		classType = "TEST",
+		classType = "PLAYER",
 		stats = {
 			strength = 3,
 			perception = 3,
@@ -125,19 +125,23 @@ const characters := {
 			melee = ["punch"],
 			ranged = [],
 			mana = [],
+			lowestCost = 0.5
 		},
 		skills = {},
 		AP = {
-			max = 1,
-			current = 1,
+			max = 2,
+			current = 2,
+			speed = 0.5
 		},
 		health = {
 			max = 100,
 			current = 100,
+			speed = 0
 		},
 		mana = {
 			max = 100,
 			current = 100,
+			speed = 0
 		},
 		equipment = {
 			armour = {
@@ -215,20 +219,24 @@ const characters := {
 			melee = [],
 			ranged = [],
 			mana = [],
+			lowestCost = 1000000000000
 		},
 		skills = {},
 		
 		AP = {
-			max = 1,
-			current = 1,
+			max = 2,
+			current = 2,
+			speed = 0.5
 		},
 		health = {
 			max = 100,
 			current = 100,
+			speed = 0
 		},
 		mana = {
 			max = 100,
 			current = 100,
+			speed = 0
 		},
 		equipment = {
 			armour = {
@@ -305,19 +313,23 @@ const characters := {
 			melee = ["bite"],
 			ranged = [],
 			mana = [],
+			lowestCost = 1.5
 		},
 		skills = {},
 		AP = {
-			max = 1,
-			current = 1,
+			max = 2,
+			current = 2,
+			speed = 0.5
 		},
 		health = {
 			max = 100,
 			current = 100,
+			speed = 0
 		},
 		mana = {
 			max = 0,
 			current = 0,
+			speed = 0
 		},
 		equipment = {
 			armour = {

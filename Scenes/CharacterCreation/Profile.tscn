@@ -16,7 +16,7 @@ __meta__ = {
 [node name="Pic" type="TextureRect" parent="."]
 margin_right = 200.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
+rect_min_size = Vector2( 180, 180 )
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {

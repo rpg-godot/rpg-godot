@@ -10,7 +10,7 @@ const profiles := ["res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png"
 func _ready():
 	# Set button text to disabled state
 	get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
-	get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
+	get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.DISABLED
 	
 	for profile in get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children():
 		profile.free()
@@ -63,6 +63,8 @@ func updateChosenProfile(chosenProfile):
 	for profile in profiles:
 		if profile != chosenProfile:
 			profile.get_node("Border").hide()
+			profile.get_node("Pic").rect_position=Vector2(0,0)
+			profile.get_node("Pic").rect_size=Vector2(200,200)
 			profile.chosen = false
 	checkIfCompleted()
 
@@ -74,7 +76,7 @@ func checkIfCompleted():
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
 		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
-		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.DISABLED
 
 
 func _on_Name_text_changed():
@@ -85,6 +87,7 @@ func _on_Complete_pressed():
 	player.name = get_node("MainMenu/Choices/CharacterName/Name").text
 	player.timeCreated = str(OS.get_unix_time())
 	player.classType = "PLAYER"
+	player.info = "New Character"
 	
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
 		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
