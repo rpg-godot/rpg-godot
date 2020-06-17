@@ -18,7 +18,6 @@ func _ready():
 	
 	AudioManager.load_music_player("Background", "Music/Background/MainTheme/513824__georgeae2__boss-theme.ogg", "Back")
 	
-	yield(get_tree().create_timer(1.0), "timeout")
 	Core.emit_signal("request_scene_load", splash)
 
 func _on_msg(message, level, obj):
