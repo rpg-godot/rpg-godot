@@ -17,13 +17,11 @@ static func load_class(character_data: Dictionary, character_class: String):
 			learn_attack(character_data, attack_type, attack_name)
 	return character_data
 
-
 static func learn_attack(character_data: Dictionary, attack_type: String, attack_name: String):
 	if !character_data.attacks[attack_type].has(attack_name):
 		character_data.attacks[attack_type].append(attack_name)
 		if Attacks[attack_type][attack_name].APcost < character_data.attacks.lowestCost:
 			character_data.attacks.lowestCost = Attacks[attack_type][attack_name].APcost
-
 
 static func calcuate_item_buffs(character_data):
 	Core.emit_signal("msg", "This function is not implemented yet!", Log.WARN, "character_manager")
@@ -34,10 +32,8 @@ static func calcuate_item_buffs(character_data):
 static func add(character_data: Dictionary, item_data: Dictionary, quantity:=1):
 	return InventoryManager.add(character_data.inventory, item_data, quantity)
 
-
 static func remove(character_data: Dictionary, item_data: Dictionary, quantity:=1):
 	return InventoryManager.remove(character_data.inventory, item_data, quantity)
-
 
 static func equip(character_data: Dictionary, item:Dictionary):
 	if InventoryManager.check(character_data.inventory, item, 1)[0]:
