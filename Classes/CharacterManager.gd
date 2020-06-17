@@ -28,7 +28,6 @@ static func calcuate_item_buffs(character_data):
 	#for item in player.items:
 	#	pass
 
-
 static func add(character_data: Dictionary, item_data: Dictionary, quantity:=1):
 	return InventoryManager.add(character_data.inventory, item_data, quantity)
 
