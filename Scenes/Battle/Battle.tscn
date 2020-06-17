@@ -196,7 +196,8 @@ margin_right = 330.0
 margin_bottom = 729.0
 
 [node name="MidLine" type="Line2D" parent="TopScreen/DisplayArea/BattleBoard"]
-points = PoolVector2Array( 350, -10, 350, 489 )
+position = Vector2( 0.540344, 0 )
+points = PoolVector2Array( 350, -10, 350, 490 )
 width = 5.0
 default_color = Color( 0, 0, 0, 1 )
 
@@ -207,7 +208,7 @@ margin_bottom = 738.0
 
 [node name="BaseLine2" type="Line2D" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem"]
 position = Vector2( 0, -489 )
-points = PoolVector2Array( -10, 489, 710, 489 )
+points = PoolVector2Array( -10, 490, 710, 490 )
 width = 5.0
 default_color = Color( 0, 0, 0, 1 )
 
