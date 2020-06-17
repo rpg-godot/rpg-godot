@@ -44,9 +44,6 @@ const starting_equipment := {
 	death_hound = []
 }
 
-
-
-
 const starting_attacks := {
 	knight = {
 		melee = ["strike"],
