@@ -98,7 +98,7 @@ __meta__ = {
 
 [node name="BattleBoard" type="VBoxContainer" parent="TopScreen/DisplayArea"]
 margin_right = 700.0
-margin_bottom = 740.0
+margin_bottom = 738.0
 
 [node name="Combat" type="ScrollContainer" parent="TopScreen/DisplayArea/BattleBoard"]
 margin_right = 700.0
@@ -116,6 +116,7 @@ custom_constants/separation = 10
 [node name="AllFriendlies" type="GridContainer" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters"]
 margin_right = 345.0
 margin_bottom = 729.0
+rect_min_size = Vector2( 345, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/vseparation = 0
@@ -244,7 +245,7 @@ margin_right = 120.0
 [node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
 visible = false
 margin_right = 700.0
-margin_bottom = 740.0
+margin_bottom = 738.0
 size_flags_horizontal = 3
 
 [node name="AttackScrollBar" type="ScrollContainer" parent="TopScreen/DisplayArea/AttackBoard"]

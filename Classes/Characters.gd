@@ -322,8 +322,8 @@ const characters := {
 			speed = 0.5
 		},
 		health = {
-			max = 100,
-			current = 100,
+			max = 50,
+			current = 50,
 			speed = 0
 		},
 		mana = {
