@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Assets/UI/TheWildBreathOfZelda.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[node name="NextProfile" type="GridContainer"]
+margin_right = 100.0
+margin_bottom = 175.0
+rect_min_size = Vector2( 80, 175 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 120.0
+margin_bottom = 146.0
+size_flags_horizontal = 3
+
+[node name="Picture" type="Control" parent="VBox"]
+margin_right = 120.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 120, 120 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Pic" type="TextureRect" parent="VBox/Picture"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PicBorder" type="TextureRect" parent="VBox/Picture"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="VBox"]
+margin_top = 124.0
+margin_right = 120.0
+margin_bottom = 146.0
+rect_min_size = Vector2( 120, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme = SubResource( 3 )
+text = "Alrune"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
