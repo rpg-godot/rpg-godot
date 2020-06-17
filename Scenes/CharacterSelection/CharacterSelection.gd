@@ -95,8 +95,20 @@ func _on_play_pressed():
 		var enemy3 = CharacterManager.create("death_hound")
 		CharacterManager.load_class(enemy3, "death_hound")
 		CharacterManager.set_level(enemy3, int(rand_range(1, 10)))
+		
+		var enemy4 = CharacterManager.create("death_hound")
+		CharacterManager.load_class(enemy4, "death_hound")
+		CharacterManager.set_level(enemy4, int(rand_range(1, 10)))
+		
+		var enemy5 = CharacterManager.create("death_hound")
+		CharacterManager.load_class(enemy5, "death_hound")
+		CharacterManager.set_level(enemy5, int(rand_range(1, 10)))
+		
+		var enemy6 = CharacterManager.create("death_hound")
+		CharacterManager.load_class(enemy6, "death_hound")
+		CharacterManager.set_level(enemy6, int(rand_range(1, 10)))
 	
-		Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2])
+		Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
 		queue_free()
 
 func _on_Delete_pressed():
