@@ -4,7 +4,6 @@ const script_name := "character_manager"
 static func create(character_name: String):
 	return DictionaryFunc.clone_dict(Characters.characters[character_name])
 
-
 static func load_class(character_data: Dictionary, character_class: String):
 	# Add equipment to the character inventory and equip those items
 	for item in Characters.starting_equipment[character_class]:
