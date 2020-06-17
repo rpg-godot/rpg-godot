@@ -58,7 +58,7 @@ shader_param/movement = Vector2( 0, 0 )
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.116667, 1 )
-colors = PoolColorArray( 0.453495, 0.629905, 0.975586, 1, 1, 1, 1, 1 )
+colors = PoolColorArray( 0.971507, 0.975586, 0.453495, 1, 1, 1, 1, 1 )
 
 [sub_resource type="GradientTexture" id=4]
 gradient = SubResource( 3 )
@@ -130,7 +130,8 @@ lifetime_randomness = 0.63
 emission_shape = 2
 emission_box_extents = Vector3( 720, 1080, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, -70, 0 )
+direction = Vector3( 3, 0, 0 )
+gravity = Vector3( 3, -70, 0 )
 initial_velocity = 279.42
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
@@ -146,12 +147,13 @@ hue_variation = 1.0
 anim_speed = 6.61
 anim_speed_random = 0.4
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=9]
 lifetime_randomness = 0.63
 emission_shape = 2
 emission_box_extents = Vector3( 720, 1080, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, -140, 0 )
+direction = Vector3( 3, 0, 0 )
+gravity = Vector3( 3, -140, 0 )
 initial_velocity = 279.42
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
@@ -162,17 +164,18 @@ angle = 720.0
 angle_random = 1.0
 scale = 5.0
 scale_random = 1.0
-color = Color( 0.807843, 0.137255, 0.137255, 1 )
+color = Color( 0.729412, 0.196078, 0.196078, 1 )
 hue_variation = 1.0
 anim_speed = 6.61
 anim_speed_random = 0.4
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=10]
 lifetime_randomness = 0.63
 emission_shape = 2
 emission_box_extents = Vector3( 720, 1080, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, 140, 0 )
+direction = Vector3( 3, 0, 0 )
+gravity = Vector3( 3, 140, 0 )
 initial_velocity = 279.42
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
@@ -203,7 +206,7 @@ texture = ExtResource( 1 )
 visible = false
 
 [node name="Fog" type="Sprite" parent="."]
-modulate = Color( 0, 0.792157, 1, 0.498039 )
+modulate = Color( 1, 0.537255, 0, 0.372549 )
 material = SubResource( 2 )
 scale = Vector2( 15.761, 18.4892 )
 texture = ExtResource( 3 )
@@ -221,35 +224,35 @@ energy = 2.39
 anims/lightning = SubResource( 5 )
 anims/lightning2 = SubResource( 6 )
 
-[node name="Particles2D" type="Particles2D" parent="."]
+[node name="FireOrange" type="Particles2D" parent="."]
+material = SubResource( 7 )
+use_parent_material = true
+position = Vector2( 106, 350 )
+z_index = 10
+amount = 200
+lifetime = 7.0
+visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
+process_material = SubResource( 8 )
+
+[node name="FireRed" type="Particles2D" parent="."]
+material = SubResource( 7 )
+use_parent_material = true
+position = Vector2( 106, 350 )
+z_index = 10
+amount = 400
+lifetime = 7.0
+visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
+process_material = SubResource( 9 )
+
+[node name="Ash" type="Particles2D" parent="."]
 material = SubResource( 7 )
 use_parent_material = true
 position = Vector2( 242.008, -47.8332 )
 z_index = 10
 amount = 300
-lifetime = 5.0
-visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
-process_material = SubResource( 8 )
-
-[node name="Particles2D4" type="Particles2D" parent="."]
-material = SubResource( 7 )
-use_parent_material = true
-position = Vector2( 242.008, -47.8332 )
-z_index = 10
-amount = 600
-lifetime = 5.0
+lifetime = 7.0
 visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
 process_material = SubResource( 10 )
-
-[node name="Particles2D3" type="Particles2D" parent="."]
-material = SubResource( 7 )
-use_parent_material = true
-position = Vector2( 242.008, -47.8332 )
-z_index = 10
-amount = 400
-lifetime = 5.0
-visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
-process_material = SubResource( 9 )
 
 [node name="Particles2D2" type="Particles2D" parent="."]
 visible = false
