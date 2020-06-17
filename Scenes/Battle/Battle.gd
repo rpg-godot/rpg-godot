@@ -125,7 +125,6 @@ func update_Characters():
 			enemyPanel.get_node("VBox/Control/Blood").hide()
 		else:
 			enemyPanel.get_node("VBox/Control/Blood").show()
-	print (enemies.size())
 	if enemies.size() > 4:
 		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 42)
 	else:
@@ -141,7 +140,6 @@ func update_turn():
 		if activeCharacterIndex != -1:
 			turns.add_child(load("res://Scenes/Battle/NextProfile.tscn").instance())
 			var turnPanel = turns.get_children()[0]
-			print (friendlies[activeCharacterIndex].picture.path)
 			turnPanel.get_node("VBox/Picture/Pic").texture = load(friendlies[activeCharacterIndex].picture.path)
 			turnPanel.get_node("VBox/Picture/Pic").flip_h = friendlies[activeCharacterIndex].picture.flip_profile[0]
 			turnPanel.get_node("VBox/Picture/Pic").flip_v = friendlies[activeCharacterIndex].picture.flip_profile[1]
@@ -151,7 +149,6 @@ func update_turn():
 			else:
 				turnPanel.get_node("VBox/Picture/PicBorder").show()
 				turnPanel.get_node("VBox/Picture/PicBorder").texture = load(friendlies[activeCharacterIndex].picture.border.path)
-		print (nextCharacterIndex)
 		for turn in nextCharacterIndex:
 			turns.add_child(load("res://Scenes/Battle/NextProfile.tscn").instance())
 			var turnPanel = turns.get_children()[turns.get_children().size()-1]
@@ -289,7 +286,6 @@ func _process(delta):
 			gameEnded()
 	# AI Attack
 	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1 && !gameOver:
-		print (nextCharacterIndex)
 		if nextCharacterIndex[0][0] == "Friendly":
 			var character = friendlies[nextCharacterIndex[0][1]]
 			get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
@@ -343,11 +339,8 @@ func _process(delta):
 		update_Characters()
 	# Increase characters AP intil a move is ready
 	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1 && !gameOver:
-		print("new Turn")
 		for character in friendlies:
 			if character.health.current > 0:
-				print(character.name)
-				print(character.AP.current)
 				character.AP.current += character.AP.speed
 				if character.AP.current > character.AP.max:
 					character.AP.current = character.AP.max
@@ -359,11 +352,8 @@ func _process(delta):
 					character.health.current = character.health.max
 				if character.AP.current >= character.attacks.lowestCost:
 					nextCharacterIndex.append(["Friendly", friendlies.find(character)])
-				print(character.AP.current)
 		for character in enemies:
 			if character.health.current > 0:
-				print(character.name)
-				print(character.AP.current)
 				character.AP.current += character.AP.speed
 				if character.AP.current > character.AP.max:
 					character.AP.current = character.AP.max
@@ -375,9 +365,6 @@ func _process(delta):
 					character.health.current = character.health.max
 				if character.AP.current >= character.attacks.lowestCost:
 						nextCharacterIndex.append(["Enemy", enemies.find(character)])
-				print(character.AP.current)
-			
-		
 
 func _on_Attack_pressed():
 	BattleBoard.hide()
