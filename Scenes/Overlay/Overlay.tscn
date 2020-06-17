@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Images/Wooden_UI/frame_green.png" type="Texture" id=1]
 [ext_resource path="res://Shaders/noise.shader" type="Shader" id=2]
@@ -51,10 +51,10 @@ tracks/2/keys = {
 shader = ExtResource( 2 )
 shader_param/thickness = 0.4
 shader_param/zoom2 = 4.1
-shader_param/seed = 3.81133
+shader_param/seed = 0.0
 shader_param/seed2 = 12.9898
 shader_param/seed3 = 78.233
-shader_param/movement = Vector2( 0.952833, -0.952833 )
+shader_param/movement = Vector2( 0, 0 )
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.116667, 1 )
@@ -127,19 +127,63 @@ particles_anim_loop = true
 
 [sub_resource type="ParticlesMaterial" id=8]
 lifetime_randomness = 0.63
-emission_shape = 1
-emission_sphere_radius = 63.82
+emission_shape = 2
+emission_box_extents = Vector3( 720, 1080, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, 98, 0 )
-orbit_velocity = 0.1
+gravity = Vector3( 0, -70, 0 )
+initial_velocity = 279.42
+orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 tangential_accel = 62.5
 damping = 62.51
 damping_random = 0.39
-angle_random = 0.92
-scale = 2.0
-scale_random = 0.67
-color = Color( 1, 1, 1, 0.494118 )
+angle = 720.0
+angle_random = 1.0
+scale = 3.0
+scale_random = 1.0
+color = Color( 0.717647, 0.607843, 0.223529, 1 )
+hue_variation = 1.0
+anim_speed = 6.61
+anim_speed_random = 0.4
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.63
+emission_shape = 2
+emission_box_extents = Vector3( 720, 1080, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, -140, 0 )
+initial_velocity = 279.42
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+tangential_accel = 62.5
+damping = 62.51
+damping_random = 0.39
+angle = 720.0
+angle_random = 1.0
+scale = 5.0
+scale_random = 1.0
+color = Color( 0.807843, 0.137255, 0.137255, 1 )
+hue_variation = 1.0
+anim_speed = 6.61
+anim_speed_random = 0.4
+
+[sub_resource type="ParticlesMaterial" id=9]
+lifetime_randomness = 0.63
+emission_shape = 2
+emission_box_extents = Vector3( 720, 1080, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 140, 0 )
+initial_velocity = 279.42
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+tangential_accel = 62.5
+damping = 62.51
+damping_random = 0.39
+angle = 720.0
+angle_random = 1.0
+scale = 7.0
+scale_random = 1.0
+color = Color( 0, 0, 0, 1 )
 hue_variation = 1.0
 anim_speed = 6.61
 anim_speed_random = 0.4
@@ -170,7 +214,7 @@ position = Vector2( 1063.36, 567.106 )
 scale = Vector2( 1.05952, 1288.91 )
 enabled = false
 texture = SubResource( 4 )
-color = Color( 0.996078, 0.992157, 0.992157, 1 )
+color = Color( 0.996078, 0.992157, 0.992157, 0.584314 )
 energy = 2.39
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Lightning"]
@@ -178,6 +222,37 @@ anims/lightning = SubResource( 5 )
 anims/lightning2 = SubResource( 6 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 7 )
+use_parent_material = true
+position = Vector2( 242.008, -47.8332 )
+z_index = 10
+amount = 300
+lifetime = 5.0
+visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
+process_material = SubResource( 8 )
+
+[node name="Particles2D4" type="Particles2D" parent="."]
+material = SubResource( 7 )
+use_parent_material = true
+position = Vector2( 242.008, -47.8332 )
+z_index = 10
+amount = 600
+lifetime = 5.0
+visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
+process_material = SubResource( 10 )
+
+[node name="Particles2D3" type="Particles2D" parent="."]
+material = SubResource( 7 )
+use_parent_material = true
+position = Vector2( 242.008, -47.8332 )
+z_index = 10
+amount = 400
+lifetime = 5.0
+visibility_rect = Rect2( -100.611, -100, 2000, 2000 )
+process_material = SubResource( 9 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+visible = false
 material = SubResource( 7 )
 use_parent_material = true
 position = Vector2( -100, 0 )
