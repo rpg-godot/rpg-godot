@@ -7,6 +7,8 @@ onready var friendlies := []
 onready var activeCharacterIndex := -1
 onready var nextCharacterIndex := []
 onready var enemies := []
+onready var gameOver := false
+onready var winner := "noone"
 
 var battle_name setget set_battle_name, get_battle_name
 var background setget set_background, get_background
@@ -34,7 +36,7 @@ func load_battle(new_battle_name: String, new_background: String, new_friendlies
 	
 #	# Initiate the UI
 	create_Characters()
-	update_attacks(activeCharacterIndex)
+	#update_attacks(activeCharacterIndex)
 
 func _ready():
 	var error = Core.connect("msg", self, "_on_msg")
@@ -50,16 +52,16 @@ func _on_msg(message, level, obj):
 func create_Characters():
 	BattleBoard.show()
 	AttackList.hide()
-	#Hide all tiles until needed
-	for friendPanel in get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children():
+	# Delete all tiles until needed
+	for friendPanel in get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children():
 		friendPanel.free()
-	for enemyPanel in get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children():
+	for enemyPanel in get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children():
 		enemyPanel.free()
 	## Initiate and unhide needed tiles
 	for character in friendlies:
 		## Looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
-		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
+		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
+		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
 		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.picture.path)
 		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.picture.flip_profile[0]
 		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.picture.flip_profile[1]
@@ -72,8 +74,8 @@ func create_Characters():
 			friendPanel.get_node("VBox/Picture/PicBorder").hide()
 	for character in enemies:
 		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").add_child(load("res://Scenes/Battle/EnemyPanel.tscn").instance())
-		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
+		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_child(load("res://Scenes/Battle/EnemyPanel.tscn").instance())
+		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
 		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.picture.path)
 		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.picture.flip_profile[0]
 		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.picture.flip_profile[1]
@@ -89,7 +91,7 @@ func update_Characters():
 	##update stats
 	for character in friendlies:
 		##looks
-		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
+		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
 		##stats
 		friendPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/(character.health.max)
 		friendPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
@@ -105,7 +107,7 @@ func update_Characters():
 			friendPanel.get_node("VBox/Picture/Blood").show()
 	for character in enemies:
 		##looks
-		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
+		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
 		##stats
 		enemyPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
 		enemyPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
@@ -123,6 +125,55 @@ func update_Characters():
 			enemyPanel.get_node("VBox/Control/Blood").hide()
 		else:
 			enemyPanel.get_node("VBox/Control/Blood").show()
+	print (enemies.size())
+	if enemies.size() > 4:
+		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 42)
+	else:
+		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 57)
+	update_turn()
+
+func update_turn():
+	# Delete all tiles until needed
+	var turns = get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns")
+	for turnPanel in turns.get_children():
+		turnPanel.free()
+	if activeCharacterIndex != -1:
+		turns.add_child(load("res://Scenes/Battle/NextProfile.tscn").instance())
+		var turnPanel = turns.get_children()[0]
+		print (friendlies[activeCharacterIndex].picture.path)
+		turnPanel.get_node("VBox/Picture/Pic").texture = load(friendlies[activeCharacterIndex].picture.path)
+		turnPanel.get_node("VBox/Picture/Pic").flip_h = friendlies[activeCharacterIndex].picture.flip_profile[0]
+		turnPanel.get_node("VBox/Picture/Pic").flip_v = friendlies[activeCharacterIndex].picture.flip_profile[1]
+		turnPanel.get_node("VBox/Name").text = friendlies[activeCharacterIndex].name
+		if !friendlies[activeCharacterIndex].picture.border.shown:
+			turnPanel.get_node("VBox/Picture/PicBorder").hide()
+		else:
+			turnPanel.get_node("VBox/Picture/PicBorder").show()
+			turnPanel.get_node("VBox/Picture/PicBorder").texture = load(friendlies[activeCharacterIndex].picture.border.path)
+	print (nextCharacterIndex)
+	for turn in nextCharacterIndex:
+		turns.add_child(load("res://Scenes/Battle/NextProfile.tscn").instance())
+		var turnPanel = turns.get_children()[turns.get_children().size()-1]
+		if turn[0] == "Friendly":
+			turnPanel.get_node("VBox/Picture/Pic").texture = load(friendlies[turn[1]].picture.path)
+			turnPanel.get_node("VBox/Picture/Pic").flip_h = friendlies[turn[1]].picture.flip_profile[0]
+			turnPanel.get_node("VBox/Picture/Pic").flip_v = friendlies[turn[1]].picture.flip_profile[1]
+			turnPanel.get_node("VBox/Name").text = friendlies[turn[1]].name
+			if !friendlies[turn[1]].picture.border.shown:
+				turnPanel.get_node("VBox/Picture/PicBorder").hide()
+			else:
+				turnPanel.get_node("VBox/Picture/PicBorder").show()
+				turnPanel.get_node("VBox/Picture/PicBorder").texture = load(friendlies[turn[1]].picture.border.path)
+		else:
+			turnPanel.get_node("VBox/Picture/Pic").texture = load(enemies[turn[1]].picture.path)
+			turnPanel.get_node("VBox/Picture/Pic").flip_h = enemies[turn[1]].picture.flip_profile[0]
+			turnPanel.get_node("VBox/Picture/Pic").flip_v = enemies[turn[1]].picture.flip_profile[1]
+			turnPanel.get_node("VBox/Name").text = enemies[turn[1]].name
+			if !enemies[turn[1]].picture.border.shown:
+				turnPanel.get_node("VBox/Picture/PicBorder").hide()
+			else:
+				turnPanel.get_node("VBox/Picture/PicBorder").show()
+				turnPanel.get_node("VBox/Picture/PicBorder").texture = load(enemies[turn[1]].picture.border.path)
 
 func update_attacks(CharacterIndex):
 	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
@@ -213,14 +264,33 @@ Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
 		attackItem.get_node("Picture").texture = load(pictureLocation)
 		attackItem.get_node("Use").disabled = disabled
 		attackCount+=1
-		
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#AI Attack
-	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1:
+	# Check if someone one
+	if !gameOver:
+		var maxFriendlies = 0
+		var maxEnemies = 0
+		for character in friendlies:
+			if character.health.current > maxFriendlies:
+				maxFriendlies = character.health.current
+		for character in enemies:
+			if character.health.current > maxEnemies:
+				maxEnemies = character.health.current
+		if maxFriendlies == 0:
+			gameOver = true
+			winner = "enemies"
+		if maxFriendlies == 0:
+			gameOver = true
+			winner = "friendlies"
+		if gameOver:
+			gameEnded()
+	# AI Attack
+	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1 && !gameOver:
 		print (nextCharacterIndex)
 		if nextCharacterIndex[0][0] == "Friendly":
 			var character = friendlies[nextCharacterIndex[0][1]]
+			get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
 			if character.health.current > 0:
 				if character.classType != "PLAYER":
 					var attacked = false
@@ -246,6 +316,7 @@ func _process(delta):
 					activeCharacterIndex = nextCharacterIndex[0][1]
 		else:
 			var character = enemies[nextCharacterIndex[0][1]]
+			get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
 			if character.health.current > 0:
 				var attacked = false
 				for attackType in character.attacks:
@@ -267,8 +338,9 @@ func _process(delta):
 					if attacked:
 						break
 		nextCharacterIndex.remove(0)
-	#Increase characters AP intil a move is ready
-	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1:
+		update_Characters()
+	# Increase characters AP intil a move is ready
+	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1 && !gameOver:
 		print("new Turn")
 		for character in friendlies:
 			if character.health.current > 0:
@@ -336,45 +408,8 @@ func _on_Retreat_pressed():
 func _on_BackButton_pressed():
 	BattleBoard.show()
 	AttackList.hide()
-	update_characters()
+	update_Characters()
 
-func update_characters():
-	# update stats
-	for character in friendlies:
-		# looks
-		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllFriendlies").get_children()[friendlies.find(character)]
-		# stats
-		friendPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
-		friendPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		if character.mana.max > 0:
-			friendPanel.get_node("VBox/Mana/ManaBar").value = character.mana.current*100/character.mana.max
-			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
-		else:
-			friendPanel.get_node("VBox/Mana/ManaBar").value = 0
-			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: 0/0"
-		if character.health.current > 0:
-			friendPanel.get_node("VBox/Picture/Blood").hide()
-		else:
-			# friendly die
-			friendPanel.get_node("VBox/Picture/Blood").show()
-	for character in enemies:
-		# looks
-		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/AllEnemies").get_children()[enemies.find(character)]
-		# stats
-		enemyPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
-		enemyPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthBar").value = character.health.current*100/character.health.max
-		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		if character.mana.max > 0:
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = character.mana.current*100/character.mana.max
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
-		else:
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = 0
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: 0/0"
-		enemyPanel.get_node("VBox/Health").show()
-		enemyPanel.get_node("VBox/HealthAndMana").hide()
-		if character.health.current > 0:
-			enemyPanel.get_node("VBox/Control/Blood").hide()
-		else:
-			# enemy die
-			enemyPanel.get_node("VBox/Control/Blood").show()
+func gameEnded():
+	get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
+	Core.emit_signal('msg', 'Game Over!', Log.INFO, self)
