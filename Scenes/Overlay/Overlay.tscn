@@ -50,10 +50,10 @@ tracks/2/keys = {
 shader = ExtResource( 2 )
 shader_param/thickness = 0.4
 shader_param/zoom2 = 4.1
-shader_param/seed = 0.0
+shader_param/seed = 0.152342
 shader_param/seed2 = 12.9898
 shader_param/seed3 = 78.233
-shader_param/movement = Vector2( 0, 0 )
+shader_param/movement = Vector2( 0.0380855, -0.0380855 )
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0.116667, 1 )
