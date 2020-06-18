@@ -7,6 +7,7 @@ func _ready():
 	Core.emit_signal("scene_loaded", self)
 	get_node("AnimationPlayer").play("FadeIn")
 	get_node("Overlay").start_storm()
+	get_node("Overlay/Particles").visible = true
 
 func _input(event):
 	if event.is_action_pressed("ui_select") or event.is_action_pressed("ui_accept"):

@@ -7,6 +7,7 @@ var lightning_disabled = false
 func _ready():
 	get_node("AnimationPlayer").play("move_background")
 	Core.connect("scene_loaded", self, "_on_scene_loaded")
+	get_node("Particles").visible = false
 
 func start_storm():
 	AudioManager.load_music_player("BuildUp", "Effects/Lightning/Buildup/394921__parasonya__022-single-strike.ogg", "Effect")
