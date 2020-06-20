@@ -118,6 +118,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Gender/Male" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Male"
 state = 2
 
@@ -133,6 +134,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Gender/Female" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Female"
 state = 2
 
@@ -169,6 +171,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Top/Human" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Human"
 state = 2
 
@@ -184,6 +187,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Top/Half-Elf" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Half-Elf"
 state = 2
 
@@ -199,6 +203,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Top/Elf" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Elf"
 state = 2
 
@@ -218,6 +223,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Bot/Dwarf" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Dwarf"
 state = 2
 
@@ -232,7 +238,10 @@ texture_normal = ExtResource( 12 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Bot/Fairy" instance=ExtResource( 10 )]
+margin_left = 1.67017
+margin_right = 1.67017
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Fairy"
 state = 2
 
@@ -248,6 +257,7 @@ expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Bot/Demon" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Demon"
 state = 2
 
@@ -533,6 +543,7 @@ expand = true
 
 [node name="FlashingText" parent="MainMenu/Choices/Complete" instance=ExtResource( 10 )]
 mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Create Character"
 state = 2
 
@@ -548,7 +559,6 @@ expand = true
 
 [node name="FlashingText" parent="MainMenu/Choices/Cancel" instance=ExtResource( 10 )]
 mouse_filter = 1
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Cancel"
 state = 1
 [connection signal="mouse_entered" from="MainMenu/Choices/Gender/Male" to="." method="_on_Male_mouse_entered"]
