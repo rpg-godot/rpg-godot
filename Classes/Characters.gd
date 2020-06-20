@@ -216,15 +216,7 @@ const characters := {
 			mana = 0,
 			defense = 0
 		},
-		levelBuffs = {
-			strength = 0,
-			perception = 0,
-			endurance = 0,
-			charisma = 0,
-			intelligence = 0,
-			agility = 0,
-			luck = 0
-		},
+		levelBuffs = zero_stats,
 		picture = {
 			path = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png",
 			border = {
@@ -324,18 +316,7 @@ const characters := {
 			mana = 0,
 			defense = 0
 		},
-		levelBuffs = {
-			strength = 0,
-			perception = 0,
-			endurance = 0,
-			charisma = 0,
-			intelligence = 0,
-			agility = 0,
-			luck = 0,
-			melee = 0,
-			mana = 0,
-			defense = 0
-		},
+		levelBuffs = zero_stats,
 		picture = {
 			path = "",
 			border = {
@@ -433,18 +414,7 @@ const characters := {
 			mana = 0,
 			defense = 0
 		},
-		levelBuffs = {
-			strength = 0,
-			perception = 0,
-			endurance = 0,
-			charisma = 0,
-			intelligence = 0,
-			agility = 0,
-			luck = 0,
-			melee = 0,
-			mana = 0,
-			defense = 0
-		},
+		levelBuffs = zero_stats,
 		picture = {
 			path = "res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG",
 			border = {
