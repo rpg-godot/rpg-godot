@@ -63,8 +63,8 @@ func _on_button_press(save: Dictionary):
 				child.pressed = false
 
 func activate_selection_buttons():
-	get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.FLASHING
-	get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.FLASHING
+	get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.ENABLED
+	get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.ENABLED
 	get_node("VBox/UI/Play").disabled = false
 	get_node("VBox/UI/Delete").disabled = false
 func deactivate_selection_buttons():
@@ -75,8 +75,9 @@ func deactivate_selection_buttons():
 
 func _on_Create_pressed():
 	Core.get_parent().add_child(load("res://Scenes/CharacterCreation/CharacterCreation.tscn").instance())
+	if get_node('VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children().size() == 0:
+		Core.get_parent().get_node("CharacterCreation/MainMenu/Choices/Cancel").free()
 	queue_free()
-
 
 func _on_play_pressed():
 	if Core.player != {}:
@@ -120,3 +121,26 @@ func _on_Delete_pressed():
 		selectedCharacter = ''
 		Core.player = {}
 		load_saves()
+
+func _on_New_mouse_entered():
+	get_node("VBox/UI/New/FlashingText").state = FlashingText.States.FLASHING
+
+func _on_New_mouse_exited():
+	get_node("VBox/UI/New/FlashingText").state = FlashingText.States.ENABLED
+
+func _on_Play_mouse_entered():
+	if !get_node("VBox/UI/Play").disabled:
+		get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.FLASHING
+
+func _on_Play_mouse_exited():
+	if !get_node("VBox/UI/Play").disabled:
+		get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.ENABLED
+
+func _on_Delete_mouse_entered():
+	if !get_node("VBox/UI/Delete").disabled:
+		get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.FLASHING
+
+func _on_Delete_mouse_exited():
+	if !get_node("VBox/UI/Delete").disabled:
+		get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.ENABLED
+

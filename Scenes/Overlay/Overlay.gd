@@ -53,5 +53,6 @@ func _on_scene_loaded(scene):
 		audio.bus = "BackAway"
 		lightning_disabled = true
 		Core.disconnect("scene_loaded", self, "_on_scene_loaded")
-		Core.get_parent().get_node("BuildUpMusicPlayer").queue_free()
-		Core.get_parent().get_node("PowerMoveMusicPlayer").queue_free()
+		if Core.get_parent().get_node("BuildUpMusicPlayer") != null:
+			Core.get_parent().get_node("BuildUpMusicPlayer").queue_free()
+			Core.get_parent().get_node("PowerMoveMusicPlayer").queue_free()

@@ -102,7 +102,7 @@ func checkIfCompleted():
 	if selected_profile != "" && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
 		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(1, 1, 1)
-		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.FLASHING
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
 		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
@@ -148,6 +148,10 @@ func _on_Complete_pressed():
 func _load_battle():
 	var CharacterSelection = load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance()
 	CharacterSelection._on_play_pressed()
+	queue_free()
+	
+func _on_Cancel_pressed():
+	Core.get_parent().add_child(load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance())
 	queue_free()
 
 func _on_Male_mouse_entered():
@@ -265,3 +269,17 @@ func _on_Fairy_mouse_exited():
 func _on_Demon_mouse_exited():
 	if race != "Demon":
 		get_node("MainMenu/Choices/Race/Bot/Demon/Text").state = FlashingText.States.DISABLED
+
+func _on_Cancel_mouse_entered():
+	get_node("MainMenu/Choices/Cancel/FlashingText").state = FlashingText.States.FLASHING
+
+func _on_Cancel_mouse_exited():
+	get_node("MainMenu/Choices/Cancel/FlashingText").state = FlashingText.States.ENABLED
+
+func _on_Complete_mouse_entered():
+	if !get_node("MainMenu/Choices/Complete").disabled:
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.FLASHING
+
+func _on_Complete_mouse_exited():
+	if !get_node("MainMenu/Choices/Complete").disabled:
+		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED

@@ -23,15 +23,15 @@ font_data = ExtResource( 3 )
 size = 40
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 size = 74
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 57
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 27
 font_data = ExtResource( 3 )
 
@@ -86,7 +86,7 @@ rect_min_size = Vector2( 700, 910 )
 
 [node name="Choices" type="VBoxContainer" parent="MainMenu"]
 margin_right = 690.0
-margin_bottom = 1256.0
+margin_bottom = 1340.0
 rect_min_size = Vector2( 690, 0 )
 size_flags_horizontal = 3
 
@@ -252,9 +252,9 @@ text = "Demon"
 state = 2
 
 [node name="ProfileSelection" type="ScrollContainer" parent="MainMenu/Choices"]
-margin_top = 251.0
+margin_top = 252.0
 margin_right = 690.0
-margin_bottom = 463.0
+margin_bottom = 464.0
 rect_min_size = Vector2( 0, 212 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -312,7 +312,7 @@ margin_right = 1016.0
 margin_right = 690.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 690, 200 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "PLEASE CHOOSE Your RACE AND GENDER"
 align = 1
 valign = 1
@@ -448,7 +448,7 @@ margin_right = 118.0
 margin_bottom = 243.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "0"
 align = 1
 valign = 2
@@ -459,7 +459,7 @@ margin_right = 118.0
 margin_bottom = 491.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 text = "Remaining"
 align = 1
 uppercase = true
@@ -535,6 +535,22 @@ expand = true
 mouse_filter = 1
 text = "Create Character"
 state = 2
+
+[node name="Cancel" type="TextureButton" parent="MainMenu/Choices"]
+margin_top = 1260.0
+margin_right = 690.0
+margin_bottom = 1340.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 9 )
+expand = true
+
+[node name="FlashingText" parent="MainMenu/Choices/Cancel" instance=ExtResource( 10 )]
+mouse_filter = 1
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Cancel"
+state = 1
 [connection signal="mouse_entered" from="MainMenu/Choices/Gender/Male" to="." method="_on_Male_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Choices/Gender/Male" to="." method="_on_Male_mouse_exited"]
 [connection signal="pressed" from="MainMenu/Choices/Gender/Male" to="." method="_on_Male_pressed"]
@@ -560,4 +576,9 @@ state = 2
 [connection signal="mouse_exited" from="MainMenu/Choices/Race/Bot/Demon" to="." method="_on_Demon_mouse_exited"]
 [connection signal="pressed" from="MainMenu/Choices/Race/Bot/Demon" to="." method="_on_Demon_pressed"]
 [connection signal="text_changed" from="MainMenu/Choices/CharacterName/Name" to="." method="_on_Name_text_changed"]
+[connection signal="mouse_entered" from="MainMenu/Choices/Complete" to="." method="_on_Complete_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Choices/Complete" to="." method="_on_Complete_mouse_exited"]
 [connection signal="pressed" from="MainMenu/Choices/Complete" to="." method="_on_Complete_pressed"]
+[connection signal="mouse_entered" from="MainMenu/Choices/Cancel" to="." method="_on_Cancel_mouse_entered"]
+[connection signal="mouse_exited" from="MainMenu/Choices/Cancel" to="." method="_on_Cancel_mouse_exited"]
+[connection signal="pressed" from="MainMenu/Choices/Cancel" to="." method="_on_Cancel_pressed"]
