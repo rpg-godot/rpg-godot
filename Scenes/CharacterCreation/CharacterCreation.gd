@@ -118,6 +118,8 @@ func _on_Complete_pressed():
 	player.classType = "PLAYER"
 	player.info = gender + " " + get_node("MainMenu/Choices/Class/Classes").get_children()[selected_equip].get_node("ClassName").text
 	player.gender = gender
+	player.race = race
+	player.racialModifier = Characters.racialModifiers[race]
 	
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
 		player.stats[stat.name] = int(stat.get_node("Numbers/Number").text)
@@ -138,6 +140,7 @@ func _on_Complete_pressed():
 	if chosen_equip == "Quick Shooter":
 		chosen_equip = "quick_shooter"
 	CharacterManager.load_class(player, chosen_equip)
+	#print(CharacterManager.calcuate_stats(player))
 	Core.player = player
 	SaveManager.save()
 	_load_battle()

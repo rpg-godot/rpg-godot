@@ -22,10 +22,13 @@ static func learn_attack(character_data: Dictionary, attack_type: String, attack
 		if Attacks[attack_type][attack_name].APcost < character_data.attacks.lowestCost:
 			character_data.attacks.lowestCost = Attacks[attack_type][attack_name].APcost
 
-static func calcuate_item_buffs(character_data):
-	Core.emit_signal("msg", "This function is not implemented yet!", Log.WARN, "character_manager")
-	#for item in player.items:
-	#	pass
+static func calcuate_stats(character_data):
+	var racialStats = character_data.racialModifier
+	for race in character_data.subRaces:
+		DictionaryFunc.add_dict(racialStats, race[1])
+	var stats1 = DictionaryFunc.add_dict(character_data.stats, character_data.levelBuffs)
+	var stats2 = DictionaryFunc.multiply_dict(stats1, racialStats)
+	return DictionaryFunc.add_dict(stats2, character_data.equipBuffs)
 
 static func add(character_data: Dictionary, item_data: Dictionary, quantity:=1):
 	return InventoryManager.add(character_data.inventory, item_data, quantity)
@@ -59,27 +62,25 @@ static func unequip(character_data: Dictionary, item:Dictionary):
 			return [false, "Doesn't Exist"]
 
 static func set_level(character_data: Dictionary, level: int):
-	Core.emit_signal("msg", "Setting character level to " + str(character_data.level), Log.INFO, "character_manager")
 	character_data.level = level
 	process_level_buffs(character_data)
 
 static func process_level_buffs(character_data: Dictionary):
-	Core.emit_signal("msg", "Processing character: " + character_data.name + " level buffs", Log.INFO, "character_manager")
 	var temp_level = character_data.level
 	var count = 1
-	var level_buffs = Characters.zero_stats
+	var levelBuffs = Characters.zero_stats
 	match character_data.classType:
 		"Death Hound":
 			while temp_level >= 5:
-				level_buffs.strength += 1
-				level_buffs.intelligence += 1
-				level_buffs.agility +=1
-				level_buffs.luck += 1
+				levelBuffs.strength += 1
+				levelBuffs.intelligence += 1
+				levelBuffs.agility +=1
+				levelBuffs.luck += 1
 				
 				if count%3==0:
-					level_buffs.perception += 1
-					level_buffs.endurance += 1
-					level_buffs.charisma += 1
+					levelBuffs.perception += 1
+					levelBuffs.endurance += 1
+					levelBuffs.charisma += 1
 				count+=1
 				temp_level-=5
-	character_data.level_buffs = level_buffs
+	character_data.levelBuffs = levelBuffs

@@ -35,6 +35,8 @@ Game Mechanics:
 			-Based off your affiliation they may mention it when you approach them or you'd have to ask for it
 			-trust is based off of previous work with merchant
 		-Later game will require more money (need to do merchant work or guild quests)
+		-Most stores close at night
+			-This means vampires won't have access
 	*Crafting
 		-item crafting(crafting materials can be bought or found in quests)
 			-increases quality with experience, starts off really bad

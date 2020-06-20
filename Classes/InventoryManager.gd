@@ -1,7 +1,7 @@
 class_name InventoryManager
 
 static func add(inventory: Dictionary, item: Dictionary, quantity:=1):
-	Core.emit_signal("msg", "Adding item " + item.name + str(quantity) + " times...", Log.WARN, "inventory_manager")
+	#Core.emit_signal("msg", "Adding item " + item.name + str(quantity) + " times...", Log.INFO, "inventory_manager")
 	item.quantity = quantity
 	if quantity > 0:
 		if item.broadType != "other":
@@ -19,7 +19,7 @@ static func add(inventory: Dictionary, item: Dictionary, quantity:=1):
 		return [false, "Quantity Error"]
 
 static func remove(inventory: Dictionary, item: Dictionary, quantity:=1):
-	Core.emit_signal("msg", "Removing item " + item.name + " " + str(quantity) + " times...", Log.WARN, "inventory_manager")
+	#Core.emit_signal("msg", "Removing item " + item.name + " " + str(quantity) + " times...", Log.INFO, "inventory_manager")
 	if quantity > 0:
 		if item.broadType != "other":
 			if check(inventory, item, quantity)[0]:
