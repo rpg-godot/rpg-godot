@@ -7,7 +7,6 @@ static func getFromDict(dataDict, mapList):
 		dataDict = dataDict[k]
 	return dataDict
 
-
 # Set a given data in a dictionary with position provided as a list
 # eg. path="dict.subdict.value"
 #     setInDict(dict, path.split(".", false), value)
@@ -19,18 +18,16 @@ static func setInDict(dataDict, mapList, value):
 		dataDict = dataDict[k]
 	dataDict[mapList[-1]] = value
 
-
 static func merge_dict(target, patch):
 	for key in patch:
 		if target.has(key):
-			var tv = target[key]
-			if typeof(tv) == TYPE_DICTIONARY:
-				merge_dict(tv, patch[key])
+			if typeof(target[key]) == TYPE_DICTIONARY:
+				merge_dict(target[key], patch[key])
 			else:
 				target[key] = patch[key]
 		else:
 			target[key] = patch[key]
- 
+	return target
 
 static func find_all_value(_dict, target):
 	for key in _dict.keys():
@@ -52,3 +49,31 @@ static func clone_dict(source):
 		else:
 			dictionary[key] = source[key]
 	return dictionary
+
+static func multiply_int(source, amount:int):
+	for key in source:
+		if typeof(source[key]) == TYPE_DICTIONARY:
+			multiply_int(source[key], amount)
+		else:
+			source[key] = source[key] * amount
+	return source
+
+static func multiply_dict(source, patch):
+	for key in patch:
+		if source.has(key):
+			if typeof(source[key]) == TYPE_DICTIONARY:
+				multiply_dict(source[key], patch[key])
+			else:
+				source[key] = source[key] * patch[key]
+	return source
+
+static func add_dict(source, patch):
+	for key in patch:
+		if source.has(key):
+			if typeof(source[key]) == TYPE_DICTIONARY:
+				add_dict(source[key], patch[key])
+			else:
+				source[key] = source[key] + patch[key]
+		else:
+			source[key] = patch[key]
+	return source

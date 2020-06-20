@@ -52,6 +52,7 @@ Story Line:
 			-Especially at 3 due to more vampires and high rural areas
 		-Cure can be brought to stop the transformation within 5 in game days
 		-Reversibile by buying  potion from Potion store at 4
+		-Drink blood/healing attacks
 	-Elves and humans don't get along
 
 *Player
@@ -64,11 +65,12 @@ Story Line:
 	-Human
 		-Buff Strength and Endurance
 		-Debuff Intelligence
-	-Half elf
+	-Half Elf
 		-Half the buffs and debuffs of humans and elves
 		-Buff Charisma
 	-Elves
-		-Buff Intelligence and Agility
+		-High Buff Intelligence
+		-Buff Agility
 		-Debuff Strength
 		-Increased Mana
 	-Fairies
@@ -78,12 +80,25 @@ Story Line:
 		-Buff Luck
 		-Debuff Endurance
 		-High Debuff Strength
+		-Slight Increased Mana
 	-Dwarf
 		-Buff Strength and Charisma
 		-Debuff Agility
 	-Demon
 		-Buff Strength, Endurance, Intelligence
 		-Debuff Charisma, Luck
+		-Slight Increased Mana
+*Sub-Race
+	-Vampire Day
+		-High Buff Charisma
+		-Buff Strength
+		-Debuff Agility Endurance and Luck
+		-Decreased Mana
+	-Vampire Night
+		-High Buff Charisma and Strength
+		-Slight Buff Endurance
+		-Buff Perception and Agility
+		-Increased Mana
 *Back Story
 	-Wizard finished training
 	-Rogue got kicked out

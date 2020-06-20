@@ -1,7 +1,7 @@
 class_name AudioManager
 
 static func load_music_player(name: String, path: String, bus: String, loop:=true):
-	Core.emit_signal("msg", "Playing " + name + " on bus " + bus + "...", Log.INFO, "audio_manager")
+	#Core.emit_signal("msg", "Playing " + name + " on bus " + bus + "...", Log.INFO, "audio_manager")
 	var player = AudioStreamPlayer.new()
 	player.name = name + "MusicPlayer"
 	
