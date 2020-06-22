@@ -39,6 +39,12 @@ static func remove(character_data: Dictionary, item_data: Dictionary, quantity:=
 static func equip(character_data: Dictionary, item:Dictionary):
 	if InventoryManager.check(character_data.inventory, item, 1)[0]:
 		if character_data.equipment[item.broadType][item.type] == -1:
+			if item.broadType == "weapons":
+				if "two-hand" in item.subType:
+					if item.type == "melee" && character_data.equipment[item.broadType].magic != -1:
+						return [false, "Dual handed weapon, magic cannot be equipped too"]
+					elif item.type == "mana" && character_data.equipment[item.broadType].melee != -1:
+						return [false, "Dual handed weapon, melee cannot be equipped too"]
 			if item.level_requirement <= character_data.level:
 				character_data.equipment[item.broadType][item.type] = InventoryManager.check(character_data.inventory, item, 1)[1]
 				for buffKey in item.buffs.keys():

@@ -4,7 +4,7 @@ const script_name := "items"
 const items := {
 
 	sword = {
-		nickname = "Sword",
+		nickname = "Short Sword",
 		name = "sword",
 		broadType = "weapons",
 		type = "melee",
@@ -28,11 +28,11 @@ const items := {
 	},
 
 	staff = {
-		nickname = "Staff",
+		nickname = "Small Staff",
 		name = "staff",
 		broadType = "weapons",
 		type = "magic",
-		subType = "staff",
+		subType = "one-handed staff",
 		tags = [],
 		buffs = {
 			strength = 0,

@@ -100,7 +100,7 @@ const mana := {
 		manaCost = 20,
 		target = true,
 		image = attackImages.Fire_Small,
-		weaponNeeded = ["staff"],
+		weaponNeeded = ["one-handed staff"],
 		itemLevelRequirements = 1
 	}
 }

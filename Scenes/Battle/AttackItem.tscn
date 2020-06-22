@@ -15,6 +15,9 @@ font_data = ExtResource( 1 )
 margin_right = 700.0
 margin_bottom = 100.0
 size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Picture" type="TextureRect" parent="."]
 margin_right = 100.0
