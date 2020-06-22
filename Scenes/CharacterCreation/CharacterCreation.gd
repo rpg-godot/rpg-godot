@@ -285,3 +285,16 @@ func _on_Complete_mouse_entered():
 func _on_Complete_mouse_exited():
 	if !get_node("MainMenu/Choices/Complete").disabled:
 		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
+
+func _on_cheat_pressed():
+	_on_Male_pressed()
+	_on_Human_pressed()
+	get_node("MainMenu/Choices/ProfileSelection/Profiles").get_children()[1]._on_SelectButton_pressed()
+	get_node("MainMenu/Choices/CharacterName/Name").text = "Cheater"
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/SPEC").get_children():
+		stat.get_node("Numbers/Number").text = "9999"
+	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
+		stat.get_node("Numbers/Number").text = "9999"
+		get_node("MainMenu/Choices/Class/Classes/Knight")._on_SelectButton_pressed()
+	_on_Complete_pressed()
+	
