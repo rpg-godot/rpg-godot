@@ -54,4 +54,4 @@ static func check(inventory: Dictionary, item: Dictionary, quantity:int):
 		return [false, -1]
 
 static func itemIsTheSameAs(item:Dictionary, item2:Dictionary):
-		return (item.type == item2.type && item.name == item2.name && item.buffs == item2.buffs && item.level_requirement == item2.level_requirement)
+	return (item.type == item2.type && item.name == item2.name && item.buffs == item2.buffs && item.levelRequirement == item2.levelRequirement)

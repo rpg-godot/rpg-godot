@@ -45,7 +45,7 @@ static func equip(character_data: Dictionary, item:Dictionary):
 						return [false, "Dual handed weapon, magic cannot be equipped too"]
 					elif item.type == "mana" && character_data.equipment[item.broadType].melee != -1:
 						return [false, "Dual handed weapon, melee cannot be equipped too"]
-			if item.level_requirement <= character_data.level:
+			if item.levelRequirement <= character_data.level:
 				character_data.equipment[item.broadType][item.type] = InventoryManager.check(character_data.inventory, item, 1)[1]
 				for buffKey in item.buffs.keys():
 					character_data.equipBuffs[buffKey] += item.buffs[buffKey]
