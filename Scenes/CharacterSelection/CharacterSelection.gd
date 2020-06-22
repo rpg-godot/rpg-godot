@@ -87,11 +87,12 @@ func _on_play_pressed():
 		CharacterManager.load_class(player2, "knight")
 	
 		var enemy1 = CharacterManager.create("death_hound")
-		enemy1.name="The grreaete destroyer of the whole world"
+		enemy1.name="The Greatest Destroyer of the Whole World"
 		CharacterManager.load_class(enemy1, "death_hound")
 		CharacterManager.set_level(enemy1, int(rand_range(1, 10)))
 		
 		var enemy2 = CharacterManager.create("death_hound")
+		enemy2.name="Great Hound"
 		CharacterManager.load_class(enemy2, "death_hound")
 		CharacterManager.set_level(enemy2, int(rand_range(1, 10)))
 		
