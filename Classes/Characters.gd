@@ -295,7 +295,7 @@ const characters := {
 			weapons = {
 				melee = -1, 
 				ranged = -1,
-				consumables = -1, 
+				consumables = [], 
 				magic = -1
 			},
 			other = []

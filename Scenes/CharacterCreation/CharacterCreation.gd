@@ -143,9 +143,11 @@ func _on_Complete_pressed():
 	#print(CharacterManager.calcuate_stats(player))
 	Core.player = player
 	SaveManager.save()
+	#####not final
 	_load_battle()
 
 func _load_battle():
+	#####not final
 	var CharacterSelection = load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance()
 	CharacterSelection._on_play_pressed()
 	queue_free()
