@@ -186,22 +186,29 @@ func attackButton(attack, attackType):
 				attackCharacter(friendlies[activeCharacterIndex], [character], attack, attackType)
 			if friendlies[activeCharacterIndex].AP.current < attack.APcost:
 				break
+	if attack.targetEnemy:
+		update_attacks(activeCharacterIndex, "attack", false)
+	else:
+		update_attacks(activeCharacterIndex, "abilities", false)
 
 func _on_Abilities_pressed():
 	BattleBoard.hide()
 	update_attacks(activeCharacterIndex, "abilities")
 	AttackList.show()
 	
-func update_attacks(CharacterIndex: int, mode: String):
+func update_attacks(CharacterIndex: int, mode: String, create=true):
+	#character index variable should be replaced with activeCharacterIndex global variable
 	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
-	for attack in attacksList.get_children():
-		attack.free()
+	if create:
+		for attack in attacksList.get_children():
+			attack.free()
 	##Add character attacks
 	var attackCount = 0
 	for attack in friendlies[CharacterIndex].attacks.melee:
 		attack = Attacks.melee[attack]
 		if (mode == "attack" && attack.targetEnemy) || (mode == "abilities" && !attack.targetEnemy):
-			attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+			if create:
+				attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
 			var attackItem = attacksList.get_children()[attackCount]
 			var pictureLocation
 			var attackName = attack.name
@@ -227,7 +234,8 @@ func update_attacks(CharacterIndex: int, mode: String):
 	for attack in friendlies[CharacterIndex].attacks.ranged:
 		attack = Attacks.ranged[attack]
 		if (mode == "attack" && attack.targetEnemy) || (mode == "abilities" && !attack.targetEnemy):
-			attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+			if create:
+				attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
 			var attackItem = attacksList.get_children()[attackCount]
 			var pictureLocation
 			var attackName = attack.name
@@ -256,7 +264,8 @@ func update_attacks(CharacterIndex: int, mode: String):
 	for attack in friendlies[CharacterIndex].attacks.mana:
 		attack = Attacks.mana[attack]
 		if (mode == "attack" && attack.targetEnemy) || (mode == "abilities" && !attack.targetEnemy):
-			attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+			if create:
+				attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
 			var attackItem = attacksList.get_children()[attackCount]
 			var pictureLocation
 			var attackName = attack.name
