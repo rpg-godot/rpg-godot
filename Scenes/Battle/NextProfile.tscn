@@ -14,9 +14,9 @@ font_data = SubResource( 1 )
 default_font = SubResource( 2 )
 
 [node name="NextProfile" type="GridContainer"]
-margin_right = 100.0
-margin_bottom = 175.0
-rect_min_size = Vector2( 80, 175 )
+margin_right = 80.0
+margin_bottom = 106.0
+rect_min_size = Vector2( 80, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 __meta__ = {
@@ -24,14 +24,14 @@ __meta__ = {
 }
 
 [node name="VBox" type="VBoxContainer" parent="."]
-margin_right = 120.0
-margin_bottom = 146.0
+margin_right = 100.0
+margin_bottom = 126.0
 size_flags_horizontal = 3
 
 [node name="Picture" type="Control" parent="VBox"]
-margin_right = 120.0
-margin_bottom = 120.0
-rect_min_size = Vector2( 120, 120 )
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -62,10 +62,10 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="VBox"]
-margin_top = 124.0
-margin_right = 120.0
-margin_bottom = 146.0
-rect_min_size = Vector2( 120, 0 )
+margin_top = 104.0
+margin_right = 100.0
+margin_bottom = 126.0
+rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 3
 theme = SubResource( 3 )

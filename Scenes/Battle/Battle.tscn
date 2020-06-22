@@ -236,12 +236,13 @@ rect_min_size = Vector2( 0, 185 )
 scroll_vertical_enabled = false
 
 [node name="NextTurns" type="HBoxContainer" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2"]
-margin_right = 120.0
-margin_bottom = 175.0
+margin_right = 100.0
+margin_bottom = 126.0
 custom_constants/separation = 10
 
 [node name="NextProfile" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
-margin_right = 120.0
+margin_right = 100.0
+margin_bottom = 126.0
 
 [node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
 visible = false
@@ -251,7 +252,7 @@ size_flags_horizontal = 3
 
 [node name="AttackScrollBar" type="ScrollContainer" parent="TopScreen/DisplayArea/AttackBoard"]
 margin_right = 700.0
-margin_bottom = 637.0
+margin_bottom = 639.0
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
@@ -301,43 +302,32 @@ margin_right = 688.0
 margin_bottom = 828.0
 
 [node name="BackButton" type="Button" parent="TopScreen/DisplayArea/AttackBoard"]
-margin_top = 641.0
+margin_top = 643.0
 margin_right = 700.0
-margin_bottom = 736.0
+margin_bottom = 738.0
 rect_min_size = Vector2( 700, 95 )
 custom_fonts/font = SubResource( 3 )
 text = "BACK"
 
-[node name="Controls" type="Control" parent="."]
-margin_top = 818.0
-margin_right = 720.0
-margin_bottom = 946.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="Controls"]
+[node name="Buttons" type="VBoxContainer" parent="."]
 margin_left = 10.0
-margin_top = 10.0
+margin_top = 828.0
 margin_right = 710.0
-margin_bottom = 108.0
+margin_bottom = 936.0
+custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LowerButtons" type="GridContainer" parent="Controls/MarginContainer"]
+[node name="UpperButtons" type="HBoxContainer" parent="Buttons"]
 margin_right = 700.0
-margin_bottom = 108.0
+margin_bottom = 49.0
+rect_min_size = Vector2( 49, 0 )
 size_flags_stretch_ratio = 0.0
-custom_constants/vseparation = 10
-custom_constants/hseparation = 10
-columns = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_constants/separation = 10
 
-[node name="Attack" type="Button" parent="Controls/MarginContainer/LowerButtons"]
-margin_right = 345.0
+[node name="Attack" type="Button" parent="Buttons/UpperButtons"]
+margin_right = 226.0
 margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -347,9 +337,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="Button" parent="Controls/MarginContainer/LowerButtons"]
-margin_left = 355.0
-margin_right = 700.0
+[node name="Items" type="Button" parent="Buttons/UpperButtons"]
+margin_left = 236.0
+margin_right = 462.0
 margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -359,10 +349,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Abilities" type="Button" parent="Controls/MarginContainer/LowerButtons"]
-margin_top = 59.0
-margin_right = 345.0
-margin_bottom = 108.0
+[node name="Abilities" type="Button" parent="Buttons/UpperButtons"]
+margin_left = 472.0
+margin_right = 700.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -371,11 +361,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Retreat" type="Button" parent="Controls/MarginContainer/LowerButtons"]
-margin_left = 355.0
+[node name="LowerButtons" type="HBoxContainer" parent="Buttons"]
 margin_top = 59.0
 margin_right = 700.0
 margin_bottom = 108.0
+rect_min_size = Vector2( 49, 0 )
+size_flags_stretch_ratio = 0.0
+custom_constants/separation = 10
+
+[node name="EndTurn" type="Button" parent="Buttons/LowerButtons"]
+margin_right = 345.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
+text = "END TURN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Retreat" type="Button" parent="Buttons/LowerButtons"]
+margin_left = 355.0
+margin_right = 700.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -398,7 +406,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="TopScreen/DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Attack" to="." method="_on_Attack_pressed"]
-[connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Items" to="." method="_on_Items_pressed"]
-[connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Abilities" to="." method="_on_Abilities_pressed"]
-[connection signal="pressed" from="Controls/MarginContainer/LowerButtons/Retreat" to="." method="_on_Retreat_pressed"]
+[connection signal="pressed" from="Buttons/UpperButtons/Attack" to="." method="_on_Attack_pressed"]
+[connection signal="pressed" from="Buttons/UpperButtons/Items" to="." method="_on_Items_pressed"]
+[connection signal="pressed" from="Buttons/UpperButtons/Abilities" to="." method="_on_Abilities_pressed"]
+[connection signal="pressed" from="Buttons/LowerButtons/EndTurn" to="." method="_on_EndTurn_pressed"]
+[connection signal="pressed" from="Buttons/LowerButtons/Retreat" to="." method="_on_Retreat_pressed"]

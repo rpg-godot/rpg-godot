@@ -500,7 +500,12 @@ func _on_Retreat_pressed():
 	#####not final
 	Core.get_parent().add_child(load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance())
 	queue_free()
-
+	
+func _on_EndTurn_pressed():
+	BattleBoard.show()
+	AttackList.hide()
+	activeCharacterIndex = -1
+	
 func _on_BackButton_pressed():
 	BattleBoard.show()
 	AttackList.hide()
