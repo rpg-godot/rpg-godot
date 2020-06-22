@@ -75,6 +75,25 @@ Game Mechanics:
 		-Turn order is based of AP regeneration and is not linear
 		-Low AP against a high AP enemy may mean you die before getting to attack
 	-Can't eat food during combat but can you potions
+	-Revive potion can be used to ressurect friendlies that died in combat
+		-Only works on combat injuries
+		-If your whole team dies in combat, a random stranger will take you back to a hospital to heal
+			-This will cost a lot
+			-Some items/Money may be stolen
+			-Takes time
+		-During combat and after combat friendlies can be revivied if you have a potion
+		-After combat revive potions will be used
+			-If they are not available your team will rush back to the closest hospital
+	-Faires can heal people from death without potions if out of combat
+		-Will take more time
+		-Good relations means fairies will heal minor wounds, takes less time
+		-Player fairy has this ability too
+			-takes more time as he/she is alone
+		-Healing is faster in relation to distance from the fairy village in the forest (exponential rate)
+		-Special magic/weapons can be used to seal a death and make it permanent
+			-used by armies but not raiders
+			-used by queen's army
+			-not used by player apart from certain stages
 *Extra
 	-Time and date system
 		-The longer you take the stronger the Queen's army will become.

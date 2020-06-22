@@ -69,7 +69,42 @@ const starting_attacks := {
 		melee = [],
 		ranged = [],
 		mana = [],
-	}
+	},
+	Human = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	HalfElf = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Elf = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Fairies = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Dwarf = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Demon = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Vampire = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
 }
 
 const flip_profile := {
