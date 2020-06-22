@@ -179,76 +179,114 @@ func update_attacks(CharacterIndex: int):
 		attack.free()
 	##Add character attacks
 	var attackCount = 0
-	for attack in friendlies[CharacterIndex].attacks["melee"]:
+	for attack in friendlies[CharacterIndex].attacks.melee:
 		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
 		var attackItem = attacksList.get_children()[attackCount]
 		var pictureLocation
-		var disabled = true
 		var attackName = Attacks.melee[attack].name
 		var attackDamage = Attacks.melee[attack].hpDamage
 		var attackCost = Attacks.melee[attack].APcost
-		var hint = ""
+		var check = checkAttack(friendlies[CharacterIndex], Attacks.melee[attack], "melee")
+		var disabled = !check[0]
+		var hint = check[1]
 		pictureLocation = Attacks.melee[attack].image
 		attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 AP Cost: %s""" % [attackName, attackDamage, attackCost]
-		if attackCost <= friendlies[CharacterIndex].AP.current:
-			if friendlies[CharacterIndex].equipment["weapons"]["melee"] > 0:
-				if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["melee"]].subType in Attacks.melee[attack].weaponNeeded:
-					if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment["weapons"]["melee"]].levelRequirement >= Attacks.melee[attack]["itemLevelRequirements"]:
-						disabled = false
-					else:
-						hint = "Weapon level too low"
-				else:
-					hint = "Wrong weapon type equipped"
-			if "none" in Attacks.melee[attack].weaponNeeded:
-				if friendlies[CharacterIndex].level >= Attacks.melee[attack]["itemLevelRequirements"]:
-					disabled = false
-				else:
-					hint = "Character level too low"
-		else:
-			hint = "Character AP too low"
 		attackItem.get_node("Picture").texture = load(pictureLocation)
 		attackItem.get_node("Use").disabled = disabled
 		attackItem.get_node("Use").hint_tooltip = hint
 		attackCount+=1
-	for attack in friendlies[CharacterIndex].attacks["ranged"]:
+	for attack in friendlies[CharacterIndex].attacks.ranged:
 		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
 		var attackItem = attacksList.get_children()[attackCount]
 		var pictureLocation
-		var disabled = true
 		var attackName = Attacks.ranged[attack].name
 		var attackDamage = Attacks.ranged[attack].hpDamage
 		var attackCost = Attacks.ranged[attack].APcost
 		var ammoCost = Attacks.ranged[attack].ammoCost
-		var hint = ""
+		var check = checkAttack(friendlies[CharacterIndex], Attacks.ranged[attack], "ranged")
+		var disabled = !check[0]
+		var hint = check[1]
 		pictureLocation = Attacks.ranged[attack].image
 		attackItem.get_node("Description").text = """Attack Name: %s
 HP Damage: %s
 AP Cost: %s
 Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-		if attackCost <= friendlies[CharacterIndex].AP.current:
-			if friendlies[CharacterIndex].equipment.weapons.ranged > 0:
-				if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment.weapons.ranged].subType in Attacks.ranged[attack].weaponNeeded[0]:
-					if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment.weapons.ranged].levelRequirement >= Attacks.ranged[attack].itemLevelRequirements:
-						disabled = false
+		attackItem.get_node("Picture").texture = load(pictureLocation)
+		attackItem.get_node("Use").disabled = disabled
+		attackItem.get_node("Use").hint_tooltip = hint
+		attackCount+=1
+	for attack in friendlies[CharacterIndex].attacks.mana:
+		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+		var attackItem = attacksList.get_children()[attackCount]
+		var pictureLocation
+		var attackName = Attacks.mana[attack].name
+		var attackDamage = Attacks.mana[attack].hpDamage
+		var manaDamage = Attacks.mana[attack].manaDamage
+		var attackCost = Attacks.mana[attack].APcost
+		var manaCost = Attacks.mana[attack].manaCost
+		var check = checkAttack(friendlies[CharacterIndex], Attacks.mana[attack], "mana")
+		var disabled = !check[0]
+		var hint = check[1]
+		pictureLocation = Attacks.mana[attack].image
+		attackItem.get_node("Description").text = """Attack Name: %s
+HP Damage: %s
+Mana Damage: %s
+AP Cost: %s
+Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
+		attackItem.get_node("Picture").texture = load(pictureLocation)
+		attackItem.get_node("Use").disabled = disabled
+		attackItem.get_node("Use").hint_tooltip = hint
+		attackCount+=1
+
+func checkAttack(attacker: Dictionary, attack: Dictionary, attackType:String):
+	var valid = false
+	var attackName = attack.name
+	var attackDamage = attack.hpDamage
+	var attackCost = attack.APcost
+	var hint = ""
+	if attackType == "melee":
+		if attackCost <= attacker.AP.current:
+			if attacker.equipment.weapons.melee != -1:
+				if attacker.inventory.weapons.melee[attacker.equipment.weapons.melee].subType in attack.weaponNeeded:
+					if attacker.inventory.weapons.melee[attacker.equipment.weapons.melee].levelRequirement >= attack.itemLevelRequirements:
+						valid = true
+					else:
+						hint = "Weapon level too low"
+				else:
+					hint = "Wrong weapon type equipped"
+			if "none" in attack.weaponNeeded:
+				if attacker.level >= attack.itemLevelRequirements:
+					valid = true
+				else:
+					hint = "Character level too low"
+		else:
+			hint = "Character AP too low"
+	if attackType == "ranged":
+		var ammoCost = attack.ammoCost
+		if attackCost <= attacker.AP.current:
+			if attacker.equipment.weapons.ranged != -1:
+				if attacker.inventory.weapons.ranged[attacker.equipment.weapons.ranged].subType in attack.weaponNeeded[0]:
+					if attacker.inventory.weapons.ranged[attacker.equipment.weapons.ranged].levelRequirement >= attack.itemLevelRequirements:
+						valid = true
 						# for now
 					else:
 						hint = "Weapon level too low"
 				else:
 					hint = "Wrong weapon type equipped"
-			if "none" == Attacks.ranged[attack].weaponNeeded[0][0]:
-				if friendlies[CharacterIndex].level >= Attacks.ranged[attack].itemLevelRequirements:
-					disabled = false
+			if "none" == attack.weaponNeeded[0][0]:
+				if attacker.level >= attack.itemLevelRequirements:
+					valid = true
 					# for now
 				else:
 					hint = "Character level too low"
-			if !disabled:
-				for ammo in friendlies[CharacterIndex].inventory.weapons.consumables:
-					if ammo.subType in Attacks.ranged[attack].weaponNeeded[1]:
-						if ammo.levelRequirement >= Attacks.ranged[attack].itemLevelRequirements:
-							if ammo.quantity >= Attacks.ranged[attack].ammoCost:
-								disabled = false
+			if valid:
+				for ammo in attacker.inventory.weapons.consumables:
+					if ammo.subType in attack.weaponNeeded[1]:
+						if ammo.levelRequirement >= attack.itemLevelRequirements:
+							if ammo.quantity >= attack.ammoCost:
+								valid = true
 								hint = ""
 								break
 							else:
@@ -261,79 +299,46 @@ Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
 							hint = "No arrows available"
 		else:
 			hint = "Character AP too low"
-		attackItem.get_node("Picture").texture = load(pictureLocation)
-		attackItem.get_node("Use").disabled = disabled
-		attackItem.get_node("Use").hint_tooltip = hint
-		attackCount+=1
-	for attack in friendlies[CharacterIndex].attacks.mana:
-		attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
-		var attackItem = attacksList.get_children()[attackCount]
-		var pictureLocation
-		var disabled = true
-		var attackName = Attacks.mana[attack].name
-		var attackDamage = Attacks.mana[attack].hpDamage
-		var manaDamage = Attacks.mana[attack].manaDamage
-		var attackCost = Attacks.mana[attack].APcost
-		var manaCost = Attacks.mana[attack].manaCost
-		var hint = ""
-		if attackCost <= friendlies[CharacterIndex].AP.current:
-			if manaCost <= friendlies[CharacterIndex].mana.current:
-				if friendlies[CharacterIndex].equipment.weapons.magic > 0:
-					if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment.weapons.magic].subType in Attacks.mana[attack].weaponNeeded:
-						if friendlies[CharacterIndex].inventory[friendlies[CharacterIndex].equipment.weapons.magic].levelRequirement >= Attacks.mana[attack].itemLevelRequirements:
-							disabled = false
+	if attackType == "mana":
+		var manaDamage = attack.manaDamage
+		var manaCost = attack.manaCost
+		if attackCost <= attacker.AP.current:
+			if manaCost <= attacker.mana.current:
+				if attacker.equipment.weapons.magic != -1:
+					if attacker.inventory.weapons.magic[attacker.equipment.weapons.magic].subType in attack.weaponNeeded:
+						if attacker.inventory.weapons.magic[attacker.equipment.weapons.magic].levelRequirement >= attack.itemLevelRequirements:
+							valid = true
 						else:
 							hint = "Weapon level too low"
 					else:
 						hint = "Wrong weapon type equipped"
-				if "none" in Attacks.mana[attack].weaponNeeded:
-					if friendlies[CharacterIndex].level >= Attacks.mana[attack].itemLevelRequirements:
-						disabled = false
+				if "none" in attack.weaponNeeded:
+					if attacker.level >= attack.itemLevelRequirements:
+						valid = true
 					else:
 						hint = "Character level too low"
 			else:
 				hint = "Character mana too low"
 		else:
 			hint = "Character AP too low"
-		pictureLocation = Attacks.mana[attack].image
-		attackItem.get_node("Description").text = """Attack Name: %s
-HP Damage: %s
-Mana Damage: %s
-AP Cost: %s
-Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
-		attackItem.get_node("Picture").texture = load(pictureLocation)
-		attackItem.get_node("Use").disabled = disabled
-		attackItem.get_node("Use").hint_tooltip = hint
-		attackCount+=1
-
-func checkAttack(attacker: Dictionary, otherCharacter: Dictionary, attack: Dictionary, attackType:String):
-	var attacked = false
-	var checkHealth = true
-	if attackType == "melee":
-		if attack.attackCost <= attacker.AP.current:
-			if attacker.equipmentweapons.melee > 0:
-				if attacker.inventory[attacker.equipment.weapons.melee].subType in attack.weaponNeeded:
-					if attacker.inventory[attacker.equipment.weapons.melee].levelRequirement >= attack.itemLevelRequirements:
-						checkHealth = true
-			if "none" in attack.weaponNeeded:
-				if attacker.level >= attack.itemLevelRequirements:
-					checkHealth = true
-		
-	if attacker.AP.current >= attack.APcost:
-		if otherCharacter.health.current > 0:
-			otherCharacter.health.current-=attack.hpDamage
-			if otherCharacter.health.current < 0:
-				otherCharacter.health.current=0
+	return [valid, hint]
+	
+func attackCharacter(attacker: Dictionary, otherCharacter: Dictionary, attack: Dictionary, attackType:String):
+	if checkAttack(attacker, attack, attackType)[0] == true:
+		if attacker.AP.current >= attack.APcost:
 			if otherCharacter.health.current > 0:
-				Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
-			else:
-				Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
-			attacker.AP.current -=attack.APcost
-			attacked = true
+				otherCharacter.health.current-=attack.hpDamage
+				if otherCharacter.health.current < 0:
+					otherCharacter.health.current=0
+				if otherCharacter.health.current > 0:
+					Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
+				else:
+					Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
+				attacker.AP.current -=attack.APcost
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# Check if someone one
+	# Check if someone won
 	if !gameOver:
 		var maxFriendlies = 0
 		var maxEnemies = 0
@@ -367,15 +372,8 @@ func _process(delta):
 								if character.AP.current >= attack.APcost:
 									for otherCharacter in enemies:
 										while otherCharacter.health.current > 0 && character.AP.current >= attack.APcost:
-											otherCharacter.health.current-=attack.hpDamage
-											if otherCharacter.health.current < 0:
-												otherCharacter.health.current=0
-											if otherCharacter.health.current > 0:
-												Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
-											else:
-												Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
-											character.AP.current -=attack.APcost
-											attacked = true
+											if attackCharacter(character, otherCharacter, attack, attackType)[0] == true:
+												attacked = true
 										if character.AP.current < attack.APcost:
 											break
 							if attacked:
@@ -394,15 +392,8 @@ func _process(delta):
 							if character.AP.current >= attack.APcost:
 								for otherCharacter in friendlies:
 									while otherCharacter.health.current > 0 && character.AP.current >= attack.APcost:
-										otherCharacter.health.current-=attack.hpDamage
-										if otherCharacter.health.current < 0:
-											otherCharacter.health.current=0
-										if otherCharacter.health.current > 0:
-											Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
-										else:
-											Core.emit_signal('msg', character.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
-										character.AP.current -=attack.APcost
-										attacked = true
+										if attackCharacter(character, otherCharacter, attack, attackType)[0] == true:
+											attacked = true
 									if character.AP.current < attack.APcost:
 										break
 						if attacked:
@@ -441,6 +432,7 @@ func _process(delta):
 func _on_Attack_pressed():
 	BattleBoard.hide()
 	AttackList.show()
+	update_attacks(activeCharacterIndex)
 	if friendlies[activeCharacterIndex].health.current > 0:
 		for character in enemies:
 			while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= 1:
@@ -454,7 +446,6 @@ func _on_Attack_pressed():
 				friendlies[activeCharacterIndex].AP.current -=1
 			if friendlies[activeCharacterIndex].AP.current < 1:
 				break
-	update_attacks(activeCharacterIndex)
 	activeCharacterIndex = -1
 
 func _on_Items_pressed():

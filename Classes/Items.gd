@@ -23,7 +23,7 @@ const items := {
 			defense = 0
 		},
 		level = 1,
-		level_requirement = 1,
+		levelRequirement = 1,
 		quantity = 1,
 	},
 
@@ -47,7 +47,7 @@ const items := {
 			defense = 0
 		},
 		level = 1,
-		level_requirement = 1,
+		levelRequirement = 1,
 		quantity = 1,
 	},
 
@@ -71,7 +71,7 @@ const items := {
 			defense = 0
 		},
 		level = 1,
-		level_requirement = 1,
+		levelRequirement = 1,
 		quantity = 1,
 	},
 
@@ -95,7 +95,7 @@ const items := {
 			defense = 0
 		},
 		level = 1,
-		level_requirement = 1,
+		levelRequirement = 1,
 		quantity = 1,
 	},
 
@@ -119,7 +119,7 @@ const items := {
 			defense = 0
 		},
 		level = 1,
-		level_requirement = 1,
+		levelRequirement = 1,
 		quantity = 1,
 	},
 
@@ -143,7 +143,7 @@ const items := {
 			defense = 0
 		},
 		level = 1,
-		level_requirement = 1,
+		levelRequirement = 1,
 		quantity = 1,
 	}
 }
