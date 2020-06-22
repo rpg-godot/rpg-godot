@@ -15,11 +15,11 @@ size = 56
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 40
+size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 31
+size = 27
 font_data = ExtResource( 3 )
 
 [node name="Battle" type="Control"]
@@ -30,7 +30,7 @@ __meta__ = {
 
 [node name="BlackBackground" type="TextureRect" parent="."]
 margin_right = 720.0
-margin_bottom = 1078.0
+margin_bottom = 1080.0
 texture = SubResource( 1 )
 expand = true
 __meta__ = {
@@ -233,16 +233,15 @@ margin_top = 63.0
 margin_right = 700.0
 margin_bottom = 248.0
 rect_min_size = Vector2( 0, 185 )
-scroll_vertical_enabled = false
 
 [node name="NextTurns" type="HBoxContainer" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2"]
-margin_right = 100.0
-margin_bottom = 126.0
+margin_right = 120.0
+margin_bottom = 290.0
 custom_constants/separation = 10
 
 [node name="NextProfile" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
-margin_right = 100.0
-margin_bottom = 126.0
+margin_right = 120.0
+margin_bottom = 290.0
 
 [node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
 visible = false
@@ -313,7 +312,7 @@ text = "BACK"
 margin_left = 10.0
 margin_top = 828.0
 margin_right = 710.0
-margin_bottom = 936.0
+margin_bottom = 918.0
 custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
@@ -321,14 +320,13 @@ __meta__ = {
 
 [node name="UpperButtons" type="HBoxContainer" parent="Buttons"]
 margin_right = 700.0
-margin_bottom = 49.0
-rect_min_size = Vector2( 49, 0 )
+margin_bottom = 40.0
 size_flags_stretch_ratio = 0.0
 custom_constants/separation = 10
 
 [node name="Attack" type="Button" parent="Buttons/UpperButtons"]
 margin_right = 226.0
-margin_bottom = 49.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -340,7 +338,7 @@ __meta__ = {
 [node name="Items" type="Button" parent="Buttons/UpperButtons"]
 margin_left = 236.0
 margin_right = 462.0
-margin_bottom = 49.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -352,7 +350,7 @@ __meta__ = {
 [node name="Abilities" type="Button" parent="Buttons/UpperButtons"]
 margin_left = 472.0
 margin_right = 700.0
-margin_bottom = 49.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -362,16 +360,15 @@ __meta__ = {
 }
 
 [node name="LowerButtons" type="HBoxContainer" parent="Buttons"]
-margin_top = 59.0
+margin_top = 50.0
 margin_right = 700.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 49, 0 )
+margin_bottom = 90.0
 size_flags_stretch_ratio = 0.0
 custom_constants/separation = 10
 
 [node name="EndTurn" type="Button" parent="Buttons/LowerButtons"]
 margin_right = 345.0
-margin_bottom = 49.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -383,7 +380,7 @@ __meta__ = {
 [node name="Retreat" type="Button" parent="Buttons/LowerButtons"]
 margin_left = 355.0
 margin_right = 700.0
-margin_bottom = 49.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
@@ -393,14 +390,15 @@ __meta__ = {
 }
 
 [node name="BattleText" type="RichTextLabel" parent="."]
-margin_top = 946.0
+margin_top = 928.0
 margin_right = 720.0
-margin_bottom = 1078.0
+margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 4 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
+custom_constants/line_separation = -6
 scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
