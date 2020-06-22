@@ -84,6 +84,7 @@ func _on_play_pressed():
 		Core.get_parent().add_child(load("res://Scenes/Battle/Battle.tscn").instance())
 	
 		var player2 = CharacterManager.create("alrune")
+		CharacterManager.load_class(player2, "knight")
 	
 		var enemy1 = CharacterManager.create("death_hound")
 		CharacterManager.load_class(enemy1, "death_hound")
@@ -109,7 +110,7 @@ func _on_play_pressed():
 		CharacterManager.load_class(enemy6, "death_hound")
 		CharacterManager.set_level(enemy6, int(rand_range(1, 10)))
 	
-		Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6])
+		Core.get_parent().get_node("Battle").load_battle("Wolf Den", "res://Assets/Images/Backgrounds/Forest.jpg", [Core.player, player2], [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6 ])
 		queue_free()
 
 func _on_Delete_pressed():

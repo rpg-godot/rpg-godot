@@ -182,9 +182,9 @@ func _on_Attack_pressed():
 func attackButton(attack, attackType):
 	if friendlies[activeCharacterIndex].health.current > 0:
 		for character in enemies:
-			while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= 1:
+			while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= attack.APcost:
 				attackCharacter(friendlies[activeCharacterIndex], [character], attack, attackType)
-			if friendlies[activeCharacterIndex].AP.current < 1:
+			if friendlies[activeCharacterIndex].AP.current < attack.APcost:
 				break
 
 func _on_Abilities_pressed():
@@ -385,6 +385,11 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 					else:
 						Core.emit_signal('msg', '    -' + otherCharacter.name + ' has died!', Log.INFO, self)
 					attacker.AP.current -=attack.APcost
+					if attackType == "mana":
+						attacker.mana.current-=attack.manaCost
+						otherCharacter.mana.current-=attack.manaDamage
+						if otherCharacter.mana.current < 0:
+							otherCharacter.mana.current=0
 					attacked = true
 		else:
 			# heal friendly
@@ -396,8 +401,16 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 						otherCharacter.health.current = otherCharacter.health.current
 					Core.emit_signal('msg', '    -' + otherCharacter.name + ' is healed by ' + str(attack.hpDamage) + ' HP', Log.INFO, self)
 					attacker.AP.current -=attack.APcost
+					if attackType == "mana":
+						attacker.mana.current-=attack.manaCost
+						otherCharacter.mana.current-=attack.manaDamage
 					attacked = true
-	print(1)
+		if attackType == "ranged" && attacked:
+			for ammo in attacker.inventory.weapons.consumables:
+				if ammo.subType in attack.weaponNeeded[1]:
+					if ammo.levelRequirement >= attack.itemLevelRequirements:
+						if ammo.quantity >= attack.ammoCost:
+							InventoryManager.remove(attacker.inventory, ammo, attack.ammoCost)
 	return attacked
 
 func _process(delta):
@@ -414,7 +427,7 @@ func _process(delta):
 		if maxFriendlies == 0:
 			gameOver = true
 			winner = "enemies"
-		if maxFriendlies == 0:
+		if maxEnemies == 0:
 			gameOver = true
 			winner = "friendlies"
 		if gameOver:
