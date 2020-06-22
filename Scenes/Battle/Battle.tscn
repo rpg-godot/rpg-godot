@@ -19,7 +19,7 @@ size = 32
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 27
+size = 29
 font_data = ExtResource( 3 )
 
 [node name="Battle" type="Control"]
@@ -235,13 +235,21 @@ margin_bottom = 248.0
 rect_min_size = Vector2( 0, 185 )
 
 [node name="NextTurns" type="HBoxContainer" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2"]
-margin_right = 120.0
-margin_bottom = 290.0
+margin_right = 688.0
+margin_bottom = 190.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="NextProfile" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
-margin_right = 120.0
-margin_bottom = 290.0
+margin_right = 80.0
+margin_bottom = 190.0
+size_flags_horizontal = 0
+
+[node name="NextProfile2" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
+margin_left = 90.0
+margin_right = 688.0
+margin_bottom = 165.0
 
 [node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
 visible = false
