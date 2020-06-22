@@ -150,6 +150,7 @@ func update_turn():
 			else:
 				turnPanel.get_node("HBox/Picture/PicBorder").show()
 				turnPanel.get_node("HBox/Picture/PicBorder").texture = load(friendlies[activeCharacterIndex].picture.border.path)
+			turnPanel.resizeName()
 		for turn in nextCharacterIndex:
 			turns.add_child(load("res://Scenes/Battle/NextProfile.tscn").instance())
 			var turnPanel = turns.get_children()[turns.get_children().size()-1]
@@ -163,6 +164,7 @@ func update_turn():
 				else:
 					turnPanel.get_node("HBox/Picture/PicBorder").show()
 					turnPanel.get_node("HBox/Picture/PicBorder").texture = load(friendlies[turn[1]].picture.border.path)
+				turnPanel.resizeName()
 			else:
 				turnPanel.get_node("HBox/Picture/Pic").texture = load(enemies[turn[1]].picture.path)
 				turnPanel.get_node("HBox/Picture/Pic").flip_h = enemies[turn[1]].picture.flip_profile[0]
@@ -173,6 +175,7 @@ func update_turn():
 				else:
 					turnPanel.get_node("HBox/Picture/PicBorder").show()
 					turnPanel.get_node("HBox/Picture/PicBorder").texture = load(enemies[turn[1]].picture.border.path)
+				turnPanel.resizeName()
 
 func _on_Attack_pressed():
 	BattleBoard.hide()
