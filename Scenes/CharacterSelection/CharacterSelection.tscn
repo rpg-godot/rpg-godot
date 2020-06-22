@@ -196,6 +196,7 @@ texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Play" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Play"
 state = 2
 
@@ -220,6 +221,7 @@ texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Delete" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Delete"
 state = 2
 
