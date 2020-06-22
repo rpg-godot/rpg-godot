@@ -323,18 +323,35 @@ func checkAttack(attacker: Dictionary, attack: Dictionary, attackType:String):
 			hint = "Character AP too low"
 	return [valid, hint]
 	
-func attackCharacter(attacker: Dictionary, otherCharacter: Dictionary, attack: Dictionary, attackType:String):
+func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dictionary, attackType:String):
+	var attacked = false
 	if checkAttack(attacker, attack, attackType)[0] == true:
-		if attacker.AP.current >= attack.APcost:
-			if otherCharacter.health.current > 0:
-				otherCharacter.health.current-=attack.hpDamage
-				if otherCharacter.health.current < 0:
-					otherCharacter.health.current=0
-				if otherCharacter.health.current > 0:
-					Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + ' for ' + str(attack.hpDamage) + ' HP damage against ' + otherCharacter.name + '!', Log.INFO, self)
-				else:
-					Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + ' to kill ' + otherCharacter.name + '!', Log.INFO, self)
-				attacker.AP.current -=attack.APcost
+		if attack.targetEnemy:
+			# attack enemy
+			if attacker.AP.current >= attack.APcost:
+				Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + '!', Log.INFO, self)
+				for otherCharacter in otherCharacters:
+					otherCharacter.health.current-=attack.hpDamage
+					if otherCharacter.health.current < 0:
+						otherCharacter.health.current=0
+					if otherCharacter.health.current > 0:
+						Core.emit_signal('msg', '    -' + otherCharacter.name + ' takes ' + str(attack.hpDamage) + ' HP damage!', Log.INFO, self)
+					else:
+						Core.emit_signal('msg', '    -' + otherCharacter.name + ' has died!', Log.INFO, self)
+					attacker.AP.current -=attack.APcost
+					attacked = true
+		else:
+			# heal friendly
+			if attacker.AP.current >= attack.APcost:
+				Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + '!', Log.INFO, self)
+				for otherCharacter in otherCharacters:
+					otherCharacter.health.current -= attack.hpDamage
+					if otherCharacter.health.current > otherCharacter.health.max:
+						otherCharacter.health.current = otherCharacter.health.current
+					Core.emit_signal('msg', '    -' + otherCharacter.name + ' is healed by ' + str(attack.hpDamage) + ' HP', Log.INFO, self)
+					attacker.AP.current -=attack.APcost
+					attacked = true
+	return attacked
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -372,7 +389,7 @@ func _process(delta):
 								if character.AP.current >= attack.APcost:
 									for otherCharacter in enemies:
 										while otherCharacter.health.current > 0 && character.AP.current >= attack.APcost:
-											if attackCharacter(character, otherCharacter, attack, attackType)[0] == true:
+											if attackCharacter(character, [otherCharacter], attack, attackType) == true:
 												attacked = true
 										if character.AP.current < attack.APcost:
 											break
@@ -392,7 +409,7 @@ func _process(delta):
 							if character.AP.current >= attack.APcost:
 								for otherCharacter in friendlies:
 									while otherCharacter.health.current > 0 && character.AP.current >= attack.APcost:
-										if attackCharacter(character, otherCharacter, attack, attackType)[0] == true:
+										if attackCharacter(character, [otherCharacter], attack, attackType) == true:
 											attacked = true
 									if character.AP.current < attack.APcost:
 										break
@@ -434,18 +451,21 @@ func _on_Attack_pressed():
 	AttackList.show()
 	update_attacks(activeCharacterIndex)
 	if friendlies[activeCharacterIndex].health.current > 0:
-		for character in enemies:
-			while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= 1:
-				character.health.current-=10
-				if character.health.current < 0:
-					character.health.current=0
-				if character.health.current > 0:
-					Core.emit_signal('msg', friendlies[activeCharacterIndex].name + ' dealt ' + str(10) + ' HP damage against ' + character.name + '!', Log.INFO, self)
-				else:
-					Core.emit_signal('msg', friendlies[activeCharacterIndex].name + ' kills ' + character.name + '!', Log.INFO, self)
-				friendlies[activeCharacterIndex].AP.current -=1
-			if friendlies[activeCharacterIndex].AP.current < 1:
-				break
+		var attackType = "melee"
+		if friendlies[activeCharacterIndex].attacks.melee.size() > 1:
+			var attack = Attacks.melee[friendlies[activeCharacterIndex].attacks.melee[1]]
+			for character in enemies:
+				while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= 1:
+					attackCharacter(friendlies[activeCharacterIndex], [character], attack, attackType)
+				if friendlies[activeCharacterIndex].AP.current < 1:
+					break
+		else:
+			var attack = Attacks.melee[friendlies[activeCharacterIndex].attacks.melee[0]]
+			for character in enemies:
+				while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= 1:
+					attackCharacter(friendlies[activeCharacterIndex], [character], attack, attackType)
+				if friendlies[activeCharacterIndex].AP.current < 1:
+					break
 	activeCharacterIndex = -1
 
 func _on_Items_pressed():
