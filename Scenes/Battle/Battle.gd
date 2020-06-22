@@ -406,11 +406,15 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 						otherCharacter.mana.current-=attack.manaDamage
 					attacked = true
 		if attackType == "ranged" && attacked:
+			var ammoChoice = []
 			for ammo in attacker.inventory.weapons.consumables:
+				###need to add selection if there are multiple
 				if ammo.subType in attack.weaponNeeded[1]:
 					if ammo.levelRequirement >= attack.itemLevelRequirements:
 						if ammo.quantity >= attack.ammoCost:
-							InventoryManager.remove(attacker.inventory, ammo, attack.ammoCost)
+							ammoChoice.append(ammo)
+			if ammoChoice.size() > 0:
+				InventoryManager.remove(attacker.inventory, ammoChoice[0], attack.ammoCost)
 	return attacked
 
 func _process(delta):
