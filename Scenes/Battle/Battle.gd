@@ -1,8 +1,8 @@
 extends Node
 const script_name := "battle"
 
-onready var BattleBoard := $"TopScreen/DisplayArea/BattleBoard/"
-onready var AttackList := $"TopScreen/DisplayArea/AttackBoard/"
+onready var BattleBoard := $"DisplayArea/BattleBoard/"
+onready var AttackList := $"DisplayArea/AttackBoard/"
 onready var friendlies := []
 onready var activeCharacterIndex := -1
 onready var nextCharacterIndex := []
@@ -14,10 +14,10 @@ var battle_name setget set_battle_name, get_battle_name
 var background setget set_background, get_background
 
 func set_battle_name(value: String):
-	get_node("TopScreen/AreaTitle/Name").text = value
+	get_node("TopScreen/Name").text = value
 
 func get_battle_name():
-	return get_node("TopScreen/AreaTitle/Name").text
+	return get_node("TopScreen/Name").text
 
 func set_background(value):
 	get_node("TopScreen/Background").texture = load(value)
@@ -53,15 +53,15 @@ func create_Characters():
 	BattleBoard.show()
 	AttackList.hide()
 	# Delete all tiles until needed
-	for friendPanel in get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children():
+	for friendPanel in get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children():
 		friendPanel.free()
-	for enemyPanel in get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children():
+	for enemyPanel in get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children():
 		enemyPanel.free()
 	## Initiate and unhide needed tiles
 	for character in friendlies:
 		## Looks
-		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
-		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
+		get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
+		var friendPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
 		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.picture.path)
 		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.picture.flip_profile[0]
 		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.picture.flip_profile[1]
@@ -74,8 +74,8 @@ func create_Characters():
 			friendPanel.get_node("VBox/Picture/PicBorder").hide()
 	for character in enemies:
 		##looks
-		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_child(load("res://Scenes/Battle/EnemyPanel.tscn").instance())
-		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
+		get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_child(load("res://Scenes/Battle/EnemyPanel.tscn").instance())
+		var enemyPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
 		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.picture.path)
 		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.picture.flip_profile[0]
 		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.picture.flip_profile[1]
@@ -92,7 +92,7 @@ func update_Characters():
 	##update stats
 	for character in friendlies:
 		##looks
-		var friendPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
+		var friendPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
 		##stats
 		friendPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/(character.health.max)
 		friendPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
@@ -108,7 +108,7 @@ func update_Characters():
 			friendPanel.get_node("VBox/Picture/Blood").show()
 	for character in enemies:
 		##looks
-		var enemyPanel = get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
+		var enemyPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
 		##stats
 		enemyPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
 		enemyPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
@@ -127,14 +127,14 @@ func update_Characters():
 		else:
 			enemyPanel.get_node("VBox/Control/Blood").show()
 	if enemies.size() > 4:
-		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 42)
+		get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 84)
 	else:
-		get_node("TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 57)
+		get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 104)
 	update_turn()
 
 func update_turn():
 	# Delete all tiles until needed
-	var turns = get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns")
+	var turns = get_node("DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns")
 	for turnPanel in turns.get_children():
 		turnPanel.free()
 	if !gameOver:
@@ -201,7 +201,7 @@ func _on_Abilities_pressed():
 	
 func update_attacks(CharacterIndex: int, mode: String, create=true):
 	#character index variable should be replaced with activeCharacterIndex global variable
-	var attacksList = get_node("TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
+	var attacksList = get_node("DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
 	if create:
 		for attack in attacksList.get_children():
 			attack.free()
@@ -453,7 +453,7 @@ func _process(delta):
 	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1 && !gameOver:
 		if nextCharacterIndex[0][0] == "Friendly":
 			var character = friendlies[nextCharacterIndex[0][1]]
-			get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
+			get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
 			if character.health.current > 0:
 				if character.classType != "PLAYER":
 					var attacked = false
@@ -474,7 +474,7 @@ func _process(delta):
 					activeCharacterIndex = nextCharacterIndex[0][1]
 		else:
 			var character = enemies[nextCharacterIndex[0][1]]
-			get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
+			get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
 			if character.health.current > 0:
 				var attacked = false
 				for attackType in character.attacks:
@@ -541,5 +541,5 @@ func _on_BackButton_pressed():
 	update_Characters()
 
 func gameEnded():
-	get_node("TopScreen/DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
+	get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
 	Core.emit_signal('msg', 'Game Over!', Log.INFO, self)

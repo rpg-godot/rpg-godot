@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Assets/UI/DefaultTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/UI/DefaultFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Images/Profiles/blood-splatter.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG" type="Texture" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.854902, 0.105882, 0.105882, 1 )
@@ -19,7 +20,11 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="DynamicFont" id=3]
+size = 26
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0, 0, 1, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
@@ -27,45 +32,43 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [node name="FriendlyTL" type="GridContainer"]
-margin_right = 144.0
-margin_bottom = 212.0
+margin_right = 288.0
+margin_bottom = 243.0
 rect_min_size = Vector2( 144, 243 )
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBox" type="VBoxContainer" parent="."]
-margin_right = 144.0
-margin_bottom = 214.0
+margin_right = 288.0
+margin_bottom = 487.0
 size_flags_horizontal = 3
 
 [node name="Picture" type="Control" parent="VBox"]
-margin_right = 144.0
-margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
+margin_right = 288.0
+margin_bottom = 288.0
+rect_min_size = Vector2( 288, 288 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="Pic" type="TextureRect" parent="VBox/Picture"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 278.0
+rect_min_size = Vector2( 268, 268 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PicBorder" type="TextureRect" parent="VBox/Picture"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_min_size = Vector2( 144, 144 )
+margin_right = 288.0
+margin_bottom = 288.0
+rect_min_size = Vector2( 288, 288 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -77,7 +80,7 @@ __meta__ = {
 [node name="Blood" type="TextureRect" parent="VBox/Picture"]
 margin_right = 144.0
 margin_bottom = 144.0
-rect_min_size = Vector2( 144, 144 )
+rect_min_size = Vector2( 288, 288 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 2 )
@@ -87,77 +90,96 @@ __meta__ = {
 }
 
 [node name="Health" type="Control" parent="VBox"]
-margin_top = 148.0
-margin_right = 144.0
-margin_bottom = 162.0
-rect_min_size = Vector2( 144, 14 )
+margin_top = 292.0
+margin_right = 288.0
+margin_bottom = 320.0
+rect_min_size = Vector2( 288, 28 )
 size_flags_horizontal = 3
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="HealthBar" type="ProgressBar" parent="VBox/Health"]
 margin_right = 144.0
 margin_bottom = 14.0
+rect_min_size = Vector2( 288, 28 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 value = 50.0
 rounded = true
 percent_visible = false
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="HealthText" type="Label" parent="VBox/Health"]
-margin_right = 144.0
-margin_bottom = 14.0
+margin_right = 288.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 288, 28 )
+custom_fonts/font = SubResource( 3 )
 text = "Health: 50/100"
 align = 1
 valign = 1
+uppercase = true
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="Mana" type="Control" parent="VBox"]
-margin_top = 166.0
-margin_right = 144.0
-margin_bottom = 180.0
-rect_min_size = Vector2( 144, 14 )
+margin_top = 324.0
+margin_right = 288.0
+margin_bottom = 352.0
+rect_min_size = Vector2( 288, 28 )
 size_flags_horizontal = 3
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="ManaBar" type="ProgressBar" parent="VBox/Mana"]
 margin_right = 144.0
 margin_bottom = 14.0
-custom_styles/fg = SubResource( 3 )
+rect_min_size = Vector2( 288, 28 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/fg = SubResource( 4 )
 custom_styles/bg = SubResource( 2 )
-value = 20.0
+value = 50.0
 rounded = true
 percent_visible = false
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="ManaText" type="Label" parent="VBox/Mana"]
 margin_right = 144.0
 margin_bottom = 14.0
-text = "Mana: 20/100"
+rect_min_size = Vector2( 288, 28 )
+custom_fonts/font = SubResource( 3 )
+text = "Mana: 50/100"
 align = 1
 valign = 1
+uppercase = true
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": false,
+"_editor_description_": ""
 }
 
 [node name="Name" type="Label" parent="VBox"]
-margin_top = 184.0
-margin_right = 144.0
-margin_bottom = 214.0
+margin_top = 356.0
+margin_right = 288.0
+margin_bottom = 487.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme = ExtResource( 1 )
-text = "Alrune"
+custom_fonts/font = ExtResource( 1 )
+text = "Alrune
+"
 align = 1
 autowrap = true
 __meta__ = {

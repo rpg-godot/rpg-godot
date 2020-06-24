@@ -9,13 +9,13 @@
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
-size = 30
+size = 80
 font_data = ExtResource( 2 )
 
 [node name="CharacterSelectionButton" type="Control"]
-margin_right = 652.0
+margin_right = 1300.0
 margin_bottom = 240.0
-rect_min_size = Vector2( 0, 240 )
+rect_min_size = Vector2( 0, 480 )
 mouse_filter = 1
 size_flags_horizontal = 3
 script = ExtResource( 4 )
@@ -33,8 +33,8 @@ __meta__ = {
 }
 
 [node name="Content" type="Control" parent="VBox"]
-margin_right = 652.0
-margin_bottom = 206.0
+margin_right = 1300.0
+margin_bottom = 446.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -52,36 +52,36 @@ __meta__ = {
 }
 
 [node name="CenterProfile" type="CenterContainer" parent="VBox/Content/HBox"]
-margin_right = 268.0
-margin_bottom = 206.0
+margin_right = 528.0
+margin_bottom = 446.0
 mouse_filter = 1
 
 [node name="HBox" type="HBoxContainer" parent="VBox/Content/HBox/CenterProfile"]
-margin_top = 3.0
-margin_right = 268.0
-margin_bottom = 203.0
+margin_top = 23.0
+margin_right = 528.0
+margin_bottom = 423.0
 
 [node name="SeperatorLeft" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
-margin_right = 30.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 30, 30 )
+margin_right = 60.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 60, 30 )
 mouse_filter = 1
 
 [node name="Profile" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
-margin_left = 34.0
-margin_right = 234.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
+margin_left = 64.0
+margin_right = 464.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 400, 400 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Picture" type="TextureRect" parent="VBox/Content/HBox/CenterProfile/HBox/Profile"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 190.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 180, 180 )
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 380.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 360, 360 )
 texture = ExtResource( 3 )
 expand = true
 __meta__ = {
@@ -100,26 +100,26 @@ __meta__ = {
 }
 
 [node name="SeperatorRight" type="Control" parent="VBox/Content/HBox/CenterProfile/HBox"]
-margin_left = 238.0
-margin_right = 268.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 30, 30 )
+margin_left = 468.0
+margin_right = 528.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 60, 30 )
 mouse_filter = 1
 
 [node name="CenterText" type="CenterContainer" parent="VBox/Content/HBox"]
-margin_left = 272.0
-margin_right = 489.0
-margin_bottom = 206.0
+margin_left = 532.0
+margin_right = 1108.0
+margin_bottom = 446.0
 mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="VBox/Content/HBox/CenterText"]
-margin_top = 73.0
-margin_right = 217.0
-margin_bottom = 132.0
+margin_top = 146.0
+margin_right = 576.0
+margin_bottom = 299.0
 
 [node name="Name" type="Label" parent="VBox/Content/HBox/CenterText/VBox"]
-margin_right = 217.0
-margin_bottom = 33.0
+margin_right = 576.0
+margin_bottom = 85.0
 mouse_filter = 1
 custom_fonts/font = SubResource( 1 )
 text = "CHARACTER NAME"
@@ -128,9 +128,9 @@ __meta__ = {
 }
 
 [node name="Info" type="Label" parent="VBox/Content/HBox/CenterText/VBox"]
-margin_top = 37.0
-margin_right = 217.0
-margin_bottom = 59.0
+margin_top = 89.0
+margin_right = 576.0
+margin_bottom = 153.0
 mouse_filter = 1
 custom_fonts/font = ExtResource( 1 )
 text = "CHARACTER INFO"
@@ -153,9 +153,9 @@ __meta__ = {
 }
 
 [node name="BottomSeperator" type="Control" parent="VBox"]
-margin_top = 210.0
-margin_right = 652.0
-margin_bottom = 240.0
+margin_top = 450.0
+margin_right = 1300.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 0, 30 )
 mouse_filter = 1
 size_flags_horizontal = 3

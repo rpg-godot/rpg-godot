@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
 [ext_resource path="res://Scenes/Battle/EnemyPanel.tscn" type="PackedScene" id=2]
@@ -11,399 +11,414 @@
 [sub_resource type="GradientTexture" id=1]
 
 [sub_resource type="DynamicFont" id=2]
-size = 56
+size = 114
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 32
+size = 80
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 29
+size = 160
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 70
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 70
 font_data = ExtResource( 3 )
 
 [node name="Battle" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BlackBackground" type="TextureRect" parent="."]
-margin_right = 720.0
-margin_bottom = 1080.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = SubResource( 1 )
 expand = true
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopScreen" type="Control" parent="."]
-margin_right = 720.0
-margin_bottom = 818.0
+[node name="TopScreen" type="MarginContainer" parent="."]
+margin_right = 1440.0
+margin_bottom = 1820.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Background" type="TextureRect" parent="TopScreen"]
-margin_right = 720.0
-margin_bottom = 818.0
+margin_right = 1440.0
+margin_bottom = 1820.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="YBotLine" type="Line2D" parent="TopScreen/Background"]
-position = Vector2( 10, 70 )
-width = 5.0
-default_color = Color( 0, 0, 0, 1 )
-
-[node name="AreaTitle" type="Control" parent="TopScreen"]
-margin_right = 720.0
-margin_bottom = 60.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BaseLine" type="Line2D" parent="TopScreen/AreaTitle"]
-position = Vector2( 10, 10 )
-points = PoolVector2Array( -10, 51, 710, 51 )
-width = 5.0
-default_color = Color( 0, 0, 0, 1 )
-
-[node name="Name" type="Label" parent="TopScreen/AreaTitle"]
-margin_right = 720.0
-margin_bottom = 61.0
+[node name="Name" type="Label" parent="TopScreen"]
+margin_right = 1440.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 custom_fonts/font = SubResource( 2 )
 text = "Wild Forest"
 align = 1
-valign = 2
 autowrap = true
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DisplayArea" type="MarginContainer" parent="TopScreen"]
-margin_left = 10.0
-margin_top = 72.0
-margin_right = 710.0
-margin_bottom = 808.0
-rect_min_size = Vector2( 700, 684 )
-size_flags_horizontal = 12
-size_flags_vertical = 12
+[node name="BaseLine" type="Line2D" parent="TopScreen"]
+points = PoolVector2Array( 0, 120, 1440, 120 )
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="DisplayArea" type="MarginContainer" parent="."]
+margin_left = 20.0
+margin_top = 140.0
+margin_right = 1420.0
+margin_bottom = 1800.0
+rect_min_size = Vector2( 700, 848 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BattleBoard" type="VBoxContainer" parent="TopScreen/DisplayArea"]
-margin_right = 700.0
-margin_bottom = 738.0
+[node name="BattleBoard" type="VBoxContainer" parent="DisplayArea"]
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 848 )
 
-[node name="Combat" type="ScrollContainer" parent="TopScreen/DisplayArea/BattleBoard"]
-margin_right = 700.0
-margin_bottom = 486.0
-rect_min_size = Vector2( 700, 486 )
+[node name="Combat" type="ScrollContainer" parent="DisplayArea/BattleBoard"]
+margin_right = 1400.0
+margin_bottom = 1227.0
+rect_min_size = Vector2( 700, 596 )
+size_flags_vertical = 3
 
-[node name="Characters" type="HBoxContainer" parent="TopScreen/DisplayArea/BattleBoard/Combat"]
-margin_right = 690.0
-margin_bottom = 729.0
+[node name="Characters" type="HBoxContainer" parent="DisplayArea/BattleBoard/Combat"]
+margin_right = 1370.0
+margin_bottom = 1461.0
 rect_min_size = Vector2( 690, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 4
-custom_constants/separation = 10
+custom_constants/separation = 20
 
-[node name="AllFriendlies" type="GridContainer" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters"]
-margin_right = 345.0
-margin_bottom = 729.0
+[node name="AllFriendlies" type="GridContainer" parent="DisplayArea/BattleBoard/Combat/Characters"]
+margin_right = 690.0
+margin_bottom = 1461.0
 rect_min_size = Vector2( 345, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/vseparation = 0
-custom_constants/hseparation = 57
+custom_constants/hseparation = 114
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Friendly" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
-margin_bottom = 243.0
+[node name="Friendly" parent="DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_bottom = 487.0
 
-[node name="Friendly2" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
-margin_left = 201.0
-margin_right = 345.0
-margin_bottom = 243.0
+[node name="Friendly2" parent="DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 402.0
+margin_right = 690.0
+margin_bottom = 487.0
 
-[node name="Friendly3" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
-margin_top = 243.0
-margin_bottom = 486.0
+[node name="Friendly3" parent="DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_top = 487.0
+margin_bottom = 974.0
 
-[node name="Friendly4" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
-margin_left = 201.0
-margin_top = 243.0
-margin_right = 345.0
-margin_bottom = 486.0
+[node name="Friendly4" parent="DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 402.0
+margin_top = 487.0
+margin_right = 690.0
+margin_bottom = 974.0
 
-[node name="Friendly5" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
-margin_top = 486.0
-margin_bottom = 729.0
+[node name="Friendly5" parent="DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_top = 974.0
+margin_bottom = 1461.0
 
-[node name="Friendly6" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
-margin_left = 201.0
-margin_top = 486.0
-margin_right = 345.0
-margin_bottom = 729.0
+[node name="Friendly6" parent="DisplayArea/BattleBoard/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 402.0
+margin_top = 974.0
+margin_right = 690.0
+margin_bottom = 1461.0
 
-[node name="AllEnemies" type="GridContainer" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters"]
-margin_left = 355.0
-margin_right = 685.0
-margin_bottom = 729.0
+[node name="AllEnemies" type="GridContainer" parent="DisplayArea/BattleBoard/Combat/Characters"]
+margin_left = 710.0
+margin_right = 1370.0
+margin_bottom = 1461.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_constants/vseparation = 0
-custom_constants/hseparation = 42
+custom_constants/hseparation = 84
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Enemy" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
-margin_bottom = 243.0
+[node name="Enemy" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+margin_bottom = 487.0
 
-[node name="Enemy2" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
-margin_left = 186.0
-margin_right = 330.0
-margin_bottom = 243.0
+[node name="Enemy2" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+margin_left = 372.0
+margin_right = 660.0
+margin_bottom = 487.0
 
-[node name="Enemy3" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
-margin_top = 243.0
-margin_bottom = 486.0
+[node name="Enemy3" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+margin_top = 487.0
+margin_bottom = 974.0
 
-[node name="Enemy4" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
-margin_left = 186.0
-margin_top = 243.0
-margin_right = 330.0
-margin_bottom = 486.0
+[node name="Enemy4" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+margin_left = 372.0
+margin_top = 487.0
+margin_right = 660.0
+margin_bottom = 974.0
 
-[node name="Enemy5" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
-margin_top = 486.0
-margin_bottom = 729.0
+[node name="Enemy5" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+margin_top = 974.0
+margin_bottom = 1461.0
 
-[node name="Enemy6" parent="TopScreen/DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
-margin_left = 186.0
-margin_top = 486.0
-margin_right = 330.0
-margin_bottom = 729.0
+[node name="Enemy6" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+margin_left = 372.0
+margin_top = 974.0
+margin_right = 660.0
+margin_bottom = 1461.0
 
-[node name="MidLine" type="Line2D" parent="TopScreen/DisplayArea/BattleBoard"]
-position = Vector2( 0.540344, 0 )
-points = PoolVector2Array( 350, -10, 350, 490 )
-width = 5.0
+[node name="MidLine" type="Line2D" parent="DisplayArea/BattleBoard"]
+points = PoolVector2Array( 700, -20, 700, 1230 )
 default_color = Color( 0, 0, 0, 1 )
 
-[node name="TurnSystem" type="VBoxContainer" parent="TopScreen/DisplayArea/BattleBoard"]
-margin_top = 490.0
-margin_right = 700.0
-margin_bottom = 738.0
+[node name="TurnSystem" type="VBoxContainer" parent="DisplayArea/BattleBoard"]
+margin_top = 1231.0
+margin_right = 1400.0
+margin_bottom = 1660.0
+size_flags_vertical = 0
 
-[node name="BaseLine2" type="Line2D" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem"]
-position = Vector2( 0, -489 )
-points = PoolVector2Array( -10, 490, 710, 490 )
-width = 5.0
+[node name="BaseLine2" type="Line2D" parent="DisplayArea/BattleBoard/TurnSystem"]
+points = PoolVector2Array( -20, 0, 1420, 0 )
 default_color = Color( 0, 0, 0, 1 )
 
-[node name="CurrentCharacter" type="Label" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem"]
-margin_right = 700.0
-margin_bottom = 59.0
-custom_fonts/font = SubResource( 2 )
+[node name="CurrentCharacter" type="Label" parent="DisplayArea/BattleBoard/TurnSystem"]
+margin_right = 1400.0
+margin_bottom = 85.0
+custom_fonts/font = SubResource( 3 )
 text = "Current Turn: Alrune"
 align = 1
 valign = 1
 autowrap = true
 uppercase = true
 
-[node name="BaseLine3" type="Line2D" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem"]
-position = Vector2( 0, -489 )
-points = PoolVector2Array( -10, 548, 710, 548 )
-width = 5.0
+[node name="BaseLine3" type="Line2D" parent="DisplayArea/BattleBoard/TurnSystem"]
+points = PoolVector2Array( -20, 85, 1420, 85 )
 default_color = Color( 0, 0, 0, 1 )
 
-[node name="ScrollContainer2" type="ScrollContainer" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem"]
-margin_top = 63.0
-margin_right = 700.0
-margin_bottom = 248.0
-rect_min_size = Vector2( 0, 185 )
+[node name="ScrollContainer2" type="ScrollContainer" parent="DisplayArea/BattleBoard/TurnSystem"]
+margin_top = 89.0
+margin_right = 1400.0
+margin_bottom = 429.0
+rect_min_size = Vector2( 0, 340 )
+size_flags_vertical = 0
 
-[node name="NextTurns" type="HBoxContainer" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2"]
-margin_right = 700.0
-margin_bottom = 185.0
+[node name="NextTurns" type="HBoxContainer" parent="DisplayArea/BattleBoard/TurnSystem/ScrollContainer2"]
+margin_right = 1400.0
+margin_bottom = 340.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
-[node name="NextProfile" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
-margin_right = 80.0
-margin_bottom = 115.0
+[node name="NextProfile" parent="DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
+margin_right = 160.0
+margin_bottom = 224.0
 
-[node name="NextProfile2" parent="TopScreen/DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
-margin_left = 90.0
-margin_right = 170.0
-margin_bottom = 115.0
+[node name="NextProfile2" parent="DisplayArea/BattleBoard/TurnSystem/ScrollContainer2/NextTurns" instance=ExtResource( 5 )]
+margin_left = 170.0
+margin_right = 330.0
+margin_bottom = 224.0
 
-[node name="AttackBoard" type="GridContainer" parent="TopScreen/DisplayArea"]
+[node name="AttackBoard" type="GridContainer" parent="DisplayArea"]
 visible = false
-margin_right = 700.0
-margin_bottom = 738.0
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 848 )
 size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
 
-[node name="AttackScrollBar" type="ScrollContainer" parent="TopScreen/DisplayArea/AttackBoard"]
-margin_right = 700.0
-margin_bottom = 639.0
+[node name="AttackScrollBar" type="ScrollContainer" parent="DisplayArea/AttackBoard"]
+margin_right = 1400.0
+margin_bottom = 1460.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="AttacksList" type="VBoxContainer" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar"]
-margin_right = 700.0
-margin_bottom = 828.0
-rect_min_size = Vector2( 0, 585 )
+[node name="AttacksList" type="VBoxContainer" parent="DisplayArea/AttackBoard/AttackScrollBar"]
+margin_right = 1400.0
+margin_bottom = 1670.0
+rect_min_size = Vector2( 0, 639 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 0
+custom_constants/separation = 10
 
-[node name="AttackItem" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_right = 688.0
+[node name="AttackItem" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_right = 1388.0
 
-[node name="AttackItem2" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 104.0
-margin_right = 688.0
-margin_bottom = 204.0
+[node name="AttackItem2" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 210.0
+margin_right = 1388.0
+margin_bottom = 410.0
 
-[node name="AttackItem3" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 208.0
-margin_right = 688.0
-margin_bottom = 308.0
-
-[node name="AttackItem4" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 312.0
-margin_right = 688.0
-margin_bottom = 412.0
-
-[node name="AttackItem5" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 416.0
-margin_right = 688.0
-margin_bottom = 516.0
-
-[node name="AttackItem6" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 520.0
-margin_right = 688.0
+[node name="AttackItem3" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 420.0
+margin_right = 1388.0
 margin_bottom = 620.0
 
-[node name="AttackItem7" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 624.0
-margin_right = 688.0
-margin_bottom = 724.0
+[node name="AttackItem4" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 630.0
+margin_right = 1388.0
+margin_bottom = 830.0
 
-[node name="AttackItem8" parent="TopScreen/DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
-margin_top = 728.0
-margin_right = 688.0
-margin_bottom = 828.0
+[node name="AttackItem5" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 840.0
+margin_right = 1388.0
+margin_bottom = 1040.0
 
-[node name="BackButton" type="Button" parent="TopScreen/DisplayArea/AttackBoard"]
-margin_top = 643.0
-margin_right = 700.0
-margin_bottom = 738.0
-rect_min_size = Vector2( 700, 95 )
-custom_fonts/font = SubResource( 3 )
+[node name="AttackItem6" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 1050.0
+margin_right = 1388.0
+margin_bottom = 1250.0
+
+[node name="AttackItem7" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 1260.0
+margin_right = 1388.0
+margin_bottom = 1460.0
+
+[node name="AttackItem8" parent="DisplayArea/AttackBoard/AttackScrollBar/AttacksList" instance=ExtResource( 4 )]
+margin_top = 1470.0
+margin_right = 1388.0
+margin_bottom = 1670.0
+
+[node name="BackButton" type="Button" parent="DisplayArea/AttackBoard"]
+margin_top = 1460.0
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 200 )
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 4 )
 text = "BACK"
 
 [node name="Buttons" type="VBoxContainer" parent="."]
-margin_left = 10.0
-margin_top = 828.0
-margin_right = 710.0
-margin_bottom = 918.0
-custom_constants/separation = 10
+anchor_left = 0.014
+anchor_top = 0.719
+anchor_right = 0.986
+anchor_bottom = 0.789
+margin_left = -0.16
+margin_top = -0.640015
+margin_right = 0.159912
+margin_bottom = 0.160034
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="UpperButtons" type="HBoxContainer" parent="Buttons"]
-margin_right = 700.0
-margin_bottom = 40.0
-size_flags_stretch_ratio = 0.0
-custom_constants/separation = 10
-
-[node name="Attack" type="Button" parent="Buttons/UpperButtons"]
-margin_right = 226.0
-margin_bottom = 40.0
+margin_right = 1399.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 3 )
+size_flags_stretch_ratio = 0.0
+custom_constants/separation = 20
+
+[node name="Attack" type="Button" parent="Buttons/UpperButtons"]
+margin_right = 453.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 5 )
 text = "ATTACK"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Items" type="Button" parent="Buttons/UpperButtons"]
-margin_left = 236.0
-margin_right = 462.0
-margin_bottom = 40.0
+margin_left = 473.0
+margin_right = 926.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "ITEMS"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Abilities" type="Button" parent="Buttons/UpperButtons"]
-margin_left = 472.0
-margin_right = 700.0
-margin_bottom = 40.0
+margin_left = 946.0
+margin_right = 1399.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "ABILITIES"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LowerButtons" type="HBoxContainer" parent="Buttons"]
-margin_top = 50.0
-margin_right = 700.0
-margin_bottom = 90.0
+margin_top = 100.0
+margin_right = 1399.0
+margin_bottom = 180.0
 size_flags_stretch_ratio = 0.0
-custom_constants/separation = 10
+custom_constants/separation = 20
 
 [node name="EndTurn" type="Button" parent="Buttons/LowerButtons"]
-margin_right = 345.0
-margin_bottom = 40.0
+margin_right = 689.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "END TURN"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Retreat" type="Button" parent="Buttons/LowerButtons"]
-margin_left = 355.0
-margin_right = 700.0
-margin_bottom = 40.0
+margin_left = 709.0
+margin_right = 1399.0
+margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 text = "RETREAT"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BattleText" type="RichTextLabel" parent="."]
-margin_left = 10.0
-margin_top = 928.0
-margin_right = 710.0
-margin_bottom = 1070.0
+margin_left = 20.0
+margin_top = 2020.0
+margin_right = 1420.0
+margin_bottom = 2560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/normal_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 6 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
 custom_constants/line_separation = -6
@@ -411,7 +426,7 @@ scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="TopScreen/DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Items" to="." method="_on_Items_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Abilities" to="." method="_on_Abilities_pressed"]

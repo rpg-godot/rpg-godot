@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/FlashingText/FlashingText.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-size = 40
+size = 86
 font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=2]
@@ -64,7 +64,7 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
