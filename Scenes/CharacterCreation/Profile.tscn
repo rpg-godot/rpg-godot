@@ -7,16 +7,16 @@
 [node name="Profile" type="Control"]
 margin_right = 200.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
+rect_min_size = Vector2( 400, 400 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Pic" type="TextureRect" parent="."]
-margin_right = 200.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 180, 180 )
+margin_right = 400.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 360, 360 )
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
@@ -27,7 +27,7 @@ __meta__ = {
 visible = false
 margin_right = 200.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 200, 200 )
+rect_min_size = Vector2( 400, 400 )
 texture = ExtResource( 2 )
 expand = true
 __meta__ = {
@@ -35,8 +35,8 @@ __meta__ = {
 }
 
 [node name="SelectButton" type="TextureButton" parent="."]
-margin_right = 200.0
-margin_bottom = 200.0
+margin_right = 400.0
+margin_bottom = 400.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

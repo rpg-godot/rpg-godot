@@ -11,7 +11,7 @@
 [ext_resource path="res://Assets/Images/Wooden_UI/logo_01.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
-size = 80
+size = 191
 font_data = ExtResource( 3 )
 
 [node name="CharacterSelection" type="Control"]
@@ -43,10 +43,10 @@ __meta__ = {
 [node name="Banner" type="TextureRect" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -260.653
-margin_top = -474.862
-margin_right = 267.347
-margin_bottom = 199.138
+margin_left = -490.327
+margin_top = -949.724
+margin_right = 565.673
+margin_bottom = 398.276
 texture = ExtResource( 10 )
 expand = true
 __meta__ = {
@@ -65,9 +65,9 @@ __meta__ = {
 [node name="Overlay" parent="VBox" instance=ExtResource( 8 )]
 
 [node name="Title" type="Label" parent="VBox"]
-margin_right = 724.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 720, 100 )
+margin_right = 1440.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 1440, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
@@ -81,9 +81,9 @@ __meta__ = {
 }
 
 [node name="Scroll" type="ScrollContainer" parent="VBox"]
-margin_top = 104.0
-margin_right = 724.0
-margin_bottom = 948.0
+margin_top = 204.0
+margin_right = 1440.0
+margin_bottom = 2308.0
 rect_min_size = Vector2( 720, 760 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -94,21 +94,21 @@ __meta__ = {
 }
 
 [node name="HBox" type="HBoxContainer" parent="VBox/Scroll"]
-margin_right = 724.0
-margin_bottom = 844.0
+margin_right = 1440.0
+margin_bottom = 2104.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MarginLeft" type="Control" parent="VBox/Scroll/HBox"]
 margin_right = 30.0
-margin_bottom = 844.0
+margin_bottom = 2104.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
 [node name="VBox" type="VBoxContainer" parent="VBox/Scroll/HBox"]
 margin_left = 34.0
-margin_right = 690.0
-margin_bottom = 844.0
+margin_right = 1406.0
+margin_bottom = 2104.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -116,7 +116,7 @@ __meta__ = {
 }
 
 [node name="MarginTop" type="Control" parent="VBox/Scroll/HBox/VBox"]
-margin_right = 656.0
+margin_right = 1372.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 mouse_filter = 1
@@ -124,8 +124,8 @@ size_flags_horizontal = 3
 
 [node name="ButtonsVBox" type="VBoxContainer" parent="VBox/Scroll/HBox/VBox"]
 margin_top = 34.0
-margin_right = 656.0
-margin_bottom = 844.0
+margin_right = 1372.0
+margin_bottom = 2104.0
 rect_min_size = Vector2( 0, 250 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -134,37 +134,36 @@ __meta__ = {
 }
 
 [node name="MarginRight" type="Control" parent="VBox/Scroll/HBox"]
-margin_left = 694.0
-margin_right = 724.0
-margin_bottom = 844.0
+margin_left = 1410.0
+margin_right = 1440.0
+margin_bottom = 2104.0
 rect_min_size = Vector2( 30, 30 )
 mouse_filter = 1
 
 [node name="Seperator" type="Control" parent="VBox"]
-margin_top = 952.0
-margin_right = 724.0
-margin_bottom = 962.0
-rect_min_size = Vector2( 0, 10 )
+margin_top = 2312.0
+margin_right = 1440.0
+margin_bottom = 2332.0
+rect_min_size = Vector2( 0, 20 )
 
 [node name="UI" type="HBoxContainer" parent="VBox"]
-margin_top = 966.0
-margin_right = 724.0
-margin_bottom = 1066.0
-rect_min_size = Vector2( 0, 100 )
+margin_top = 2336.0
+margin_right = 1440.0
+margin_bottom = 2536.0
+rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Seperator3" type="Control" parent="VBox/UI"]
-margin_right = 10.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 10, 0 )
+margin_bottom = 200.0
 
 [node name="New" type="TextureButton" parent="VBox/UI"]
-margin_left = 14.0
-margin_right = 234.0
-margin_bottom = 100.0
+margin_left = 20.0
+margin_right = 473.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 220, 100 )
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -172,22 +171,14 @@ texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/New" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "New"
 state = 1
 
-[node name="Seperator6" type="Control" parent="VBox/UI"]
-margin_left = 238.0
-margin_right = 248.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 10, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Play" type="TextureButton" parent="VBox/UI"]
-margin_left = 252.0
-margin_right = 472.0
-margin_bottom = 100.0
+margin_left = 493.0
+margin_right = 946.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 220, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -196,23 +187,13 @@ texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Play" instance=ExtResource( 7 )]
-custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Play"
 state = 2
 
-[node name="Seperator5" type="Control" parent="VBox/UI"]
-margin_left = 476.0
-margin_right = 486.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 10, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Delete" type="TextureButton" parent="VBox/UI"]
-margin_left = 490.0
-margin_right = 710.0
-margin_bottom = 100.0
+margin_left = 966.0
+margin_right = 1419.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 220, 100 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -221,24 +202,22 @@ texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Delete" instance=ExtResource( 7 )]
-custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Delete"
 state = 2
 
 [node name="Seperator4" type="Control" parent="VBox/UI"]
-margin_left = 714.0
-margin_right = 724.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 10, 0 )
+margin_left = 1439.0
+margin_right = 1439.0
+margin_bottom = 200.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Seperator2" type="Control" parent="VBox"]
-margin_top = 1070.0
-margin_right = 724.0
-margin_bottom = 1080.0
-rect_min_size = Vector2( 0, 10 )
+margin_top = 2540.0
+margin_right = 1440.0
+margin_bottom = 2560.0
+rect_min_size = Vector2( 0, 20 )
 [connection signal="mouse_entered" from="VBox/UI/New" to="." method="_on_New_mouse_entered"]
 [connection signal="mouse_exited" from="VBox/UI/New" to="." method="_on_New_mouse_exited"]
 [connection signal="pressed" from="VBox/UI/New" to="." method="_on_Create_pressed"]

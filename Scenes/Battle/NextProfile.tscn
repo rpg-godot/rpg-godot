@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Battle/NextProfile.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png" type="Texture" id=3]
@@ -8,15 +8,12 @@
 font_path = "res://Assets/UI/TheWildBreathOfZelda.ttf"
 
 [sub_resource type="DynamicFont" id=2]
-size = 29
+size = 57
 font_data = SubResource( 1 )
 
-[sub_resource type="Theme" id=3]
-default_font = SubResource( 2 )
-
 [node name="NextProfile" type="GridContainer"]
-margin_right = 210.0
-margin_bottom = 190.0
+margin_right = 420.0
+margin_bottom = 400.0
 rect_min_size = Vector2( 80, 0 )
 size_flags_vertical = 0
 script = ExtResource( 1 )
@@ -25,24 +22,24 @@ __meta__ = {
 }
 
 [node name="HBox" type="HBoxContainer" parent="."]
-margin_right = 210.0
-margin_bottom = 80.0
+margin_right = 420.0
+margin_bottom = 160.0
 alignment = 1
 
 [node name="Picture" type="Control" parent="HBox"]
-margin_left = 65.0
-margin_right = 145.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 80, 80 )
+margin_left = 130.0
+margin_right = 290.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 160, 160 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="Pic" type="TextureRect" parent="HBox/Picture"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 75.0
-margin_bottom = 75.0
-rect_min_size = Vector2( 70, 70 )
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 140, 140 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 3 )
@@ -54,7 +51,7 @@ __meta__ = {
 [node name="PicBorder" type="TextureRect" parent="HBox/Picture"]
 margin_right = 80.0
 margin_bottom = 80.0
-rect_min_size = Vector2( 80, 80 )
+rect_min_size = Vector2( 160, 160 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -64,13 +61,13 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="."]
-margin_top = 84.0
-margin_right = 210.0
-margin_bottom = 115.0
+margin_top = 164.0
+margin_right = 420.0
+margin_bottom = 224.0
 rect_min_size = Vector2( 80, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_constants/line_spacing = -6
 text = "Alrune"
 align = 1
