@@ -11,7 +11,7 @@
 [ext_resource path="res://Assets/Images/Wooden_UI/logo_01.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
-size = 191
+size = 162
 font_data = ExtResource( 3 )
 
 [node name="CharacterSelection" type="Control"]
@@ -43,9 +43,9 @@ __meta__ = {
 [node name="Banner" type="TextureRect" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -490.327
+margin_left = -528.0
 margin_top = -949.724
-margin_right = 565.673
+margin_right = 528.0
 margin_bottom = 398.276
 texture = ExtResource( 10 )
 expand = true
