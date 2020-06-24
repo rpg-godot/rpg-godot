@@ -50,8 +50,8 @@ func _on_msg(message, level, obj):
 	get_node('BattleText').add_text(message + '\n')
 	
 func create_Characters():
-	BattleBoard.show()
-	AttackList.hide()
+	#BattleBoard.show()
+	#AttackList.hide()
 	# Delete all tiles until needed
 	for friendPanel in get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children():
 		friendPanel.free()
@@ -427,6 +427,44 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 							ammoChoice.append(ammo)
 			if ammoChoice.size() > 0:
 				InventoryManager.remove(attacker.inventory, ammoChoice[0], attack.ammoCost)
+		for otherCharacter in otherCharacters:
+			if otherCharacter.health.current == 0:
+				if otherCharacter in enemies:
+					var referencePoint = enemies.find(otherCharacter)
+					enemies.remove(referencePoint)
+					enemies.append(otherCharacter)
+					var count = 0
+					while count < nextCharacterIndex.size():
+						var turn = nextCharacterIndex[count]
+						if turn[0] == "Enemy":
+							print ("turn", referencePoint)
+							print(nextCharacterIndex)
+							if turn[1] > referencePoint:
+								nextCharacterIndex[count] = [turn[0], turn[1]-1]
+								print(1, nextCharacterIndex)
+							elif turn[1] == referencePoint:
+								nextCharacterIndex.remove(count)
+								count-=1
+								print(4, nextCharacterIndex)
+						count+=1
+				else:
+					var referencePoint = friendlies.find(otherCharacter)
+					friendlies.remove(referencePoint)
+					friendlies.append(otherCharacter)
+					var count = 0
+					while count < nextCharacterIndex.size():
+						var turn = nextCharacterIndex[count]
+						if turn[0] == "Friendlies":
+							print ("turn", referencePoint)
+							print(nextCharacterIndex)
+							if turn[1] > referencePoint:
+								nextCharacterIndex[count] = [turn[0], turn[1]-1]
+								print(1, nextCharacterIndex)
+							elif turn[1] == referencePoint:
+								nextCharacterIndex.remove(count)
+								count-=1
+								print(4, nextCharacterIndex)
+						count+=1
 	return attacked
 
 func _process(delta):
@@ -447,7 +485,6 @@ func _process(delta):
 			gameOver = true
 			winner = "friendlies"
 		if gameOver:
-			activeCharacterIndex = -1
 			gameEnded()
 	# AI Attack
 	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1 && !gameOver:
@@ -491,7 +528,7 @@ func _process(delta):
 						if attacked:
 							break
 		nextCharacterIndex.remove(0)
-		update_Characters()
+		create_Characters()
 	# Increase characters AP intil a move is ready
 	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1 && !gameOver:
 		for character in friendlies:
@@ -538,8 +575,11 @@ func _on_EndTurn_pressed():
 func _on_BackButton_pressed():
 	BattleBoard.show()
 	AttackList.hide()
-	update_Characters()
+	create_Characters()
 
 func gameEnded():
+	activeCharacterIndex = -1
+	nextCharacterIndex.clear()
+	update_turn()
 	get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
 	Core.emit_signal('msg', 'Game Over!', Log.INFO, self)
