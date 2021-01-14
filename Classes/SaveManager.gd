@@ -6,7 +6,7 @@ static func save():
 	var file = File.new()
 	var filepath = "user://characters/" + Core.player.name + " - " + Core.player.timeCreated + ".json"
 	
-	if Directory.new().file_exists("user://characters/"):
+	if not Directory.new().dir_exists("user://characters/"):
 		var error = Directory.new().make_dir("user://characters/")
 		if error:
 			Core.emit_signal("msg", "Error making dir user://characters Code: "
