@@ -267,6 +267,11 @@ const characters := {
 			mana = [],
 			lowestCost = 0.5
 		},
+		abilities = {
+			melee = ["stun_weak"],
+			ranged = ["distract_arrow"],
+			mana = ["heal_weak"],
+			lowestCost = 0.5},
 		skills = {},
 		AP = {
 			max = 2,
@@ -367,6 +372,11 @@ const characters := {
 			mana = [],
 			lowestCost = 1000000000000
 		},
+		abilities = {
+			melee = [],
+			ranged = [],
+			mana = [],
+			lowestCost = 0.5},
 		skills = {},
 		
 		AP = {
@@ -464,6 +474,11 @@ const characters := {
 			mana = [],
 			lowestCost = 1.5
 		},
+		abilities = {
+			melee = [],
+			ranged = [],
+			mana = [],
+			lowestCost = 0.5},
 		skills = {},
 		AP = {
 			max = 2,

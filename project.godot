@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "Abilities",
+"language": "GDScript",
+"path": "res://Classes/Abilities.gd"
+}, {
+"base": "Reference",
 "class": "Attacks",
 "language": "GDScript",
 "path": "res://Classes/Attacks.gd"
@@ -60,6 +65,7 @@ _global_script_classes=[ {
 "path": "res://Classes/SaveManager.gd"
 } ]
 _global_script_class_icons={
+"Abilities": "",
 "Attacks": "",
 "AudioManager": "",
 "CharacterManager": "",
