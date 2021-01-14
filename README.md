@@ -1,6 +1,6 @@
 # RPG-Godot
 A RPG game written in the Godot Engine
-Playable at: https://www.elicox.tech/RPG/HTML/RPG.html
+Playable at: https://www.lockhart.technology/RPG/HTML/RPG.html
 
 ## Licence
 This project is licenced with the Recex shared source license, see LICENSE.md
