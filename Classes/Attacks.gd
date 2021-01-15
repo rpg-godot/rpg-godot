@@ -56,7 +56,8 @@ const melee := {
 		weaponNeeded = [
 			"one-handed sword", 
 			"two-handed swords", 
-			"two-handed axe"
+			"two-handed axe",
+			"dagger"
 		], 
 		itemLevelRequirements = 1
 	}
