@@ -109,6 +109,7 @@ margin_bottom = 1227.0
 rect_min_size = Vector2( 700, 596 )
 mouse_filter = 1
 size_flags_vertical = 3
+scroll_horizontal_enabled = false
 
 [node name="Characters" type="HBoxContainer" parent="DisplayArea/BattleBoard/Combat"]
 margin_right = 1370.0

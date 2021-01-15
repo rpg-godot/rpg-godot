@@ -294,9 +294,9 @@ text = "Demon"
 state = 2
 
 [node name="ProfileSelection" type="ScrollContainer" parent="MainMenu/Choices"]
-margin_top = 598.0
+margin_top = 597.0
 margin_right = 1388.0
-margin_bottom = 1010.0
+margin_bottom = 1009.0
 rect_min_size = Vector2( 0, 212 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -329,9 +329,9 @@ margin_right = 1612.0
 margin_bottom = 400.0
 
 [node name="Warning" type="Label" parent="MainMenu/Choices/ProfileSelection"]
-margin_right = 1400.0
+margin_right = 1388.0
 margin_bottom = 400.0
-rect_min_size = Vector2( 1400, 400 )
+rect_min_size = Vector2( 1388, 400 )
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 6 )
 text = "PLEASE CHOOSE Your RACE AND GENDER"
@@ -371,6 +371,7 @@ margin_top = 1242.0
 margin_right = 1388.0
 margin_bottom = 2240.0
 rect_min_size = Vector2( 0, 436 )
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="Display" type="HBoxContainer" parent="MainMenu/Choices/Stats"]
@@ -403,6 +404,7 @@ margin_left = 234.0
 margin_right = 234.0
 margin_bottom = 86.0
 rect_min_size = Vector2( 0, 20 )
+mouse_filter = 1
 
 [node name="Seperator" type="Line2D" parent="MainMenu/Choices/Stats/Display/Menu/Title/SeperatorBox2"]
 points = PoolVector2Array( 0, 43, 1153.87, 43 )
@@ -440,6 +442,7 @@ margin_top = 542.0
 margin_right = 1030.0
 margin_bottom = 562.0
 rect_min_size = Vector2( 0, 20 )
+mouse_filter = 1
 
 [node name="Seperator" type="Line2D" parent="MainMenu/Choices/Stats/Display/Menu/SeperatorBox"]
 points = PoolVector2Array( 0, 10, 1388, 10 )
@@ -479,12 +482,14 @@ custom_constants/separation = 20
 margin_right = 350.0
 margin_bottom = 86.0
 rect_min_size = Vector2( 0, 86 )
+mouse_filter = 1
 
 [node name="Total" type="Label" parent="MainMenu/Choices/Stats/Display/Remaining"]
 margin_top = 106.0
 margin_right = 350.0
 margin_bottom = 522.0
 rect_min_size = Vector2( 0, 416 )
+mouse_filter = 1
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 8 )
 text = "0"
@@ -497,11 +502,13 @@ margin_top = 542.0
 margin_right = 350.0
 margin_bottom = 562.0
 rect_min_size = Vector2( 0, 20 )
+mouse_filter = 1
 
 [node name="Total2" type="Label" parent="MainMenu/Choices/Stats/Display/Remaining"]
 margin_top = 582.0
 margin_right = 350.0
 margin_bottom = 998.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 9 )
@@ -532,6 +539,7 @@ margin_left = 305.0
 margin_right = 305.0
 margin_bottom = 86.0
 rect_min_size = Vector2( 0, 20 )
+mouse_filter = 1
 
 [node name="Seperator" type="Line2D" parent="MainMenu/Choices/Class/Title/SeperatorBox"]
 position = Vector2( 0.340561, 0 )

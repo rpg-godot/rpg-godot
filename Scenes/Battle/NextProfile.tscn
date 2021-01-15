@@ -31,6 +31,7 @@ margin_left = 130.0
 margin_right = 290.0
 margin_bottom = 160.0
 rect_min_size = Vector2( 160, 160 )
+mouse_filter = 1
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
@@ -65,6 +66,7 @@ margin_top = 164.0
 margin_right = 420.0
 margin_bottom = 224.0
 rect_min_size = Vector2( 80, 0 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 2 )
