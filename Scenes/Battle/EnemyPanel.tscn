@@ -5,32 +5,32 @@
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=5]
 
-[sub_resource type="StreamTexture" id=6]
+[sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/MonstersAvatarIcons_61.PNG-824548ae4bcac16c33ce90e02c1a4d22.stex"
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.854902, 0.105882, 0.105882, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0, 0, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 38
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 26
 font_data = ExtResource( 5 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0, 0, 1, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
@@ -55,6 +55,7 @@ size_flags_horizontal = 3
 margin_right = 288.0
 margin_bottom = 288.0
 rect_min_size = Vector2( 288, 288 )
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="Pic" type="TextureRect" parent="VBox/Control"]
@@ -65,7 +66,7 @@ margin_bottom = 278.0
 rect_min_size = Vector2( 268, 268 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource( 6 )
+texture = SubResource( 1 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,6 +101,7 @@ margin_top = 292.0
 margin_right = 288.0
 margin_bottom = 352.0
 rect_min_size = Vector2( 288, 60 )
+mouse_filter = 1
 size_flags_horizontal = 3
 __meta__ = {
 "_editor_description_": ""
@@ -109,10 +111,11 @@ __meta__ = {
 margin_right = 288.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 288, 60 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
 value = 50.0
 rounded = true
 percent_visible = false
@@ -125,9 +128,10 @@ __meta__ = {
 margin_right = 288.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 288, 60 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Health: 50/100"
 align = 1
 valign = 1
@@ -150,6 +154,7 @@ __meta__ = {
 margin_right = 288.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -160,10 +165,11 @@ __meta__ = {
 margin_right = 144.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
 value = 50.0
 rounded = true
 percent_visible = false
@@ -176,7 +182,8 @@ __meta__ = {
 margin_right = 288.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 288, 28 )
-custom_fonts/font = SubResource( 4 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
 text = "Health: 50/100"
 align = 1
 valign = 1
@@ -191,6 +198,7 @@ margin_top = 32.0
 margin_right = 288.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -201,10 +209,11 @@ __meta__ = {
 margin_right = 144.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 3 )
 value = 50.0
 rounded = true
 percent_visible = false
@@ -217,7 +226,8 @@ __meta__ = {
 margin_right = 144.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 288, 28 )
-custom_fonts/font = SubResource( 4 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 5 )
 text = "Mana: 50/100"
 align = 1
 valign = 1
@@ -231,6 +241,7 @@ __meta__ = {
 margin_top = 356.0
 margin_right = 288.0
 margin_bottom = 487.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 1 )
