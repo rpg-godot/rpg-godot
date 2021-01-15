@@ -107,6 +107,7 @@ rect_min_size = Vector2( 700, 848 )
 margin_right = 1400.0
 margin_bottom = 1227.0
 rect_min_size = Vector2( 700, 596 )
+mouse_filter = 1
 size_flags_vertical = 3
 
 [node name="Characters" type="HBoxContainer" parent="DisplayArea/BattleBoard/Combat"]
@@ -232,6 +233,7 @@ margin_top = 89.0
 margin_right = 1400.0
 margin_bottom = 429.0
 rect_min_size = Vector2( 0, 340 )
+mouse_filter = 1
 size_flags_vertical = 0
 
 [node name="NextTurns" type="HBoxContainer" parent="DisplayArea/BattleBoard/TurnSystem/ScrollContainer2"]
@@ -263,6 +265,7 @@ custom_constants/hseparation = 0
 [node name="AttackScrollBar" type="ScrollContainer" parent="DisplayArea/AttackBoard"]
 margin_right = 1400.0
 margin_bottom = 1460.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
