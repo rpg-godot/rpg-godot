@@ -24,13 +24,27 @@ const melee := {
 			"two-handed swords", 
 			"two-handed axe"], 
 		itemLevelRequirements = 1
+	},
+
+	stun_medium = {
+		name = "Medium Stun", 
+		hpDamage = 5,
+		#status type, chance
+		status = [["Stunned", 60]],
+		APcost = 1,
+		targetEnemy = true,
+		targetAmount = 1,
+		image = abilityImages.Stun_Weak,
+		weaponNeeded = [
+			"two-handed axe"], 
+		itemLevelRequirements = 1
 	}
 }
 
 const ranged := {
 
 	distract_arrow = {
-		name = " Arrow Distraction",
+		name = "Arrow Distraction",
 		hpDamage = 0,
 		status = [["Confused", 70]],
 		APcost = 1,

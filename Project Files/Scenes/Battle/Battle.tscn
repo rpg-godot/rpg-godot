@@ -326,6 +326,79 @@ size_flags_vertical = 0
 custom_fonts/font = SubResource( 4 )
 text = "BACK"
 
+[node name="AbilityBoard" type="GridContainer" parent="DisplayArea"]
+visible = false
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 848 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+
+[node name="AbilityScrollBar" type="ScrollContainer" parent="DisplayArea/AbilityBoard"]
+margin_right = 1400.0
+margin_bottom = 1460.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="AbilityList" type="VBoxContainer" parent="DisplayArea/AbilityBoard/AbilityScrollBar"]
+margin_right = 1400.0
+margin_bottom = 1670.0
+rect_min_size = Vector2( 0, 639 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/separation = 10
+
+[node name="AttackItem" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_right = 1388.0
+
+[node name="AttackItem2" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 210.0
+margin_right = 1388.0
+margin_bottom = 410.0
+
+[node name="AttackItem3" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 420.0
+margin_right = 1388.0
+margin_bottom = 620.0
+
+[node name="AttackItem4" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 630.0
+margin_right = 1388.0
+margin_bottom = 830.0
+
+[node name="AttackItem5" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 840.0
+margin_right = 1388.0
+margin_bottom = 1040.0
+
+[node name="AttackItem6" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 1050.0
+margin_right = 1388.0
+margin_bottom = 1250.0
+
+[node name="AttackItem7" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 1260.0
+margin_right = 1388.0
+margin_bottom = 1460.0
+
+[node name="AttackItem8" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
+margin_top = 1470.0
+margin_right = 1388.0
+margin_bottom = 1670.0
+
+[node name="BackButton" type="Button" parent="DisplayArea/AbilityBoard"]
+margin_top = 1460.0
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 200 )
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 4 )
+text = "BACK"
+
 [node name="Buttons" type="VBoxContainer" parent="."]
 anchor_left = 0.014
 anchor_top = 0.719
@@ -431,6 +504,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="DisplayArea/AbilityBoard/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Items" to="." method="_on_Items_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Abilities" to="." method="_on_Abilities_pressed"]
