@@ -15,19 +15,51 @@ const zero_stats = {
 }
 
 const starting_equipment := {
-	knight = [ {
+	knight = [
+		{
 			name = "sword",
 			quantity = 1
-	} ],
-	battle_mage = [ {
+		}
+	],
+	battle_mage = [
+		{
 		name = "staff",
 		quantity = 1
-	} ],
-	berserker = [ {
+		}
+	],
+	berserker = [
+		{
 		name = "axe",
 		quantity = 1
-	} ],
+		}
+	],
 	quick_shooter = [ 
+		{
+			name = "bow",
+			quantity = 1,
+		},
+		{
+			name = "arrow",
+			quantity = 15,
+		},
+		{
+			name = "dagger",
+			quantity = 1,
+		},
+	],
+	dev = [
+		{
+			name = "sword",
+			quantity = 1
+		},
+		{
+		name = "staff",
+		quantity = 1
+		},
+		{
+		name = "axe",
+		quantity = 1
+		},
 		{
 			name = "bow",
 			quantity = 1,
@@ -64,6 +96,79 @@ const starting_attacks := {
 		melee = ["strike"],
 		ranged = ["quick_shot"],
 		mana = [],
+	},
+	dev = {
+		melee = ["strike"],
+		mana = ["flame"],
+		ranged = ["quick_shot"],
+	},
+	death_hound = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Human = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	HalfElf = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Elf = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Fairies = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Dwarf = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Demon = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+	Vampire = {
+		melee = [],
+		ranged = [],
+		mana = [],
+	},
+}
+
+const starting_abilities := {
+	knight = {
+		melee = ["stun_weak"],
+		ranged = [],
+		mana = [],
+	},
+	battle_mage = {
+		melee = [],
+		ranged = [],
+		mana = ["heal_weak"],
+	},
+	berserker = {
+		melee = ["stun_medium"],
+		ranged = [],
+		mana = [],
+	},
+	quick_shooter = {
+		melee = [""],
+		ranged = ["distract_arrow"],
+		mana = [],
+	},
+	dev = {
+		melee = ["stun_weak", "stun_medium"],
+		mana = ["distract_arrow"],
+		ranged = ["heal_weak"],
 	},
 	death_hound = {
 		melee = [],
@@ -376,7 +481,7 @@ const characters := {
 			melee = [],
 			ranged = [],
 			mana = [],
-			lowestCost = 0.5},
+			lowestCost = 1000000000000},
 		skills = {},
 		
 		AP = {

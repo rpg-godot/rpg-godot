@@ -3,6 +3,7 @@ const script_name := "battle"
 
 onready var BattleBoard := $"DisplayArea/BattleBoard/"
 onready var AttackList := $"DisplayArea/AttackBoard/"
+onready var AbilityList := $"DisplayArea/AbilityBoard/"
 onready var friendlies := []
 onready var activeCharacterIndex := -1
 onready var nextCharacterIndex := []
@@ -179,7 +180,7 @@ func update_turn():
 
 func _on_Attack_pressed():
 	BattleBoard.hide()
-	update_attacks(activeCharacterIndex, "attack")
+	update_attacks(activeCharacterIndex, "attacks")
 	AttackList.show()
 
 func attackButton(attack, attackType):
@@ -190,7 +191,7 @@ func attackButton(attack, attackType):
 			if friendlies[activeCharacterIndex].AP.current < attack.APcost:
 				break
 	if attack.targetEnemy:
-		update_attacks(activeCharacterIndex, "attack", false)
+		update_attacks(activeCharacterIndex, "attacks", false)
 	else:
 		update_attacks(activeCharacterIndex, "abilities", false)
 
@@ -198,104 +199,67 @@ func _on_Abilities_pressed():
 	BattleBoard.hide()
 	update_attacks(activeCharacterIndex, "abilities")
 	AttackList.show()
-	
+
 func update_attacks(CharacterIndex: int, mode: String, create=true):
 	#character index variable should be replaced with activeCharacterIndex global variable
 	var attacksList = get_node("DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
 	if create:
 		for attack in attacksList.get_children():
 			attack.free()
-	##Add character attacks
+	#Add character attacks
+	var moveList = friendlies[CharacterIndex][mode]
+	var attackLibrary
+	if mode == "attacks":
+		attackLibrary = Attacks
+	elif mode == "abilities":
+		attackLibrary = Abilities
 	var attackCount = 0
-	for attack in friendlies[CharacterIndex].attacks.melee:
-		attack = Attacks.melee[attack]
-		if (mode == "attack" && attack.targetEnemy) || (mode == "abilities" && !attack.targetEnemy):
+	for attackType in ["melee", "ranged", "mana"]:
+		for attack in moveList[attackType]:
+			attack = attackLibrary[attackType][attack]
 			if create:
 				attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
+			#Get move info
 			var attackItem = attacksList.get_children()[attackCount]
-			var pictureLocation
+			var pictureLocation = attack.image
 			var attackName = attack.name
 			var attackDamage = attack.hpDamage
 			var attackCost = attack.APcost
-			var check = checkAttack(friendlies[CharacterIndex], attack, "melee")
+			var check = checkAttack(friendlies[CharacterIndex], attack, attackType)
+			if mode == "attacks":
+				attackItem.get_node("Description").text = "Attack Name: " + attack.name
+			elif mode == "abilities":
+				attackItem.get_node("Description").text = "Ability Name: " + attack.name
+			else:
+				attackItem.get_node("Description").text = "Name: " + attack.name
+			if attack.hpDamage > 0:
+				attackItem.get_node("Description").text += "\nHP Damage: " + str(attack.hpDamage)
+			elif attack.hpDamage < 0:
+				attackItem.get_node("Description").text += "\nHeal Amount: " + str(-attack.hpDamage)
+			if attackType == "ranged":
+				if attack.ammoCost > 1:
+					attackItem.get_node("Description").text += "\nAmmo Cost: " + str(attack.ammoCost)
+				elif attack.ammoCost < 0:
+					attackItem.get_node("Description").text += "\nAmmo Recovered: " + str(-attack.ammoCost)
+			if attackType == "mana":
+				if attack.manaDamage > 0:
+					attackItem.get_node("Description").text += "\nMana Damage: " + str(attack.manaDamage)
+				elif attack.manaDamage < 0:
+					attackItem.get_node("Description").text += "\nMana Given: " + str(-attack.manaDamage)
+				if attack.manaCost > 0:
+					attackItem.get_node("Description").text += "\nMana Cost: " + str(attack.manaCost)
+				elif attack.manaCost < 0:
+					attackItem.get_node("Description").text += "\nMana Recovered: " + str(-attack.manaCost)
+			if attack.APcost > 0:
+				attackItem.get_node("Description").text += "\nAP Cost: " + str(attack.APcost)
+			elif attack.APcost < 0:
+				attackItem.get_node("Description").text += "\nAP Recovered: " + str(-attack.APcost)
 			var disabled = !check[0]
 			var hint = check[1]
-			pictureLocation = attack.image
-			if mode == "attack":
-				attackItem.get_node("Description").text = """Attack Name: %s
-	HP Damage: %s
-	AP Cost: %s""" % [attackName, attackDamage, attackCost]
-			if mode == "abilities":
-				attackItem.get_node("Description").text = """Ability Name: %s
-	Heal Amount: %s
-	AP Cost: %s""" % [attackName, -attackDamage, attackCost]
 			attackItem.get_node("Picture").texture = load(pictureLocation)
 			attackItem.get_node("Use").disabled = disabled
 			attackItem.get_node("Use").hint_tooltip = hint
-			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, "melee" ])
-			attackCount+=1
-	for attack in friendlies[CharacterIndex].attacks.ranged:
-		attack = Attacks.ranged[attack]
-		if (mode == "attack" && attack.targetEnemy) || (mode == "abilities" && !attack.targetEnemy):
-			if create:
-				attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
-			var attackItem = attacksList.get_children()[attackCount]
-			var pictureLocation
-			var attackName = attack.name
-			var attackDamage = attack.hpDamage
-			var attackCost = attack.APcost
-			var ammoCost = attack.ammoCost
-			var check = checkAttack(friendlies[CharacterIndex], attack, "ranged")
-			var disabled = !check[0]
-			var hint = check[1]
-			pictureLocation = attack.image
-			if mode == "attack":
-				attackItem.get_node("Description").text = """Attack Name: %s
-	HP Damage: %s
-	AP Cost: %s
-	Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-			if mode == "abilities":
-				attackItem.get_node("Description").text = """Ability Name: %s
-	Heal Amount: %s
-	AP Cost: %s
-	Ammo Cost: %s""" % [attackName, attackDamage, attackCost, ammoCost]
-			attackItem.get_node("Picture").texture = load(pictureLocation)
-			attackItem.get_node("Use").disabled = disabled
-			attackItem.get_node("Use").hint_tooltip = hint
-			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, "ranged" ])
-			attackCount+=1
-	for attack in friendlies[CharacterIndex].attacks.mana:
-		attack = Attacks.mana[attack]
-		if (mode == "attack" && attack.targetEnemy) || (mode == "abilities" && !attack.targetEnemy):
-			if create:
-				attacksList.add_child(load("res://Scenes/Battle/AttackItem.tscn").instance())
-			var attackItem = attacksList.get_children()[attackCount]
-			var pictureLocation
-			var attackName = attack.name
-			var attackDamage = attack.hpDamage
-			var manaDamage = attack.manaDamage
-			var attackCost = attack.APcost
-			var manaCost = attack.manaCost
-			var check = checkAttack(friendlies[CharacterIndex], attack, "mana")
-			var disabled = !check[0]
-			var hint = check[1]
-			pictureLocation = attack.image
-			if mode == "attack":
-				attackItem.get_node("Description").text = """Attack Name: %s
-	HP Damage: %s
-	Mana Damage: %s
-	AP Cost: %s
-	Mana Cost: %s""" % [attackName, attackDamage, manaDamage, attackCost, manaCost]
-			if mode == "abilities":
-				attackItem.get_node("Description").text = """Ability Name: %s
-	Heal Amount: %s
-	Mana Regen: %s
-	AP Cost: %s
-	Mana Cost: %s""" % [attackName, -attackDamage, -manaDamage, attackCost, manaCost]
-			attackItem.get_node("Picture").texture = load(pictureLocation)
-			attackItem.get_node("Use").disabled = disabled
-			attackItem.get_node("Use").hint_tooltip = hint
-			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, "mana" ])
+			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, attackType ])
 			attackCount+=1
 
 func checkAttack(attacker: Dictionary, attack: Dictionary, attackType:String):

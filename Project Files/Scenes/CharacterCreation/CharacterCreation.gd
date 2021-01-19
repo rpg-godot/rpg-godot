@@ -14,6 +14,7 @@ onready var gender := ""
 onready var race := ""
 onready var genderBackup := ""
 onready var raceBackup := ""
+onready var cheat := false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set button text to disabled state
@@ -129,17 +130,29 @@ func _on_Complete_pressed():
 	player.picture.path = selected_profile
 	player.picture.flip_profile = Characters.flip_profile[player.picture.path]
 	
-	CharacterManager.learn_attack(player, "melee", "punch")
-	var chosen_equip = get_node("MainMenu/Choices/Class/Classes").get_children()[selected_equip].get_node("ClassName").text
-	if chosen_equip == "Knight":
-		chosen_equip = "knight"
-	if chosen_equip == "Battle Mage":
-		chosen_equip = "battle_mage"
-	if chosen_equip == "Berserker":
-		chosen_equip = "berserker"
-	if chosen_equip == "Quick Shooter":
-		chosen_equip = "quick_shooter"
-	CharacterManager.load_class(player, chosen_equip)
+	CharacterManager.learn_attack(player, "attacks", "melee", "punch")
+	
+	if cheat:
+		var classes = []
+		for className in Characters.starting_attacks.keys():
+			if not classes.has(className):
+				CharacterManager.load_class(player, className)
+			classes.append(className)
+		for className in Characters.starting_attacks.keys():
+			if not classes.has(className):
+				CharacterManager.load_class(player, className)
+			classes.append(className)
+	else:
+		var chosen_equip = get_node("MainMenu/Choices/Class/Classes").get_children()[selected_equip].get_node("ClassName").text
+		if chosen_equip == "Knight":
+			chosen_equip = "knight"
+		if chosen_equip == "Battle Mage":
+			chosen_equip = "battle_mage"
+		if chosen_equip == "Berserker":
+			chosen_equip = "berserker"
+		if chosen_equip == "Quick Shooter":
+			chosen_equip = "quick_shooter"
+		CharacterManager.load_class(player, chosen_equip)
 	#print(CharacterManager.calcuate_stats(player))
 	Core.player = player
 	SaveManager.save()
@@ -296,5 +309,6 @@ func _on_cheat_pressed():
 	for stat in get_node("MainMenu/Choices/Stats/Display/Menu/IAL").get_children():
 		stat.get_node("Numbers/Number").text = "9999"
 		get_node("MainMenu/Choices/Class/Classes/Knight")._on_SelectButton_pressed()
+	cheat = true
 	_on_Complete_pressed()
 	
