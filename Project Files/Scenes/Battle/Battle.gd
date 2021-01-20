@@ -250,6 +250,32 @@ func update_attacks(CharacterIndex: int, mode: String, create=true):
 					attackItem.get_node("Description").text += "\nMana Cost: " + str(attack.manaCost)
 				elif attack.manaCost < 0:
 					attackItem.get_node("Description").text += "\nMana Recovered: " + str(-attack.manaCost)
+			if mode == "abilities" and attack.status.size() > 0:
+				attackItem.get_node("Description").text += "\nStatus affects:"
+				for status in attack.status:
+					attackItem.get_node("Description").text += "\n      - " + str(status[1]) + "% chance to get " + status[0]
+			if attack.targetAmount > getAlive(enemies) or attack.targetAmount == 1000:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").text += "\nTargets: all enemies"
+				else:
+					attackItem.get_node("Description").text += "\nTargets: all friendlies"
+			elif attack.targetAmount > 1:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " enemies"
+				else:
+					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " friendlies"
+			elif attack.targetAmount == 1:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").text += "\nTargets: 1 enemy"
+				else:
+					attackItem.get_node("Description").text += "\nTargets: 1 friendly"
+			if attack.targetAmount == 0:
+				attackItem.get_node("Description").text += "\nTargets: self-casted"
+			if attack.targetAmount < 0:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " random enemies"
+				else:
+					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " random friendlies"
 			if attack.APcost > 0:
 				attackItem.get_node("Description").text += "\nAP Cost: " + str(attack.APcost)
 			elif attack.APcost < 0:
@@ -261,6 +287,13 @@ func update_attacks(CharacterIndex: int, mode: String, create=true):
 			attackItem.get_node("Use").hint_tooltip = hint
 			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, attackType ])
 			attackCount+=1
+
+func getAlive(characters: Array):
+	var count = 0
+	for character in characters:
+		if character.health.current > 0:
+			count+=1
+	return count
 
 func checkAttack(attacker: Dictionary, attack: Dictionary, attackType:String):
 	var valid = false

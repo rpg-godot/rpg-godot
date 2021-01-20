@@ -1,7 +1,7 @@
 class_name Attacks
 const script_name := "attacks"
 
-##Weapon type, Image location
+##Weapon name, Image location
 const attackImages = {
 	"Fists":"res://Assets/Images/Icons/Attacks/Fists Attack.png",
 	"Claws":"res://Assets/Images/Icons/Attacks/Claws Attack.PNG",
@@ -10,7 +10,7 @@ const attackImages = {
 	"Teeth":"res://Assets/Images/Icons/Attacks/Teeth Attack.png",
 	"Fire_Small":"res://Assets/Images/Icons/Attacks/Fire-Small Attack.png"
 }
-# negative target amount means all
+# negative target amount means random
 const melee := {
 
 	punch = {
