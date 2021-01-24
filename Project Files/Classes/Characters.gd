@@ -325,111 +325,6 @@ const racialModifiers := {
 
 const characters := {                             
 
-	alrune = {
-		name = "Alrune",
-		info = "",
-		kills = 0,
-		timeCreated = "1592139824",
-		classType = "PLAYER",
-		gender = "",
-		stats = {
-			strength = 3,
-			perception = 3,
-			endurance = 3,
-			charisma = 3,
-			intelligence = 3,
-			agility = 3,
-			luck = 3
-		},
-		racialModifier = racialModifiers.Human,
-		#[[name, {stats}]]
-		subRaces = [],
-		equipBuffs = {
-			strength = 0,
-			perception = 0,
-			endurance = 0,
-			charisma = 0,
-			intelligence = 0,
-			agility = 0,
-			luck = 0,
-			melee = 0,
-			mana = 0,
-			defense = 0
-		},
-		levelBuffs = zero_stats,
-		picture = {
-			path = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png",
-			border = {
-				path = "res://Assets/Images/Profiles/ImageBorder.png",
-				shown = true,
-			},
-			flip_profile = [false, false]
-		},
-		level = 1,
-		attacks = {
-			melee = ["punch"],
-			ranged = [],
-			mana = [],
-			lowestCost = 0.5
-		},
-		abilities = {
-			melee = ["stun_weak"],
-			ranged = ["distract_arrow"],
-			mana = ["heal_weak"],
-			lowestCost = 0.5},
-		skills = {},
-		AP = {
-			max = 2,
-			current = 2,
-			speed = 0.5
-		},
-		health = {
-			max = 100,
-			current = 100,
-			speed = 0
-		},
-		mana = {
-			max = 100,
-			current = 100,
-			speed = 0
-		},
-		equipment = {
-			armour = {
-				head = -1,
-				torso = -1,
-				arms = -1, 
-				legs = -1,
-				feet = -1,
-				shield = -1
-			},
-			weapons = {
-				melee = -1, 
-				ranged = -1,
-				consumables = [], 
-				magic = -1
-			},
-			other = []
-		},
-		
-		inventory = {
-			armour = {
-				head = [],
-				torso = [],
-				arms = [], 
-				legs = [],
-				feet = [],
-				shield = []
-			},
-			weapons = {
-				melee = [], 
-				ranged = [],
-				consumables = [], 
-				magic = []
-			},
-			other = []
-		}
-	},
-	
 	blank = {
 		name = "",
 		info = "",
@@ -449,6 +344,7 @@ const characters := {
 		racialModifier = racialModifiers.Blank,
 		#[[name, {stats}]]
 		subRaces = [],
+		buffs = [],
 		equipBuffs = {
 			strength = 0,
 			perception = 0,
@@ -487,7 +383,9 @@ const characters := {
 		AP = {
 			max = 2,
 			current = 2,
-			speed = 0.5
+			speed = 0.5,
+			ticks = 0, # used in buff calculation for how many turns have passed
+			turnCount = 0
 		},
 		health = {
 			max = 100,
@@ -535,6 +433,114 @@ const characters := {
 		}
 	},
 	
+	alrune = {
+		name = "Alrune",
+		info = "",
+		kills = 0,
+		timeCreated = "1592139824",
+		classType = "PLAYER",
+		gender = "",
+		stats = {
+			strength = 3,
+			perception = 3,
+			endurance = 3,
+			charisma = 3,
+			intelligence = 3,
+			agility = 3,
+			luck = 3
+		},
+		racialModifier = racialModifiers.Human,
+		#[[name, {stats}]]
+		subRaces = [],
+		buffs = [],
+		equipBuffs = {
+			strength = 0,
+			perception = 0,
+			endurance = 0,
+			charisma = 0,
+			intelligence = 0,
+			agility = 0,
+			luck = 0,
+			melee = 0,
+			mana = 0,
+			defense = 0
+		},
+		levelBuffs = zero_stats,
+		picture = {
+			path = "res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_28.png",
+			border = {
+				path = "res://Assets/Images/Profiles/ImageBorder.png",
+				shown = true,
+			},
+			flip_profile = [false, false]
+		},
+		level = 1,
+		attacks = {
+			melee = ["punch"],
+			ranged = [],
+			mana = [],
+			lowestCost = 0.5
+		},
+		abilities = {
+			melee = ["stun_weak"],
+			ranged = ["distract_arrow"],
+			mana = ["heal_weak"],
+			lowestCost = 0.5},
+		skills = {},
+		AP = {
+			max = 2,
+			current = 2,
+			speed = 0.5,
+			ticks = 0,
+			turnCount = 0
+		},
+		health = {
+			max = 100,
+			current = 100,
+			speed = 0
+		},
+		mana = {
+			max = 100,
+			current = 100,
+			speed = 0
+		},
+		equipment = {
+			armour = {
+				head = -1,
+				torso = -1,
+				arms = -1, 
+				legs = -1,
+				feet = -1,
+				shield = -1
+			},
+			weapons = {
+				melee = -1, 
+				ranged = -1,
+				consumables = [], 
+				magic = -1
+			},
+			other = []
+		},
+		
+		inventory = {
+			armour = {
+				head = [],
+				torso = [],
+				arms = [], 
+				legs = [],
+				feet = [],
+				shield = []
+			},
+			weapons = {
+				melee = [], 
+				ranged = [],
+				consumables = [], 
+				magic = []
+			},
+			other = []
+		}
+	},
+	
 	death_hound = {
 		name = "Death Hound",
 		info = "",
@@ -552,6 +558,7 @@ const characters := {
 		racialModifier = racialModifiers.Blank,
 		#[[name, {stats}]]
 		subRaces = [],
+		buffs = [],
 		equipBuffs = {
 			strength = 0,
 			perception = 0,
@@ -588,7 +595,9 @@ const characters := {
 		AP = {
 			max = 2,
 			current = 2,
-			speed = 0.5
+			speed = 0.5,
+			ticks = 0,
+			turnCount = 0
 		},
 		health = {
 			max = 50,

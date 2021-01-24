@@ -101,6 +101,7 @@ static func unequip(character_data: Dictionary, item:Dictionary):
 				character_data.equipBuffs[buffKey] -= item.buffs[buffKey]
 			return [true, "Done"]
 		else:
+			Core.emit_signal('msg', "UnEquip manager: Doesn't Exist", Log.WARN, "unequip_func")
 			return [false, "Doesn't Exist"]
 
 static func set_level(character_data: Dictionary, level: int):
@@ -126,3 +127,139 @@ static func process_level_buffs(character_data: Dictionary):
 				count+=1
 				temp_level-=5
 	character_data.levelBuffs = levelBuffs
+
+static func addBuff(character_data: Dictionary, buffName: String):
+	if Abilities.buffs.has(buffName):
+		for buff in character_data.buffs:
+			#Extend if exists
+			if buff.name == Abilities.buffs[buffName].name:
+				var count = 0
+				for num in buff.timeLeft: 
+					buff.timeLeft[count] += Abilities.buffs[buffName].timeLeft[count]
+				Core.emit_signal('msg', "Buff manager: Buff extended on " + character_data.name, Log.DEBUG, "addBuff_func")
+				return [true, "Extended"]
+		#Doesn't exist
+		var buff = DictionaryFunc.clone_dict(Abilities.buffs[buffName])
+		buff.lastTimeCalculated = []
+		for buffType in ["specialEffects", "battleEffects"]:
+			for effect in buff[buffType]:
+				buff.lastTimeCalculated.append(character_data.AP.ticks)
+		buff.lastTimeActivated = buff.lastTimeCalculated
+		buff.nextTimeActivated = buff.lastTimeCalculated
+		character_data.buffs.append(buff)
+		Core.emit_signal('msg', "Buff manager: Buff added to " + character_data.name, Log.DEBUG, "addBuff_func")
+		return [true, "Done"]
+	else:
+		Core.emit_signal('msg', "Buff manager: Doesn't Exist: " + buffName, Log.WARN, "addBuff_func")
+		return [false, "Doesn't Exist"]
+
+static func checkBuffs(character_data: Dictionary, buffType: String):
+	Core.emit_signal('msg', "Buff manager: Check buffs on " + character_data.name, Log.DEBUG, "checkBuffs_func")
+	var triggered = []
+	for buff in character_data.buffs:
+		var buffsRemaining = buff.battleEffects.size()+buff.specialEffects.size()
+		var index = 0
+		var count = 0
+		var announced = false
+		if buffType == "battleEffects":
+			index = buff.specialEffects.size()-1
+		if index < 0:
+			index = 0
+		var removeBuff = false
+		for effect in buff[buffType]:
+			Core.emit_signal('msg', '        timepersistence ' + str(buff.timePersistence[index]) + ', ' + str(character_data.AP.turnCount - buff.lastTimeCalculated[index]) + ", " + str(character_data.AP.turnCount) + ", " + str(buff.lastTimeCalculated[index]), Log.DEBUG, "checkBuffs")
+			#Check if buff is recovered
+			if buffType == "battleEffects":
+				buff.timeLeft[index] -= (character_data.AP.ticks - buff.lastTimeCalculated[index])
+				buff.timePersistence[index] -= (character_data.AP.ticks - buff.lastTimeCalculated[index])
+				buff.lastTimeCalculated[index] = character_data.AP.ticks
+			else:
+				buff.timeLeft[index] -= (character_data.AP.turnCount - buff.lastTimeCalculated[index])
+				buff.timePersistence[index] -= (character_data.AP.turnCount - buff.lastTimeCalculated[index])
+				buff.lastTimeCalculated[index] = character_data.AP.turnCount
+			if buff.timePersistence[index] == 4:
+				index[1]=6
+			if buff.timeLeft[index] <= 0:
+				buffsRemaining-=1
+			else:
+				#Grow buff duration if needed
+				if buff.timeGrowth[index][1] > 0:
+					if randi()%100+1 <= buff.timeGrowth[index][1]:
+						buff.timeLeft[index] += buff.timeGrowth[index][0]
+				#calculate when next attack should happen if not calculated
+				if buff.nextTimeActivated[index] <= buff.lastTimeActivated[index]:
+					#converts a modifier of x to a random value between -x and x
+					var nextModifier = (randi() % (buff.timeModifier[index]*2+1)) - buff.timeModifier[index]
+					buff.nextTimeActivated[index] = buff.lastTimeActivated[index] + nextModifier
+				if buff.nextTimeActivated[index] <= character_data.AP.ticks:
+					if buffType == "specialEffects":
+						if randi()%100+1 <= effect[1]:
+							buff.lastTimeActivated[index] = character_data.AP.turnCount
+							if count == 0:
+								announced = true
+								Core.emit_signal('msg', '    -' + character_data.name + ' is ' + buff.name, Log.BATTLE, "checkBuffs")
+							if buff.hpDamage != 0:
+								character_data.health.current -= buff.hpDamage
+								if character_data.health.current < 0:
+									character_data.health.current=0
+									Core.emit_signal('msg', '        -' + character_data.name + ' has died!', Log.BATTLE, "checkBuffs")
+								elif buff.hpDamage > 0:
+									Core.emit_signal('msg', '        -' + character_data.name + ' takes ' + str(buff.hpDamage) + ' HP damage!', Log.BATTLE, "checkBuffs")
+								if buff.hpDamage < 0:
+									Core.emit_signal('msg', '        -' + character_data.name + ' is healed by ' + str(-buff.hpDamage) + ' HP!', Log.BATTLE, "checkBuffs")
+							character_data.mana.current -= buff.manaDamage
+							if character_data.mana.current < 0:
+								character_data.mana.current=0
+							character_data.AP.current -= buff.APDamage
+							if character_data.AP.current < 0:
+								character_data.AP.current=0
+							count +=1
+						else:
+							var defaultTimeLeft = buff.timeLeft[index]
+							for defaultBuffKey in Abilities.buffs.keys():
+								if buff.name == Abilities.buffs[defaultBuffKey].name:
+									defaultTimeLeft = Abilities.buffs[defaultBuffKey].timeLeft[index]
+							if buff.timeLeft[index] > defaultTimeLeft:
+								buff.timeLeft[index] -=defaultTimeLeft
+							elif buff.timePersistence[index] <= 0:
+								buff.timeLeft[index] = 0
+								buffsRemaining-=1
+					else:
+						if buff.timeLeft[index] > 0:
+							if randi()%100+1 <= effect[1]:
+								buff.lastTimeActivated[index] = character_data.AP.ticks
+								if count == 0:
+									announced = true
+									Core.emit_signal('msg', '    -' + character_data.name + ' is ' + buff.name, Log.BATTLE, "checkBuffs")
+								if !triggered.has(effect[0]):
+									triggered.append(effect[0])
+								count +=1
+							else:
+								var defaultTimeLeft = buff.timeLeft[index]
+								for defaultBuffKey in Abilities.buffs.keys():
+									if buff.name == Abilities.buffs[defaultBuffKey].name:
+										defaultTimeLeft = Abilities.buffs[defaultBuffKey].timeLeft[index]
+								if buff.timeLeft[index] > defaultTimeLeft:
+									buff.timeLeft[index] -=defaultTimeLeft
+								elif buff.timePersistence[index] <= 0:
+									buff.timeLeft[index] = 0
+									buffsRemaining-=1
+					buff.lastTimeActivated[index] = character_data.AP.ticks
+			index +=1
+		if count == 0 and announced:
+			Core.emit_signal('msg', '        -Nothing Happened', Log.BATTLE, "checkBuffs")
+		elif count == 0 and index > 0 and buffsRemaining > 0:
+			announced = true
+			Core.emit_signal('msg', '    -' + character_data.name + ' is ' + buff.name, Log.BATTLE, "checkBuffs")
+			Core.emit_signal('msg', '        -Nothing Happened', Log.BATTLE, "checkBuffs")
+		if buffsRemaining == 0:
+			character_data.buffs.remove(character_data.buffs.find(buff))
+			Core.emit_signal('msg', '    -' + character_data.name + ' is no longer ' + buff.name, Log.BATTLE, "checkBuffs")
+	return triggered
+
+
+
+
+
+
+

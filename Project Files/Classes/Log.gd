@@ -4,6 +4,7 @@ const script_name := "log"
 var log_loc = "user://logs/"
 var log_level = DEBUG
 
+const BATTLE = -1
 const FATAL = 0
 const ERROR = 1
 const WARN = 2
@@ -31,6 +32,8 @@ func _on_msg(message, level, obj):
 	
 	var level_string = "All"
 	match level:
+		BATTLE:
+			level_string = "Battle"
 		FATAL:
 			level_string = "Fatal"
 		ERROR:

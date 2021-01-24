@@ -27,6 +27,8 @@ func _on_msg(message, level, obj):
 
 	var level_string = "All"
 	match level:
+		Log.BATTLE:
+			level_string = "Battle"
 		Log.FATAL:
 			level_string = "Fatal"
 		Log.ERROR:
