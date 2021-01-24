@@ -10,6 +10,7 @@ onready var nextCharacterIndex := []
 onready var enemies := []
 onready var gameOver := false
 onready var winner := "noone"
+onready var charactersThatMoved := []
 
 var battle_name setget set_battle_name, get_battle_name
 var background setget set_background, get_background
@@ -37,6 +38,33 @@ func load_battle(new_battle_name: String, new_background: String, new_friendlies
 	
 #	# Initiate the UI
 	create_Characters()
+	
+	#REMOVE JO{PAJIFDO:HEJOA:FHJ:
+	CharacterManager.addBuff(friendlies[0], "rejuvenated")
+	CharacterManager.addBuff(friendlies[0], "rejuvenated")
+	CharacterManager.addBuff(friendlies[0], "rejuvenated")
+	CharacterManager.addBuff(friendlies[1], "rejuvenated")
+	CharacterManager.addBuff(friendlies[1], "rejuvenated")
+	CharacterManager.addBuff(friendlies[1], "rejuvenated")
+	for character in friendlies:
+		character.AP.turnCount = 0
+		character.AP.ticks = 0
+	for character in enemies:
+		character.AP.turnCount = 0
+		character.AP.ticks = 0
+	#CharacterManager.addBuff(enemies[0], "confused")
+	#var buff = DictionaryFunc.clone_dict(Abilities.buffs.confused)
+	#buff.lastTimeCalculated = [0]
+	#buff.lastTimeActivated = buff.lastTimeCalculated
+	#buff.nextTimeActivated = buff.lastTimeCalculated
+	#enemies[0].buffs = enemies[0].buffs + [buff]
+	#buff = DictionaryFunc.clone_dict(Abilities.buffs.rejuvenated)
+	#buff.lastTimeCalculated = [0]
+	#buff.lastTimeActivated = buff.lastTimeCalculated
+	#buff.nextTimeActivated = buff.lastTimeCalculated
+	#enemies[0].buffs = enemies[0].buffs + [buff]
+	
+	
 	#update_attacks(activeCharacterIndex)
 
 func _ready():
@@ -48,7 +76,8 @@ func _ready():
 	Core.emit_signal("scene_loaded", self)
 
 func _on_msg(message, level, obj):
-	get_node('BattleText').add_text(message + '\n')
+	if level == Log.BATTLE:
+		get_node('BattleText').add_text(message + '\n')
 	
 func create_Characters():
 	#BattleBoard.show()
@@ -183,17 +212,14 @@ func _on_Attack_pressed():
 	update_attacks(activeCharacterIndex, "attacks")
 	AttackList.show()
 
-func attackButton(attack, attackType):
+func attackButton(attack, attackType, mode):
 	if friendlies[activeCharacterIndex].health.current > 0:
-		for character in enemies:
-			while character.health.current > 0  && friendlies[activeCharacterIndex].AP.current >= attack.APcost:
-				attackCharacter(friendlies[activeCharacterIndex], [character], attack, attackType)
-			if friendlies[activeCharacterIndex].AP.current < attack.APcost:
+		while friendlies[activeCharacterIndex].AP.current >= attack.APcost:
+			if enemies[0].health.current > 0:
+				attackCharacter(friendlies[activeCharacterIndex], [enemies[0]], attack, attackType)
+			else:
 				break
-	if attack.targetEnemy:
-		update_attacks(activeCharacterIndex, "attacks", false)
-	else:
-		update_attacks(activeCharacterIndex, "abilities", false)
+	update_attacks(activeCharacterIndex, mode, false)
 
 func _on_Abilities_pressed():
 	BattleBoard.hide()
@@ -285,7 +311,7 @@ func update_attacks(CharacterIndex: int, mode: String, create=true):
 			attackItem.get_node("Picture").texture = load(pictureLocation)
 			attackItem.get_node("Use").disabled = disabled
 			attackItem.get_node("Use").hint_tooltip = hint
-			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, attackType ])
+			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, attackType, mode ])
 			attackCount+=1
 
 func getAlive(characters: Array):
@@ -381,16 +407,48 @@ func checkAttack(attacker: Dictionary, attack: Dictionary, attackType:String):
 func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dictionary, attackType:String):
 	var attacked = false
 	if checkAttack(attacker, attack, attackType)[0] == true:
-		if attack.targetEnemy:
-			# attack enemy
-			if attacker.AP.current >= attack.APcost:
-				Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + '!', Log.INFO, self)
+		var canAttack=true
+		Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + '!', Log.BATTLE, self)
+		var effectsActivated = CharacterManager.checkBuffs(attacker, "battleEffects")
+		for effect in effectsActivated:
+			if effect == "noAttack":
+					canAttack=false
+			if effect == "randomTarget" or effect == "oppositeTarget" and (attacker != otherCharacters[0] and otherCharacters.size() == 1): # doesnt work if self casted only on the player
+				var newTargets
+				if effect == "oppositeTarget":
+					if randi()%2==1:
+						newTargets = friendlies
+					else: newTargets = enemies
+				if effect == "oppositeTarget":
+					if !effectsActivated.has("randomTarget"):
+						if enemies.has(otherCharacters[0]):
+							newTargets = friendlies
+						else:
+							newTargets = enemies
+				var index = 0
+				for character in otherCharacters:
+					otherCharacters[index] = newTargets[randi()%newTargets.size()]
+					while (otherCharacters[index] == attacker or otherCharacters[index].health.current == 0) and getAlive(newTargets) > 1: #allow health = 0 if type is resurrection
+						otherCharacters[index] = newTargets[randi()%newTargets.size()]
+					if getAlive(newTargets) <= 1:
+						otherCharacters[index] = attacker
+						Core.emit_signal('msg', '        -' + attacker.name + ' targets themselves by accident', Log.BATTLE, self)
+					else:
+						Core.emit_signal('msg', '        -' + attacker.name + ' targets their own team by accident', Log.BATTLE, self)
+		if canAttack:
+			if attack.targetEnemy:
+				# attack enemy
 				for otherCharacter in otherCharacters:
 					otherCharacter.health.current-=attack.hpDamage
 					if otherCharacter.health.current < 0:
 						otherCharacter.health.current=0
 					if otherCharacter.health.current > 0:
-						Core.emit_signal('msg', '    -' + otherCharacter.name + ' takes ' + str(attack.hpDamage) + ' HP damage!', Log.INFO, self)
+						Core.emit_signal('msg', '    -' + otherCharacter.name + ' takes ' + str(attack.hpDamage) + ' HP damage', Log.BATTLE, self)
+						if "status" in attack.keys():
+							for buff in attack.status:
+								if randi()%100+1 <= buff[1]:
+									CharacterManager.addBuff(otherCharacter, buff[0])
+									Core.emit_signal('msg', '        -' + otherCharacter.name + ' is ' + buff[0], Log.BATTLE, self)
 					else:
 						Core.emit_signal('msg', '    -' + otherCharacter.name + ' has died!', Log.INFO, self)
 					attacker.AP.current -=attack.APcost
@@ -399,69 +457,74 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 						otherCharacter.mana.current-=attack.manaDamage
 						if otherCharacter.mana.current < 0:
 							otherCharacter.mana.current=0
+					attacker.AP.ticks +=1
 					attacked = true
-		else:
-			# heal friendly
-			if attacker.AP.current >= attack.APcost:
-				Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + '!', Log.INFO, self)
+			else:
+				# heal friendly
 				for otherCharacter in otherCharacters:
 					otherCharacter.health.current -= attack.hpDamage
 					if otherCharacter.health.current > otherCharacter.health.max:
 						otherCharacter.health.current = otherCharacter.health.current
-					Core.emit_signal('msg', '    -' + otherCharacter.name + ' is healed by ' + str(attack.hpDamage) + ' HP', Log.INFO, self)
+					Core.emit_signal('msg', '    -' + otherCharacter.name + ' is healed by ' + str(-attack.hpDamage) + ' HP', Log.BATTLE, self)
+					if attack.has("specialAffects"):
+						for buff in attack.specialAffects:
+							if randi()%100+1 <= buff[1]:
+								CharacterManager.addBuff(otherCharacter, buff[0])
+								Core.emit_signal('msg', '        -' + otherCharacter.name + ' is ' + buff[0], Log.BATTLE, self)
 					attacker.AP.current -=attack.APcost
 					if attackType == "mana":
 						attacker.mana.current-=attack.manaCost
 						otherCharacter.mana.current-=attack.manaDamage
+					attacker.AP.ticks +=1
 					attacked = true
-		if attackType == "ranged" && attacked:
-			var ammoChoice = []
-			for ammo in attacker.inventory.weapons.consumables:
-				###need to add selection if there are multiple
-				if ammo.subType in attack.weaponNeeded[1]:
-					if ammo.levelRequirement >= attack.itemLevelRequirements:
-						if ammo.quantity >= attack.ammoCost:
-							ammoChoice.append(ammo)
-			if ammoChoice.size() > 0:
-				InventoryManager.remove(attacker.inventory, ammoChoice[0], attack.ammoCost)
-		for otherCharacter in otherCharacters:
-			if otherCharacter.health.current == 0:
-				if otherCharacter in enemies:
-					var referencePoint = enemies.find(otherCharacter)
-					enemies.remove(referencePoint)
-					enemies.append(otherCharacter)
-					var count = 0
-					while count < nextCharacterIndex.size():
-						var turn = nextCharacterIndex[count]
-						if turn[0] == "Enemy":
-							print ("turn", referencePoint)
-							print(nextCharacterIndex)
-							if turn[1] > referencePoint:
-								nextCharacterIndex[count] = [turn[0], turn[1]-1]
-								print(1, nextCharacterIndex)
-							elif turn[1] == referencePoint:
-								nextCharacterIndex.remove(count)
-								count-=1
-								print(4, nextCharacterIndex)
-						count+=1
-				else:
-					var referencePoint = friendlies.find(otherCharacter)
-					friendlies.remove(referencePoint)
-					friendlies.append(otherCharacter)
-					var count = 0
-					while count < nextCharacterIndex.size():
-						var turn = nextCharacterIndex[count]
-						if turn[0] == "Friendlies":
-							print ("turn", referencePoint)
-							print(nextCharacterIndex)
-							if turn[1] > referencePoint:
-								nextCharacterIndex[count] = [turn[0], turn[1]-1]
-								print(1, nextCharacterIndex)
-							elif turn[1] == referencePoint:
-								nextCharacterIndex.remove(count)
-								count-=1
-								print(4, nextCharacterIndex)
-						count+=1
+			if attackType == "ranged" && attacked:
+				var ammoChoice = []
+				for ammo in attacker.inventory.weapons.consumables:
+					###need to add selection if there are multiple
+					if ammo.subType in attack.weaponNeeded[1]:
+						if ammo.levelRequirement >= attack.itemLevelRequirements:
+							if ammo.quantity >= attack.ammoCost:
+								ammoChoice.append(ammo)
+				if ammoChoice.size() > 0:
+					InventoryManager.remove(attacker.inventory, ammoChoice[0], attack.ammoCost)
+			for otherCharacter in otherCharacters:
+				if otherCharacter.health.current == 0:
+					if otherCharacter in enemies:
+						var referencePoint = enemies.find(otherCharacter)
+						enemies.remove(referencePoint)
+						enemies.append(otherCharacter)
+						var count = 0
+						while count < nextCharacterIndex.size():
+							var turn = nextCharacterIndex[count]
+							if turn[0] == "Enemy":
+								print ("turn", referencePoint)
+								print(nextCharacterIndex)
+								if turn[1] > referencePoint:
+									nextCharacterIndex[count] = [turn[0], turn[1]-1]
+									print(1, nextCharacterIndex)
+								elif turn[1] == referencePoint:
+									nextCharacterIndex.remove(count)
+									count-=1
+									print(4, nextCharacterIndex)
+							count+=1
+					else:
+						var referencePoint = friendlies.find(otherCharacter)
+						friendlies.remove(referencePoint)
+						friendlies.append(otherCharacter)
+						var count = 0
+						while count < nextCharacterIndex.size():
+							var turn = nextCharacterIndex[count]
+							if turn[0] == "Friendlies":
+								print ("turn", referencePoint)
+								print(nextCharacterIndex)
+								if turn[1] > referencePoint:
+									nextCharacterIndex[count] = [turn[0], turn[1]-1]
+									print(1, nextCharacterIndex)
+								elif turn[1] == referencePoint:
+									nextCharacterIndex.remove(count)
+									count-=1
+									print(4, nextCharacterIndex)
+							count+=1
 	return attacked
 
 func _process(delta):
@@ -497,11 +560,12 @@ func _process(delta):
 								var attack = Attacks[attackType][attackName]
 								if character.AP.current >= attack.APcost:
 									for otherCharacter in enemies:
-										while otherCharacter.health.current > 0 && character.AP.current >= attack.APcost:
-											if attackCharacter(character, [otherCharacter], attack, attackType) == true:
-												attacked = true
-										if character.AP.current < attack.APcost:
-											break
+										while character.AP.current >= attack.APcost:
+											if otherCharacter.health.current > 0:
+												if attackCharacter(character, [otherCharacter], attack, attackType) == true:
+													attacked = true
+											else:
+												break
 							if attacked:
 								break
 				else:
@@ -517,17 +581,37 @@ func _process(delta):
 							var attack = Attacks[attackType][attackName]
 							if character.AP.current >= attack.APcost:
 								for otherCharacter in friendlies:
-									while otherCharacter.health.current > 0 && character.AP.current >= attack.APcost:
-										if attackCharacter(character, [otherCharacter], attack, attackType) == true:
-											attacked = true
-									if character.AP.current < attack.APcost:
-										break
+									while character.AP.current >= attack.APcost:
+										if otherCharacter.health.current > 0:
+											if attackCharacter(character, [otherCharacter], attack, attackType) == true:
+												attacked = true
+										else:
+											break
 						if attacked:
 							break
-		nextCharacterIndex.remove(0)
+		if nextCharacterIndex.size() > 0:
+			charactersThatMoved.append(nextCharacterIndex[0])
+			nextCharacterIndex.remove(0)
 		create_Characters()
-	# Increase characters AP intil a move is ready
+	
 	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1 && !gameOver:
+		#Apply end of turn effects
+		for characterDetails in charactersThatMoved:
+			if characterDetails[0] == "Friendly":
+				var character = friendlies[characterDetails[1]]
+				if character.health.current > 0:
+					character.AP.turnCount+=1
+					CharacterManager.checkBuffs(character, "specialEffects")
+				
+			else:
+				var character = enemies[characterDetails[1]]
+				if character.health.current > 0:
+					character.AP.turnCount+=1
+					CharacterManager.checkBuffs(character, "specialEffects")
+			if friendlies[1].buffs[0] == friendlies[0].buffs[0]:
+				Core.emit_signal("msg", "ERRRORRORORORORORO", Log.BATTLE, self)
+		charactersThatMoved = []
+		# Increase characters AP intil a move is ready
 		for character in friendlies:
 			if character.health.current > 0:
 				character.AP.current += character.AP.speed
@@ -554,6 +638,7 @@ func _process(delta):
 					character.health.current = character.health.max
 				if character.AP.current >= character.attacks.lowestCost:
 						nextCharacterIndex.append(["Enemy", enemies.find(character)])
+		
 
 func _on_Items_pressed():
 	BattleBoard.hide()
@@ -565,6 +650,8 @@ func _on_Retreat_pressed():
 	queue_free()
 	
 func _on_EndTurn_pressed():
+	if friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].abilities.lowestCost or friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].attacks.lowestCost:
+		friendlies[activeCharacterIndex].AP.ticks +=1 ###Should this be a feature. People who are waiting for a stronger attack will stil count as a turn.
 	BattleBoard.show()
 	AttackList.hide()
 	activeCharacterIndex = -1
@@ -579,4 +666,4 @@ func gameEnded():
 	nextCharacterIndex.clear()
 	update_turn()
 	get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
-	Core.emit_signal('msg', 'Game Over!', Log.INFO, self)
+	Core.emit_signal('msg', 'Game Over!', Log.BATTLE, self)

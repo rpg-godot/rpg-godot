@@ -14,7 +14,7 @@ const melee := {
 		name = "Weak Stun", 
 		hpDamage = 5,
 		#status type, chance
-		status = [["Stunned", 40]],
+		status = [["stunned", 40]],
 		APcost = 1,
 		targetEnemy = true,
 		targetAmount = 1,
@@ -31,7 +31,7 @@ const melee := {
 		name = "Medium Stun", 
 		hpDamage = 5,
 		#status type, chance
-		status = [["stunned", 60]],
+		status = [["stunned", 100]],
 		APcost = 1,
 		targetEnemy = true,
 		targetAmount = 1,
@@ -70,7 +70,7 @@ const mana := {
 		name = "Heal",
 		hpDamage = -50,
 		manaDamage = 0,
-		status = [["rejuvenation", 10]],
+		status = [["rejuvenated", 10]],
 		APcost = 1,
 		manaCost = 30,
 		targetEnemy = false,
@@ -91,15 +91,19 @@ const buffImages := {
 
 const buffs := {
 
-	rejuvination = {
-		name = "Rejuvination",
+	rejuvenated = {
+		name = "Rejuvenated",
 		hpDamage = -20,
 		manaDamage = -10,
 		APDamage = -0.5,
-		specialAffect = [],
+		specialEffects = [["restored", 70]], #[affect, chance] the chance will break the affect early if not hit right
+		battleEffects = [],
 		image = buffImages.Heal,
-		ticks = 1, #affect happens every turn
-		ticksLeft = 5 #affect ends after this many turns
+		timeToWait = [1], #affect happens every turn/tick
+		timeModifier = [0], #can cause the affect to happen earlier or later, randomness
+		timeLeft = [5], #affect ends after this many turns
+		timePersistence = [2], #buff will last this long before it can be removed by chance
+		timeGrowth = [[0, 0]] #[amount to grow, chance to grow]
 	},
 
 	confused = {
@@ -107,10 +111,14 @@ const buffs := {
 		hpDamage = 0,
 		manaDamage = 0,
 		APDamage = 0,
-		specialAffect = [["randomTarget",80]], #[affect, chance] the chance will break the affect early if not hit right
+		specialEffects = [],
+		battleEffects = [["oppositeTarget",80]],
 		image = buffImages.Confused,
-		ticks = 1,
-		ticksLeft = 7
+		timeToWait = [1],
+		timeModifier = [1],
+		timeLeft = [7],
+		timePersistence = [3],
+		timeGrowth = [[1, 20]]
 	},
 
 	stunned = {
@@ -118,9 +126,13 @@ const buffs := {
 		hpDamage = 0,
 		manaDamage = 0,
 		APDamage = 0,
-		specialAffect = [["noAttack", 80]],
+		specialEffects = [],
+		battleEffects = [["noAttack", 80]],
 		image = buffImages.Confused,
-		ticks = 1,
-		ticksLeft = 7
+		timeToWait = [1],
+		timeModifier = [0],
+		timeLeft = [7],
+		timePersistence = [3],
+		timeGrowth = [[1, 20]]
 	},
 }
