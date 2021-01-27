@@ -22,7 +22,7 @@ static func save():
 	file.close()
 
 static func load_file(character_file):
-	#Core.emit_signal("msg", "Loading character " + character_id + "...", Log.DEBUG, "save_game")
+	Core.emit_signal("msg", "Loading character " + str(character_file) + "...", Log.TRACE, "save_game")
 	var file = File.new()
 	var filepath = "user://characters/" + str(character_file)
 	

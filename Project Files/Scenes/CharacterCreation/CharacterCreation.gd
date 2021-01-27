@@ -142,11 +142,14 @@ func _on_Complete_pressed():
 			if not classes.has(className):
 				CharacterManager.load_class(player, className)
 			classes.append(className)
+		player.health.max = 1000
+		player.health.current = 1000
 	else:
 		var chosen_equip = get_node("MainMenu/Choices/Class/Classes").get_children()[selected_equip].get_node("ClassName").text
 		if chosen_equip == "Knight":
 			chosen_equip = "knight"
 		if chosen_equip == "Battle Mage":
+			chosen_equip = "battle_mage"
 			chosen_equip = "battle_mage"
 		if chosen_equip == "Berserker":
 			chosen_equip = "berserker"

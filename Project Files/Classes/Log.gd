@@ -3,6 +3,7 @@ const script_name := "log"
 
 var log_loc = "user://logs/"
 var log_level = DEBUG
+var log_level_exclude = [BATTLE]
 
 const BATTLE = -1
 const FATAL = 0
@@ -35,27 +36,27 @@ func _on_msg(message, level, obj):
 		BATTLE:
 			level_string = "Battle"
 		FATAL:
-			level_string = "Fatal"
+			level_string = " Fatal"
 		ERROR:
-			level_string = "Error"
+			level_string = " Error"
 		WARN:
-			level_string = " Warn"
+			level_string = "  Warn"
 		INFO:
-			level_string = " Info"
+			level_string = "  Info"
 		DEBUG:
-			level_string = "Debug"
+			level_string = " Debug"
 		TRACE:
-			level_string = "Trace"
+			level_string = " Trace"
 		ALL:
-			level_string = "  All"
+			level_string = "   All"
 	
-	if level <= log_level:
+	if level <= log_level and !log_level_exclude.has(level):
 		print(level_string + " [ " + script + " ] " + message)
 	
 	var file = File.new()
 	file.open(log_loc + "latest.txt", File.READ_WRITE)
 	file.seek_end()
-	file.store_string(level_string + ": " + message + '\n')
+	file.store_string(level_string + " [ " + script + " ] " + message + '\n')
 	file.close()
 	
 	if level == FATAL:

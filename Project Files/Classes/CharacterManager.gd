@@ -81,7 +81,7 @@ static func equip(character_data: Dictionary, item:Dictionary):
 				character_data.equipment[item.broadType][item.type] = InventoryManager.check(character_data.inventory, item, 1)[1]
 				for buffKey in item.buffs.keys():
 					character_data.equipBuffs[buffKey] += item.buffs[buffKey]
-				Core.emit_signal('msg', "Equip manager: Success", Log.DEBUG, "equip_func")
+				Core.emit_signal('msg', "Equip manager: Success", Log.TRACE, "equip_func")
 				return [true, "Done"]
 			else:
 				Core.emit_signal('msg', "Equip manager: Level Requirement Not Met", Log.WARN, "equip_func")
@@ -136,7 +136,7 @@ static func addBuff(character_data: Dictionary, buffName: String):
 				var count = 0
 				for num in buff.timeLeft: 
 					buff.timeLeft[count] += Abilities.buffs[buffName].timeLeft[count]
-				Core.emit_signal('msg', "Buff manager: Buff extended on " + character_data.name, Log.DEBUG, "addBuff_func")
+				Core.emit_signal('msg', "Buff manager: Buff extended on " + character_data.name, Log.TRACE, "addBuff_func")
 				return [true, "Extended"]
 		#Doesn't exist
 		var buff = DictionaryFunc.clone_dict(Abilities.buffs[buffName])
@@ -147,14 +147,14 @@ static func addBuff(character_data: Dictionary, buffName: String):
 		buff.lastTimeActivated = buff.lastTimeCalculated
 		buff.nextTimeActivated = buff.lastTimeCalculated
 		character_data.buffs.append(buff)
-		Core.emit_signal('msg', "Buff manager: Buff added to " + character_data.name, Log.DEBUG, "addBuff_func")
+		Core.emit_signal('msg', "Buff manager: Buff added to " + character_data.name, Log.TRACE, "addBuff_func")
 		return [true, "Done"]
 	else:
 		Core.emit_signal('msg', "Buff manager: Doesn't Exist: " + buffName, Log.WARN, "addBuff_func")
 		return [false, "Doesn't Exist"]
 
 static func checkBuffs(character_data: Dictionary, buffType: String):
-	Core.emit_signal('msg', "Buff manager: Check buffs on " + character_data.name, Log.DEBUG, "checkBuffs_func")
+	Core.emit_signal('msg', "Buff manager: Check buffs on " + character_data.name, Log.TRACE, "checkBuffs_func")
 	var triggered = []
 	for buff in character_data.buffs:
 		var buffsRemaining = buff.battleEffects.size()+buff.specialEffects.size()
@@ -167,7 +167,7 @@ static func checkBuffs(character_data: Dictionary, buffType: String):
 			index = 0
 		var removeBuff = false
 		for effect in buff[buffType]:
-			Core.emit_signal('msg', '        timepersistence ' + str(buff.timePersistence[index]) + ', ' + str(character_data.AP.turnCount - buff.lastTimeCalculated[index]) + ", " + str(character_data.AP.turnCount) + ", " + str(buff.lastTimeCalculated[index]), Log.DEBUG, "checkBuffs")
+			#Core.emit_signal('msg', '        timepersistence part 1 ' + str(buff.timePersistence[index]) + ', ' + str(character_data.AP.ticks - buff.lastTimeCalculated[index]) + ", " + str(character_data.AP.ticks) + ", " + str(buff.lastTimeCalculated[index]), Log.DEBUG, "checkBuffs")
 			#Check if buff is recovered
 			if buffType == "battleEffects":
 				buff.timeLeft[index] -= (character_data.AP.ticks - buff.lastTimeCalculated[index])
@@ -177,8 +177,7 @@ static func checkBuffs(character_data: Dictionary, buffType: String):
 				buff.timeLeft[index] -= (character_data.AP.turnCount - buff.lastTimeCalculated[index])
 				buff.timePersistence[index] -= (character_data.AP.turnCount - buff.lastTimeCalculated[index])
 				buff.lastTimeCalculated[index] = character_data.AP.turnCount
-			if buff.timePersistence[index] == 4:
-				index[1]=6
+			#Core.emit_signal('msg', '        timepersistence part 2 ' + str(buff.timePersistence[index]) + ', ' + str(character_data.AP.turnCount - buff.lastTimeCalculated[index]) + ", " + str(character_data.AP.turnCount) + ", " + str(buff.lastTimeCalculated[index]), Log.DEBUG, "checkBuffs")
 			if buff.timeLeft[index] <= 0:
 				buffsRemaining-=1
 			else:
