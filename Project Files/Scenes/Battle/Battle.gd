@@ -11,6 +11,7 @@ onready var enemies := []
 onready var gameOver := false
 onready var winner := "noone"
 onready var charactersThatMoved := []
+onready var processing := false
 
 var battle_name setget set_battle_name, get_battle_name
 var background setget set_background, get_background
@@ -39,7 +40,6 @@ func load_battle(new_battle_name: String, new_background: String, new_friendlies
 #	# Initiate the UI
 	create_Characters()
 	
-	#REMOVE JO{PAJIFDO:HEJOA:FHJ:
 	CharacterManager.addBuff(friendlies[0], "rejuvenated")
 	CharacterManager.addBuff(friendlies[0], "rejuvenated")
 	CharacterManager.addBuff(friendlies[0], "rejuvenated")
@@ -52,17 +52,6 @@ func load_battle(new_battle_name: String, new_background: String, new_friendlies
 	for character in enemies:
 		character.AP.turnCount = 0
 		character.AP.ticks = 0
-	#CharacterManager.addBuff(enemies[0], "confused")
-	#var buff = DictionaryFunc.clone_dict(Abilities.buffs.confused)
-	#buff.lastTimeCalculated = [0]
-	#buff.lastTimeActivated = buff.lastTimeCalculated
-	#buff.nextTimeActivated = buff.lastTimeCalculated
-	#enemies[0].buffs = enemies[0].buffs + [buff]
-	#buff = DictionaryFunc.clone_dict(Abilities.buffs.rejuvenated)
-	#buff.lastTimeCalculated = [0]
-	#buff.lastTimeActivated = buff.lastTimeCalculated
-	#buff.nextTimeActivated = buff.lastTimeCalculated
-	#enemies[0].buffs = enemies[0].buffs + [buff]
 	
 	
 	#update_attacks(activeCharacterIndex)
@@ -213,13 +202,16 @@ func _on_Attack_pressed():
 	AttackList.show()
 
 func attackButton(attack, attackType, mode):
-	if friendlies[activeCharacterIndex].health.current > 0:
-		while friendlies[activeCharacterIndex].AP.current >= attack.APcost:
-			if enemies[0].health.current > 0:
-				attackCharacter(friendlies[activeCharacterIndex], [enemies[0]], attack, attackType)
-			else:
-				break
-	update_attacks(activeCharacterIndex, mode, false)
+	if !processing:
+		processing = true
+		if friendlies[activeCharacterIndex].health.current > 0:
+			while friendlies[activeCharacterIndex].AP.current >= attack.APcost:
+				if enemies[0].health.current > 0:
+					attackCharacter(friendlies[activeCharacterIndex], [enemies[0]], attack, attackType)
+				else:
+					break
+		update_attacks(activeCharacterIndex, mode, false)
+		processing = false
 
 func _on_Abilities_pressed():
 	BattleBoard.hide()
@@ -280,7 +272,7 @@ func update_attacks(CharacterIndex: int, mode: String, create=true):
 				attackItem.get_node("Description").text += "\nStatus affects:"
 				for status in attack.status:
 					attackItem.get_node("Description").text += "\n      - " + str(status[1]) + "% chance to get " + status[0]
-			if attack.targetAmount > getAlive(enemies) or attack.targetAmount == 1000:
+			if attack.targetAmount >= getAlive(enemies) or attack.targetAmount == 1000:
 				if attack.targetEnemy:
 					attackItem.get_node("Description").text += "\nTargets: all enemies"
 				else:
@@ -548,18 +540,44 @@ func _process(delta):
 			gameEnded()
 	# AI Attack
 	if nextCharacterIndex.size() > 0 && activeCharacterIndex == -1 && !gameOver:
-		if nextCharacterIndex[0][0] == "Friendly":
-			var character = friendlies[nextCharacterIndex[0][1]]
-			get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
-			if character.health.current > 0:
-				if character.classType != "PLAYER":
+		if !processing:
+			processing = true
+			for buttonArea in get_node("Buttons").get_children():
+				for button in buttonArea.get_children():
+					button.disabled = true
+			if nextCharacterIndex[0][0] == "Friendly":
+				var character = friendlies[nextCharacterIndex[0][1]]
+				get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
+				if character.health.current > 0:
+					if character.classType != "PLAYER":
+						var attacked = false
+						for attackType in character.attacks:
+							if attackType != "lowestCost":
+								for attackName in character.attacks[attackType]:
+									var attack = Attacks[attackType][attackName]
+									if character.AP.current >= attack.APcost:
+										for otherCharacter in enemies:
+											while character.AP.current >= attack.APcost:
+												if otherCharacter.health.current > 0:
+													if attackCharacter(character, [otherCharacter], attack, attackType) == true:
+														attacked = true
+												else:
+													break
+								if attacked:
+									break
+					else:
+						activeCharacterIndex = nextCharacterIndex[0][1]
+			else:
+				var character = enemies[nextCharacterIndex[0][1]]
+				get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
+				if character.health.current > 0:
 					var attacked = false
 					for attackType in character.attacks:
 						if attackType != "lowestCost":
 							for attackName in character.attacks[attackType]:
 								var attack = Attacks[attackType][attackName]
 								if character.AP.current >= attack.APcost:
-									for otherCharacter in enemies:
+									for otherCharacter in friendlies:
 										while character.AP.current >= attack.APcost:
 											if otherCharacter.health.current > 0:
 												if attackCharacter(character, [otherCharacter], attack, attackType) == true:
@@ -568,76 +586,68 @@ func _process(delta):
 												break
 							if attacked:
 								break
-				else:
-					activeCharacterIndex = nextCharacterIndex[0][1]
-		else:
-			var character = enemies[nextCharacterIndex[0][1]]
-			get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
-			if character.health.current > 0:
-				var attacked = false
-				for attackType in character.attacks:
-					if attackType != "lowestCost":
-						for attackName in character.attacks[attackType]:
-							var attack = Attacks[attackType][attackName]
-							if character.AP.current >= attack.APcost:
-								for otherCharacter in friendlies:
-									while character.AP.current >= attack.APcost:
-										if otherCharacter.health.current > 0:
-											if attackCharacter(character, [otherCharacter], attack, attackType) == true:
-												attacked = true
-										else:
-											break
-						if attacked:
-							break
-		if nextCharacterIndex.size() > 0:
-			charactersThatMoved.append(nextCharacterIndex[0])
-			nextCharacterIndex.remove(0)
-		create_Characters()
+			if nextCharacterIndex.size() > 0:
+				charactersThatMoved.append(nextCharacterIndex[0])
+				nextCharacterIndex.remove(0)
+			create_Characters()
+			processing = false
+			for buttonArea in get_node("Buttons").get_children():
+				for button in buttonArea.get_children():
+					button.disabled = false
 	
 	if nextCharacterIndex.size() == 0 && activeCharacterIndex == -1 && !gameOver:
-		#Apply end of turn effects
-		for characterDetails in charactersThatMoved:
-			if characterDetails[0] == "Friendly":
-				var character = friendlies[characterDetails[1]]
+		if !processing:
+			processing = true
+			for buttonArea in get_node("Buttons").get_children():
+				for button in buttonArea.get_children():
+					button.disabled = true
+			#Apply end of turn effects
+			for characterDetails in charactersThatMoved:
+				if characterDetails[0] == "Friendly":
+					var character = friendlies[characterDetails[1]]
+					if character.health.current > 0:
+						character.AP.turnCount+=1
+						#Core.emit_signal('msg', '    -' + character.name + ' increase turn count' + str (character.AP.turnCount), Log.BATTLE, self)
+						CharacterManager.checkBuffs(character, "specialEffects")
+					
+				else:
+					var character = enemies[characterDetails[1]]
+					if character.health.current > 0:
+						character.AP.turnCount+=1
+						#Core.emit_signal('msg', '    -' + character.name + ' increase turn count' + str (character.AP.turnCount), Log.BATTLE, self)
+						CharacterManager.checkBuffs(character, "specialEffects")
+			charactersThatMoved = []
+			# Increase characters AP intil a move is ready
+			for character in friendlies:
 				if character.health.current > 0:
-					character.AP.turnCount+=1
-					CharacterManager.checkBuffs(character, "specialEffects")
-				
-			else:
-				var character = enemies[characterDetails[1]]
+					character.AP.current += character.AP.speed
+					if character.AP.current > character.AP.max:
+						character.AP.current = character.AP.max
+					character.mana.current += character.mana.speed
+					if character.mana.current > character.mana.max:
+						character.mana.current = character.mana.max
+					character.health.current += character.health.speed
+					if character.health.current > character.health.max:
+						character.health.current = character.health.max
+					if character.AP.current >= character.attacks.lowestCost:
+						nextCharacterIndex.append(["Friendly", friendlies.find(character)])
+			for character in enemies:
 				if character.health.current > 0:
-					character.AP.turnCount+=1
-					CharacterManager.checkBuffs(character, "specialEffects")
-			if friendlies[1].buffs[0] == friendlies[0].buffs[0]:
-				Core.emit_signal("msg", "ERRRORRORORORORORO", Log.BATTLE, self)
-		charactersThatMoved = []
-		# Increase characters AP intil a move is ready
-		for character in friendlies:
-			if character.health.current > 0:
-				character.AP.current += character.AP.speed
-				if character.AP.current > character.AP.max:
-					character.AP.current = character.AP.max
-				character.mana.current += character.mana.speed
-				if character.mana.current > character.mana.max:
-					character.mana.current = character.mana.max
-				character.health.current += character.health.speed
-				if character.health.current > character.health.max:
-					character.health.current = character.health.max
-				if character.AP.current >= character.attacks.lowestCost:
-					nextCharacterIndex.append(["Friendly", friendlies.find(character)])
-		for character in enemies:
-			if character.health.current > 0:
-				character.AP.current += character.AP.speed
-				if character.AP.current > character.AP.max:
-					character.AP.current = character.AP.max
-				character.mana.current += character.mana.speed
-				if character.mana.current > character.mana.max:
-					character.mana.current = character.mana.max
-				character.health.current += character.health.speed
-				if character.health.current > character.health.max:
-					character.health.current = character.health.max
-				if character.AP.current >= character.attacks.lowestCost:
-						nextCharacterIndex.append(["Enemy", enemies.find(character)])
+					character.AP.current += character.AP.speed
+					if character.AP.current > character.AP.max:
+						character.AP.current = character.AP.max
+					character.mana.current += character.mana.speed
+					if character.mana.current > character.mana.max:
+						character.mana.current = character.mana.max
+					character.health.current += character.health.speed
+					if character.health.current > character.health.max:
+						character.health.current = character.health.max
+					if character.AP.current >= character.attacks.lowestCost:
+							nextCharacterIndex.append(["Enemy", enemies.find(character)])
+			processing = false
+			for buttonArea in get_node("Buttons").get_children():
+				for button in buttonArea.get_children():
+					button.disabled = false
 		
 
 func _on_Items_pressed():
@@ -650,11 +660,20 @@ func _on_Retreat_pressed():
 	queue_free()
 	
 func _on_EndTurn_pressed():
-	if friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].abilities.lowestCost or friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].attacks.lowestCost:
-		friendlies[activeCharacterIndex].AP.ticks +=1 ###Should this be a feature. People who are waiting for a stronger attack will stil count as a turn.
-	BattleBoard.show()
-	AttackList.hide()
-	activeCharacterIndex = -1
+	if !processing:
+		processing = true
+		for buttonArea in get_node("Buttons").get_children():
+			for button in buttonArea.get_children():
+				button.disabled = true
+		if friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].abilities.lowestCost or friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].attacks.lowestCost:
+			friendlies[activeCharacterIndex].AP.ticks +=1 ###Should this be a feature. People who are waiting for a stronger attack will stil count as a turn.
+		BattleBoard.show()
+		AttackList.hide()
+		activeCharacterIndex = -1
+		processing = false
+		for buttonArea in get_node("Buttons").get_children():
+			for button in buttonArea.get_children():
+				button.disabled = false
 	
 func _on_BackButton_pressed():
 	BattleBoard.show()

@@ -42,6 +42,7 @@ static func find_all_value(_dict, target):
 			return [_dict[key]]
 
 static func clone_dict(source):
+	return source.duplicate(true)
 	var dictionary = {}
 	for key in source:
 		if typeof(source[key]) == TYPE_DICTIONARY:

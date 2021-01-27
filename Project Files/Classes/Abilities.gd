@@ -31,7 +31,7 @@ const melee := {
 		name = "Medium Stun", 
 		hpDamage = 5,
 		#status type, chance
-		status = [["stunned", 100]],
+		status = [["stunned", 80]],
 		APcost = 1,
 		targetEnemy = true,
 		targetAmount = 1,

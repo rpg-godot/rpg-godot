@@ -41,7 +41,7 @@ func _ready():
 
 func _on_request_scene_load(scene):
 	Core.get_parent().call_deferred("add_child", scene)
-	Core.emit_signal("msg", "Loading " + scene.name + " scene...", Log.INFO, self)
+	Core.emit_signal("msg", "Loading " + scene.name + " scene...", Log.TRACE, self)
 
 func _on_scene_loaded(scene):
 	current_scene = scene.name

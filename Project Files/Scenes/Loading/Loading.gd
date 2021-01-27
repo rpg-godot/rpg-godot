@@ -10,7 +10,7 @@ func _ready():
 	
 	Core.emit_signal("scene_loaded", self)
 	
-	Core.emit_signal("msg", "RPG Godot started!", Log.INFO, self)
+	Core.emit_signal("msg", "RPG Godot started!", Log.TRACE, self)
 	
 	error = Core.connect("scene_loaded", self, "_on_scene_loaded")
 	if error:
@@ -30,19 +30,19 @@ func _on_msg(message, level, obj):
 		Log.BATTLE:
 			level_string = "Battle"
 		Log.FATAL:
-			level_string = "Fatal"
+			level_string = " Fatal"
 		Log.ERROR:
-			level_string = "Error"
+			level_string = " Error"
 		Log.WARN:
-			level_string = " Warn"
+			level_string = "  Warn"
 		Log.INFO:
-			level_string = " Info"
+			level_string = "  Info"
 		Log.DEBUG:
-			level_string = "Debug"
+			level_string = " Debug"
 		Log.TRACE:
-			level_string = "Trace"
+			level_string = " Trace"
 		Log.ALL:
-			level_string = "  All"
+			level_string = "   All"
 
 	get_node('Text').add_text(level_string + " [ " + script + " ] " + message + '\n')
 
