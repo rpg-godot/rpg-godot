@@ -40,12 +40,6 @@ func load_battle(new_battle_name: String, new_background: String, new_friendlies
 #	# Initiate the UI
 	create_Characters()
 	
-	CharacterManager.addBuff(friendlies[0], "rejuvenated")
-	CharacterManager.addBuff(friendlies[0], "rejuvenated")
-	CharacterManager.addBuff(friendlies[0], "rejuvenated")
-	CharacterManager.addBuff(friendlies[1], "rejuvenated")
-	CharacterManager.addBuff(friendlies[1], "rejuvenated")
-	CharacterManager.addBuff(friendlies[1], "rejuvenated")
 	for character in friendlies:
 		character.AP.turnCount = 0
 		character.AP.ticks = 0
