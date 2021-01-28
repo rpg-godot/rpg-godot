@@ -73,7 +73,7 @@ func updateChosenProfile(chosenProfile):
 		if profile != chosenProfile:
 			profile.get_node("Border").hide()
 			profile.get_node("Pic").rect_position=Vector2(0,0)
-			profile.get_node("Pic").rect_size=Vector2(200,200)
+			profile.get_node("Pic").rect_size=Vector2(400,400)
 			profile.chosen = false
 	checkIfCompleted()
 
