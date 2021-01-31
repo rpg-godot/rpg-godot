@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
-[ext_resource path="res://Scenes/Battle/EnemyPanel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/Battle/AttackItem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Battle/NextProfile.tscn" type="PackedScene" id=5]
@@ -33,6 +32,7 @@ font_data = ExtResource( 3 )
 [node name="Battle" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -91,7 +91,8 @@ margin_left = 20.0
 margin_top = 140.0
 margin_right = 1420.0
 margin_bottom = 1800.0
-rect_min_size = Vector2( 700, 848 )
+rect_min_size = Vector2( 1400, 848 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -99,9 +100,11 @@ __meta__ = {
 }
 
 [node name="BattleBoard" type="VBoxContainer" parent="DisplayArea"]
+visible = false
 margin_right = 1400.0
 margin_bottom = 1660.0
-rect_min_size = Vector2( 700, 848 )
+rect_min_size = Vector2( 1400, 848 )
+size_flags_horizontal = 0
 
 [node name="Combat" type="ScrollContainer" parent="DisplayArea/BattleBoard"]
 margin_right = 1400.0
@@ -173,29 +176,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Enemy" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+[node name="Enemy" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
 margin_bottom = 487.0
 
-[node name="Enemy2" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+[node name="Enemy2" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
 margin_left = 372.0
 margin_right = 660.0
 margin_bottom = 487.0
 
-[node name="Enemy3" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+[node name="Enemy3" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
 margin_top = 487.0
 margin_bottom = 974.0
 
-[node name="Enemy4" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+[node name="Enemy4" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
 margin_left = 372.0
 margin_top = 487.0
 margin_right = 660.0
 margin_bottom = 974.0
 
-[node name="Enemy5" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+[node name="Enemy5" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
 margin_top = 974.0
 margin_bottom = 1461.0
 
-[node name="Enemy6" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 2 )]
+[node name="Enemy6" parent="DisplayArea/BattleBoard/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
 margin_left = 372.0
 margin_top = 974.0
 margin_right = 660.0
@@ -326,78 +329,163 @@ size_flags_vertical = 0
 custom_fonts/font = SubResource( 4 )
 text = "BACK"
 
-[node name="AbilityBoard" type="GridContainer" parent="DisplayArea"]
-visible = false
+[node name="TargetSelection" type="VBoxContainer" parent="DisplayArea"]
 margin_right = 1400.0
 margin_bottom = 1660.0
-rect_min_size = Vector2( 700, 848 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/vseparation = 0
-custom_constants/hseparation = 0
+rect_min_size = Vector2( 1400, 848 )
+size_flags_horizontal = 0
 
-[node name="AbilityScrollBar" type="ScrollContainer" parent="DisplayArea/AbilityBoard"]
+[node name="TargetText" type="Label" parent="DisplayArea/TargetSelection"]
 margin_right = 1400.0
-margin_bottom = 1460.0
-mouse_filter = 1
+margin_bottom = 120.0
 size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 2 )
+text = "Choose 2 targets"
+align = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Combat" type="ScrollContainer" parent="DisplayArea/TargetSelection"]
+margin_top = 124.0
+margin_right = 1400.0
+margin_bottom = 1456.0
+rect_min_size = Vector2( 700, 596 )
+mouse_filter = 1
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
-[node name="AbilityList" type="VBoxContainer" parent="DisplayArea/AbilityBoard/AbilityScrollBar"]
+[node name="Characters" type="HBoxContainer" parent="DisplayArea/TargetSelection/Combat"]
 margin_right = 1400.0
-margin_bottom = 1670.0
-rect_min_size = Vector2( 0, 639 )
+margin_bottom = 974.0
+rect_min_size = Vector2( 690, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+custom_constants/separation = 20
+
+[node name="AllFriendlies" type="GridContainer" parent="DisplayArea/TargetSelection/Combat/Characters"]
+visible = false
+margin_right = 1092.0
+margin_bottom = 974.0
+rect_min_size = Vector2( 345, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 0
-custom_constants/separation = 10
+custom_constants/vseparation = 0
+custom_constants/hseparation = 114
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="AttackItem" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_right = 1388.0
+[node name="Friendly" parent="DisplayArea/TargetSelection/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_bottom = 487.0
 
-[node name="AttackItem2" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 210.0
-margin_right = 1388.0
-margin_bottom = 410.0
+[node name="Friendly2" parent="DisplayArea/TargetSelection/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 402.0
+margin_right = 690.0
+margin_bottom = 487.0
 
-[node name="AttackItem3" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 420.0
-margin_right = 1388.0
-margin_bottom = 620.0
+[node name="Friendly3" parent="DisplayArea/TargetSelection/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 804.0
+margin_right = 1092.0
+margin_bottom = 487.0
 
-[node name="AttackItem4" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 630.0
-margin_right = 1388.0
-margin_bottom = 830.0
+[node name="Friendly4" parent="DisplayArea/TargetSelection/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_top = 487.0
+margin_bottom = 974.0
 
-[node name="AttackItem5" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 840.0
-margin_right = 1388.0
-margin_bottom = 1040.0
+[node name="Friendly5" parent="DisplayArea/TargetSelection/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 402.0
+margin_top = 487.0
+margin_right = 690.0
+margin_bottom = 974.0
 
-[node name="AttackItem6" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 1050.0
-margin_right = 1388.0
-margin_bottom = 1250.0
+[node name="Friendly6" parent="DisplayArea/TargetSelection/Combat/Characters/AllFriendlies" instance=ExtResource( 6 )]
+margin_left = 804.0
+margin_top = 487.0
+margin_right = 1092.0
+margin_bottom = 974.0
 
-[node name="AttackItem7" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 1260.0
-margin_right = 1388.0
-margin_bottom = 1460.0
+[node name="AllEnemies" type="GridContainer" parent="DisplayArea/TargetSelection/Combat/Characters"]
+margin_right = 1400.0
+margin_bottom = 974.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_constants/vseparation = 0
+custom_constants/hseparation = 84
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="AttackItem8" parent="DisplayArea/AbilityBoard/AbilityScrollBar/AbilityList" instance=ExtResource( 4 )]
-margin_top = 1470.0
-margin_right = 1388.0
-margin_bottom = 1670.0
+[node name="Enemy" parent="DisplayArea/TargetSelection/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
+margin_right = 410.0
+margin_bottom = 487.0
 
-[node name="BackButton" type="Button" parent="DisplayArea/AbilityBoard"]
+[node name="Enemy2" parent="DisplayArea/TargetSelection/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
+margin_left = 494.0
+margin_right = 904.0
+margin_bottom = 487.0
+
+[node name="Enemy3" parent="DisplayArea/TargetSelection/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
+margin_left = 988.0
+margin_right = 1398.0
+margin_bottom = 487.0
+
+[node name="Enemy4" parent="DisplayArea/TargetSelection/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
+margin_top = 487.0
+margin_right = 410.0
+margin_bottom = 974.0
+
+[node name="Enemy5" parent="DisplayArea/TargetSelection/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
+margin_left = 494.0
+margin_top = 487.0
+margin_right = 904.0
+margin_bottom = 974.0
+
+[node name="Enemy6" parent="DisplayArea/TargetSelection/Combat/Characters/AllEnemies" instance=ExtResource( 6 )]
+margin_left = 988.0
+margin_top = 487.0
+margin_right = 1398.0
+margin_bottom = 974.0
+
+[node name="Buttons" type="VBoxContainer" parent="DisplayArea/TargetSelection"]
 margin_top = 1460.0
 margin_right = 1400.0
 margin_bottom = 1660.0
-rect_min_size = Vector2( 700, 200 )
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 4 )
-text = "BACK"
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Done" type="Button" parent="DisplayArea/TargetSelection/Buttons"]
+margin_right = 1400.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 90 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 5 )
+text = "DONE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cancel" type="Button" parent="DisplayArea/TargetSelection/Buttons"]
+margin_top = 110.0
+margin_right = 1400.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 90 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 5 )
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 anchor_left = 0.014
@@ -504,7 +592,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="pressed" from="DisplayArea/AbilityBoard/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="DisplayArea/TargetSelection/Buttons/Done" to="." method="_on_Done_pressed"]
+[connection signal="pressed" from="DisplayArea/TargetSelection/Buttons/Cancel" to="." method="_on_Cancel_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Items" to="." method="_on_Items_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Abilities" to="." method="_on_Abilities_pressed"]

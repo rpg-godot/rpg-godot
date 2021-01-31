@@ -1,41 +1,92 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/UI/DefaultFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Assets/Images/Profiles/blood-splatter.png" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Images/Profiles/Enemies/MonstersAvatarIcons_61.PNG" type="Texture" id=5]
+[ext_resource path="res://Scenes/Battle/CharacterPanel.gd" type="Script" id=6]
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0, 1, 0, 0.705882 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0.705882, 0, 0.705882 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 1, 0, 0.313726 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0, 1, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 1, 0, 0.313726 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 127
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 1, 0, 0, 0.705882 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.705882, 0, 0, 0.705882 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 1, 0, 0, 0.313726 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 0, 0, 0.313726 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 150
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.854902, 0.105882, 0.105882, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0, 0, 0, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=7]
+size = 38
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=8]
 size = 26
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0, 0, 1, 1 )
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="FriendlyTL" type="GridContainer"]
+[node name="CharacterTL" type="GridContainer"]
 margin_right = 288.0
 margin_bottom = 243.0
 rect_min_size = Vector2( 144, 243 )
 size_flags_horizontal = 3
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,7 +96,7 @@ margin_right = 288.0
 margin_bottom = 487.0
 size_flags_horizontal = 3
 
-[node name="Picture" type="Control" parent="VBox"]
+[node name="Picture" type="CenterContainer" parent="VBox"]
 margin_right = 288.0
 margin_bottom = 288.0
 rect_min_size = Vector2( 288, 288 )
@@ -66,10 +117,54 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AttackControls" type="VBoxContainer" parent="VBox/Picture"]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 278.0
+rect_min_size = Vector2( 268, 268 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="AttackPlus" type="Button" parent="VBox/Picture/AttackControls"]
+margin_right = 268.0
+margin_bottom = 134.0
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
+enabled_focus_mode = 0
+text = "+"
+
+[node name="AttackMinus" type="Button" parent="VBox/Picture/AttackControls"]
+margin_top = 134.0
+margin_right = 268.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 0, 134 )
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
+enabled_focus_mode = 0
+text = "-"
+
 [node name="PicBorder" type="TextureRect" parent="VBox/Picture"]
 margin_right = 288.0
 margin_bottom = 288.0
 rect_min_size = Vector2( 288, 288 )
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -79,8 +174,8 @@ __meta__ = {
 }
 
 [node name="Blood" type="TextureRect" parent="VBox/Picture"]
-margin_right = 144.0
-margin_bottom = 144.0
+margin_right = 288.0
+margin_bottom = 288.0
 rect_min_size = Vector2( 288, 288 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -90,27 +185,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Health" type="Control" parent="VBox"]
-margin_top = 292.0
-margin_right = 288.0
-margin_bottom = 320.0
-rect_min_size = Vector2( 288, 28 )
-mouse_filter = 1
+[node name="AttackCount" type="Label" parent="VBox/Picture"]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 278.0
+rect_min_size = Vector2( 268, 268 )
 size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 4 )
+text = "88"
+align = 1
+valign = 1
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
 
+[node name="Health" type="CenterContainer" parent="VBox"]
+visible = false
+margin_top = 292.0
+margin_right = 288.0
+margin_bottom = 352.0
+rect_min_size = Vector2( 288, 60 )
+mouse_filter = 1
+size_flags_horizontal = 3
+
 [node name="HealthBar" type="ProgressBar" parent="VBox/Health"]
-margin_right = 144.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 288, 28 )
+margin_right = 288.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 288, 60 )
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
 value = 50.0
 rounded = true
 percent_visible = false
@@ -121,10 +232,12 @@ __meta__ = {
 
 [node name="HealthText" type="Label" parent="VBox/Health"]
 margin_right = 288.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 288, 28 )
+margin_bottom = 60.0
+rect_min_size = Vector2( 288, 60 )
 mouse_filter = 1
-custom_fonts/font = SubResource( 3 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 7 )
 text = "Health: 50/100"
 align = 1
 valign = 1
@@ -134,27 +247,30 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Mana" type="Control" parent="VBox"]
-margin_top = 324.0
+[node name="HealthAndMana" type="VBoxContainer" parent="VBox"]
+margin_top = 292.0
 margin_right = 288.0
 margin_bottom = 352.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health" type="CenterContainer" parent="VBox/HealthAndMana"]
+margin_right = 288.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 288, 28 )
 mouse_filter = 1
 size_flags_horizontal = 3
-__meta__ = {
-"_edit_use_anchors_": false,
-"_editor_description_": ""
-}
 
-[node name="ManaBar" type="ProgressBar" parent="VBox/Mana"]
-margin_right = 144.0
-margin_bottom = 14.0
+[node name="HealthBar" type="ProgressBar" parent="VBox/HealthAndMana/Health"]
+margin_right = 288.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 288, 28 )
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/fg = SubResource( 4 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
 value = 50.0
 rounded = true
 percent_visible = false
@@ -163,12 +279,52 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="ManaText" type="Label" parent="VBox/Mana"]
-margin_right = 144.0
-margin_bottom = 14.0
+[node name="HealthText" type="Label" parent="VBox/HealthAndMana/Health"]
+margin_right = 288.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 288, 28 )
 mouse_filter = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 8 )
+text = "Health: 50/100"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="Mana" type="CenterContainer" parent="VBox/HealthAndMana"]
+margin_top = 32.0
+margin_right = 288.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
+size_flags_horizontal = 3
+
+[node name="ManaBar" type="ProgressBar" parent="VBox/HealthAndMana/Mana"]
+margin_right = 288.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 6 )
+value = 50.0
+rounded = true
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="ManaText" type="Label" parent="VBox/HealthAndMana/Mana"]
+margin_right = 288.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 288, 28 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 8 )
 text = "Mana: 50/100"
 align = 1
 valign = 1
@@ -193,3 +349,5 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="VBox/Picture/AttackControls/AttackPlus" to="." method="_on_AttackPlus_pressed"]
+[connection signal="pressed" from="VBox/Picture/AttackControls/AttackMinus" to="." method="_on_AttackMinus_pressed"]

@@ -3,7 +3,7 @@ const script_name := "items"
 
 const items := {
 
-	sword = {
+	sword_short = {
 		nickname = "Short Sword",
 		name = "sword",
 		broadType = "weapons",
@@ -27,7 +27,7 @@ const items := {
 		quantity = 1,
 	},
 
-	staff = {
+	staff_small = {
 		nickname = "Small Staff",
 		name = "staff",
 		broadType = "weapons",
@@ -51,7 +51,7 @@ const items := {
 		quantity = 1,
 	},
 
-	axe = {
+	axe_battle = {
 		nickname = "Battle Axe",
 		name = "axe",
 		broadType = "weapons",
@@ -75,7 +75,7 @@ const items := {
 		quantity = 1,
 	},
 
-	bow = {
+	bow_hunting = {
 		nickname = "Hunting bow",
 		name = "bow",
 		broadType = "weapons",
