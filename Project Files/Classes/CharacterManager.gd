@@ -71,12 +71,20 @@ static func equip(character_data: Dictionary, item:Dictionary):
 		if character_data.equipment[item.broadType][item.type] == -1:
 			if item.broadType == "weapons":
 				if "two-hand" in item.subType:
-					if item.type == "melee" && character_data.equipment[item.broadType].magic != -1:
+					if item.type == "melee" && character_data.equipment.weapons.magic != -1:
 						Core.emit_signal('msg', "Equip manager: Dual handed weapon, magic cannot be equipped too", Log.WARN, "equip_func")
 						return [false, "Dual handed weapon, magic cannot be equipped too"]
-					elif item.type == "mana" && character_data.equipment[item.broadType].melee != -1:
+					elif item.type == "magic" && character_data.equipment.weapons.melee != -1:
 						Core.emit_signal('msg', "Equip manager: Dual handed weapon, melee cannot be equipped too", Log.WARN, "equip_func")
 						return [false, "Dual handed weapon, melee cannot be equipped too"]
+				if character_data.equipment.weapons.melee != -1:
+					if "two-hand" in  character_data.inventory.weapons.melee[character_data.equipment.weapons.melee].subType:
+						Core.emit_signal('msg', "Equip manager: Dual handed weapon equipped, no new weapons can be equipped", Log.WARN, "equip_func")
+						return [false, "Dual handed weapon, Dual handed weapon equipped"]
+				if character_data.equipment.weapons.magic != -1:
+					if "two-hand" in  character_data.inventory.weapons.magic[character_data.equipment.weapons.magic].subType:
+						Core.emit_signal('msg', "Equip manager: Dual handed weapon equipped, no new weapons can be equipped", Log.WARN, "equip_func")
+						return [false, "Dual handed weapon, Dual handed weapon equipped"]
 			if item.levelRequirement <= character_data.level:
 				character_data.equipment[item.broadType][item.type] = InventoryManager.check(character_data.inventory, item, 1)[1]
 				for buffKey in item.buffs.keys():

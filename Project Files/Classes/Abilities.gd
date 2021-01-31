@@ -19,6 +19,8 @@ const melee := {
 		targetEnemy = true,
 		targetAmount = 1,
 		selfCastable = false,
+		attackTimes = 1,
+		attackTimesChance = 100,
 		image = abilityImages.Stun_Weak,
 		weaponNeeded = [
 			"one-handed sword", 
@@ -36,6 +38,8 @@ const melee := {
 		targetEnemy = true,
 		targetAmount = 1,
 		selfCastable = false,
+		attackTimes = 1,
+		attackTimesChance = 100,
 		image = abilityImages.Stun_Weak,
 		weaponNeeded = [
 			"two-handed axe"], 
@@ -53,6 +57,8 @@ const ranged := {
 		targetEnemy = true,
 		targetAmount = 1000, #everyone
 		selfCastable = false,
+		attackTimes = 1,
+		attackTimesChance = 100,
 		image = abilityImages.Distract,
 		ammoCost = 1,
 		weaponNeeded = [
@@ -76,8 +82,10 @@ const mana := {
 		targetEnemy = false,
 		targetAmount = 1,
 		selfCastable = true,
+		attackTimes = 1,
+		attackTimesChance = 100,
 		image = abilityImages.Heart_Heal,
-		weaponNeeded = ["two-handed staff"],
+		weaponNeeded = ["one-handed staff", "two-handed staff"],
 		itemLevelRequirements = 1
 	}
 }

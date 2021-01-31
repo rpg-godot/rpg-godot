@@ -144,6 +144,17 @@ func _on_Complete_pressed():
 			classes.append(className)
 		player.health.max = 1000
 		player.health.current = 1000
+		for mode in ["attacks", "abilities"]:
+			var attackList
+			if mode == "attacks":
+				attackList = Attacks
+			elif mode == "abilities":
+				attackList = Abilities
+			for attackType in ["melee", "mana", "ranged"]:
+				for attackName in attackList[attackType].keys():
+					CharacterManager.learn_attack(player, mode, attackType, attackName)
+		for item in Items.items.keys():
+			CharacterManager.add(player, Items.items[item], 5)
 	else:
 		var chosen_equip = get_node("MainMenu/Choices/Class/Classes").get_children()[selected_equip].get_node("ClassName").text
 		if chosen_equip == "Knight":

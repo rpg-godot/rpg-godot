@@ -17,25 +17,25 @@ const zero_stats = {
 const starting_equipment := {
 	knight = [
 		{
-			name = "sword",
+			name = "sword_short",
 			quantity = 1
 		}
 	],
 	battle_mage = [
 		{
-		name = "staff",
+		name = "staff_small",
 		quantity = 1
 		}
 	],
 	berserker = [
 		{
-		name = "axe",
+		name = "axe_battle",
 		quantity = 1
 		}
 	],
 	quick_shooter = [ 
 		{
-			name = "bow",
+			name = "bow_hunting",
 			quantity = 1,
 		},
 		{
@@ -49,24 +49,24 @@ const starting_equipment := {
 	],
 	dev = [
 		{
-			name = "sword",
+			name = "sword_short",
 			quantity = 1
 		},
 		{
-		name = "staff",
+		name = "staff_small",
 		quantity = 1
 		},
 		{
-		name = "axe",
+		name = "axe_battle",
 		quantity = 1
 		},
 		{
-			name = "bow",
+			name = "bow_hunting",
 			quantity = 1,
 		},
 		{
 			name = "arrow",
-			quantity = 15,
+			quantity = 150,
 		},
 		{
 			name = "dagger",
@@ -78,27 +78,27 @@ const starting_equipment := {
 
 const starting_attacks := {
 	knight = {
-		melee = ["strike"],
+		melee = ["strike", "punch"],
 		ranged = [],
 		mana = [],
 	},
 	battle_mage = {
-		melee = [],
+		melee = ["punch"],
 		ranged = [],
 		mana = ["flame"],
 	},
 	berserker = {
-		melee = ["strike"],
+		melee = ["strike", "punch", "punch_double"],
 		ranged = [],
 		mana = [],
 	},
 	quick_shooter = {
-		melee = ["strike"],
+		melee = ["strike", "punch", "punch_double"],
 		ranged = ["quick_shot"],
 		mana = [],
 	},
 	dev = {
-		melee = ["strike"],
+		melee = ["strike", "punch", "punch_double"],
 		mana = ["flame"],
 		ranged = ["quick_shot"],
 	},

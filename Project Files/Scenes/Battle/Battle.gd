@@ -3,7 +3,7 @@ const script_name := "battle"
 
 onready var BattleBoard := $"DisplayArea/BattleBoard/"
 onready var AttackList := $"DisplayArea/AttackBoard/"
-onready var AbilityList := $"DisplayArea/AbilityBoard/"
+onready var TargetList := $"DisplayArea/TargetSelection/"
 onready var friendlies := []
 onready var activeCharacterIndex := -1
 onready var nextCharacterIndex := []
@@ -12,6 +12,12 @@ onready var gameOver := false
 onready var winner := "noone"
 onready var charactersThatMoved := []
 onready var processing := false
+onready var activeAttackMode := ""
+onready var activeAttackType := ""
+onready var attacksLeft = 0
+onready var attackTargets = []
+onready var activeAttack = {}
+onready var activeAttackRessurection = false
 
 var battle_name setget set_battle_name, get_battle_name
 var background setget set_background, get_background
@@ -57,92 +63,110 @@ func _ready():
 		print("Warn: Event msg failed to bind")
 	
 	Core.emit_signal("scene_loaded", self)
+	BattleBoard.show()
+	AttackList.hide()
+	TargetList.hide()
 
 func _on_msg(message, level, obj):
 	if level == Log.BATTLE:
 		get_node('BattleText').add_text(message + '\n')
 	
 func create_Characters():
-	#BattleBoard.show()
-	#AttackList.hide()
-	# Delete all tiles until needed
-	for friendPanel in get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children():
-		friendPanel.free()
-	for enemyPanel in get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children():
-		enemyPanel.free()
-	## Initiate and unhide needed tiles
-	for character in friendlies:
-		## Looks
-		get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
-		var friendPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
-		friendPanel.get_node("VBox/Picture/Pic").texture = load(character.picture.path)
-		friendPanel.get_node("VBox/Picture/Pic").flip_h = character.picture.flip_profile[0]
-		friendPanel.get_node("VBox/Picture/Pic").flip_v = character.picture.flip_profile[1]
-		friendPanel.get_node("VBox/Name").text = character.name
-		friendPanel.show()
-		if character.picture.border.shown:
-			friendPanel.get_node("VBox/Picture/PicBorder").texture = load(character.picture.border.path)
-			friendPanel.get_node("VBox/Picture/PicBorder").show()
-		else:
-			friendPanel.get_node("VBox/Picture/PicBorder").hide()
-	for character in enemies:
-		##looks
-		get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_child(load("res://Scenes/Battle/EnemyPanel.tscn").instance())
-		var enemyPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
-		enemyPanel.get_node("VBox/Control/Pic").texture = load(character.picture.path)
-		enemyPanel.get_node("VBox/Control/Pic").flip_h = character.picture.flip_profile[0]
-		enemyPanel.get_node("VBox/Control/Pic").flip_v = character.picture.flip_profile[1]
-		enemyPanel.get_node("VBox/Name").text = character.name
-		enemyPanel.show()
-		if character.picture.border.shown:
-			enemyPanel.get_node("VBox/Control/PicBorder").texture = load(character.picture.border.path)
-			enemyPanel.get_node("VBox/Control/PicBorder").show()
-		else:
-			enemyPanel.get_node("VBox/Control/PicBorder").hide()
+	for board in [BattleBoard, TargetList]:
+		# Delete all tiles until needed
+		for characterPanel in board.get_node("Combat/Characters/AllFriendlies").get_children():
+			characterPanel.free()
+		for characterPanel in board.get_node("Combat/Characters/AllEnemies").get_children():
+			characterPanel.free()
+		## Initiate and unhide needed tiles
+		for characterType in [friendlies, enemies]:
+			for character in characterType:
+				## Looks
+				var characterPanel
+				if characterType == friendlies:
+					board.get_node("Combat/Characters/AllFriendlies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
+					characterPanel = board.get_node("Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
+					characterPanel.index = friendlies.find(character)
+					characterPanel.get_node("VBox/Health").hide()
+					characterPanel.get_node("VBox/HealthAndMana").show()
+				else:
+					board.get_node("Combat/Characters/AllEnemies").add_child(load("res://Scenes/Battle/CharacterPanel.tscn").instance())
+					characterPanel = board.get_node("Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
+					characterPanel.index = enemies.find(character)
+					characterPanel.get_node("VBox/Health").show()
+					characterPanel.get_node("VBox/HealthAndMana").hide()
+				characterPanel.get_node("VBox/Picture/Pic").texture = load(character.picture.path)
+				characterPanel.get_node("VBox/Picture/Pic").flip_h = character.picture.flip_profile[0]
+				characterPanel.get_node("VBox/Picture/Pic").flip_v = character.picture.flip_profile[1]
+				characterPanel.get_node("VBox/Name").text = character.name
+				characterPanel.show()
+				if character.picture.border.shown:
+					characterPanel.get_node("VBox/Picture/PicBorder").texture = load(character.picture.border.path)
+					characterPanel.get_node("VBox/Picture/PicBorder").show()
+				else:
+					characterPanel.get_node("VBox/Picture/PicBorder").hide()
+				if board == TargetList:
+					characterPanel.get_node("VBox/Picture/AttackControls").show()
+					characterPanel.get_node("VBox/Picture/AttackCount").show()
+				else:
+					characterPanel.get_node("VBox/Picture/AttackControls").hide()
+					characterPanel.get_node("VBox/Picture/AttackCount").hide()
 	update_Characters()
 	
 func update_Characters():
 	##update stats
-	for character in friendlies:
-		##looks
-		var friendPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
-		##stats
-		friendPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/(character.health.max)
-		friendPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		if character.mana.max > 0:
-			friendPanel.get_node("VBox/Mana/ManaBar").value = character.mana.current*100/character.mana.max
-			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
-		else:
-			friendPanel.get_node("VBox/Mana/ManaBar").value = 0
-			friendPanel.get_node("VBox/Mana/ManaText").text = "Mana: 0/0"
-		if character.health.current > 0:
-			friendPanel.get_node("VBox/Picture/Blood").hide()
-		else:
-			friendPanel.get_node("VBox/Picture/Blood").show()
-	for character in enemies:
-		##looks
-		var enemyPanel = get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
-		##stats
-		enemyPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/character.health.max
-		enemyPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthBar").value = character.health.current*100/character.health.max
-		enemyPanel.get_node("VBox/HealthAndMana/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
-		if character.mana.max > 0:
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = character.mana.current*100/character.mana.max
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
-		else:
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = 0
-			enemyPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: 0/0"
-		enemyPanel.get_node("VBox/Health").show()
-		enemyPanel.get_node("VBox/HealthAndMana").hide()
-		if character.health.current > 0:
-			enemyPanel.get_node("VBox/Control/Blood").hide()
-		else:
-			enemyPanel.get_node("VBox/Control/Blood").show()
+	for board in [BattleBoard, TargetList]:
+		for characterType in [friendlies, enemies]:
+			for character in characterType:
+				##looks
+				var characterPanel
+				if characterType == friendlies:
+					characterPanel = board.get_node("Combat/Characters/AllFriendlies").get_children()[friendlies.find(character)]
+				else:
+					characterPanel = board.get_node("Combat/Characters/AllEnemies").get_children()[enemies.find(character)]
+					characterPanel.disable("Minus")
+				##stats
+				characterPanel.get_node("VBox/Picture/AttackCount").text = ""
+				characterPanel.get_node("VBox/Health/HealthBar").value = character.health.current*100/(character.health.max)
+				characterPanel.get_node("VBox/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
+				characterPanel.get_node("VBox/HealthAndMana/Health/HealthBar").value = character.health.current*100/character.health.max
+				characterPanel.get_node("VBox/HealthAndMana/Health/HealthText").text = "Health: %d/%d" % [character.health.current, character.health.max]
+				if character.mana.max > 0:
+					characterPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = character.mana.current*100/character.mana.max
+					characterPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: %d/%d" % [character.mana.current, character.mana.max]
+				else:
+					characterPanel.get_node("VBox/HealthAndMana/Mana/ManaBar").value = 0
+					characterPanel.get_node("VBox/HealthAndMana/Mana/ManaText").text = "Mana: 0/0"
+				if character.health.current > 0:
+					characterPanel.get_node("VBox/Picture/Blood").hide()
+				else:
+					characterPanel.get_node("VBox/Picture/Blood").show()
 	if enemies.size() > 4:
 		get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 84)
 	else:
 		get_node("DisplayArea/BattleBoard/Combat/Characters/AllEnemies").add_constant_override("hseparation", 104)
+	#Remove dead characters from target list
+	for characterPanel in TargetList.get_node("Combat/Characters/AllEnemies").get_children():
+		if characterPanel.get_node("VBox/Picture/Blood").visible and !activeAttackRessurection:
+			characterPanel.hide()
+		elif !characterPanel.get_node("VBox/Picture/Blood").visible and activeAttackRessurection:
+			characterPanel.hide()
+		else:
+			characterPanel.show()
+	for characterPanel in TargetList.get_node("Combat/Characters/AllFriendlies").get_children():
+		if characterPanel.get_node("VBox/Picture/Blood").visible and !activeAttackRessurection:
+			characterPanel.hide()
+		elif !characterPanel.get_node("VBox/Picture/Blood").visible and activeAttackRessurection:
+			characterPanel.hide()
+		else:
+			characterPanel.show()
+		if activeAttack != {}:
+			if characterPanel.index == activeCharacterIndex and activeAttackMode == "Abilities":
+				if !activeAttack.selfCastable:
+					characterPanel.hide()
+				else:
+					characterPanel.show()
+				
 	update_turn()
 
 func update_turn():
@@ -192,6 +216,7 @@ func update_turn():
 
 func _on_Attack_pressed():
 	BattleBoard.hide()
+	TargetList.hide()
 	update_attacks(activeCharacterIndex, "attacks")
 	AttackList.show()
 
@@ -199,16 +224,37 @@ func attackButton(attack, attackType, mode):
 	if !processing:
 		processing = true
 		if friendlies[activeCharacterIndex].health.current > 0:
-			while friendlies[activeCharacterIndex].AP.current >= attack.APcost:
-				if enemies[0].health.current > 0:
-					attackCharacter(friendlies[activeCharacterIndex], [enemies[0]], attack, attackType)
+			if friendlies[activeCharacterIndex].AP.current >= attack.APcost:
+				activeAttack = attack
+				activeAttackType = attackType
+				activeAttackMode = mode
+				#if enemies[0].health.current > 0:
+				#	attackCharacter(friendlies[activeCharacterIndex], [enemies[0]], attack, attackType)
+				#else:
+				#	break
+				if attack.targetAmount % 1000 == 0:
+					attackCharacter(friendlies[activeCharacterIndex], enemies, attack, attackType)
 				else:
-					break
+					attack.targetEnemy
+					if attack.targetEnemy:
+						TargetList.get_node("Combat/Characters/AllEnemies").show()
+						TargetList.get_node("Combat/Characters/AllFriendlies").hide()
+					if !attack.targetEnemy:
+						TargetList.get_node("Combat/Characters/AllEnemies").hide()
+						TargetList.get_node("Combat/Characters/AllFriendlies").show()
+					attacksLeft = attack.targetAmount
+					attackTargets = []
+					update_Characters()
+					updateAttackList(0, 0)
+					AttackList.hide()
+					TargetList.show()
+					
 		update_attacks(activeCharacterIndex, mode, false)
 		processing = false
 
 func _on_Abilities_pressed():
 	BattleBoard.hide()
+	TargetList.hide()
 	update_attacks(activeCharacterIndex, "abilities")
 	AttackList.show()
 
@@ -392,7 +438,8 @@ func checkAttack(attacker: Dictionary, attack: Dictionary, attackType:String):
 	
 func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dictionary, attackType:String):
 	var attacked = false
-	if checkAttack(attacker, attack, attackType)[0] == true:
+	var checkResults = checkAttack(attacker, attack, attackType)
+	if checkResults[0]:
 		var canAttack=true
 		Core.emit_signal('msg', attacker.name + ' uses ' + attack.name + '!', Log.BATTLE, self)
 		var effectsActivated = CharacterManager.checkBuffs(attacker, "battleEffects")
@@ -422,47 +469,56 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 					else:
 						Core.emit_signal('msg', '        -' + attacker.name + ' targets their own team by accident', Log.BATTLE, self)
 		if canAttack:
-			if attack.targetEnemy:
-				# attack enemy
-				for otherCharacter in otherCharacters:
-					otherCharacter.health.current-=attack.hpDamage
-					if otherCharacter.health.current < 0:
-						otherCharacter.health.current=0
-					if otherCharacter.health.current > 0:
-						Core.emit_signal('msg', '    -' + otherCharacter.name + ' takes ' + str(attack.hpDamage) + ' HP damage', Log.BATTLE, self)
-						if "status" in attack.keys():
-							for buff in attack.status:
+			var attackTimes = attack.attackTimes
+			while attackTimes > 0:
+				if attack.targetEnemy:
+					# attack enemy
+					for otherCharacter in otherCharacters:
+						otherCharacter.health.current-=attack.hpDamage
+						if otherCharacter.health.current < 0:
+							otherCharacter.health.current=0
+						if otherCharacter.health.current > 0:
+							if attack.hpDamage > 0:
+								Core.emit_signal('msg', '    -' + otherCharacter.name + ' takes ' + str(attack.hpDamage) + ' HP damage', Log.BATTLE, self)
+							if "status" in attack.keys():
+								for buff in attack.status:
+									if randi()%100+1 <= buff[1]:
+										CharacterManager.addBuff(otherCharacter, buff[0])
+										Core.emit_signal('msg', '        -' + otherCharacter.name + ' is ' + buff[0], Log.BATTLE, self)
+						else:
+							Core.emit_signal('msg', '    -' + otherCharacter.name + ' has died!', Log.BATTLE, self)
+						if attackType == "mana":
+							otherCharacter.mana.current-=attack.manaDamage
+							if otherCharacter.mana.current < 0:
+								otherCharacter.mana.current=0
+						attacked = true
+				else:
+					# heal friendly
+					for otherCharacter in otherCharacters:
+						otherCharacter.health.current -= attack.hpDamage
+						if otherCharacter.health.current > otherCharacter.health.max:
+							otherCharacter.health.current = otherCharacter.health.current
+						Core.emit_signal('msg', '    -' + otherCharacter.name + ' is healed by ' + str(-attack.hpDamage) + ' HP', Log.BATTLE, self)
+						if attack.has("specialAffects"):
+							for buff in attack.specialAffects:
 								if randi()%100+1 <= buff[1]:
 									CharacterManager.addBuff(otherCharacter, buff[0])
 									Core.emit_signal('msg', '        -' + otherCharacter.name + ' is ' + buff[0], Log.BATTLE, self)
-					else:
-						Core.emit_signal('msg', '    -' + otherCharacter.name + ' has died!', Log.INFO, self)
-					attacker.AP.current -=attack.APcost
-					if attackType == "mana":
-						attacker.mana.current-=attack.manaCost
-						otherCharacter.mana.current-=attack.manaDamage
-						if otherCharacter.mana.current < 0:
-							otherCharacter.mana.current=0
-					attacker.AP.ticks +=1
-					attacked = true
-			else:
-				# heal friendly
-				for otherCharacter in otherCharacters:
-					otherCharacter.health.current -= attack.hpDamage
-					if otherCharacter.health.current > otherCharacter.health.max:
-						otherCharacter.health.current = otherCharacter.health.current
-					Core.emit_signal('msg', '    -' + otherCharacter.name + ' is healed by ' + str(-attack.hpDamage) + ' HP', Log.BATTLE, self)
-					if attack.has("specialAffects"):
-						for buff in attack.specialAffects:
-							if randi()%100+1 <= buff[1]:
-								CharacterManager.addBuff(otherCharacter, buff[0])
-								Core.emit_signal('msg', '        -' + otherCharacter.name + ' is ' + buff[0], Log.BATTLE, self)
-					attacker.AP.current -=attack.APcost
-					if attackType == "mana":
-						attacker.mana.current-=attack.manaCost
-						otherCharacter.mana.current-=attack.manaDamage
-					attacker.AP.ticks +=1
-					attacked = true
+						if attackType == "mana":
+							otherCharacter.mana.current-=attack.manaDamage
+							if otherCharacter.mana.current < 0:
+								otherCharacter.mana.current=0
+						attacked = true
+				if randi()%100+1 <= attack.attackTimesChance:
+					attackTimes -= 1
+				else:
+					attackTimes = 0
+			attacker.AP.current -=attack.APcost
+			if attackType == "mana":
+				attacker.mana.current-=attack.manaCost
+				if attacker.mana.current < 0:
+					attacker.mana.current=0
+			attacker.AP.ticks +=1
 			if attackType == "ranged" && attacked:
 				var ammoChoice = []
 				for ammo in attacker.inventory.weapons.consumables:
@@ -483,15 +539,15 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 						while count < nextCharacterIndex.size():
 							var turn = nextCharacterIndex[count]
 							if turn[0] == "Enemy":
-								print ("turn", referencePoint)
-								print(nextCharacterIndex)
+								#print ("turn", referencePoint)
+								#print(nextCharacterIndex)
 								if turn[1] > referencePoint:
 									nextCharacterIndex[count] = [turn[0], turn[1]-1]
-									print(1, nextCharacterIndex)
+									#print(1, nextCharacterIndex)
 								elif turn[1] == referencePoint:
 									nextCharacterIndex.remove(count)
 									count-=1
-									print(4, nextCharacterIndex)
+									#print(4, nextCharacterIndex)
 							count+=1
 					else:
 						var referencePoint = friendlies.find(otherCharacter)
@@ -501,16 +557,18 @@ func attackCharacter(attacker: Dictionary, otherCharacters: Array, attack: Dicti
 						while count < nextCharacterIndex.size():
 							var turn = nextCharacterIndex[count]
 							if turn[0] == "Friendlies":
-								print ("turn", referencePoint)
-								print(nextCharacterIndex)
+								#print ("turn", referencePoint)
+								#print(nextCharacterIndex)
 								if turn[1] > referencePoint:
 									nextCharacterIndex[count] = [turn[0], turn[1]-1]
-									print(1, nextCharacterIndex)
+									#print(1, nextCharacterIndex)
 								elif turn[1] == referencePoint:
 									nextCharacterIndex.remove(count)
 									count-=1
-									print(4, nextCharacterIndex)
+									#print(4, nextCharacterIndex)
 							count+=1
+	else:
+		Core.emit_signal('msg', 'Attack_Character failed: check attack said: ' + checkResults[1], Log.DEBUG, self)
 	return attacked
 
 func _process(delta):
@@ -647,6 +705,7 @@ func _process(delta):
 func _on_Items_pressed():
 	BattleBoard.hide()
 	AttackList.hide()
+	TargetList.hide()
 
 func _on_Retreat_pressed():
 	#####not final
@@ -662,6 +721,7 @@ func _on_EndTurn_pressed():
 		if friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].abilities.lowestCost or friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].attacks.lowestCost:
 			friendlies[activeCharacterIndex].AP.ticks +=1 ###Should this be a feature. People who are waiting for a stronger attack will stil count as a turn.
 		BattleBoard.show()
+		TargetList.hide()
 		AttackList.hide()
 		activeCharacterIndex = -1
 		processing = false
@@ -671,6 +731,7 @@ func _on_EndTurn_pressed():
 	
 func _on_BackButton_pressed():
 	BattleBoard.show()
+	TargetList.hide()
 	AttackList.hide()
 	create_Characters()
 
@@ -678,5 +739,52 @@ func gameEnded():
 	activeCharacterIndex = -1
 	nextCharacterIndex.clear()
 	update_turn()
+	update_Characters()
+	BattleBoard.show()
 	get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
 	Core.emit_signal('msg', 'Game Over!', Log.BATTLE, self)
+
+
+func _on_Cancel_pressed():
+	TargetList.hide()
+	AttackList.show()
+	update_Characters()
+		
+func updateAttackList(modifier:int, index:int):
+	attacksLeft += modifier
+	if attacksLeft > 1:
+		TargetList.get_node("TargetText").text = "Choose " + str(attacksLeft) + " targets"
+	elif attacksLeft == 0:
+		TargetList.get_node("TargetText").text = "All targets chosen"
+		if activeAttack.targetEnemy:
+			for characterPanel in TargetList.get_node("Combat/Characters/AllEnemies").get_children():
+				characterPanel.disable("Plus")
+		else:
+			for characterPanel in TargetList.get_node("Combat/Characters/AllFriendlies").get_children():
+				characterPanel.disable("Plus")
+	else:
+		TargetList.get_node("TargetText").text = "Choose 1 target"
+		if activeAttack.targetEnemy:
+			for characterPanel in TargetList.get_node("Combat/Characters/AllEnemies").get_children():
+				characterPanel.enable("Plus")
+		else:
+			for characterPanel in TargetList.get_node("Combat/Characters/AllFriendlies").get_children():
+				characterPanel.enable("Plus")
+	if modifier != 0:
+		var targets = []
+		if activeAttack.targetEnemy:
+			targets = enemies
+		else:
+			targets = friendlies
+		if modifier == -1:
+			attackTargets.append(targets[index])
+		else:
+			attackTargets.remove(attackTargets.find(targets[index]))
+
+func _on_Done_pressed():
+	attackCharacter(friendlies[activeCharacterIndex], attackTargets, activeAttack, activeAttackType)
+	update_Characters()
+	update_attacks(activeCharacterIndex, activeAttackMode, false)
+	TargetList.hide()
+	if !gameOver:
+		AttackList.show()
