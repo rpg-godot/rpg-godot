@@ -12,8 +12,8 @@ onready var gameOver := false
 onready var winner := "noone"
 onready var charactersThatMoved := []
 onready var processing := false
-onready var activeAttackMode := ""
-onready var activeAttackType := ""
+onready var activeAttackMode := "Attacks"
+onready var activeAttackType := "melee"
 onready var attacksLeft = 0
 onready var attackTargets = []
 onready var activeAttack = {}
@@ -160,7 +160,7 @@ func update_Characters():
 			characterPanel.hide()
 		else:
 			characterPanel.show()
-		if activeAttack != {}:
+		if activeAttack.keys().size() > 1:
 			if characterPanel.index == activeCharacterIndex and activeAttackMode == "Abilities":
 				if !activeAttack.selfCastable:
 					characterPanel.hide()
@@ -217,7 +217,8 @@ func update_turn():
 func _on_Attack_pressed():
 	BattleBoard.hide()
 	TargetList.hide()
-	update_attacks(activeCharacterIndex, "attacks")
+	update_attacks(activeCharacterIndex, "Attacks")
+	activeAttackMode = "Attacks"
 	AttackList.show()
 
 func attackButton(attack, attackType, mode):
@@ -236,18 +237,38 @@ func attackButton(attack, attackType, mode):
 					attackCharacter(friendlies[activeCharacterIndex], enemies, attack, attackType)
 				else:
 					attack.targetEnemy
-					if attack.targetEnemy:
-						TargetList.get_node("Combat/Characters/AllEnemies").show()
-						TargetList.get_node("Combat/Characters/AllFriendlies").hide()
-					if !attack.targetEnemy:
-						TargetList.get_node("Combat/Characters/AllEnemies").hide()
-						TargetList.get_node("Combat/Characters/AllFriendlies").show()
 					attacksLeft = attack.targetAmount
 					attackTargets = []
+					var targets = enemies
+					if attack.targetEnemy:
+						targets = enemies
+						TargetList.get_node("Combat/Characters/AllEnemies").show()
+						TargetList.get_node("Combat/Characters/AllFriendlies").hide()
+					else:
+						targets = friendlies
+						TargetList.get_node("Combat/Characters/AllEnemies").hide()
+						TargetList.get_node("Combat/Characters/AllFriendlies").show()
+					 
+					if (getAlive(targets) > 1 and !activeAttackRessurection) or (targets.size() - getAlive(targets) > 1 and activeAttackRessurection):
+						updateAttackList(0, 0)
+						AttackList.hide()
+						TargetList.show()
+					else:
+						var lastCharacter = {}
+						if !activeAttackRessurection:
+							for character in targets:
+								if character.health.current > 0:
+									lastCharacter = character
+									break
+						else:
+							for character in targets:
+								if character.health.current == 0:
+									lastCharacter = character
+									break
+						attackCharacter(friendlies[activeCharacterIndex], [lastCharacter], attack, attackType)
+						#AttackList.hide()
+						#BattleBoard.show()
 					update_Characters()
-					updateAttackList(0, 0)
-					AttackList.hide()
-					TargetList.show()
 					
 		update_attacks(activeCharacterIndex, mode, false)
 		processing = false
@@ -255,10 +276,12 @@ func attackButton(attack, attackType, mode):
 func _on_Abilities_pressed():
 	BattleBoard.hide()
 	TargetList.hide()
-	update_attacks(activeCharacterIndex, "abilities")
+	update_attacks(activeCharacterIndex, "Abilities")
+	activeAttackMode = "Abilities"
 	AttackList.show()
 
 func update_attacks(CharacterIndex: int, mode: String, create=true):
+	mode = mode.to_lower()
 	#character index variable should be replaced with activeCharacterIndex global variable
 	var attacksList = get_node("DisplayArea/AttackBoard/AttackScrollBar/AttacksList")
 	if create:
@@ -619,6 +642,7 @@ func _process(delta):
 									break
 					else:
 						activeCharacterIndex = nextCharacterIndex[0][1]
+						update_attacks(activeCharacterIndex, activeAttackMode)
 			else:
 				var character = enemies[nextCharacterIndex[0][1]]
 				get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Current Turn: "+ character.name
@@ -720,9 +744,9 @@ func _on_EndTurn_pressed():
 				button.disabled = true
 		if friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].abilities.lowestCost or friendlies[activeCharacterIndex].AP.current > friendlies[activeCharacterIndex].attacks.lowestCost:
 			friendlies[activeCharacterIndex].AP.ticks +=1 ###Should this be a feature. People who are waiting for a stronger attack will stil count as a turn.
-		BattleBoard.show()
-		TargetList.hide()
-		AttackList.hide()
+		#BattleBoard.show()
+		#TargetList.hide()
+		#AttackList.hide()
 		activeCharacterIndex = -1
 		processing = false
 		for buttonArea in get_node("Buttons").get_children():
@@ -740,6 +764,8 @@ func gameEnded():
 	nextCharacterIndex.clear()
 	update_turn()
 	update_Characters()
+	AttackList.hide()
+	TargetList.hide()
 	BattleBoard.show()
 	get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
 	Core.emit_signal('msg', 'Game Over!', Log.BATTLE, self)
@@ -782,9 +808,11 @@ func updateAttackList(modifier:int, index:int):
 			attackTargets.remove(attackTargets.find(targets[index]))
 
 func _on_Done_pressed():
-	attackCharacter(friendlies[activeCharacterIndex], attackTargets, activeAttack, activeAttackType)
-	update_Characters()
-	update_attacks(activeCharacterIndex, activeAttackMode, false)
-	TargetList.hide()
-	if !gameOver:
+	if !processing:
+		processing = true
+		attackCharacter(friendlies[activeCharacterIndex], attackTargets, activeAttack, activeAttackType)
+		update_Characters()
+		update_attacks(activeCharacterIndex, activeAttackMode, false)
+		TargetList.hide()
 		AttackList.show()
+		processing = false
