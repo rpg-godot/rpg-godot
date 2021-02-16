@@ -17,7 +17,7 @@ const zero_stats = {
 const starting_equipment := {
 	knight = [
 		{
-			name = "sword_short",
+			name = "sword_short_iron",
 			quantity = 1
 		}
 	],
@@ -39,17 +39,17 @@ const starting_equipment := {
 			quantity = 1,
 		},
 		{
-			name = "arrow",
+			name = "arrow_wooden",
 			quantity = 15,
 		},
 		{
-			name = "dagger",
+			name = "dagger_iron",
 			quantity = 1,
 		},
 	],
 	dev = [
 		{
-			name = "sword_short",
+			name = "sword_short_iron",
 			quantity = 1
 		},
 		{
@@ -65,11 +65,11 @@ const starting_equipment := {
 			quantity = 1,
 		},
 		{
-			name = "arrow",
+			name = "arrow_wooden",
 			quantity = 150,
 		},
 		{
-			name = "dagger",
+			name = "dagger_iron",
 			quantity = 1,
 		},
 	],

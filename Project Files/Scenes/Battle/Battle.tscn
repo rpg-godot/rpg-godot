@@ -1,11 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
+[ext_resource path="res://Scenes/FlashingText/FlashingText.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/Battle/AttackItem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Battle/NextProfile.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Battle/CharacterPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Images/Wooden_UI/Plank_08.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/Wooden_UI/Plank_07.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Images/Wooden_UI/Plank_09.png" type="Texture" id=11]
 
 [sub_resource type="GradientTexture" id=1]
 
@@ -19,6 +23,10 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 160
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 71
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
@@ -256,19 +264,17 @@ margin_left = 170.0
 margin_right = 330.0
 margin_bottom = 224.0
 
-[node name="AttackBoard" type="GridContainer" parent="DisplayArea"]
+[node name="AttackBoard" type="VBoxContainer" parent="DisplayArea"]
 visible = false
 margin_right = 1400.0
 margin_bottom = 1660.0
 rect_min_size = Vector2( 700, 848 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/vseparation = 0
-custom_constants/hseparation = 0
 
 [node name="AttackScrollBar" type="ScrollContainer" parent="DisplayArea/AttackBoard"]
 margin_right = 1400.0
-margin_bottom = 1460.0
+margin_bottom = 1456.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -329,7 +335,182 @@ size_flags_vertical = 0
 custom_fonts/font = SubResource( 4 )
 text = "BACK"
 
+[node name="ItemMenu" type="VBoxContainer" parent="DisplayArea"]
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 848 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ItemText" type="Label" parent="DisplayArea/ItemMenu"]
+margin_right = 1400.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 2 )
+text = "Chose Item Type"
+align = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SubItemMenu" type="HBoxContainer" parent="DisplayArea/ItemMenu"]
+margin_top = 124.0
+margin_right = 1400.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+custom_constants/separation = 20
+
+[node name="Consumables" type="TextureButton" parent="DisplayArea/ItemMenu/SubItemMenu"]
+margin_right = 453.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 220, 100 )
+size_flags_horizontal = 7
+size_flags_vertical = 3
+texture_normal = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FlashingText" parent="DisplayArea/ItemMenu/SubItemMenu/Consumables" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 7 )
+text = "CONSUMABLES"
+state = 1
+
+[node name="Weapons" type="TextureButton" parent="DisplayArea/ItemMenu/SubItemMenu"]
+margin_left = 473.0
+margin_right = 926.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 220, 100 )
+size_flags_horizontal = 7
+size_flags_vertical = 3
+texture_normal = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FlashingText" parent="DisplayArea/ItemMenu/SubItemMenu/Weapons" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 7 )
+text = "WEAPONS"
+state = 1
+
+[node name="Armour" type="TextureButton" parent="DisplayArea/ItemMenu/SubItemMenu"]
+margin_left = 946.0
+margin_right = 1400.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 220, 100 )
+size_flags_horizontal = 7
+size_flags_vertical = 3
+texture_normal = ExtResource( 11 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FlashingText" parent="DisplayArea/ItemMenu/SubItemMenu/Armour" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 7 )
+text = "ARMOUR"
+state = 1
+
+[node name="ItemScrollBar" type="ScrollContainer" parent="DisplayArea/ItemMenu"]
+margin_top = 228.0
+margin_right = 1400.0
+margin_bottom = 1456.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="ItemGrid" type="GridContainer" parent="DisplayArea/ItemMenu/ItemScrollBar"]
+margin_right = 1388.0
+margin_bottom = 1469.0
+rect_min_size = Vector2( 0, 639 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+columns = 4
+
+[node name="Enemy7" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_right = 344.0
+margin_bottom = 487.0
+
+[node name="Enemy8" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 348.0
+margin_right = 692.0
+margin_bottom = 487.0
+
+[node name="Enemy9" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 696.0
+margin_right = 1040.0
+margin_bottom = 487.0
+
+[node name="Enemy10" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 1044.0
+margin_right = 1388.0
+margin_bottom = 487.0
+
+[node name="Enemy11" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_top = 491.0
+margin_right = 344.0
+margin_bottom = 978.0
+
+[node name="Enemy12" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 348.0
+margin_top = 491.0
+margin_right = 692.0
+margin_bottom = 978.0
+
+[node name="Enemy13" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 696.0
+margin_top = 491.0
+margin_right = 1040.0
+margin_bottom = 978.0
+
+[node name="Enemy14" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 1044.0
+margin_top = 491.0
+margin_right = 1388.0
+margin_bottom = 978.0
+
+[node name="Enemy15" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_top = 982.0
+margin_right = 344.0
+margin_bottom = 1469.0
+
+[node name="Enemy16" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 348.0
+margin_top = 982.0
+margin_right = 692.0
+margin_bottom = 1469.0
+
+[node name="Enemy17" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 696.0
+margin_top = 982.0
+margin_right = 1040.0
+margin_bottom = 1469.0
+
+[node name="Enemy18" parent="DisplayArea/ItemMenu/ItemScrollBar/ItemGrid" instance=ExtResource( 6 )]
+margin_left = 1044.0
+margin_top = 982.0
+margin_right = 1388.0
+margin_bottom = 1469.0
+
+[node name="BackButton" type="Button" parent="DisplayArea/ItemMenu"]
+margin_top = 1460.0
+margin_right = 1400.0
+margin_bottom = 1660.0
+rect_min_size = Vector2( 700, 200 )
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 4 )
+text = "BACK"
+
 [node name="TargetSelection" type="VBoxContainer" parent="DisplayArea"]
+visible = false
 margin_right = 1400.0
 margin_bottom = 1660.0
 rect_min_size = Vector2( 1400, 848 )
@@ -592,6 +773,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="pressed" from="DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="DisplayArea/ItemMenu/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="DisplayArea/TargetSelection/Buttons/Done" to="." method="_on_Done_pressed"]
 [connection signal="pressed" from="DisplayArea/TargetSelection/Buttons/Cancel" to="." method="_on_Cancel_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Attack" to="." method="_on_Attack_pressed"]
