@@ -9,6 +9,7 @@ func _ready():
 	load_saves()
 	Core.emit_signal("scene_loaded", self)
 
+
 func load_saves():
 	#Clear old save file buttons
 	for saveButton in get_node('VBox/Scroll/HBox/VBox/ButtonsVBox/').get_children():
@@ -63,13 +64,9 @@ func _on_button_press(save: Dictionary):
 				child.pressed = false
 
 func activate_selection_buttons():
-	get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.ENABLED
-	get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.ENABLED
 	get_node("VBox/UI/Play").disabled = false
 	get_node("VBox/UI/Delete").disabled = false
 func deactivate_selection_buttons():
-	get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.DISABLED
-	get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.DISABLED
 	get_node("VBox/UI/Play").disabled = true
 	get_node("VBox/UI/Delete").disabled = true
 
@@ -124,26 +121,3 @@ func _on_Delete_pressed():
 		selectedCharacter = ''
 		Core.player = {}
 		load_saves()
-
-func _on_New_mouse_entered():
-	get_node("VBox/UI/New/FlashingText").state = FlashingText.States.FLASHING
-
-func _on_New_mouse_exited():
-	get_node("VBox/UI/New/FlashingText").state = FlashingText.States.ENABLED
-
-func _on_Play_mouse_entered():
-	if !get_node("VBox/UI/Play").disabled:
-		get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.FLASHING
-
-func _on_Play_mouse_exited():
-	if !get_node("VBox/UI/Play").disabled:
-		get_node("VBox/UI/Play/FlashingText").state = FlashingText.States.ENABLED
-
-func _on_Delete_mouse_entered():
-	if !get_node("VBox/UI/Delete").disabled:
-		get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.FLASHING
-
-func _on_Delete_mouse_exited():
-	if !get_node("VBox/UI/Delete").disabled:
-		get_node("VBox/UI/Delete/FlashingText").state = FlashingText.States.ENABLED
-

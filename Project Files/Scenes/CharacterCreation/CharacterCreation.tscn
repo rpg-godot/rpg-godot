@@ -153,10 +153,8 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Gender/Male" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Male"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Female" type="TextureButton" parent="MainMenu/Choices/Gender"]
 margin_left = 857.0
@@ -169,10 +167,8 @@ texture_normal = ExtResource( 11 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Gender/Female" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Female"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Race" type="VBoxContainer" parent="MainMenu/Choices"]
 margin_top = 208.0
@@ -208,10 +204,8 @@ texture_normal = ExtResource( 12 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Top/Human" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Human"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Half-Elf" type="TextureButton" parent="MainMenu/Choices/Race/Top"]
 margin_left = 617.0
@@ -224,10 +218,8 @@ texture_normal = ExtResource( 12 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Top/Half-Elf" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Half-Elf"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Elf" type="TextureButton" parent="MainMenu/Choices/Race/Top"]
 margin_left = 1012.0
@@ -240,10 +232,8 @@ texture_normal = ExtResource( 12 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Top/Elf" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Elf"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Bot" type="HBoxContainer" parent="MainMenu/Choices/Race"]
 margin_top = 182.0
@@ -262,10 +252,8 @@ texture_normal = ExtResource( 12 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Bot/Dwarf" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Dwarf"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Fairy" type="TextureButton" parent="MainMenu/Choices/Race/Bot"]
 margin_left = 469.0
@@ -280,10 +268,8 @@ expand = true
 [node name="Text" parent="MainMenu/Choices/Race/Bot/Fairy" instance=ExtResource( 10 )]
 margin_left = 1.67017
 margin_right = 1.67017
-mouse_filter = 1
 text = "Fairy"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="Demon" type="TextureButton" parent="MainMenu/Choices/Race/Bot"]
 margin_left = 938.0
@@ -296,10 +282,8 @@ texture_normal = ExtResource( 12 )
 expand = true
 
 [node name="Text" parent="MainMenu/Choices/Race/Bot/Demon" instance=ExtResource( 10 )]
-mouse_filter = 1
 text = "Demon"
-state = 2
-color = Color( 1, 1, 1, 1 )
+state = 1
 
 [node name="ProfileSelection" type="ScrollContainer" parent="MainMenu/Choices"]
 margin_top = 598.0
@@ -594,11 +578,9 @@ expand = true
 
 [node name="FlashingText" parent="MainMenu/Choices/Complete" instance=ExtResource( 10 )]
 margin_right = 0.00012207
-mouse_filter = 1
 custom_fonts/font = SubResource( 10 )
 text = "Create Character"
 state = 2
-color = Color( 1, 1, 1, 1 )
 
 [node name="Cancel" type="TextureButton" parent="MainMenu/Choices"]
 margin_top = 2805.0
@@ -611,12 +593,9 @@ texture_normal = ExtResource( 9 )
 expand = true
 
 [node name="FlashingText" parent="MainMenu/Choices/Cancel" instance=ExtResource( 10 )]
-mouse_filter = 1
 custom_fonts/font = SubResource( 10 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Cancel"
 state = 1
-color = Color( 1, 1, 1, 1 )
 [connection signal="pressed" from="Cheat/Cheat" to="." method="_on_cheat_pressed"]
 [connection signal="mouse_entered" from="MainMenu/Choices/Gender/Male" to="." method="_on_Male_mouse_entered"]
 [connection signal="mouse_exited" from="MainMenu/Choices/Gender/Male" to="." method="_on_Male_mouse_exited"]

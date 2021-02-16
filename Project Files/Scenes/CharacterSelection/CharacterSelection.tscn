@@ -165,13 +165,13 @@ margin_left = 20.0
 margin_right = 473.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 220, 100 )
+mouse_filter = 1
 size_flags_horizontal = 7
 size_flags_vertical = 3
 texture_normal = ExtResource( 4 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/New" instance=ExtResource( 7 )]
-custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "New"
 state = 1
 
@@ -180,6 +180,7 @@ margin_left = 493.0
 margin_right = 946.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 220, 100 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
@@ -192,9 +193,10 @@ state = 2
 
 [node name="Delete" type="TextureButton" parent="VBox/UI"]
 margin_left = 966.0
-margin_right = 1419.0
+margin_right = 1420.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 220, 100 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
@@ -206,8 +208,8 @@ text = "Delete"
 state = 2
 
 [node name="Seperator4" type="Control" parent="VBox/UI"]
-margin_left = 1439.0
-margin_right = 1439.0
+margin_left = 1440.0
+margin_right = 1440.0
 margin_bottom = 200.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -218,12 +220,6 @@ margin_top = 2540.0
 margin_right = 1440.0
 margin_bottom = 2560.0
 rect_min_size = Vector2( 0, 20 )
-[connection signal="mouse_entered" from="VBox/UI/New" to="." method="_on_New_mouse_entered"]
-[connection signal="mouse_exited" from="VBox/UI/New" to="." method="_on_New_mouse_exited"]
 [connection signal="pressed" from="VBox/UI/New" to="." method="_on_Create_pressed"]
-[connection signal="mouse_entered" from="VBox/UI/Play" to="." method="_on_Play_mouse_entered"]
-[connection signal="mouse_exited" from="VBox/UI/Play" to="." method="_on_Play_mouse_exited"]
 [connection signal="pressed" from="VBox/UI/Play" to="." method="_on_play_pressed"]
-[connection signal="mouse_entered" from="VBox/UI/Delete" to="." method="_on_Delete_mouse_entered"]
-[connection signal="mouse_exited" from="VBox/UI/Delete" to="." method="_on_Delete_mouse_exited"]
 [connection signal="pressed" from="VBox/UI/Delete" to="." method="_on_Delete_pressed"]

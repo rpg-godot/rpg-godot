@@ -61,10 +61,11 @@ tracks/0/keys = {
 [node name="FlashingText" type="Label"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 6
 custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 0.4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1
@@ -77,3 +78,6 @@ __meta__ = {
 anims/Flashing = SubResource( 2 )
 anims/Flashing1 = SubResource( 3 )
 anims/Flashing2 = SubResource( 4 )
+[connection signal="mouse_entered" from="." to="." method="_on_FlashingText_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_FlashingText_mouse_exited"]
+[connection signal="visibility_changed" from="." to="." method="_on_FlashingText_visibility_changed"]

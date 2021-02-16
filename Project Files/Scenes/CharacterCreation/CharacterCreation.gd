@@ -55,6 +55,15 @@ func _ready():
 	quick_shooter.get_node("ClassName").text = "Quick Shooter"
 	quick_shooter.get_node("ImgCenter/ClassImg").texture = load("res://Assets/Images/Icons/Classes/Badge_hunter.PNG")
 
+	get_node("MainMenu/Choices/Gender/Male/Text").modeDefault = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Female/Text").modeDefault = FlashingText.States.DISABLED
+	var topRaces = ["Human", "Half-Elf", "Elf"]
+	var botRaces = ["Dwarf", "Fairy", "Demon"]
+	for raceTemp in topRaces:
+		get_node("MainMenu/Choices/Race/Top/" + raceTemp + "/Text").modeDefault = FlashingText.States.DISABLED
+	for raceTemp in botRaces:
+		get_node("MainMenu/Choices/Race/Bot/" + raceTemp + "/Text").modeDefault = FlashingText.States.DISABLED
+	
 	Core.emit_signal("scene_loaded", self)
 
 func updateChosenEquip(chosenEquip):
@@ -103,11 +112,9 @@ func checkIfCompleted():
 	if selected_profile != "" && selected_equip != -1 && get_node("MainMenu/Choices/CharacterName/Name").text.length() > 0 &&  get_node("MainMenu/Choices/Stats/Display/Remaining/Total").text == "0":
 		get_node("MainMenu/Choices/Complete").disabled = false
 		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(1, 1, 1)
-		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 	else:
 		get_node("MainMenu/Choices/Complete").disabled = true
 		get_node("MainMenu/Choices/Complete/FlashingText").color = Color(0.7, 0.7, 0.7)
-		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.DISABLED
 
 func _on_Name_text_changed():
 	checkIfCompleted()
@@ -183,32 +190,20 @@ func _on_Cancel_pressed():
 	Core.get_parent().add_child(load("res://Scenes/CharacterSelection/CharacterSelection.tscn").instance())
 	queue_free()
 
-func _on_Male_mouse_entered():
-	if gender != "Male":
-		get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.FLASHING
-
-func _on_Male_mouse_exited():
-	if gender != "Male":
-		get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.DISABLED
-
 func _on_Male_pressed():
 	gender = "Male"
-	get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.ENABLED
-	get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Male/Text").modeDefault = FlashingText.States.ENABLED
+	get_node("MainMenu/Choices/Gender/Male/Text").disableFlash = true
+	get_node("MainMenu/Choices/Gender/Female/Text").modeDefault = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Female/Text").disableFlash = false
 	checkIfCompleted()
-
-func _on_Female_mouse_entered():
-	if gender != "Female":
-		get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.FLASHING
-
-func _on_Female_mouse_exited():
-	if gender != "Female":
-		get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.DISABLED
 
 func _on_Female_pressed():
 	gender = "Female"
-	get_node("MainMenu/Choices/Gender/Female/Text").state = FlashingText.States.ENABLED
-	get_node("MainMenu/Choices/Gender/Male/Text").state = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Female/Text").modeDefault = FlashingText.States.ENABLED
+	get_node("MainMenu/Choices/Gender/Female/Text").disableFlash = true
+	get_node("MainMenu/Choices/Gender/Male/Text").modeDefault = FlashingText.States.DISABLED
+	get_node("MainMenu/Choices/Gender/Male/Text").disableFlash = false
 	checkIfCompleted()
 
 func set_race_state():
@@ -216,14 +211,18 @@ func set_race_state():
 	var botRaces = ["Dwarf", "Fairy", "Demon"]
 	if race in topRaces:
 		topRaces.remove(topRaces.find(race))
-		get_node("MainMenu/Choices/Race/Top/" + race + "/Text").state = FlashingText.States.ENABLED
+		get_node("MainMenu/Choices/Race/Top/" + race + "/Text").modeDefault = FlashingText.States.ENABLED
+		get_node("MainMenu/Choices/Race/Top/" + race + "/Text").disableFlash = true
 	else:
 		botRaces.remove(botRaces.find(race))
-		get_node("MainMenu/Choices/Race/Bot/" + race + "/Text").state = FlashingText.States.ENABLED
+		get_node("MainMenu/Choices/Race/Bot/" + race + "/Text").modeDefault = FlashingText.States.ENABLED
+		get_node("MainMenu/Choices/Race/Bot/" + race + "/Text").disableFlash = true
 	for raceTemp in topRaces:
-		get_node("MainMenu/Choices/Race/Top/" + raceTemp + "/Text").state = FlashingText.States.DISABLED
+		get_node("MainMenu/Choices/Race/Top/" + raceTemp + "/Text").modeDefault = FlashingText.States.DISABLED
+		get_node("MainMenu/Choices/Race/Top/" + raceTemp + "/Text").disableFlash = false
 	for raceTemp in botRaces:
-		get_node("MainMenu/Choices/Race/Bot/" + raceTemp + "/Text").state = FlashingText.States.DISABLED
+		get_node("MainMenu/Choices/Race/Bot/" + raceTemp + "/Text").modeDefault = FlashingText.States.DISABLED
+		get_node("MainMenu/Choices/Race/Bot/" + raceTemp + "/Text").disableFlash = false
 	selected_profile = ""
 	checkIfCompleted()
 
@@ -250,68 +249,6 @@ func _on_Fairy_pressed():
 func _on_Demon_pressed():
 	race = "Demon"
 	set_race_state()
-
-func _on_Human_mouse_entered():
-	if race != "Human":
-		get_node("MainMenu/Choices/Race/Top/Human/Text").state = FlashingText.States.FLASHING
-
-func _on_HalfElf_mouse_entered():
-	if race != "Half-Elf":
-		get_node("MainMenu/Choices/Race/Top/Half-Elf/Text").state = FlashingText.States.FLASHING
-
-func _on_Elf_mouse_entered():
-	if race != "Elf":
-		get_node("MainMenu/Choices/Race/Top/Elf/Text").state = FlashingText.States.FLASHING
-
-func _on_Dwarf_mouse_entered():
-	if race != "Dwarf":
-		get_node("MainMenu/Choices/Race/Bot/Dwarf/Text").state = FlashingText.States.FLASHING
-
-func _on_Fairy_mouse_entered():
-	if race != "Fairy":
-		get_node("MainMenu/Choices/Race/Bot/Fairy/Text").state = FlashingText.States.FLASHING
-
-func _on_Demon_mouse_entered():
-	if race != "Demon":
-		get_node("MainMenu/Choices/Race/Bot/Demon/Text").state = FlashingText.States.FLASHING
-
-func _on_Human_mouse_exited():
-	if race != "Human":
-		get_node("MainMenu/Choices/Race/Top/Human/Text").state = FlashingText.States.DISABLED
-
-func _on_HalfElf_mouse_exited():
-	if race != "Half-Elf":
-		get_node("MainMenu/Choices/Race/Top/Half-Elf/Text").state = FlashingText.States.DISABLED
-
-func _on_Elf_mouse_exited():
-	if race != "Elf":
-		get_node("MainMenu/Choices/Race/Top/Elf/Text").state = FlashingText.States.DISABLED
-
-func _on_Dwarf_mouse_exited():
-	if race != "Dwarf":
-		get_node("MainMenu/Choices/Race/Bot/Dwarf/Text").state = FlashingText.States.DISABLED
-
-func _on_Fairy_mouse_exited():
-	if race != "Fairy":
-		get_node("MainMenu/Choices/Race/Bot/Fairy/Text").state = FlashingText.States.DISABLED
-
-func _on_Demon_mouse_exited():
-	if race != "Demon":
-		get_node("MainMenu/Choices/Race/Bot/Demon/Text").state = FlashingText.States.DISABLED
-
-func _on_Cancel_mouse_entered():
-	get_node("MainMenu/Choices/Cancel/FlashingText").state = FlashingText.States.FLASHING
-
-func _on_Cancel_mouse_exited():
-	get_node("MainMenu/Choices/Cancel/FlashingText").state = FlashingText.States.ENABLED
-
-func _on_Complete_mouse_entered():
-	if !get_node("MainMenu/Choices/Complete").disabled:
-		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.FLASHING
-
-func _on_Complete_mouse_exited():
-	if !get_node("MainMenu/Choices/Complete").disabled:
-		get_node("MainMenu/Choices/Complete/FlashingText").state = FlashingText.States.ENABLED
 
 func _on_cheat_pressed():
 	_on_Male_pressed()

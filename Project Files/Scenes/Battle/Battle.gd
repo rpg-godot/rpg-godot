@@ -4,6 +4,7 @@ const script_name := "battle"
 onready var BattleBoard := $"DisplayArea/BattleBoard/"
 onready var AttackList := $"DisplayArea/AttackBoard/"
 onready var TargetList := $"DisplayArea/TargetSelection/"
+onready var ItemMenu := $"DisplayArea/ItemMenu/"
 onready var friendlies := []
 onready var activeCharacterIndex := -1
 onready var nextCharacterIndex := []
@@ -66,6 +67,7 @@ func _ready():
 	BattleBoard.show()
 	AttackList.hide()
 	TargetList.hide()
+	ItemMenu.hide()
 
 func _on_msg(message, level, obj):
 	if level == Log.BATTLE:
