@@ -29,18 +29,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="."]
+[node name="Description" type="RichTextLabel" parent="."]
 margin_left = 204.0
 margin_right = 1289.0
 margin_bottom = 200.0
 size_flags_horizontal = 3
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 1 )
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "Attack name: Strike
+HP damage: 25
+AP Cost: 1"
 text = "Attack name: Strike
 HP damage: 25
 AP Cost: 1"
-valign = 1
-uppercase = true
+fit_content_height = true
+scroll_active = false
 
 [node name="Use" type="Button" parent="."]
 margin_left = 1293.0

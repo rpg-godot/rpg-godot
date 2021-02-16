@@ -219,6 +219,7 @@ func _on_Attack_pressed():
 	TargetList.hide()
 	update_attacks(activeCharacterIndex, "Attacks")
 	activeAttackMode = "Attacks"
+	activeAttack = Dictionary()
 	AttackList.show()
 
 func attackButton(attack, attackType, mode):
@@ -278,6 +279,7 @@ func _on_Abilities_pressed():
 	TargetList.hide()
 	update_attacks(activeCharacterIndex, "Abilities")
 	activeAttackMode = "Abilities"
+	activeAttack = Dictionary()
 	AttackList.show()
 
 func update_attacks(CharacterIndex: int, mode: String, create=true):
@@ -307,65 +309,67 @@ func update_attacks(CharacterIndex: int, mode: String, create=true):
 			var attackDamage = attack.hpDamage
 			var attackCost = attack.APcost
 			var check = checkAttack(friendlies[CharacterIndex], attack, attackType)
-			if mode == "attacks":
-				attackItem.get_node("Description").text = "Attack Name: " + attack.name
-			elif mode == "abilities":
-				attackItem.get_node("Description").text = "Ability Name: " + attack.name
-			else:
-				attackItem.get_node("Description").text = "Name: " + attack.name
-			if attack.hpDamage > 0:
-				attackItem.get_node("Description").text += "\nHP Damage: " + str(attack.hpDamage)
-			elif attack.hpDamage < 0:
-				attackItem.get_node("Description").text += "\nHeal Amount: " + str(-attack.hpDamage)
-			if attackType == "ranged":
-				if attack.ammoCost > 1:
-					attackItem.get_node("Description").text += "\nAmmo Cost: " + str(attack.ammoCost)
-				elif attack.ammoCost < 0:
-					attackItem.get_node("Description").text += "\nAmmo Recovered: " + str(-attack.ammoCost)
-			if attackType == "mana":
-				if attack.manaDamage > 0:
-					attackItem.get_node("Description").text += "\nMana Damage: " + str(attack.manaDamage)
-				elif attack.manaDamage < 0:
-					attackItem.get_node("Description").text += "\nMana Given: " + str(-attack.manaDamage)
-				if attack.manaCost > 0:
-					attackItem.get_node("Description").text += "\nMana Cost: " + str(attack.manaCost)
-				elif attack.manaCost < 0:
-					attackItem.get_node("Description").text += "\nMana Recovered: " + str(-attack.manaCost)
-			if mode == "abilities" and attack.status.size() > 0:
-				attackItem.get_node("Description").text += "\nStatus affects:"
-				for status in attack.status:
-					attackItem.get_node("Description").text += "\n      - " + str(status[1]) + "% chance to get " + status[0]
-			if attack.targetAmount >= getAlive(enemies) or attack.targetAmount == 1000:
-				if attack.targetEnemy:
-					attackItem.get_node("Description").text += "\nTargets: all enemies"
-				else:
-					attackItem.get_node("Description").text += "\nTargets: all friendlies"
-			elif attack.targetAmount > 1:
-				if attack.targetEnemy:
-					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " enemies"
-				else:
-					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " friendlies"
-			elif attack.targetAmount == 1:
-				if attack.targetEnemy:
-					attackItem.get_node("Description").text += "\nTargets: 1 enemy"
-				else:
-					attackItem.get_node("Description").text += "\nTargets: 1 friendly"
-			if attack.targetAmount == 0:
-				attackItem.get_node("Description").text += "\nTargets: self-casted"
-			if attack.targetAmount < 0:
-				if attack.targetEnemy:
-					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " random enemies"
-				else:
-					attackItem.get_node("Description").text += "\nTargets: " + str(attack.targetAmount) + " random friendlies"
-			if attack.APcost > 0:
-				attackItem.get_node("Description").text += "\nAP Cost: " + str(attack.APcost)
-			elif attack.APcost < 0:
-				attackItem.get_node("Description").text += "\nAP Recovered: " + str(-attack.APcost)
 			var disabled = !check[0]
 			var hint = check[1]
+			if mode == "attacks":
+				attackItem.get_node("Description").bbcode_text = "Attack Name: " + attack.name
+			elif mode == "abilities":
+				attackItem.get_node("Description").bbcode_text = "Ability Name: " + attack.name
+			else:
+				attackItem.get_node("Description").bbcode_text = "Name: " + attack.name
+			if disabled:
+				attackItem.get_node("Description").bbcode_text += "\n[color=red]" + hint + "[color=grey]"
+			if attack.hpDamage > 0:
+				attackItem.get_node("Description").bbcode_text += "\nHP Damage: " + str(attack.hpDamage)
+			elif attack.hpDamage < 0:
+				attackItem.get_node("Description").bbcode_text += "\nHeal Amount: " + str(-attack.hpDamage)
+			if attackType == "ranged":
+				if attack.ammoCost > 1:
+					attackItem.get_node("Description").bbcode_text += "\nAmmo Cost: " + str(attack.ammoCost)
+				elif attack.ammoCost < 0:
+					attackItem.get_node("Description").bbcode_text += "\nAmmo Recovered: " + str(-attack.ammoCost)
+			if attackType == "mana":
+				if attack.manaDamage > 0:
+					attackItem.get_node("Description").bbcode_text += "\nMana Damage: " + str(attack.manaDamage)
+				elif attack.manaDamage < 0:
+					attackItem.get_node("Description").bbcode_text += "\nMana Given: " + str(-attack.manaDamage)
+				if attack.manaCost > 0:
+					attackItem.get_node("Description").bbcode_text += "\nMana Cost: " + str(attack.manaCost)
+				elif attack.manaCost < 0:
+					attackItem.get_node("Description").bbcode_text += "\nMana Recovered: " + str(-attack.manaCost)
+			if mode == "abilities" and attack.status.size() > 0:
+				attackItem.get_node("Description").bbcode_text += "\nStatus affects:"
+				for status in attack.status:
+					attackItem.get_node("Description").bbcode_text += "\n      - " + str(status[1]) + "% chance to get " + status[0]
+			if attack.targetAmount >= getAlive(enemies) or attack.targetAmount == 1000:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: all enemies"
+				else:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: all friendlies"
+			elif attack.targetAmount > 1:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: " + str(attack.targetAmount) + " enemies"
+				else:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: " + str(attack.targetAmount) + " friendlies"
+			elif attack.targetAmount == 1:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: 1 enemy"
+				else:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: 1 friendly"
+			if attack.targetAmount == 0:
+				attackItem.get_node("Description").bbcode_text += "\nTargets: self-casted"
+			if attack.targetAmount < 0:
+				if attack.targetEnemy:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: " + str(attack.targetAmount) + " random enemies"
+				else:
+					attackItem.get_node("Description").bbcode_text += "\nTargets: " + str(attack.targetAmount) + " random friendlies"
+			if attack.APcost > 0:
+				attackItem.get_node("Description").bbcode_text += "\nAP Cost: " + str(attack.APcost)
+			elif attack.APcost < 0:
+				attackItem.get_node("Description").bbcode_text += "\nAP Recovered: " + str(-attack.APcost)
 			attackItem.get_node("Picture").texture = load(pictureLocation)
 			attackItem.get_node("Use").disabled = disabled
-			attackItem.get_node("Use").hint_tooltip = hint
+			#attackItem.get_node("Use").hint_tooltip = hint
 			attackItem.get_node("Use").connect("pressed", self, "attackButton", [ attack, attackType, mode ])
 			attackCount+=1
 
