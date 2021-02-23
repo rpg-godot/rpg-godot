@@ -3,12 +3,12 @@
 [ext_resource path="res://Scenes/CharacterSelection/CharacterSelection.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=2]
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Assets/Images/Wooden_UI/frame_green.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Images/Wooden_UI/frame_blue.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Images/Wooden_UI/frame_red.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/UI/Wooden/frame_green.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/UI/Wooden/frame_blue.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/UI/Wooden/frame_red.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/FlashingText/FlashingText.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Overlay/Overlay.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Assets/Images/Wooden_UI/logo_01.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Images/UI/Wooden/logo_01.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 162
@@ -188,6 +188,7 @@ texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Play" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Play"
 state = 2
 
@@ -204,6 +205,7 @@ texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="FlashingText" parent="VBox/UI/Delete" instance=ExtResource( 7 )]
+custom_colors/font_color = Color( 1, 1, 1, 0.4 )
 text = "Delete"
 state = 2
 

@@ -4,8 +4,8 @@
 [ext_resource path="res://Assets/UI/TheWildBreathOfZelda.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Assets/Images/Profiles/Friendlies/Tex_AnimeAva_01.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/CharacterSelection/CharacterSelectionButton.gd" type="Script" id=4]
-[ext_resource path="res://Assets/Images/Wooden_UI/bg_01_02_landscape.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Images/Wooden_UI/board.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Images/UI/Wooden/board.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Images/UI/Wooden/bg_01_02_landscape.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Images/Profiles/ImageBorder.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
@@ -145,8 +145,8 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 6 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 5 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

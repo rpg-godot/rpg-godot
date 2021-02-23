@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Assets/Images/Backgrounds/Forest.jpg" type="Texture" id=1]
 [ext_resource path="res://Scenes/FlashingText/FlashingText.tscn" type="PackedScene" id=2]
@@ -6,10 +6,17 @@
 [ext_resource path="res://Scenes/Battle/AttackItem.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Battle/NextProfile.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Battle/CharacterPanel.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Assets/Images/Wooden_UI/Plank_08.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Images/Wooden_UI/Plank_07.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Images/UI/Wooden/Plank_10.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Images/UI/Wooden/Plank_08.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Images/UI/Wooden/Plank_07.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=10]
-[ext_resource path="res://Assets/Images/Wooden_UI/Plank_09.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/UI/Wooden/Plank_09.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/UI/Fantasy/bg_03.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/UI/Fantasy/bg_02.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/UI/Fantasy/bg_01.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Images/UI/Fantasy/bg_04.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Images/UI/Wooden/Plank_03.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Images/UI/Wooden/Plank_04.png" type="Texture" id=17]
 
 [sub_resource type="GradientTexture" id=1]
 
@@ -22,10 +29,6 @@ size = 80
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 160
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=7]
 size = 71
 font_data = ExtResource( 3 )
 
@@ -34,6 +37,10 @@ size = 70
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=6]
+size = 160
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
 size = 70
 font_data = ExtResource( 3 )
 
@@ -94,15 +101,15 @@ __meta__ = {
 points = PoolVector2Array( 0, 120, 1440, 120 )
 default_color = Color( 0, 0, 0, 1 )
 
-[node name="DisplayArea" type="MarginContainer" parent="."]
+[node name="DisplayArea" type="VBoxContainer" parent="."]
 margin_left = 20.0
 margin_top = 140.0
 margin_right = 1420.0
 margin_bottom = 1800.0
-rect_min_size = Vector2( 1400, 848 )
-mouse_filter = 1
-size_flags_horizontal = 3
-size_flags_vertical = 3
+rect_min_size = Vector2( 1400, 1660 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -113,6 +120,7 @@ margin_right = 1400.0
 margin_bottom = 1660.0
 rect_min_size = Vector2( 1400, 848 )
 size_flags_horizontal = 0
+size_flags_vertical = 3
 
 [node name="Combat" type="ScrollContainer" parent="DisplayArea/BattleBoard"]
 margin_right = 1400.0
@@ -267,7 +275,7 @@ margin_bottom = 224.0
 [node name="AttackBoard" type="VBoxContainer" parent="DisplayArea"]
 visible = false
 margin_right = 1400.0
-margin_bottom = 1660.0
+margin_bottom = 1456.0
 rect_min_size = Vector2( 700, 848 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -326,18 +334,10 @@ margin_top = 1470.0
 margin_right = 1388.0
 margin_bottom = 1670.0
 
-[node name="BackButton" type="Button" parent="DisplayArea/AttackBoard"]
-margin_top = 1460.0
-margin_right = 1400.0
-margin_bottom = 1660.0
-rect_min_size = Vector2( 700, 200 )
-size_flags_vertical = 0
-custom_fonts/font = SubResource( 4 )
-text = "BACK"
-
 [node name="ItemMenu" type="VBoxContainer" parent="DisplayArea"]
+visible = false
 margin_right = 1400.0
-margin_bottom = 1660.0
+margin_bottom = 1440.0
 rect_min_size = Vector2( 700, 848 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -378,7 +378,7 @@ __meta__ = {
 }
 
 [node name="FlashingText" parent="DisplayArea/ItemMenu/SubItemMenu/Consumables" instance=ExtResource( 2 )]
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "CONSUMABLES"
 state = 1
 
@@ -396,7 +396,7 @@ __meta__ = {
 }
 
 [node name="FlashingText" parent="DisplayArea/ItemMenu/SubItemMenu/Weapons" instance=ExtResource( 2 )]
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "WEAPONS"
 state = 1
 
@@ -414,21 +414,21 @@ __meta__ = {
 }
 
 [node name="FlashingText" parent="DisplayArea/ItemMenu/SubItemMenu/Armour" instance=ExtResource( 2 )]
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "ARMOUR"
 state = 1
 
 [node name="ItemScrollBar" type="ScrollContainer" parent="DisplayArea/ItemMenu"]
 margin_top = 228.0
 margin_right = 1400.0
-margin_bottom = 1456.0
+margin_bottom = 1440.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="ItemGrid" type="GridContainer" parent="DisplayArea/ItemMenu/ItemScrollBar"]
-margin_right = 1388.0
+margin_right = 1400.0
 margin_bottom = 1469.0
 rect_min_size = Vector2( 0, 639 )
 size_flags_horizontal = 3
@@ -500,21 +500,12 @@ margin_top = 982.0
 margin_right = 1388.0
 margin_bottom = 1469.0
 
-[node name="BackButton" type="Button" parent="DisplayArea/ItemMenu"]
-margin_top = 1460.0
-margin_right = 1400.0
-margin_bottom = 1660.0
-rect_min_size = Vector2( 700, 200 )
-size_flags_vertical = 0
-custom_fonts/font = SubResource( 4 )
-text = "BACK"
-
 [node name="TargetSelection" type="VBoxContainer" parent="DisplayArea"]
-visible = false
 margin_right = 1400.0
 margin_bottom = 1660.0
 rect_min_size = Vector2( 1400, 848 )
 size_flags_horizontal = 0
+size_flags_vertical = 3
 
 [node name="TargetText" type="Label" parent="DisplayArea/TargetSelection"]
 margin_right = 1400.0
@@ -645,28 +636,58 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Done" type="Button" parent="DisplayArea/TargetSelection/Buttons"]
+[node name="Done" type="TextureButton" parent="DisplayArea/TargetSelection/Buttons"]
 margin_right = 1400.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 0, 90 )
-size_flags_horizontal = 3
-custom_fonts/font = SubResource( 5 )
-text = "DONE"
+size_flags_horizontal = 7
+size_flags_vertical = 0
+texture_normal = ExtResource( 16 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cancel" type="Button" parent="DisplayArea/TargetSelection/Buttons"]
+[node name="FlashingText" parent="DisplayArea/TargetSelection/Buttons/Done" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "DONE"
+state = 1
+
+[node name="Cancel" type="TextureButton" parent="DisplayArea/TargetSelection/Buttons"]
 margin_top = 110.0
 margin_right = 1400.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 0, 90 )
-size_flags_horizontal = 3
-custom_fonts/font = SubResource( 5 )
-text = "Cancel"
+size_flags_horizontal = 7
+size_flags_vertical = 0
+texture_normal = ExtResource( 17 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FlashingText" parent="DisplayArea/TargetSelection/Buttons/Cancel" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "CANCEL"
+state = 1
+
+[node name="BackButton" type="TextureButton" parent="DisplayArea"]
+visible = false
+margin_right = 1400.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 1400, 200 )
+size_flags_horizontal = 7
+size_flags_vertical = 0
+texture_normal = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FlashingText" parent="DisplayArea/BackButton" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 6 )
+text = "BACK"
+state = 1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 anchor_left = 0.014
@@ -687,75 +708,103 @@ __meta__ = {
 [node name="UpperButtons" type="HBoxContainer" parent="Buttons"]
 margin_right = 1399.0
 margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 custom_constants/separation = 20
 
-[node name="Attack" type="Button" parent="Buttons/UpperButtons"]
+[node name="Attack" type="TextureButton" parent="Buttons/UpperButtons"]
 margin_right = 453.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
-text = "ATTACK"
+texture_normal = ExtResource( 13 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="Button" parent="Buttons/UpperButtons"]
+[node name="FlashingText" parent="Buttons/UpperButtons/Attack" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "ATTACK"
+state = 1
+
+[node name="Items" type="TextureButton" parent="Buttons/UpperButtons"]
 margin_left = 473.0
 margin_right = 926.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
-text = "ITEMS"
+texture_normal = ExtResource( 14 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Abilities" type="Button" parent="Buttons/UpperButtons"]
+[node name="FlashingText" parent="Buttons/UpperButtons/Items" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "ITEMS"
+state = 1
+
+[node name="Abilities" type="TextureButton" parent="Buttons/UpperButtons"]
 margin_left = 946.0
 margin_right = 1399.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
-text = "ABILITIES"
+texture_normal = ExtResource( 12 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FlashingText" parent="Buttons/UpperButtons/Abilities" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "ABILITIES"
+state = 1
 
 [node name="LowerButtons" type="HBoxContainer" parent="Buttons"]
 margin_top = 100.0
 margin_right = 1399.0
 margin_bottom = 180.0
+rect_min_size = Vector2( 0, 80 )
 size_flags_stretch_ratio = 0.0
 custom_constants/separation = 20
 
-[node name="EndTurn" type="Button" parent="Buttons/LowerButtons"]
+[node name="EndTurn" type="TextureButton" parent="Buttons/LowerButtons"]
 margin_right = 689.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
-text = "END TURN"
+texture_normal = ExtResource( 15 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Retreat" type="Button" parent="Buttons/LowerButtons"]
+[node name="FlashingText" parent="Buttons/LowerButtons/EndTurn" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "END TURN"
+state = 1
+
+[node name="Retreat" type="TextureButton" parent="Buttons/LowerButtons"]
 margin_left = 709.0
 margin_right = 1399.0
 margin_bottom = 80.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 5 )
-text = "RETREAT"
+texture_normal = ExtResource( 12 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="FlashingText" parent="Buttons/LowerButtons/Retreat" instance=ExtResource( 2 )]
+custom_fonts/font = SubResource( 5 )
+text = "RETREAT"
+state = 1
 
 [node name="BattleText" type="RichTextLabel" parent="."]
 margin_left = 20.0
@@ -764,7 +813,7 @@ margin_right = 1420.0
 margin_bottom = 2560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/normal_font = SubResource( 6 )
+custom_fonts/normal_font = SubResource( 7 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 0, 0.811765, 1, 1 )
 custom_constants/line_separation = -6
@@ -772,10 +821,13 @@ scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="DisplayArea/AttackBoard/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="pressed" from="DisplayArea/ItemMenu/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="visibility_changed" from="DisplayArea/BattleBoard" to="." method="toggleMenuBack"]
+[connection signal="visibility_changed" from="DisplayArea/AttackBoard" to="." method="toggleMenuBack"]
+[connection signal="visibility_changed" from="DisplayArea/ItemMenu" to="." method="toggleMenuBack"]
+[connection signal="visibility_changed" from="DisplayArea/TargetSelection" to="." method="toggleMenuBack"]
 [connection signal="pressed" from="DisplayArea/TargetSelection/Buttons/Done" to="." method="_on_Done_pressed"]
 [connection signal="pressed" from="DisplayArea/TargetSelection/Buttons/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="DisplayArea/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Attack" to="." method="_on_Attack_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Items" to="." method="_on_Items_pressed"]
 [connection signal="pressed" from="Buttons/UpperButtons/Abilities" to="." method="_on_Abilities_pressed"]
