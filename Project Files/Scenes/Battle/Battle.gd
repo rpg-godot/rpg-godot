@@ -219,6 +219,7 @@ func update_turn():
 func _on_Attack_pressed():
 	BattleBoard.hide()
 	TargetList.hide()
+	ItemMenu.hide()
 	update_attacks(activeCharacterIndex, "Attacks")
 	activeAttackMode = "Attacks"
 	activeAttack = Dictionary()
@@ -279,6 +280,7 @@ func attackButton(attack, attackType, mode):
 func _on_Abilities_pressed():
 	BattleBoard.hide()
 	TargetList.hide()
+	ItemMenu.hide()
 	update_attacks(activeCharacterIndex, "Abilities")
 	activeAttackMode = "Abilities"
 	activeAttack = Dictionary()
@@ -736,6 +738,7 @@ func _on_Items_pressed():
 	BattleBoard.hide()
 	AttackList.hide()
 	TargetList.hide()
+	ItemMenu.show()
 
 func _on_Retreat_pressed():
 	#####not final
@@ -758,11 +761,22 @@ func _on_EndTurn_pressed():
 		for buttonArea in get_node("Buttons").get_children():
 			for button in buttonArea.get_children():
 				button.disabled = false
-	
+
+func toggleMenuBack():
+	if BattleBoard.visible:
+		get_node("DisplayArea/BackButton/").hide()
+	elif AttackList.visible:
+		get_node("DisplayArea/BackButton/").show()
+	elif ItemMenu.visible:
+		get_node("DisplayArea/BackButton/").show()
+	elif TargetList.visible:
+		get_node("DisplayArea/BackButton/").hide()
+
 func _on_BackButton_pressed():
 	BattleBoard.show()
 	TargetList.hide()
 	AttackList.hide()
+	ItemMenu.hide()
 	create_Characters()
 
 func gameEnded():
@@ -772,6 +786,7 @@ func gameEnded():
 	update_Characters()
 	AttackList.hide()
 	TargetList.hide()
+	ItemMenu.hide()
 	BattleBoard.show()
 	get_node("DisplayArea/BattleBoard/TurnSystem/CurrentCharacter").text = "Game Over!"
 	Core.emit_signal('msg', 'Game Over!', Log.BATTLE, self)
