@@ -1,5 +1,6 @@
 Story Line:
 *Basic storyline ATM
+	The character is an adventurer from a nearby kingdom with friends in the army
 	Travel to a new town looking for a fresh start, slowly hear about the plot of a queen to takeover all the towns with her army of devoted citizens *who she has casted a mass adoration spell on her kingdom (she’s an enchantress).  She wants to become ruler of all the other kingdoms and their subjects, everyone who has tried to stop her ended up dead or enchanted.  The closer to her kingdom you get the more brainwashed people there are and they will try and indoctrinate anyone who doesn’t adore the queen (or kill if you resist too much and you’re too close to her kingdom). The spell is very strong and you need high intelligence or a charm to protect you.  If without proper protection then you can be convinced to help the queen take over and will need to fight the armies.
 *What is the end goal?
 	-Going out looking for an advenure at first
